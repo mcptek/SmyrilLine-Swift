@@ -11,9 +11,11 @@
 		840DA9D01F4C5C7F001B3382 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DA9CF1F4C5C7F001B3382 /* ViewController.swift */; };
 		840DA9D31F4C5C7F001B3382 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 840DA9D11F4C5C7F001B3382 /* Main.storyboard */; };
 		840DA9D61F4C5C7F001B3382 /* SmyrilLine.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 840DA9D41F4C5C7F001B3382 /* SmyrilLine.xcdatamodeld */; };
-		840DA9D81F4C5C7F001B3382 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 840DA9D71F4C5C7F001B3382 /* Assets.xcassets */; };
 		840DA9DB1F4C5C7F001B3382 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 840DA9D91F4C5C7F001B3382 /* LaunchScreen.storyboard */; };
 		840DA9E61F4C5C7F001B3382 /* SmyrilLineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DA9E51F4C5C7F001B3382 /* SmyrilLineTests.swift */; };
+		840DA9F11F4C5FF6001B3382 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 840DA9F01F4C5FF6001B3382 /* Assets.xcassets */; };
+		840DA9F41F4C6139001B3382 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DA9F31F4C6139001B3382 /* MainMenuViewController.swift */; };
+		840DA9F61F4C615C001B3382 /* MainMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DA9F51F4C615C001B3382 /* MainMenuCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,12 +34,14 @@
 		840DA9CF1F4C5C7F001B3382 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		840DA9D21F4C5C7F001B3382 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		840DA9D51F4C5C7F001B3382 /* SmyrilLine.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SmyrilLine.xcdatamodel; sourceTree = "<group>"; };
-		840DA9D71F4C5C7F001B3382 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		840DA9DA1F4C5C7F001B3382 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		840DA9DC1F4C5C7F001B3382 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		840DA9E11F4C5C7F001B3382 /* SmyrilLineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmyrilLineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		840DA9E51F4C5C7F001B3382 /* SmyrilLineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmyrilLineTests.swift; sourceTree = "<group>"; };
 		840DA9E71F4C5C7F001B3382 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		840DA9F01F4C5FF6001B3382 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		840DA9F31F4C6139001B3382 /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		840DA9F51F4C615C001B3382 /* MainMenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,9 +85,10 @@
 			children = (
 				840DA9CD1F4C5C7F001B3382 /* AppDelegate.swift */,
 				840DA9CF1F4C5C7F001B3382 /* ViewController.swift */,
+				840DA9F21F4C60FF001B3382 /* Stories */,
 				840DA9D11F4C5C7F001B3382 /* Main.storyboard */,
-				840DA9D71F4C5C7F001B3382 /* Assets.xcassets */,
 				840DA9D91F4C5C7F001B3382 /* LaunchScreen.storyboard */,
+				840DA9F01F4C5FF6001B3382 /* Assets.xcassets */,
 				840DA9DC1F4C5C7F001B3382 /* Info.plist */,
 				840DA9D41F4C5C7F001B3382 /* SmyrilLine.xcdatamodeld */,
 			);
@@ -97,6 +102,15 @@
 				840DA9E71F4C5C7F001B3382 /* Info.plist */,
 			);
 			path = SmyrilLineTests;
+			sourceTree = "<group>";
+		};
+		840DA9F21F4C60FF001B3382 /* Stories */ = {
+			isa = PBXGroup;
+			children = (
+				840DA9F31F4C6139001B3382 /* MainMenuViewController.swift */,
+				840DA9F51F4C615C001B3382 /* MainMenuCollectionViewCell.swift */,
+			);
+			name = Stories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,7 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				840DA9DB1F4C5C7F001B3382 /* LaunchScreen.storyboard in Resources */,
-				840DA9D81F4C5C7F001B3382 /* Assets.xcassets in Resources */,
+				840DA9F11F4C5FF6001B3382 /* Assets.xcassets in Resources */,
 				840DA9D31F4C5C7F001B3382 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,9 +216,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840DA9F41F4C6139001B3382 /* MainMenuViewController.swift in Sources */,
 				840DA9D61F4C5C7F001B3382 /* SmyrilLine.xcdatamodeld in Sources */,
 				840DA9D01F4C5C7F001B3382 /* ViewController.swift in Sources */,
 				840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */,
+				840DA9F61F4C615C001B3382 /* MainMenuCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +430,7 @@
 				840DA9EC1F4C5C7F001B3382 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		840DA9ED1F4C5C7F001B3382 /* Build configuration list for PBXNativeTarget "SmyrilLineTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +439,7 @@
 				840DA9EF1F4C5C7F001B3382 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
