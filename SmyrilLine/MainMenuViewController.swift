@@ -60,6 +60,12 @@ class MainMenuViewController: UIViewController,UICollectionViewDataSource,UIColl
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
+        switch indexPath.row {
+        case 4:
+            performSegue(withIdentifier: "shipTracker", sender: self)
+        default:
+            print("Do nothing")
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets

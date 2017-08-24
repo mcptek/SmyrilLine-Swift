@@ -18,6 +18,15 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoicmFmYXkiLCJhIjoiMzUzZDEwZTFhY2UzNmE0N2E0ODA3N2NlNmMyNjVhYzIifQ.-x7MDQA5Gu2wXjHdENkEmw</string>
+	<key>MGLMapboxMetricsEnabledSettingShownInApp</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
