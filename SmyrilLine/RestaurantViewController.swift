@@ -88,7 +88,7 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
         {
             cell.restaurantImageView.sd_setShowActivityIndicatorView(true)
             cell.restaurantImageView.sd_setIndicatorStyle(.gray)
-            cell.restaurantImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: nil)
+            cell.restaurantImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
 
         }
         return cell
