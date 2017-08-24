@@ -14,4 +14,5 @@ struct UrlMCP {
     static let shipTrackerTilePath = "http://smy-wp.mcp.com/osm/raster-v8.json"
     static let shipTrackerTrajectoryPath = "https://console.mcp.com/mtrajectory.php?ship=22"
     static let restaurantParentPath = "/api/smyrilline/restaurants"
+    static let destinationParentPath = "/api/smyrilline/destinations"
     }

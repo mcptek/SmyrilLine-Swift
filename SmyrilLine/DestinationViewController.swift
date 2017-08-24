@@ -1,5 +1,5 @@
 //
-//  RestaurantViewController.swift
+//  DestinationViewController.swift
 //  SmyrilLine
 //
 //  Created by Rafay Hasan on 8/24/17.
@@ -11,32 +11,32 @@ import AlamofireObjectMapper
 import Alamofire
 import SDWebImage
 
-class RestaurantViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
+class DestinationViewController: UIViewController,UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var destinationTableview: UITableView!
+    var destinaionArray:[ObjectSample]?
+    
     var activityIndicatorView: UIActivityIndicatorView!
-    var restaurantsArray: [ObjectSample]?
-    
-    @IBOutlet weak var restauranttableview: UITableView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
         view.addSubview(self.activityIndicatorView)
         
-        self.restauranttableview.estimatedRowHeight = 150
-        self.restauranttableview.rowHeight = UITableViewAutomaticDimension
-
-
+        self.destinationTableview.estimatedRowHeight = 150
+        self.destinationTableview.rowHeight = UITableViewAutomaticDimension
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        self.CallRestaurantAPI()
+        self.CallDestinationAPI()
     }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -53,17 +53,17 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
     }
     */
     
-    func CallRestaurantAPI() {
+    func CallDestinationAPI() {
         self.activityIndicatorView.startAnimating()
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.restaurantParentPath + "/Eng", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
-            .responseArray { (response: DataResponse<[RestaurantInfo]>) in
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+            .responseArray { (response: DataResponse<[DestinationInfo]>) in
                 self.activityIndicatorView.stopAnimating()
                 switch response.result {
                 case .success:
                     if response.response?.statusCode == 200
                     {
-                        self.restaurantsArray = response.result.value?[0].name
-                        self.restauranttableview.reloadData()
+                        self.destinaionArray = response.result.value?[0].name
+                        self.destinationTableview.reloadData()
                     }
                 case .failure(let error):
                     self.showAlert(title: "Error", message: error.localizedDescription)
@@ -73,7 +73,7 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return self.restaurantsArray?.count ?? 0
+        return self.destinaionArray?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -82,14 +82,14 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "restaurantCell", for: indexPath) as! RestaurantTableViewCell
-        cell.restaurantNameLabel.text = self.restaurantsArray?[indexPath.section].name
-        if let imageUrlStr = self.restaurantsArray?[indexPath.section].imageUrl
+        let cell = tableView.dequeueReusableCell(withIdentifier: "destinationCell", for: indexPath) as! DestinationTableViewCell
+        cell.destinationName.text = self.destinaionArray?[indexPath.section].name
+        if let imageUrlStr = self.destinaionArray?[indexPath.section].imageUrl
         {
-            cell.restaurantImageView.sd_setShowActivityIndicatorView(true)
-            cell.restaurantImageView.sd_setIndicatorStyle(.gray)
-            cell.restaurantImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
-
+            cell.destinationImageView.sd_setShowActivityIndicatorView(true)
+            cell.destinationImageView.sd_setIndicatorStyle(.gray)
+            cell.destinationImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+            
         }
         return cell
     }
@@ -122,6 +122,7 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
         
         return vw
     }
+    
 
 
 }

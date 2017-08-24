@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 
 class RestaurantInfo: Mappable{
-    var name : [RestaurantObject]?
+    var name : [ObjectSample]?
     required init?(map: Map){
     }
     
@@ -19,7 +19,7 @@ class RestaurantInfo: Mappable{
     }
 }
 
-class RestaurantObject: Mappable{
+class ObjectSample: Mappable{
     var name : String?
     var imageUrl : String?
     var objectId : String?

@@ -25,6 +25,9 @@
 		842ED4251F4EFB65000366BF /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4241F4EFB65000366BF /* RestaurantTableViewCell.swift */; };
 		842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4261F4F06F5000366BF /* Restaurants.swift */; };
 		B2553924AF491ED961B2132C /* Pods_SmyrilLine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8F808BE45FE0AAC33C1FDB /* Pods_SmyrilLine.framework */; };
+		BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F2D11F4F2EEB003B77CA /* DestinationViewController.swift */; };
+		BB45F2D41F4F2FBD003B77CA /* DestinationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F2D31F4F2FBD003B77CA /* DestinationTableViewCell.swift */; };
+		BB45F2DA1F4F30A5003B77CA /* Destinations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F2D91F4F30A5003B77CA /* Destinations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +65,9 @@
 		842ED4221F4EFA78000366BF /* RestaurantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantViewController.swift; sourceTree = "<group>"; };
 		842ED4241F4EFB65000366BF /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
 		842ED4261F4F06F5000366BF /* Restaurants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurants.swift; sourceTree = "<group>"; };
+		BB45F2D11F4F2EEB003B77CA /* DestinationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationViewController.swift; sourceTree = "<group>"; };
+		BB45F2D31F4F2FBD003B77CA /* DestinationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationTableViewCell.swift; sourceTree = "<group>"; };
+		BB45F2D91F4F30A5003B77CA /* Destinations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Destinations.swift; sourceTree = "<group>"; };
 		EA8F808BE45FE0AAC33C1FDB /* Pods_SmyrilLine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmyrilLine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAF5CEFB6DE5FDDAC81FD0E7 /* Pods-SmyrilLine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmyrilLine.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmyrilLine/Pods-SmyrilLine.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,6 +150,7 @@
 		840DA9F21F4C60FF001B3382 /* Stories */ = {
 			isa = PBXGroup;
 			children = (
+				BB45F2D01F4F2EC6003B77CA /* Destinations */,
 				842ED4151F4E8E58000366BF /* Main Menu */,
 				842ED4161F4E8E64000366BF /* Ship Tracker */,
 				842ED4211F4EFA4F000366BF /* Restaurants */,
@@ -173,6 +180,7 @@
 			children = (
 				842ED41B1F4E9A76000366BF /* ShipTracker.swift */,
 				842ED4261F4F06F5000366BF /* Restaurants.swift */,
+				BB45F2D91F4F30A5003B77CA /* Destinations.swift */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -193,6 +201,15 @@
 				842ED4241F4EFB65000366BF /* RestaurantTableViewCell.swift */,
 			);
 			name = Restaurants;
+			sourceTree = "<group>";
+		};
+		BB45F2D01F4F2EC6003B77CA /* Destinations */ = {
+			isa = PBXGroup;
+			children = (
+				BB45F2D11F4F2EEB003B77CA /* DestinationViewController.swift */,
+				BB45F2D31F4F2FBD003B77CA /* DestinationTableViewCell.swift */,
+			);
+			name = Destinations;
 			sourceTree = "<group>";
 		};
 		D84B7099F6016D2AEE73B768 /* Pods */ = {
@@ -409,6 +426,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB45F2D41F4F2FBD003B77CA /* DestinationTableViewCell.swift in Sources */,
+				BB45F2DA1F4F30A5003B77CA /* Destinations.swift in Sources */,
 				840DA9F41F4C6139001B3382 /* MainMenuViewController.swift in Sources */,
 				842ED4231F4EFA78000366BF /* RestaurantViewController.swift in Sources */,
 				842ED41E1F4E9B23000366BF /* SmyrilLineUrl.swift in Sources */,
@@ -421,6 +440,7 @@
 				840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */,
 				840DA9F61F4C615C001B3382 /* MainMenuCollectionViewCell.swift in Sources */,
 				842ED41C1F4E9A76000366BF /* ShipTracker.swift in Sources */,
+				BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
