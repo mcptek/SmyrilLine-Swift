@@ -21,6 +21,9 @@
 		842ED41C1F4E9A76000366BF /* ShipTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED41B1F4E9A76000366BF /* ShipTracker.swift */; };
 		842ED41E1F4E9B23000366BF /* SmyrilLineUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED41D1F4E9B23000366BF /* SmyrilLineUrl.swift */; };
 		842ED4201F4E9B7B000366BF /* ViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED41F1F4E9B7B000366BF /* ViewControllerExtension.swift */; };
+		842ED4231F4EFA78000366BF /* RestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4221F4EFA78000366BF /* RestaurantViewController.swift */; };
+		842ED4251F4EFB65000366BF /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4241F4EFB65000366BF /* RestaurantTableViewCell.swift */; };
+		842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4261F4F06F5000366BF /* Restaurants.swift */; };
 		B2553924AF491ED961B2132C /* Pods_SmyrilLine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8F808BE45FE0AAC33C1FDB /* Pods_SmyrilLine.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +59,9 @@
 		842ED41B1F4E9A76000366BF /* ShipTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipTracker.swift; sourceTree = "<group>"; };
 		842ED41D1F4E9B23000366BF /* SmyrilLineUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmyrilLineUrl.swift; sourceTree = "<group>"; };
 		842ED41F1F4E9B7B000366BF /* ViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
+		842ED4221F4EFA78000366BF /* RestaurantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantViewController.swift; sourceTree = "<group>"; };
+		842ED4241F4EFB65000366BF /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
+		842ED4261F4F06F5000366BF /* Restaurants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurants.swift; sourceTree = "<group>"; };
 		EA8F808BE45FE0AAC33C1FDB /* Pods_SmyrilLine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmyrilLine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAF5CEFB6DE5FDDAC81FD0E7 /* Pods-SmyrilLine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmyrilLine.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmyrilLine/Pods-SmyrilLine.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -140,6 +146,7 @@
 			children = (
 				842ED4151F4E8E58000366BF /* Main Menu */,
 				842ED4161F4E8E64000366BF /* Ship Tracker */,
+				842ED4211F4EFA4F000366BF /* Restaurants */,
 			);
 			name = Stories;
 			sourceTree = "<group>";
@@ -165,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				842ED41B1F4E9A76000366BF /* ShipTracker.swift */,
+				842ED4261F4F06F5000366BF /* Restaurants.swift */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -176,6 +184,15 @@
 				842ED41F1F4E9B7B000366BF /* ViewControllerExtension.swift */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		842ED4211F4EFA4F000366BF /* Restaurants */ = {
+			isa = PBXGroup;
+			children = (
+				842ED4221F4EFA78000366BF /* RestaurantViewController.swift */,
+				842ED4241F4EFB65000366BF /* RestaurantTableViewCell.swift */,
+			);
+			name = Restaurants;
 			sourceTree = "<group>";
 		};
 		D84B7099F6016D2AEE73B768 /* Pods */ = {
@@ -393,7 +410,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				840DA9F41F4C6139001B3382 /* MainMenuViewController.swift in Sources */,
+				842ED4231F4EFA78000366BF /* RestaurantViewController.swift in Sources */,
 				842ED41E1F4E9B23000366BF /* SmyrilLineUrl.swift in Sources */,
+				842ED4251F4EFB65000366BF /* RestaurantTableViewCell.swift in Sources */,
+				842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */,
 				842ED4201F4E9B7B000366BF /* ViewControllerExtension.swift in Sources */,
 				840DA9D61F4C5C7F001B3382 /* SmyrilLine.xcdatamodeld in Sources */,
 				840DA9D01F4C5C7F001B3382 /* ViewController.swift in Sources */,
