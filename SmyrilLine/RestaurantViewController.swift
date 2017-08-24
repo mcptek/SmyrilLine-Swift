@@ -86,7 +86,9 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
         cell.restaurantNameLabel.text = self.restaurantsArray?[indexPath.section].name
         if let imageUrlStr = self.restaurantsArray?[indexPath.section].imageUrl
         {
-            cell.restaurantImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage(named: "placeholder.png"))
+            cell.restaurantImageView.sd_setShowActivityIndicatorView(true)
+            cell.restaurantImageView.sd_setIndicatorStyle(.gray)
+            cell.restaurantImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: nil)
 
         }
         return cell
