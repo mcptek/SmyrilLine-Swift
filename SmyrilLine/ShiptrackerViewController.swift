@@ -15,6 +15,11 @@ import SwiftyJSON
 class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
 
     @IBOutlet weak var mapContainerView: UIView!
+    @IBOutlet weak var shipInfoContainerView: UIView!
+    @IBOutlet weak var shipInfoContainerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var shipDetailsButton: UIButton!
+    
+    
     
     var mapView: MGLMapView!
     var startCoordinate: CLLocationCoordinate2D?
@@ -38,12 +43,14 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         self.mapView.logoView.isHidden = true
         self.mapView.isRotateEnabled = false
         view.addSubview(self.mapView)
-
+        self.view.bringSubview(toFront: self.shipInfoContainerView)
+        self.view.bringSubview(toFront: self.shipDetailsButton)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         self.createAPICallForFBLogIn()
+        self.createApiCallForShipTrackerInfo()
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,23 +75,6 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
         return UIColor(red: 38.0/255.0, green: 111.0/255.0, blue: 247.0/255.0, alpha: 1)
     }
-    
-    //    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-    //        return true
-    //    }
-    //
-    //    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
-    //
-    //        var annotaionImage = mapView.dequeueReusableAnnotationImage(withIdentifier: "pisa")
-    //        if annotaionImage == nil
-    //        {
-    //            let image = UIImage.init(named: "ShipDirection")
-    //            //annotaionImage = MGLAnnotationImage.init(image: self.imageRotatedByDegrees(oldImage: image!, deg: self.getDirection()), reuseIdentifier: "pisa")
-    //            annotaionImage = MGLAnnotationImage.init(image: image!, reuseIdentifier: "pisa")
-    //
-    //        }
-    //        return annotaionImage
-    //    }
     
     func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
         // Try to reuse the existing ‘pisa’ annotation image, if it exists.
@@ -115,7 +105,28 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         return true
     }
     
-    
+    func createApiCallForShipTrackerInfo() {
+        request(UrlMCP.shiptrackerInfo, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+            .responseJSON { response in
+                
+                switch response.result {
+                case .success:
+                    if let json = response.data {
+                        //let data = JSON(data: json)
+                        if response.response?.statusCode == 200
+                        {
+                            if let jsonArray = JSON(data: json).array
+                            {
+                                print(jsonArray)
+                            }
+                        }
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+        }
+    }
+
     
     func createAPICallForFBLogIn()  {
         
@@ -184,30 +195,6 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         
     }
     
-    //    func imageRotatedByDegrees(oldImage: UIImage, deg degrees: Double) -> UIImage {
-    //        print(degrees)
-    //        let size = oldImage.size
-    //        UIGraphicsBeginImageContext(size)
-    //
-    //        let bitmap: CGContext = UIGraphicsGetCurrentContext()!
-    //        //Move the origin to the middle of the image so we will rotate and scale around the center.
-    //        bitmap.translateBy(x: size.width / 2, y: size.height / 2)
-    //        //Rotate the image context
-    //        bitmap.rotate(by: (degrees * (Double.pi / 180)))
-    //        //Now, draw the rotated/scaled image into the context
-    //        bitmap.scaleBy(x: 1.0, y: -1.0)
-    //
-    //        //let origin = CGPoint(x: -size.width / 2, y: -size.width / 2)
-    //
-    //        //bitmap.draw(oldImage.cgImage!, in: CGRect(origin: origin, size: size))
-    //        let rect = CGRect(origin: CGPoint(x: -oldImage.size.width / 2,  y: -oldImage.size.height / 2), size: oldImage.size)
-    //        bitmap.draw(oldImage.cgImage!, in: rect)
-    //
-    //        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-    //        UIGraphicsEndImageContext()
-    //        return newImage
-    //    }
-    
     func imageRotatedByDegrees(oldImage: UIImage, deg degrees: Double) -> UIImage {
         
         print(degrees,self.startCoordinate!,self.endCoordinate!)
@@ -233,5 +220,24 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         return newImage
     }
 
+    @IBAction func shipInfoButtonAction(_ sender: UIButton) {
+        
+        let image = UIImage.init(named: "ShipDetailsMinusIcon")
+        if self.shipDetailsButton.backgroundImage(for: .normal) == image
+        {
+            self.shipDetailsButton.setBackgroundImage(UIImage.init(named: "ShipDetailsPlusIcon"), for: .normal)
+            UIView.animate(withDuration: Double(0.7), animations: {
+                self.shipInfoContainerViewHeightConstraint.constant = 153
+                self.view.layoutIfNeeded()
+            })
+        }
+        else
+        {
+            self.shipDetailsButton.setBackgroundImage(UIImage.init(named: "ShipDetailsMinusIcon"), for: .normal)
+            UIView.animate(withDuration: Double(0.7), animations: {
+                self.shipInfoContainerViewHeightConstraint.constant = 60
+                self.view.layoutIfNeeded()
+            })        }
+    }
 
 }
