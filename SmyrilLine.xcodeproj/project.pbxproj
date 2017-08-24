@@ -245,6 +245,7 @@
 				TargetAttributes = {
 					840DA9C91F4C5C7F001B3382 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 79YLMQ62DM;
 						ProvisioningStyle = Manual;
 					};
 					840DA9E01F4C5C7F001B3382 = {
@@ -539,13 +540,14 @@
 			baseConfigurationReference = 69D87D022E6D229866A01C47 /* Pods-SmyrilLine.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 79YLMQ62DM;
 				INFOPLIST_FILE = SmyrilLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Nascenia.SmyrilLine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.rafayDebugProfile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "978abd86-1b36-4428-875b-88de8035c9d5";
+				PROVISIONING_PROFILE_SPECIFIER = "MCP debug profile";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -555,13 +557,14 @@
 			baseConfigurationReference = FAF5CEFB6DE5FDDAC81FD0E7 /* Pods-SmyrilLine.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 79YLMQ62DM;
 				INFOPLIST_FILE = SmyrilLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Nascenia.SmyrilLine;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.rafayDebugProfile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "978abd86-1b36-4428-875b-88de8035c9d5";
+				PROVISIONING_PROFILE_SPECIFIER = "MCP debug profile";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

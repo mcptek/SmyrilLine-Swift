@@ -11,13 +11,15 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>Smyril Line</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
 	<key>MGLMapboxAccessToken</key>
 	<string>pk.eyJ1IjoicmFmYXkiLCJhIjoiMzUzZDEwZTFhY2UzNmE0N2E0ODA3N2NlNmMyNjVhYzIifQ.-x7MDQA5Gu2wXjHdENkEmw</string>
 	<key>MGLMapboxMetricsEnabledSettingShownInApp</key>
@@ -27,8 +29,6 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
