@@ -114,6 +114,8 @@
                     <navigationItem key="navigationItem" id="cwm-hS-4F3"/>
                     <connections>
                         <segue destination="24O-q8-xON" kind="show" identifier="shipTracker" id="T1f-jz-bfa"/>
+                        <segue destination="1hG-ZO-edQ" kind="show" identifier="restaurants" id="duq-5g-x8v"/>
+                        <segue destination="pEL-zi-kzw" kind="show" identifier="Destinations" id="1rb-Vw-Z0G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -137,6 +139,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AWM-ny-qE9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="374" y="-644"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="niF-Ke-J1f">
+            <objects>
+                <viewController id="1hG-ZO-edQ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WIS-mn-3Oj"/>
+                        <viewControllerLayoutGuide type="bottom" id="KHX-mH-W8i"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Scs-N2-09s">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w47-4R-d3E" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="934" y="124"/>
         </scene>
         <!--Ship Tracker-->
         <scene sceneID="Ocu-Kk-LqA">
@@ -296,6 +316,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wry-QC-hw8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1863" y="116"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="hKC-tA-qPK">
+            <objects>
+                <viewController id="pEL-zi-kzw" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8xW-KL-Evn"/>
+                        <viewControllerLayoutGuide type="bottom" id="jij-mM-ACI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9Yc-6g-W6r">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="513-hI-nYL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2604" y="116"/>
         </scene>
     </scenes>
     <resources>
