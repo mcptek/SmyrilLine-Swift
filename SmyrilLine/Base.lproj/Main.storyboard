@@ -113,7 +113,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="cwm-hS-4F3"/>
                     <connections>
-                        <segue destination="24O-q8-xON" kind="show" identifier="shipTracker" id="iLd-DG-x3F"/>
+                        <segue destination="24O-q8-xON" kind="show" identifier="shipTracker" id="T1f-jz-bfa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -138,7 +138,7 @@
             </objects>
             <point key="canvasLocation" x="374" y="-644"/>
         </scene>
-        <!--Shiptracker View Controller-->
+        <!--Ship Tracker-->
         <scene sceneID="Ocu-Kk-LqA">
             <objects>
                 <viewController id="24O-q8-xON" customClass="ShiptrackerViewController" customModule="SmyrilLine" customModuleProvider="target" sceneMemberID="viewController">
@@ -272,6 +272,13 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Ship Tracker" id="oBU-rT-VUO">
+                        <barButtonItem key="rightBarButtonItem" image="Refresh Icon" id="svT-If-EHR">
+                            <connections>
+                                <action selector="shipTrackerRefreshAction:" destination="24O-q8-xON" id="IhJ-HA-ykw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="lastPortHeaderHeightConstraint" destination="ra8-ut-lMC" id="DG5-JV-tRc"/>
                         <outlet property="lastPortLabel" destination="Uyy-Cn-b4E" id="zL5-Wj-8aI"/>
@@ -288,11 +295,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wry-QC-hw8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1165.5999999999999" y="131.78410794602701"/>
+            <point key="canvasLocation" x="1863" y="116"/>
         </scene>
     </scenes>
     <resources>
         <image name="Background-image" width="414" height="736"/>
+        <image name="Refresh Icon" width="21" height="21"/>
         <image name="ShipDetailsMinusIcon" width="30" height="29"/>
     </resources>
 </document>

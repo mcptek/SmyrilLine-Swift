@@ -139,11 +139,9 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
             .responseJSON { response in
                 switch response.result {
                 case .success:
-                    if let json = response.data {
-                        if response.response?.statusCode == 200
-                        {
-                            self.createAPICallForShipTrajectory()
-                        }
+                    if response.response?.statusCode == 200
+                    {
+                        self.createAPICallForShipTrajectory()
                     }
                 case .failure(let error):
                     self.showAlert(title: "Error", message: error.localizedDescription)
@@ -248,7 +246,6 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon)
         let radiansBearing = atan2(y, x)
         return radiansBearing * 180.0 / Double.pi
-        
     }
     
     func imageRotatedByDegrees(oldImage: UIImage, deg degrees: Double) -> UIImage {
@@ -303,6 +300,10 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
                 self.view.layoutIfNeeded()
             })
         }
+    }
+    @IBAction func shipTrackerRefreshAction(_ sender: Any) {
+        self.mapView.removeFromSuperview()
+        self.createAPICallForShipTrajectory()
     }
 
 }
