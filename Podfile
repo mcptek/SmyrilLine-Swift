@@ -9,6 +9,7 @@ target 'SmyrilLine' do
   pod 'AlamofireObjectMapper', '~> 4.0'
   pod 'Alamofire', '~> 4.4'
   pod 'SwiftyJSON'
+  pod 'SDWebImage'
   # Pods for SmyrilLine
 
   target 'SmyrilLineTests' do

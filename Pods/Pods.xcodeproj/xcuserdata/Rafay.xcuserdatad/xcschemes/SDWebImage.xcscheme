@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '5B5F05B32D6FF8CA9235C439EF1BEA58'
-               BlueprintName = 'SwiftyJSON'
+               BlueprintIdentifier = 'FF974910F6D0ECE5FBC8D4FD4E6AFCC4'
+               BlueprintName = 'SDWebImage'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'SwiftyJSON.framework'>
+               BuildableName = 'SDWebImage.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

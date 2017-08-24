@@ -9,11 +9,14 @@
 import UIKit
 import AlamofireObjectMapper
 import Alamofire
+import SDWebImage
 
-class RestaurantViewController: UIViewController {
+class RestaurantViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
 
     var activityIndicatorView: UIActivityIndicatorView!
     var restaurantsArray: [RestaurantObject]?
+    
+    @IBOutlet weak var restauranttableview: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +26,10 @@ class RestaurantViewController: UIViewController {
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
         view.addSubview(self.activityIndicatorView)
+        
+        self.restauranttableview.estimatedRowHeight = 150
+        self.restauranttableview.rowHeight = UITableViewAutomaticDimension
+
 
     }
     
@@ -56,11 +63,63 @@ class RestaurantViewController: UIViewController {
                     if response.response?.statusCode == 200
                     {
                         self.restaurantsArray = response.result.value?[0].name
+                        self.restauranttableview.reloadData()
                     }
                 case .failure(let error):
                     self.showAlert(title: "Error", message: error.localizedDescription)
                 }
         }
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
+        return self.restaurantsArray?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "restaurantCell", for: indexPath) as! RestaurantTableViewCell
+        cell.restaurantNameLabel.text = self.restaurantsArray?[indexPath.section].name
+        if let imageUrlStr = self.restaurantsArray?[indexPath.section].imageUrl
+        {
+            cell.restaurantImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage(named: "placeholder.png"))
+
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
+        return 1.0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
+    {
+        return 1.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let vw = UIView()
+        vw.backgroundColor = UIColor.clear
+        
+        return vw
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
+    {
+        let vw = UIView()
+        vw.backgroundColor = UIColor.clear
+        
+        return vw
+    }
+
 
 }
