@@ -18,19 +18,44 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
     @IBOutlet weak var shipInfoContainerView: UIView!
     @IBOutlet weak var shipInfoContainerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var shipDetailsButton: UIButton!
+    @IBOutlet weak var nextPortLabel: UILabel!
+    @IBOutlet weak var lastPortLabel: UILabel!
+    @IBOutlet weak var speedLabel: UILabel!
+    @IBOutlet weak var lastPortHeaderHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var lastPortValueConstraint: NSLayoutConstraint!
+    @IBOutlet weak var speedHeaderHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var speedValueHeightConstraint: NSLayoutConstraint!
     
-    
-    
+    var activityIndicatorView: UIActivityIndicatorView!
+    var shipName: String?
     var mapView: MGLMapView!
     var startCoordinate: CLLocationCoordinate2D?
     var endCoordinate: CLLocationCoordinate2D?
     var trajectoryArray:[JSON]?
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        let styleURL = NSURL(string: "http://smy-wp.mcp.com/osm/raster-v8.json")
-        self.mapView = MGLMapView(frame: self.mapContainerView.bounds,
+        
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        myActivityIndicator.center = view.center
+        self.activityIndicatorView = myActivityIndicator
+        view.addSubview(self.activityIndicatorView)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        //self.checkShipServer()
+        self.createAPICallForShipTrajectory()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func loadmapView()  {
+        let styleURL = NSURL(string: UrlMCP.shipTrackerTilePath)
+        self.mapView = MGLMapView(frame: self.mapContainerView.frame,
                                   styleURL: styleURL as URL?)
         self.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
@@ -45,20 +70,24 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         view.addSubview(self.mapView)
         self.view.bringSubview(toFront: self.shipInfoContainerView)
         self.view.bringSubview(toFront: self.shipDetailsButton)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        self.createAPICallForFBLogIn()
+        
+        self.mapContainerView.layer.masksToBounds = true
+        // corner radius
+        self.mapContainerView.layer.cornerRadius = 5
+        
+        // border
+        self.mapContainerView.layer.borderWidth = 0.3
+        self.mapContainerView.layer.borderColor = UIColor.lightGray.cgColor
+        
+        // shadow
+        self.mapContainerView.layer.shadowColor = UIColor.black.cgColor
+        self.mapContainerView.layer.shadowOffset = CGSize(width: 3, height: 3)
+        self.mapContainerView.layer.shadowOpacity = 0.1
+        self.mapContainerView.layer.shadowRadius = 3.0//
+        
         self.createApiCallForShipTrackerInfo()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-
     /*
     // MARK: - Navigation
 
@@ -105,6 +134,23 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         return true
     }
     
+    func checkShipServer()  {
+        request(UrlMCP.shipServerPath, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+            .responseJSON { response in
+                switch response.result {
+                case .success:
+                    if let json = response.data {
+                        if response.response?.statusCode == 200
+                        {
+                            self.createAPICallForShipTrajectory()
+                        }
+                    }
+                case .failure(let error):
+                    self.showAlert(title: "Error", message: error.localizedDescription)
+                }
+        }
+    }
+    
     func createApiCallForShipTrackerInfo() {
         request(UrlMCP.shiptrackerInfo, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseJSON { response in
@@ -117,20 +163,26 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
                         {
                             if let jsonArray = JSON(data: json).array
                             {
-                                print(jsonArray)
+                                self.nextPortLabel.text = jsonArray[0]["Next port"].string
+                                self.lastPortLabel.text = jsonArray[0]["Last port"].string
+                                self.speedLabel.text = jsonArray[0]["SpeedD"].string
+                                self.shipName = jsonArray[0]["Name"].string
+                                self.DrawPloyLine()
                             }
                         }
                     }
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    self.DrawPloyLine()
+                    self.showAlert(title: "Error", message: error.localizedDescription)
+                    self.activityIndicatorView.stopAnimating()
                 }
         }
     }
 
     
-    func createAPICallForFBLogIn()  {
-        
-        request("https://console.mcp.com/mtrajectory.php?ship=22", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+    func createAPICallForShipTrajectory()  {
+        self.activityIndicatorView.startAnimating()
+        request(UrlMCP.shipTrackerTrajectoryPath, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseJSON { response in
                 
                 switch response.result {
@@ -145,13 +197,14 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
                                 self.trajectoryArray = jsonArray
                                 if (self.trajectoryArray?.count)! >= 2
                                 {
-                                    self.DrawPloyLine()
+                                    self.loadmapView()
                                 }
                             }
                         }
                     }
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    self.activityIndicatorView.stopAnimating()
+                    self.showAlert(title: "Error", message: error.localizedDescription)
                 }
         }
     }
@@ -167,7 +220,6 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
             let longlitude = object["lon"].string
             coordinate = CLLocationCoordinate2DMake(Double(latitude!)!, Double(longlitude!)!)
             coorDinates.append(coordinate!)
-            print(object["time"])
         }
         
         let polyLine = MGLPolyline.init(coordinates: coorDinates, count: UInt(coorDinates.count))
@@ -176,9 +228,13 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         self.mapView.addAnnotation(polyLine)
         let pisa = MGLPointAnnotation()
         pisa.coordinate = coordinate!
-        pisa.title = "Leaning Tower of Pisa"
+        if let name = self.shipName
+        {
+            pisa.title = name
+        }
         self.mapView.addAnnotation(pisa)
         self.mapView.setCenter(coordinate!, animated: true)
+        self.activityIndicatorView.stopAnimating()
     }
     
     func getDirection() -> Double {
@@ -227,7 +283,11 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         {
             self.shipDetailsButton.setBackgroundImage(UIImage.init(named: "ShipDetailsPlusIcon"), for: .normal)
             UIView.animate(withDuration: Double(0.7), animations: {
-                self.shipInfoContainerViewHeightConstraint.constant = 153
+                self.shipInfoContainerViewHeightConstraint.constant = 160
+                self.lastPortHeaderHeightConstraint.constant = 21
+                self.lastPortValueConstraint.constant = 21
+                self.speedHeaderHeightConstraint.constant = 21
+                self.speedValueHeightConstraint.constant = 21
                 self.view.layoutIfNeeded()
             })
         }
@@ -235,9 +295,14 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         {
             self.shipDetailsButton.setBackgroundImage(UIImage.init(named: "ShipDetailsMinusIcon"), for: .normal)
             UIView.animate(withDuration: Double(0.7), animations: {
-                self.shipInfoContainerViewHeightConstraint.constant = 60
+                self.lastPortHeaderHeightConstraint.constant = 0
+                self.lastPortValueConstraint.constant = 0
+                self.speedHeaderHeightConstraint.constant = 0
+                self.speedValueHeightConstraint.constant = 0
+                self.shipInfoContainerViewHeightConstraint.constant = 75
                 self.view.layoutIfNeeded()
-            })        }
+            })
+        }
     }
 
 }
