@@ -353,7 +353,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Ship Tracker" id="oBU-rT-VUO">
-                        <barButtonItem key="rightBarButtonItem" image="Refresh Icon" id="svT-If-EHR">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="svT-If-EHR">
                             <connections>
                                 <action selector="shipTrackerRefreshAction:" destination="24O-q8-xON" id="IhJ-HA-ykw"/>
                             </connections>
@@ -458,7 +458,6 @@
     </scenes>
     <resources>
         <image name="Background-image" width="414" height="736"/>
-        <image name="Refresh Icon" width="21" height="21"/>
         <image name="ShipDetailsPlusIcon" width="30" height="29"/>
     </resources>
 </document>
