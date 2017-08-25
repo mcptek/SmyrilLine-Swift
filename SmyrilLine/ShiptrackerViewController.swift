@@ -161,9 +161,24 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
                         {
                             if let jsonArray = JSON(data: json).array
                             {
-                                self.nextPortLabel.text = jsonArray[0]["Next port"].string
-                                self.lastPortLabel.text = jsonArray[0]["Last port"].string
-                                self.speedLabel.text = jsonArray[0]["SpeedD"].string
+                                if let nextPort = jsonArray[0]["Next port"].string
+                                {
+                                    self.nextPortLabel.text = nextPort
+                                }
+                                else
+                                {
+                                    self.nextPortLabel.text = "-"
+                                }
+                                
+                                if let lastPortname = jsonArray[0]["Last port"].string
+                                {
+                                    self.lastPortLabel.text = String(lastPortname.characters.dropFirst())
+                                }
+                                else
+                                {
+                                    self.lastPortLabel.text = "-"
+                                }
+                                self.speedLabel.text = jsonArray[0]["Speed"].string
                                 self.shipName = jsonArray[0]["Name"].string
                                 self.DrawPloyLine()
                             }
@@ -275,12 +290,12 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
 
     @IBAction func shipInfoButtonAction(_ sender: UIButton) {
         
-        let image = UIImage.init(named: "ShipDetailsMinusIcon")
+        let image = UIImage.init(named: "ShipDetailsPlusIcon")
         if self.shipDetailsButton.backgroundImage(for: .normal) == image
         {
-            self.shipDetailsButton.setBackgroundImage(UIImage.init(named: "ShipDetailsPlusIcon"), for: .normal)
-            UIView.animate(withDuration: Double(0.7), animations: {
-                self.shipInfoContainerViewHeightConstraint.constant = 160
+            self.shipDetailsButton.setBackgroundImage(UIImage.init(named: "ShipDetailsMinusIcon"), for: .normal)
+            UIView.animate(withDuration: Double(0.3), animations: {
+                self.shipInfoContainerViewHeightConstraint.constant = 162
                 self.lastPortHeaderHeightConstraint.constant = 21
                 self.lastPortValueConstraint.constant = 21
                 self.speedHeaderHeightConstraint.constant = 21
@@ -290,8 +305,8 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         }
         else
         {
-            self.shipDetailsButton.setBackgroundImage(UIImage.init(named: "ShipDetailsMinusIcon"), for: .normal)
-            UIView.animate(withDuration: Double(0.7), animations: {
+            self.shipDetailsButton.setBackgroundImage(UIImage.init(named: "ShipDetailsPlusIcon"), for: .normal)
+            UIView.animate(withDuration: Double(0.3), animations: {
                 self.lastPortHeaderHeightConstraint.constant = 0
                 self.lastPortValueConstraint.constant = 0
                 self.speedHeaderHeightConstraint.constant = 0

@@ -16,8 +16,6 @@ class MainMenuViewController: UIViewController,UICollectionViewDataSource,UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,8 +59,12 @@ class MainMenuViewController: UIViewController,UICollectionViewDataSource,UIColl
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         switch indexPath.row {
+        case 3:
+            performSegue(withIdentifier: "restaurants", sender: self)
         case 4:
             performSegue(withIdentifier: "shipTracker", sender: self)
+        case 6:
+            performSegue(withIdentifier: "Destinations", sender: self)
         default:
             print("Do nothing")
         }
