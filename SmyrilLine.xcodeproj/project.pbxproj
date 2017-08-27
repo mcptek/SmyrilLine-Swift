@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		7E2C7922B3F0743786AA81A3 /* Pods_SmyrilLineTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59F54DB87F9880483BD34714 /* Pods_SmyrilLineTests.framework */; };
+		840A47841F4FE9360038DAE6 /* TaxfreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A47831F4FE9360038DAE6 /* TaxfreeViewController.swift */; };
+		840A47871F4FF2020038DAE6 /* TaxFreeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A47861F4FF2020038DAE6 /* TaxFreeTableViewCell.swift */; };
+		840A47891F4FF2B40038DAE6 /* TaxFreeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A47881F4FF2B40038DAE6 /* TaxFreeShop.swift */; };
 		840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DA9CD1F4C5C7F001B3382 /* AppDelegate.swift */; };
 		840DA9D01F4C5C7F001B3382 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DA9CF1F4C5C7F001B3382 /* ViewController.swift */; };
 		840DA9D31F4C5C7F001B3382 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 840DA9D11F4C5C7F001B3382 /* Main.storyboard */; };
@@ -45,6 +48,9 @@
 		4FFE8A9499D1FD5795D950CC /* Pods-SmyrilLineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmyrilLineTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmyrilLineTests/Pods-SmyrilLineTests.release.xcconfig"; sourceTree = "<group>"; };
 		59F54DB87F9880483BD34714 /* Pods_SmyrilLineTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmyrilLineTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69D87D022E6D229866A01C47 /* Pods-SmyrilLine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmyrilLine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmyrilLine/Pods-SmyrilLine.debug.xcconfig"; sourceTree = "<group>"; };
+		840A47831F4FE9360038DAE6 /* TaxfreeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxfreeViewController.swift; sourceTree = "<group>"; };
+		840A47861F4FF2020038DAE6 /* TaxFreeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxFreeTableViewCell.swift; sourceTree = "<group>"; };
+		840A47881F4FF2B40038DAE6 /* TaxFreeShop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxFreeShop.swift; sourceTree = "<group>"; };
 		840DA9CA1F4C5C7F001B3382 /* SmyrilLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmyrilLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		840DA9CD1F4C5C7F001B3382 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		840DA9CF1F4C5C7F001B3382 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +107,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		840A47851F4FE93D0038DAE6 /* Tax free shop */ = {
+			isa = PBXGroup;
+			children = (
+				840A47831F4FE9360038DAE6 /* TaxfreeViewController.swift */,
+				840A47861F4FF2020038DAE6 /* TaxFreeTableViewCell.swift */,
+			);
+			name = "Tax free shop";
+			sourceTree = "<group>";
+		};
 		840DA9C11F4C5C7F001B3382 = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +165,7 @@
 		840DA9F21F4C60FF001B3382 /* Stories */ = {
 			isa = PBXGroup;
 			children = (
+				840A47851F4FE93D0038DAE6 /* Tax free shop */,
 				BB45F2D01F4F2EC6003B77CA /* Destinations */,
 				842ED4151F4E8E58000366BF /* Main Menu */,
 				842ED4161F4E8E64000366BF /* Ship Tracker */,
@@ -181,6 +197,7 @@
 				842ED41B1F4E9A76000366BF /* ShipTracker.swift */,
 				842ED4261F4F06F5000366BF /* Restaurants.swift */,
 				BB45F2D91F4F30A5003B77CA /* Destinations.swift */,
+				840A47881F4FF2B40038DAE6 /* TaxFreeShop.swift */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -430,6 +447,7 @@
 				BB45F2DA1F4F30A5003B77CA /* Destinations.swift in Sources */,
 				840DA9F41F4C6139001B3382 /* MainMenuViewController.swift in Sources */,
 				842ED4231F4EFA78000366BF /* RestaurantViewController.swift in Sources */,
+				840A47841F4FE9360038DAE6 /* TaxfreeViewController.swift in Sources */,
 				842ED41E1F4E9B23000366BF /* SmyrilLineUrl.swift in Sources */,
 				842ED4251F4EFB65000366BF /* RestaurantTableViewCell.swift in Sources */,
 				842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */,
@@ -437,10 +455,12 @@
 				840DA9D61F4C5C7F001B3382 /* SmyrilLine.xcdatamodeld in Sources */,
 				840DA9D01F4C5C7F001B3382 /* ViewController.swift in Sources */,
 				842ED4181F4E8E8C000366BF /* ShiptrackerViewController.swift in Sources */,
+				840A47871F4FF2020038DAE6 /* TaxFreeTableViewCell.swift in Sources */,
 				840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */,
 				840DA9F61F4C615C001B3382 /* MainMenuCollectionViewCell.swift in Sources */,
 				842ED41C1F4E9A76000366BF /* ShipTracker.swift in Sources */,
 				BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */,
+				840A47891F4FF2B40038DAE6 /* TaxFreeShop.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -59,6 +59,8 @@ class MainMenuViewController: UIViewController,UICollectionViewDataSource,UIColl
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         switch indexPath.row {
+        case 1:
+            performSegue(withIdentifier: "taxFree", sender: self)
         case 3:
             performSegue(withIdentifier: "restaurants", sender: self)
         case 4:

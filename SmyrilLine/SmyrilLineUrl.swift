@@ -15,4 +15,5 @@ struct UrlMCP {
     static let shipTrackerTrajectoryPath = "https://console.mcp.com/mtrajectory.php?ship=22"
     static let restaurantParentPath = "/api/smyrilline/restaurants"
     static let destinationParentPath = "/api/smyrilline/destinations"
+    static let taxFreeShopParentPath = "/api/smyrilline/taxfreeshop"
     }
