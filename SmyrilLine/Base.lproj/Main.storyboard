@@ -408,6 +408,19 @@
                                                         <constraint firstAttribute="width" secondItem="g47-S9-OcN" secondAttribute="height" multiplier="75:44" id="jAl-Kz-Y4u"/>
                                                     </constraints>
                                                 </imageView>
+                                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="21O-2a-z4e">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="220"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="83P-0X-ynC">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="220"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    </view>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="21O-2a-z4e" secondAttribute="height" multiplier="75:44" id="4E8-52-mFF"/>
+                                                    </constraints>
+                                                    <vibrancyEffect>
+                                                        <blurEffect style="light"/>
+                                                    </vibrancyEffect>
+                                                </visualEffectView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rdO-Lk-uhm">
                                                     <rect key="frame" x="8" y="8" width="359" height="203.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
@@ -419,11 +432,15 @@
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="g47-S9-OcN" secondAttribute="bottom" id="7Ei-Ew-yPs"/>
                                                 <constraint firstItem="g47-S9-OcN" firstAttribute="leading" secondItem="AXB-4f-qHO" secondAttribute="leading" id="GNH-CS-0Kf"/>
+                                                <constraint firstAttribute="trailing" secondItem="21O-2a-z4e" secondAttribute="trailing" id="IVY-x6-DMu"/>
                                                 <constraint firstAttribute="trailing" secondItem="rdO-Lk-uhm" secondAttribute="trailing" constant="8" id="MVI-Wh-xF7"/>
+                                                <constraint firstItem="21O-2a-z4e" firstAttribute="top" secondItem="AXB-4f-qHO" secondAttribute="top" id="WYs-hD-vvn"/>
+                                                <constraint firstItem="21O-2a-z4e" firstAttribute="leading" secondItem="AXB-4f-qHO" secondAttribute="leading" id="ajq-bf-JEz"/>
                                                 <constraint firstItem="g47-S9-OcN" firstAttribute="top" secondItem="AXB-4f-qHO" secondAttribute="top" id="fdH-xk-wYK"/>
                                                 <constraint firstAttribute="trailing" secondItem="g47-S9-OcN" secondAttribute="trailing" id="lP5-QZ-aTL"/>
                                                 <constraint firstItem="rdO-Lk-uhm" firstAttribute="top" secondItem="AXB-4f-qHO" secondAttribute="top" constant="8" id="uQO-k6-cou"/>
                                                 <constraint firstItem="rdO-Lk-uhm" firstAttribute="leading" secondItem="AXB-4f-qHO" secondAttribute="leading" constant="8" id="w2U-2g-qxA"/>
+                                                <constraint firstAttribute="bottom" secondItem="21O-2a-z4e" secondAttribute="bottom" id="wR6-xl-feY"/>
                                                 <constraint firstAttribute="bottom" secondItem="rdO-Lk-uhm" secondAttribute="bottom" constant="8" id="xe6-X9-ZG0"/>
                                             </constraints>
                                         </tableViewCellContentView>
