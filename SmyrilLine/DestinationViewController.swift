@@ -21,6 +21,9 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        
+        self.title = "Destinations"
+        
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator

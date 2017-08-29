@@ -22,12 +22,15 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        self.title = "Restaurants"
+        
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
         view.addSubview(self.activityIndicatorView)
         
-        self.restauranttableview.estimatedRowHeight = 150
+        self.restauranttableview.estimatedRowHeight = 220
         self.restauranttableview.rowHeight = UITableViewAutomaticDimension
 
 
