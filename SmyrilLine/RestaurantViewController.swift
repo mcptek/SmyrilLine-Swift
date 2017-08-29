@@ -23,7 +23,7 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
 
         // Do any additional setup after loading the view.
         
-        self.title = "Restaurants"
+        self.title = "Restaurants & Bars"
         
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
