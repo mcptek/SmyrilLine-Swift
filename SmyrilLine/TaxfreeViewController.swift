@@ -10,6 +10,7 @@ import UIKit
 import AlamofireObjectMapper
 import Alamofire
 import SDWebImage
+import MXParallaxHeader
 
 class TaxfreeViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate {
 
@@ -20,23 +21,35 @@ class TaxfreeViewController: UIViewController,UITableViewDataSource,UITableViewD
     @IBOutlet weak var shopOPeningClosingTimeLabel: UILabel!
     @IBOutlet weak var shopLocationLabel: UILabel!
     
+    var myCustomView: MyTaxfreeScrollViewHeader!
+    var scrollView: MXScrollView!
     var shopObject: TaxFreeShopInfo?
     private let KtableHeaderHeight: CGFloat = 300.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.myHeaderView = self.taxfreeShopTableView.tableHeaderView
-        self.taxfreeShopTableView.tableHeaderView = nil
-        self.taxfreeShopTableView.addSubview(self.myHeaderView)
-        self.taxfreeShopTableView.contentInset = UIEdgeInsetsMake(KtableHeaderHeight, 0, 0, 0)
-        self.taxfreeShopTableView.contentOffset = CGPoint(x:0, y:-KtableHeaderHeight)
-        self.updateHeaderView()
+        
+        self.myCustomView = Bundle.main.loadNibNamed("TaxfreeParallaxHeaderView", owner: self, options: nil)?.first as? UIView as! MyTaxfreeScrollViewHeader
+        scrollView = MXScrollView()
+        scrollView.parallaxHeader.view = Bundle.main.loadNibNamed("TaxfreeParallaxHeaderView", owner: self, options: nil)?.first as? UIView // You can set the parallax header view from a nib.
+        scrollView.parallaxHeader.height = 150
+        scrollView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+        scrollView.parallaxHeader.minimumHeight = 20
+        self.view.addSubview(scrollView)
+        scrollView.addSubview(self.taxfreeShopTableView)
+        
+//        self.myHeaderView = self.taxfreeShopTableView.tableHeaderView
+//        self.taxfreeShopTableView.tableHeaderView = nil
+//        self.taxfreeShopTableView.addSubview(self.myHeaderView)
+//        self.taxfreeShopTableView.contentInset = UIEdgeInsetsMake(KtableHeaderHeight, 0, 0, 0)
+//        self.taxfreeShopTableView.contentOffset = CGPoint(x:0, y:-KtableHeaderHeight)
+//        self.updateHeaderView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        self.CallTaxFreeShopAPI()
+       // self.CallTaxFreeShopAPI()
     }
     
     func updateHeaderView()  {
@@ -73,7 +86,7 @@ class TaxfreeViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
-        self.updateHeaderView()
+        //self.updateHeaderView()
     }
 
     /*
@@ -99,20 +112,20 @@ class TaxfreeViewController: UIViewController,UITableViewDataSource,UITableViewD
                         self.shopObject = response.result.value
                         if let imageUrlStr = self.shopObject?.shopImageUrlStr
                         {
-                            self.taxFreeShopHeaderImageview.sd_setShowActivityIndicatorView(true)
-                            self.taxFreeShopHeaderImageview.sd_setIndicatorStyle(.gray)
-                            self.taxFreeShopHeaderImageview.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                            //self.taxFreeShopHeaderImageview.sd_setShowActivityIndicatorView(true)
+                            //self.taxFreeShopHeaderImageview.sd_setIndicatorStyle(.gray)
+                            //self.myCustomView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
                         }
                         
-                        if let location = self.shopObject?.shopLocation
-                        {
-                            self.shopLocationLabel.text = location
-                        }
-                        
-                        if let time = self.shopObject?.shopOpeningClosingTime
-                        {
-                            self.shopOPeningClosingTimeLabel.text = time
-                        }
+//                        if let location = self.shopObject?.shopLocation
+//                        {
+//                            self.shopLocationLabel.text = location
+//                        }
+//                        
+//                        if let time = self.shopObject?.shopOpeningClosingTime
+//                        {
+//                            self.shopOPeningClosingTimeLabel.text = time
+//                        }
                         
                     }
                 case .failure:

@@ -488,65 +488,9 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="dqo-gP-fBZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="275"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IcW-Jt-rLx">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="275"/>
-                                        </imageView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="yKu-U0-sAs">
-                                            <rect key="frame" x="16" y="244" width="103" height="15"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" translatesAutoresizingMaskIntoConstraints="NO" id="SHX-TF-aH8">
-                                                    <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="15" id="6bU-we-5MU"/>
-                                                        <constraint firstAttribute="width" constant="15" id="hlk-GY-2k8"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="08:00 - 22:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xH1-rU-ar4">
-                                                    <rect key="frame" x="23" y="0.0" width="80" height="15"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </stackView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="EBB-47-XF9">
-                                            <rect key="frame" x="290.5" y="244" width="68.5" height="15"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Location" translatesAutoresizingMaskIntoConstraints="NO" id="XsL-pc-A5t">
-                                                    <rect key="frame" x="0.0" y="0.0" width="12" height="15"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="15" id="0wY-JW-aW8"/>
-                                                        <constraint firstAttribute="width" constant="12" id="7KE-pE-yld"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gHu-Y9-3eu">
-                                                    <rect key="frame" x="20" y="0.0" width="48.5" height="15"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </stackView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstItem="IcW-Jt-rLx" firstAttribute="leading" secondItem="dqo-gP-fBZ" secondAttribute="leading" id="33X-X9-BJL"/>
-                                        <constraint firstItem="yKu-U0-sAs" firstAttribute="leading" secondItem="dqo-gP-fBZ" secondAttribute="leading" constant="16" id="F4Q-ve-Osn"/>
-                                        <constraint firstAttribute="trailing" secondItem="IcW-Jt-rLx" secondAttribute="trailing" id="H9S-R6-KJC"/>
-                                        <constraint firstAttribute="bottom" secondItem="EBB-47-XF9" secondAttribute="bottom" constant="16" id="YsY-Oj-FTh"/>
-                                        <constraint firstAttribute="bottom" secondItem="yKu-U0-sAs" secondAttribute="bottom" constant="16" id="bF3-MM-jeX"/>
-                                        <constraint firstItem="IcW-Jt-rLx" firstAttribute="top" secondItem="dqo-gP-fBZ" secondAttribute="top" id="mIj-bF-DJ7"/>
-                                        <constraint firstAttribute="trailing" secondItem="EBB-47-XF9" secondAttribute="trailing" constant="16" id="z8c-7n-ZxK"/>
-                                        <constraint firstAttribute="bottom" secondItem="IcW-Jt-rLx" secondAttribute="bottom" id="zqA-aE-VTv"/>
-                                    </constraints>
-                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="taxfreecell" rowHeight="275" id="UmN-mj-hKz" customClass="TaxFreeTableViewCell" customModule="SmyrilLine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="276" width="375" height="275"/>
+                                        <rect key="frame" x="0.0" y="1" width="375" height="275"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UmN-mj-hKz" id="IQI-N7-qwd">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="275"/>
@@ -695,10 +639,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="myHeaderView" destination="dqo-gP-fBZ" id="gAw-zh-Q12"/>
-                        <outlet property="shopLocationLabel" destination="gHu-Y9-3eu" id="bcD-E2-MaP"/>
-                        <outlet property="shopOPeningClosingTimeLabel" destination="xH1-rU-ar4" id="89y-rL-cMx"/>
-                        <outlet property="taxFreeShopHeaderImageview" destination="IcW-Jt-rLx" id="WPk-VU-3ft"/>
                         <outlet property="taxfreeShopTableView" destination="ESx-6g-IM6" id="5di-v5-Eq0"/>
                     </connections>
                 </viewController>
@@ -709,8 +649,6 @@
     </scenes>
     <resources>
         <image name="Background-image" width="414" height="736"/>
-        <image name="Location" width="11" height="15"/>
         <image name="ShipDetailsPlusIcon" width="30" height="29"/>
-        <image name="clock" width="15" height="15"/>
     </resources>
 </document>
