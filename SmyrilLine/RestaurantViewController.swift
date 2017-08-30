@@ -94,6 +94,7 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
             cell.restaurantImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
 
         }
+        cell.selectionStyle = .none
         return cell
     }
     
