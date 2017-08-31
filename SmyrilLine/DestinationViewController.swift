@@ -46,15 +46,22 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "destinationCategory"
+        {
+            let vc = segue.destination as! DestinationCategoryViewController
+            let indexPath = self.destinationTableview.indexPathForSelectedRow
+            vc.destinationId = self.destinaionArray?[(indexPath?.row)!].objectId
+        }
     }
-    */
+    
     
     func CallDestinationAPI() {
         self.activityIndicatorView.startAnimating()
