@@ -12,7 +12,7 @@ import Alamofire
 import SDWebImage
 import MXParallaxHeader
 
-class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate {
+class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var myTaxfreeCollectionView: UICollectionView!
     

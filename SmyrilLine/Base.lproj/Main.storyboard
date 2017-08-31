@@ -476,7 +476,7 @@
         <!--Destination Category View Controller-->
         <scene sceneID="bYi-0j-uEz">
             <objects>
-                <viewController id="HUx-n9-VuY" customClass="DestinationCategoryViewController" customModule="SmyrilLine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="HUx-n9-VuY" customClass="DestinationCategoryViewController" customModule="SmyrilLine" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="82X-Mm-Y7I"/>
                         <viewControllerLayoutGuide type="bottom" id="xPN-Tq-nwd"/>
@@ -516,6 +516,9 @@
                                             <constraint firstItem="nVS-Og-DtO" firstAttribute="top" secondItem="JCd-oT-cc1" secondAttribute="top" id="JDM-rf-OkM"/>
                                             <constraint firstAttribute="trailing" secondItem="nVS-Og-DtO" secondAttribute="trailing" id="zBv-Be-gva"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="categoryImageView" destination="nVS-Og-DtO" id="RlE-A5-3oQ"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>

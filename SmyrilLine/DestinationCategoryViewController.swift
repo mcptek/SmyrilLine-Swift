@@ -10,13 +10,15 @@ import UIKit
 import AlamofireObjectMapper
 import Alamofire
 import SDWebImage
+import MXParallaxHeader
 
 class DestinationCategoryViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var destinationCategoryCollectionView: UICollectionView!
     
     var destinationCategoryArray: TaxFreeShopInfo?
-    
+    var myHeaderView: MyTaxfreeScrollViewHeader!
+    var scrollView: MXScrollView!
     var destinationId:String?
     var activityIndicatorView: UIActivityIndicatorView!
     override func viewDidLoad() {
@@ -28,6 +30,13 @@ class DestinationCategoryViewController: UIViewController,UICollectionViewDataSo
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
         view.addSubview(self.activityIndicatorView)
+        
+        self.myHeaderView = Bundle.main.loadNibNamed("TaxfreeParallaxHeaderView", owner: self, options: nil)?.first as? UIView as! MyTaxfreeScrollViewHeader
+        self.destinationCategoryCollectionView.parallaxHeader.view = self.myHeaderView
+        self.destinationCategoryCollectionView.parallaxHeader.height = 250
+        self.destinationCategoryCollectionView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+        self.destinationCategoryCollectionView.parallaxHeader.minimumHeight = 50
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -83,6 +92,13 @@ class DestinationCategoryViewController: UIViewController,UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "destinationCategoryCell", for: indexPath) as! DestinationCategoryCollectionViewCell
+        if let imageUrlStr = self.destinationCategoryArray?.itemArray?[indexPath.row].imageUrl
+        {
+            cell.categoryImageView.sd_setShowActivityIndicatorView(true)
+            cell.categoryImageView.sd_setIndicatorStyle(.gray)
+            cell.categoryImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+            
+        }
         return cell
     }
     
