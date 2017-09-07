@@ -24,6 +24,8 @@
 		842308451F56FB06004A4166 /* TaxfreeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842308441F56FB06004A4166 /* TaxfreeCollectionViewCell.swift */; };
 		842308471F57CB15004A4166 /* DestinationCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842308461F57CB15004A4166 /* DestinationCategoryViewController.swift */; };
 		842308491F57D443004A4166 /* DestinationCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842308481F57D443004A4166 /* DestinationCategoryCollectionViewCell.swift */; };
+		8423084D1F57E0B5004A4166 /* DestinationCategoryHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8423084C1F57E0B5004A4166 /* DestinationCategoryHeader.xib */; };
+		8423084F1F57E0D5004A4166 /* DestinationCategoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8423084E1F57E0D5004A4166 /* DestinationCategoryHeader.swift */; };
 		842ED4181F4E8E8C000366BF /* ShiptrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4171F4E8E8C000366BF /* ShiptrackerViewController.swift */; };
 		842ED41C1F4E9A76000366BF /* ShipTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED41B1F4E9A76000366BF /* ShipTracker.swift */; };
 		842ED41E1F4E9B23000366BF /* SmyrilLineUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED41D1F4E9B23000366BF /* SmyrilLineUrl.swift */; };
@@ -72,6 +74,8 @@
 		842308441F56FB06004A4166 /* TaxfreeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxfreeCollectionViewCell.swift; sourceTree = "<group>"; };
 		842308461F57CB15004A4166 /* DestinationCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryViewController.swift; sourceTree = "<group>"; };
 		842308481F57D443004A4166 /* DestinationCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		8423084C1F57E0B5004A4166 /* DestinationCategoryHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DestinationCategoryHeader.xib; sourceTree = "<group>"; };
+		8423084E1F57E0D5004A4166 /* DestinationCategoryHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryHeader.swift; sourceTree = "<group>"; };
 		842ED4171F4E8E8C000366BF /* ShiptrackerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShiptrackerViewController.swift; sourceTree = "<group>"; };
 		842ED41B1F4E9A76000366BF /* ShipTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipTracker.swift; sourceTree = "<group>"; };
 		842ED41D1F4E9B23000366BF /* SmyrilLineUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmyrilLineUrl.swift; sourceTree = "<group>"; };
@@ -155,6 +159,7 @@
 				842ED41A1F4E9A34000366BF /* Utilities */,
 				840DA9D11F4C5C7F001B3382 /* Main.storyboard */,
 				842308401F56ED48004A4166 /* TaxfreeParallaxHeaderView.xib */,
+				8423084C1F57E0B5004A4166 /* DestinationCategoryHeader.xib */,
 				840DA9D91F4C5C7F001B3382 /* LaunchScreen.storyboard */,
 				840DA9F01F4C5FF6001B3382 /* Assets.xcassets */,
 				840DA9DC1F4C5C7F001B3382 /* Info.plist */,
@@ -237,6 +242,7 @@
 				BB45F2D31F4F2FBD003B77CA /* DestinationTableViewCell.swift */,
 				842308461F57CB15004A4166 /* DestinationCategoryViewController.swift */,
 				842308481F57D443004A4166 /* DestinationCategoryCollectionViewCell.swift */,
+				8423084E1F57E0D5004A4166 /* DestinationCategoryHeader.swift */,
 			);
 			name = Destinations;
 			sourceTree = "<group>";
@@ -344,6 +350,7 @@
 			files = (
 				840DA9DB1F4C5C7F001B3382 /* LaunchScreen.storyboard in Resources */,
 				840DA9F11F4C5FF6001B3382 /* Assets.xcassets in Resources */,
+				8423084D1F57E0B5004A4166 /* DestinationCategoryHeader.xib in Resources */,
 				842308411F56ED48004A4166 /* TaxfreeParallaxHeaderView.xib in Resources */,
 				840DA9D31F4C5C7F001B3382 /* Main.storyboard in Resources */,
 			);
@@ -461,6 +468,7 @@
 				840DA9F41F4C6139001B3382 /* MainMenuViewController.swift in Sources */,
 				842308451F56FB06004A4166 /* TaxfreeCollectionViewCell.swift in Sources */,
 				842ED4231F4EFA78000366BF /* RestaurantViewController.swift in Sources */,
+				8423084F1F57E0D5004A4166 /* DestinationCategoryHeader.swift in Sources */,
 				842308431F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift in Sources */,
 				842308491F57D443004A4166 /* DestinationCategoryCollectionViewCell.swift in Sources */,
 				840A47841F4FE9360038DAE6 /* TaxfreeViewController.swift in Sources */,

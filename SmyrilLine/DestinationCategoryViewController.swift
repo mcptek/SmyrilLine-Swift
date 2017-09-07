@@ -119,12 +119,30 @@ class DestinationCategoryViewController: UIViewController,UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
     {
         return 8.0
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        return CGSize(width: 150, height: 150)
+        let screenHeight = UIScreen.main.bounds.size.height
+        if(screenHeight == 480) {
+            //iPhone 4/4S
+            return CGSize(width: 105, height: 105)
+            
+        } else if (screenHeight == 568) {
+            //iPhone 5/5S/SE
+            return CGSize(width: 140, height: 125)
+            
+        } else if (screenHeight == 667) {
+            //iPhone 6/6S
+            return CGSize(width: 100, height: 125)
+            
+        } else if (screenHeight == 736) {
+            //iPhone 6+, 6S+
+            return CGSize(width: 100, height: 125)
+            
+        } else {
+            return CGSize(width: 100, height: 125)
+        }
     }
 
 

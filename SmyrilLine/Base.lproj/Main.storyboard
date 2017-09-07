@@ -508,16 +508,27 @@
                                                         <constraint firstAttribute="width" secondItem="nVS-Og-DtO" secondAttribute="height" multiplier="1:1" id="XKm-6c-z7j"/>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spn-qE-0NN">
+                                                    <rect key="frame" x="8" y="8" width="134" height="134"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </view>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Spn-qE-0NN" secondAttribute="trailing" constant="8" id="7rT-kl-PIe"/>
                                             <constraint firstItem="nVS-Og-DtO" firstAttribute="leading" secondItem="JCd-oT-cc1" secondAttribute="leading" id="AWl-By-QIg"/>
+                                            <constraint firstAttribute="bottom" secondItem="Spn-qE-0NN" secondAttribute="bottom" constant="8" id="FCf-cK-jvb"/>
                                             <constraint firstAttribute="bottom" secondItem="nVS-Og-DtO" secondAttribute="bottom" id="HpZ-h4-q3d"/>
                                             <constraint firstItem="nVS-Og-DtO" firstAttribute="top" secondItem="JCd-oT-cc1" secondAttribute="top" id="JDM-rf-OkM"/>
+                                            <constraint firstItem="Spn-qE-0NN" firstAttribute="top" secondItem="JCd-oT-cc1" secondAttribute="top" constant="8" id="mHd-Vk-DeO"/>
+                                            <constraint firstItem="Spn-qE-0NN" firstAttribute="leading" secondItem="JCd-oT-cc1" secondAttribute="leading" constant="8" id="r5G-1s-Yuq"/>
                                             <constraint firstAttribute="trailing" secondItem="nVS-Og-DtO" secondAttribute="trailing" id="zBv-Be-gva"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="categoryImageView" destination="nVS-Og-DtO" id="RlE-A5-3oQ"/>
+                                            <outlet property="categoryNameLabel" destination="Spn-qE-0NN" id="cDC-kl-4Vc"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
