@@ -12,9 +12,9 @@ import Alamofire
 import SDWebImage
 import MXParallaxHeader
 
-class DestinationCategoryViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class DestinationCategoryViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
-    @IBOutlet weak var destinationCategoryCollectionView: UICollectionView!
+    @IBOutlet weak var categoryTableview: UITableView!
     
     var destinationCategoryArray: TaxFreeShopInfo?
     var myHeaderView: MyTaxfreeScrollViewHeader!
@@ -32,10 +32,10 @@ class DestinationCategoryViewController: UIViewController,UICollectionViewDataSo
         view.addSubview(self.activityIndicatorView)
         
         self.myHeaderView = Bundle.main.loadNibNamed("TaxfreeParallaxHeaderView", owner: self, options: nil)?.first as? UIView as! MyTaxfreeScrollViewHeader
-        self.destinationCategoryCollectionView.parallaxHeader.view = self.myHeaderView
-        self.destinationCategoryCollectionView.parallaxHeader.height = 250
-        self.destinationCategoryCollectionView.parallaxHeader.mode = MXParallaxHeaderMode.fill
-        self.destinationCategoryCollectionView.parallaxHeader.minimumHeight = 50
+        self.categoryTableview.parallaxHeader.view = self.myHeaderView
+        self.categoryTableview.parallaxHeader.height = 250
+        self.categoryTableview.parallaxHeader.mode = MXParallaxHeaderMode.fill
+        self.categoryTableview.parallaxHeader.minimumHeight = 50
 
     }
     
@@ -69,7 +69,7 @@ class DestinationCategoryViewController: UIViewController,UICollectionViewDataSo
                     if response.response?.statusCode == 200
                     {
                         self.destinationCategoryArray = response.result.value
-                        self.destinationCategoryCollectionView.reloadData()
+                        self.categoryTableview.reloadData()
                        // self.destinaionArray = response.result.value?[0].name
                         //self.destinationTableview.reloadData()
                     }
@@ -79,70 +79,57 @@ class DestinationCategoryViewController: UIViewController,UICollectionViewDataSo
         }
     }
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int
-    {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
         return 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
-    {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return self.destinationCategoryArray?.itemArray?.count ?? 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
-    {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "destinationCategoryCell", for: indexPath) as! DestinationCategoryCollectionViewCell
-        if let imageUrlStr = self.destinationCategoryArray?.itemArray?[indexPath.row].imageUrl
-        {
-            cell.categoryImageView.sd_setShowActivityIndicatorView(true)
-            cell.categoryImageView.sd_setIndicatorStyle(.gray)
-            cell.categoryImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
-            
-        }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DestinationCategoryTableViewCell", for: indexPath) as! DestinationCategoryTableViewCell
+//        cell.restaurantNameLabel.text = self.restaurantsArray?[indexPath.section].name
+//        if let imageUrlStr = self.restaurantsArray?[indexPath.section].imageUrl
+//        {
+//            cell.restaurantImageView.sd_setShowActivityIndicatorView(true)
+//            cell.restaurantImageView.sd_setIndicatorStyle(.gray)
+//            cell.restaurantImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+//            
+//        }
+        cell.selectionStyle = .none
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        return UIEdgeInsetsMake(16.0, 16.0, 16.0, 16.0)
+        return 1.0
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
     {
-        return 8.0
+        return 1.0
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
-    {
-        return 8.0
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let vw = UIView()
+        vw.backgroundColor = UIColor.clear
+        
+        return vw
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
     {
-        let screenHeight = UIScreen.main.bounds.size.height
-        if(screenHeight == 480) {
-            //iPhone 4/4S
-            return CGSize(width: 105, height: 105)
-            
-        } else if (screenHeight == 568) {
-            //iPhone 5/5S/SE
-            return CGSize(width: 140, height: 125)
-            
-        } else if (screenHeight == 667) {
-            //iPhone 6/6S
-            return CGSize(width: 100, height: 125)
-            
-        } else if (screenHeight == 736) {
-            //iPhone 6+, 6S+
-            return CGSize(width: 100, height: 125)
-            
-        } else {
-            return CGSize(width: 100, height: 125)
-        }
+        let vw = UIView()
+        vw.backgroundColor = UIColor.clear
+        
+        return vw
     }
 
 
