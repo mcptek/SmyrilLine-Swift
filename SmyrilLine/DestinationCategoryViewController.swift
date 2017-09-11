@@ -25,7 +25,9 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        self.navigationController?.navigationBar.isHidden = false
+        let navigationBar = navigationController!.navigationBar
+        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
         self.categoryTableview.estimatedRowHeight = 140
         self.categoryTableview.rowHeight = UITableViewAutomaticDimension
         
@@ -41,9 +43,22 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
         self.categoryTableview.parallaxHeader.minimumHeight = 50
 
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+        let navigationBar = navigationController!.navigationBar
+        navigationBar.attachToScrollView(self.categoryTableview)
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let navigationBar = navigationController!.navigationBar
+        navigationBar.reset()
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        self.navigationController?.navigationBar.backItem?.title = ""
         self.CallDestinationCategoryAPI()
     }
     
@@ -72,9 +87,13 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
                     if response.response?.statusCode == 200
                     {
                         self.destinationCategoryArray = response.result.value
+                        if let imageUrlStr = self.destinationCategoryArray?.shopImageUrlStr
+                        {
+                            self.myHeaderView.taxFreeHeaderImageView.sd_setShowActivityIndicatorView(true)
+                            self.myHeaderView.taxFreeHeaderImageView.sd_setIndicatorStyle(.gray)
+                            self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                        }
                         self.categoryTableview.reloadData()
-                       // self.destinaionArray = response.result.value?[0].name
-                        //self.destinationTableview.reloadData()
                     }
                 case .failure(let error):
                     self.showAlert(title: "Error", message: error.localizedDescription)

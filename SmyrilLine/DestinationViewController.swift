@@ -21,7 +21,7 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
+        self.navigationController?.navigationBar.isHidden = false
         let navigationBar = navigationController!.navigationBar
         navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
         
@@ -40,6 +40,7 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
         let navigationBar = navigationController!.navigationBar
         navigationBar.attachToScrollView(self.destinationTableview)
     }
@@ -52,6 +53,7 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        self.navigationController?.navigationBar.backItem?.title = ""
         self.CallDestinationAPI()
     }
 
@@ -73,7 +75,7 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
         {
             let vc = segue.destination as! DestinationCategoryViewController
             let indexPath = self.destinationTableview.indexPathForSelectedRow
-            vc.destinationId = self.destinaionArray?[(indexPath?.row)!].objectId
+            vc.destinationId = self.destinaionArray?[(indexPath?.section)!].objectId
         }
     }
     

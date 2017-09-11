@@ -18,7 +18,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bGS-ws-rxQ">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background-image" translatesAutoresizingMaskIntoConstraints="NO" id="flb-ej-QWH">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="flb-ej-QWH">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                         </imageView>
                     </subviews>
@@ -45,7 +45,4 @@
             <point key="canvasLocation" x="-275" y="212"/>
         </view>
     </objects>
-    <resources>
-        <image name="Background-image" width="414" height="736"/>
-    </resources>
 </document>
