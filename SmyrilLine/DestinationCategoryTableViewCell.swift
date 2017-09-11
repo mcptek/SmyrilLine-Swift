@@ -10,6 +10,15 @@ import UIKit
 
 class DestinationCategoryTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var leftContainerView: UIView!
+    @IBOutlet weak var leftCategoryImageView: UIImageView!
+    @IBOutlet weak var leftCategoryNameLabel: UILabel!
+    @IBOutlet weak var rightContainerView: UIView!
+    @IBOutlet weak var rightCategotyImageView: UIImageView!
+    @IBOutlet weak var rightCategoryNameLabel: UILabel!
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

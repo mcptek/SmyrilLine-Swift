@@ -15,7 +15,7 @@ import MXParallaxHeader
 class DestinationCategoryViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
     @IBOutlet weak var categoryTableview: UITableView!
-    
+    var cellIndex = 1
     var destinationCategoryArray: TaxFreeShopInfo?
     var myHeaderView: MyTaxfreeScrollViewHeader!
     var scrollView: MXScrollView!
@@ -25,6 +25,9 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        self.categoryTableview.estimatedRowHeight = 140
+        self.categoryTableview.rowHeight = UITableViewAutomaticDimension
         
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
@@ -86,21 +89,62 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.destinationCategoryArray?.itemArray?.count ?? 0
+        var totalCount = 1
+        if let count = self.destinationCategoryArray?.itemArray?.count
+        {
+            totalCount += (count / 2 ) + (count % 2)
+        }
+        
+        return totalCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DestinationCategoryTableViewCell", for: indexPath) as! DestinationCategoryTableViewCell
-//        cell.restaurantNameLabel.text = self.restaurantsArray?[indexPath.section].name
-//        if let imageUrlStr = self.restaurantsArray?[indexPath.section].imageUrl
-//        {
-//            cell.restaurantImageView.sd_setShowActivityIndicatorView(true)
-//            cell.restaurantImageView.sd_setIndicatorStyle(.gray)
-//            cell.restaurantImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
-//            
-//        }
-        cell.selectionStyle = .none
-        return cell
+        
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryHeaderCell", for: indexPath) as! CategoryHeaderTableViewCell
+            cell.headerTitleLabel.text = self.destinationCategoryArray?.shopOpeningClosingTime
+            cell.selectionStyle = .none
+            return cell
+        }
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! DestinationCategoryTableViewCell
+            self.cellIndex = (indexPath.row - 1) * 2
+            if let imageUrlStr = self.destinationCategoryArray?.itemArray?[self.cellIndex].imageUrl
+            {
+                cell.leftCategoryImageView.sd_setShowActivityIndicatorView(true)
+                cell.leftCategoryImageView.sd_setIndicatorStyle(.gray)
+                cell.leftCategoryImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                
+            }
+            if let categoryname = self.destinationCategoryArray?.itemArray?[self.cellIndex].name
+            {
+                cell.leftCategoryNameLabel.text = categoryname
+            }
+            self.cellIndex += 1
+            if self.cellIndex < (self.destinationCategoryArray?.itemArray?.count)!
+            {
+                if let imageUrlStr = self.destinationCategoryArray?.itemArray?[self.cellIndex].imageUrl
+                {
+                    cell.rightCategotyImageView.sd_setShowActivityIndicatorView(true)
+                    cell.rightCategotyImageView.sd_setIndicatorStyle(.gray)
+                    cell.rightCategotyImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                    
+                }
+                if let categoryname = self.destinationCategoryArray?.itemArray?[self.cellIndex].name
+                {
+                    cell.rightCategoryNameLabel.text = categoryname
+                }
+            }
+            else
+            {
+                cell.rightCategotyImageView.image = nil
+                cell.rightCategoryNameLabel.text = ""
+            }
+            cell.selectionStyle = .none
+            return cell
+
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)

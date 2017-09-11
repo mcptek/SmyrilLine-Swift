@@ -22,6 +22,9 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
         
         // Do any additional setup after loading the view.
         
+        let navigationBar = navigationController!.navigationBar
+        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
+        
         self.title = "Destinations"
         
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
@@ -33,6 +36,18 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
         self.destinationTableview.rowHeight = UITableViewAutomaticDimension
         
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let navigationBar = navigationController!.navigationBar
+        navigationBar.attachToScrollView(self.destinationTableview)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let navigationBar = navigationController!.navigationBar
+        navigationBar.reset()
     }
     
     override func viewDidAppear(_ animated: Bool) {
