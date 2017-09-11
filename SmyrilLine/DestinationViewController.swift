@@ -21,6 +21,9 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        self.navigationController?.navigationBar.isHidden = false
+        let navigationBar = navigationController!.navigationBar
+        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
         
         self.title = "Destinations"
         
@@ -35,8 +38,22 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+        let navigationBar = navigationController!.navigationBar
+        navigationBar.attachToScrollView(self.destinationTableview)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let navigationBar = navigationController!.navigationBar
+        navigationBar.reset()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        self.navigationController?.navigationBar.backItem?.title = ""
         self.CallDestinationAPI()
     }
 
@@ -46,15 +63,22 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "destinationCategory"
+        {
+            let vc = segue.destination as! DestinationCategoryViewController
+            let indexPath = self.destinationTableview.indexPathForSelectedRow
+            vc.destinationId = self.destinaionArray?[(indexPath?.section)!].objectId
+        }
     }
-    */
+    
     
     func CallDestinationAPI() {
         self.activityIndicatorView.startAnimating()
@@ -94,6 +118,7 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
             cell.destinationImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
             
         }
+        cell.selectionStyle = .none
         return cell
     }
     

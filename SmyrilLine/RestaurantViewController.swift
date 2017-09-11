@@ -22,7 +22,9 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        self.navigationController?.navigationBar.isHidden = false
+        let navigationBar = navigationController!.navigationBar
+        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
         self.title = "Restaurants & Bars"
         
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
@@ -36,8 +38,22 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+        let navigationBar = navigationController!.navigationBar
+        navigationBar.attachToScrollView(self.restauranttableview)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let navigationBar = navigationController!.navigationBar
+        navigationBar.reset()
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        self.navigationController?.navigationBar.backItem?.title = ""
         self.CallRestaurantAPI()
     }
     override func didReceiveMemoryWarning() {
@@ -94,6 +110,7 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
             cell.restaurantImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
 
         }
+        cell.selectionStyle = .none
         return cell
     }
     

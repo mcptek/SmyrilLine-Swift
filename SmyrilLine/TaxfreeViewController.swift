@@ -10,28 +10,25 @@ import UIKit
 import AlamofireObjectMapper
 import Alamofire
 import SDWebImage
+import MXParallaxHeader
 
-class TaxfreeViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate {
+class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
 
+    @IBOutlet weak var myTaxfreeCollectionView: UICollectionView!
     
-    @IBOutlet weak var myHeaderView: UIView!
-    @IBOutlet weak var taxfreeShopTableView: UITableView!
-    @IBOutlet weak var taxFreeShopHeaderImageview: UIImageView!
-    @IBOutlet weak var shopOPeningClosingTimeLabel: UILabel!
-    @IBOutlet weak var shopLocationLabel: UILabel!
-    
+    var myHeaderView: MyTaxfreeScrollViewHeader!
+    var scrollView: MXScrollView!
     var shopObject: TaxFreeShopInfo?
-    private let KtableHeaderHeight: CGFloat = 300.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.myHeaderView = self.taxfreeShopTableView.tableHeaderView
-        self.taxfreeShopTableView.tableHeaderView = nil
-        self.taxfreeShopTableView.addSubview(self.myHeaderView)
-        self.taxfreeShopTableView.contentInset = UIEdgeInsetsMake(KtableHeaderHeight, 0, 0, 0)
-        self.taxfreeShopTableView.contentOffset = CGPoint(x:0, y:-KtableHeaderHeight)
-        self.updateHeaderView()
+        
+        self.myHeaderView = Bundle.main.loadNibNamed("TaxfreeParallaxHeaderView", owner: self, options: nil)?.first as? UIView as! MyTaxfreeScrollViewHeader
+        self.myTaxfreeCollectionView.parallaxHeader.view = self.myHeaderView
+        self.myTaxfreeCollectionView.parallaxHeader.height = 250
+        self.myTaxfreeCollectionView.parallaxHeader.mode = MXParallaxHeaderMode.fill
+        self.myTaxfreeCollectionView.parallaxHeader.minimumHeight = 50
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -39,41 +36,64 @@ class TaxfreeViewController: UIViewController,UITableViewDataSource,UITableViewD
         self.CallTaxFreeShopAPI()
     }
     
-    func updateHeaderView()  {
-        var headerRect = CGRect(x:0,y:-KtableHeaderHeight,width:self.taxfreeShopTableView.bounds.width,height:KtableHeaderHeight)
-        if self.taxfreeShopTableView.contentOffset.y < -KtableHeaderHeight
-        {
-            headerRect.origin.y = self.taxfreeShopTableView.contentOffset.y
-            headerRect.size.height = -self.taxfreeShopTableView.contentOffset.y
-        }
-        self.myHeaderView.frame = headerRect
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int
+    {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        return 25
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "taxfreeCell", for: indexPath) as! TaxfreeCollectionViewCell
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
+    {
+        return UIEdgeInsetsMake(16.0, 16.0, 16.0, 16.0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
+    {
+        return 8.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
+    {
+        return 8.0
         
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "taxfreecell") as! TaxFreeTableViewCell
-        return cell
-    }
-    func scrollViewDidScroll(_ scrollView: UIScrollView)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        self.updateHeaderView()
+        let screenHeight = UIScreen.main.bounds.size.height
+        switch screenHeight {
+        case 480:
+            return CGSize(width: 140, height: 219)
+        case 568:
+            return CGSize(width: 140, height: 219)
+        case 667:
+            return CGSize(width: 166, height: 219)
+        case 736:
+            return CGSize(width: 186, height: 219)
+        case 480:
+            return CGSize(width: 140, height: 219)
+        default:
+            return CGSize(width: 186, height: 219)
+        }
     }
 
     /*
@@ -99,27 +119,26 @@ class TaxfreeViewController: UIViewController,UITableViewDataSource,UITableViewD
                         self.shopObject = response.result.value
                         if let imageUrlStr = self.shopObject?.shopImageUrlStr
                         {
-                            self.taxFreeShopHeaderImageview.sd_setShowActivityIndicatorView(true)
-                            self.taxFreeShopHeaderImageview.sd_setIndicatorStyle(.gray)
-                            self.taxFreeShopHeaderImageview.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                            //self.taxFreeShopHeaderImageview.sd_setShowActivityIndicatorView(true)
+                            //self.taxFreeShopHeaderImageview.sd_setIndicatorStyle(.gray)
+                            //self.myCustomView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
                         }
                         
-                        if let location = self.shopObject?.shopLocation
-                        {
-                            self.shopLocationLabel.text = location
-                        }
-                        
-                        if let time = self.shopObject?.shopOpeningClosingTime
-                        {
-                            self.shopOPeningClosingTimeLabel.text = time
-                        }
+//                        if let location = self.shopObject?.shopLocation
+//                        {
+//                            self.shopLocationLabel.text = location
+//                        }
+//                        
+//                        if let time = self.shopObject?.shopOpeningClosingTime
+//                        {
+//                            self.shopOPeningClosingTimeLabel.text = time
+//                        }
                         
                     }
                 case .failure:
                     self.showAlert(title: "Error", message: (response.result.error?.localizedDescription)!)
                 }
-                self.taxfreeShopTableView.reloadData()
-                //self.taxfreeShopTableView.setContentOffset(CGPoint.zero, animated: true)
+                self.myTaxfreeCollectionView.reloadData()
         }
     }
 

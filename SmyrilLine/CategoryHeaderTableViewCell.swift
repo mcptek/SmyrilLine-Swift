@@ -1,15 +1,18 @@
 //
-//  TaxFreeTableViewCell.swift
+//  CategoryHeaderTableViewCell.swift
 //  SmyrilLine
 //
-//  Created by Rafay Hasan on 8/25/17.
+//  Created by Rafay Hasan on 9/11/17.
 //  Copyright © 2017 Rafay Hasan. All rights reserved.
 //
 
 import UIKit
 
-class TaxFreeTableViewCell: UITableViewCell {
+class CategoryHeaderTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var headerTitleLabel: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
