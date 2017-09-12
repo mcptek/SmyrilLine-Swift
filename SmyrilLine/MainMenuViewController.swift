@@ -72,6 +72,8 @@ class MainMenuViewController: UIViewController,UICollectionViewDataSource,UIColl
             performSegue(withIdentifier: "shipTracker", sender: self)
         case 6:
             performSegue(withIdentifier: "Destinations", sender: self)
+        case 8:
+            performSegue(withIdentifier: "shipInfo", sender: self)
         default:
             print("Do nothing")
         }

@@ -17,11 +17,14 @@ class DestinationCategoryTableViewCell: UITableViewCell {
     @IBOutlet weak var rightCategotyImageView: UIImageView!
     @IBOutlet weak var rightCategoryNameLabel: UILabel!
     
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        self.leftContainerView.layer.cornerRadius = 2
+        self.leftContainerView.layer.masksToBounds = true
+        self.rightContainerView.layer.cornerRadius = 2
+        self.rightContainerView.layer.masksToBounds = true        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
