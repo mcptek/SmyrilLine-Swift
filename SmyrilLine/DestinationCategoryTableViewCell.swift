@@ -21,8 +21,10 @@ class DestinationCategoryTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        self.leftCategoryImageView.layer.cornerRadius = 10
-        self.rightCategotyImageView.layer.cornerRadius = 10
+        self.leftContainerView.layer.cornerRadius = 2
+        self.leftContainerView.layer.masksToBounds = true
+        self.rightContainerView.layer.cornerRadius = 2
+        self.rightContainerView.layer.masksToBounds = true        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
