@@ -25,8 +25,6 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
         let navigationBar = navigationController!.navigationBar
         navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
         
-        self.title = "Destinations"
-        
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
@@ -40,6 +38,7 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.title = "Destinations"
         self.navigationController?.navigationBar.isHidden = false
         let navigationBar = navigationController!.navigationBar
         navigationBar.attachToScrollView(self.destinationTableview)
@@ -76,6 +75,7 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
             let vc = segue.destination as! DestinationCategoryViewController
             let indexPath = self.destinationTableview.indexPathForSelectedRow
             vc.destinationId = self.destinaionArray?[(indexPath?.section)!].objectId
+            vc.destinationName = self.destinaionArray?[(indexPath?.section)!].name
         }
     }
     

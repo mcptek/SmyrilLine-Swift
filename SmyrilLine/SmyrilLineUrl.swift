@@ -16,5 +16,6 @@ struct UrlMCP {
     static let restaurantParentPath = "/api/smyrilline/restaurants"
     static let destinationParentPath = "/api/smyrilline/destinations"
     static let taxFreeShopParentPath = "/api/smyrilline/taxfreeshop"
+    static let ShipInfoParentPath = "/api/smyrilline/shipinfo"
     
 }
