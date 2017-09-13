@@ -118,6 +118,7 @@
                         <segue destination="pEL-zi-kzw" kind="show" identifier="Destinations" id="1rb-Vw-Z0G"/>
                         <segue destination="oMJ-cm-Ntn" kind="show" identifier="taxFree" id="j9S-5z-586"/>
                         <segue destination="ruF-2Q-Zzl" kind="show" identifier="shipInfo" id="2qx-vi-1Dr"/>
+                        <segue destination="erD-jc-MZz" kind="show" id="eWX-xX-HhP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -161,7 +162,7 @@
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="restaurantCell" rowHeight="275" id="CEI-ad-yo7" customClass="RestaurantTableViewCell" customModule="SmyrilLine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="275"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="275"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CEI-ad-yo7" id="6Wp-h9-RCW">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="275"/>
@@ -406,7 +407,7 @@
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="destinationCell" rowHeight="275" id="kjh-cj-TPc" customClass="DestinationTableViewCell" customModule="SmyrilLine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="275"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="275"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kjh-cj-TPc" id="AXB-4f-qHO">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="275"/>
@@ -911,6 +912,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b39-47-5vA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3370.4000000000001" y="201.94902548725639"/>
+        </scene>
+        <!--Inbox View Controller-->
+        <scene sceneID="QOm-Xr-HfE">
+            <objects>
+                <viewController id="erD-jc-MZz" customClass="InboxViewController" customModule="SmyrilLine" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CYi-BE-Psv"/>
+                        <viewControllerLayoutGuide type="bottom" id="uzD-gy-0mm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Do7-HE-vys">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7eg-hc-j8y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4167" y="197"/>
         </scene>
     </scenes>
     <resources>

@@ -35,6 +35,8 @@
 		8445F1581F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445F1571F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift */; };
 		8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */; };
 		849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */; };
+		84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */; };
+		84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */; };
 		B2553924AF491ED961B2132C /* Pods_SmyrilLine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8F808BE45FE0AAC33C1FDB /* Pods_SmyrilLine.framework */; };
 		BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F2D11F4F2EEB003B77CA /* DestinationViewController.swift */; };
 		BB45F2D41F4F2FBD003B77CA /* DestinationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F2D31F4F2FBD003B77CA /* DestinationTableViewCell.swift */; };
@@ -87,6 +89,8 @@
 		8445F1571F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipInfoViewController.swift; sourceTree = "<group>"; };
 		849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryTableViewCell.swift; sourceTree = "<group>"; };
+		84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
+		84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalRConnection.swift; sourceTree = "<group>"; };
 		BB45F2D11F4F2EEB003B77CA /* DestinationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationViewController.swift; sourceTree = "<group>"; };
 		BB45F2D31F4F2FBD003B77CA /* DestinationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationTableViewCell.swift; sourceTree = "<group>"; };
 		BB45F2D91F4F30A5003B77CA /* Destinations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Destinations.swift; sourceTree = "<group>"; };
@@ -184,6 +188,7 @@
 		840DA9F21F4C60FF001B3382 /* Stories */ = {
 			isa = PBXGroup;
 			children = (
+				84AA0E4B1F692A7E00E4354A /* Inbox */,
 				840A47851F4FE93D0038DAE6 /* Tax free shop */,
 				BB45F2D01F4F2EC6003B77CA /* Destinations */,
 				842ED4151F4E8E58000366BF /* Main Menu */,
@@ -228,6 +233,7 @@
 				842ED41D1F4E9B23000366BF /* SmyrilLineUrl.swift */,
 				84138C8B1F625B1600D3F06C /* UINavigationBar+Alpha.swift */,
 				842ED41F1F4E9B7B000366BF /* ViewControllerExtension.swift */,
+				84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -247,6 +253,14 @@
 				8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */,
 			);
 			name = "Ship Info";
+			sourceTree = "<group>";
+		};
+		84AA0E4B1F692A7E00E4354A /* Inbox */ = {
+			isa = PBXGroup;
+			children = (
+				84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */,
+			);
+			name = Inbox;
 			sourceTree = "<group>";
 		};
 		BB45F2D01F4F2EC6003B77CA /* Destinations */ = {
@@ -492,12 +506,14 @@
 				842ED4201F4E9B7B000366BF /* ViewControllerExtension.swift in Sources */,
 				840DA9D61F4C5C7F001B3382 /* SmyrilLine.xcdatamodeld in Sources */,
 				840DA9D01F4C5C7F001B3382 /* ViewController.swift in Sources */,
+				84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */,
 				842ED4181F4E8E8C000366BF /* ShiptrackerViewController.swift in Sources */,
 				840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */,
 				840DA9F61F4C615C001B3382 /* MainMenuCollectionViewCell.swift in Sources */,
 				842ED41C1F4E9A76000366BF /* ShipTracker.swift in Sources */,
 				842308471F57CB15004A4166 /* DestinationCategoryViewController.swift in Sources */,
 				BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */,
+				84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */,
 				849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */,
 				8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */,
 				840A47891F4FF2B40038DAE6 /* TaxFreeShop.swift in Sources */,

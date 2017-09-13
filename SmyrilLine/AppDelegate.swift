@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SignalRSwift
 
 @available(iOS 10.0, *)
 @UIApplicationMain
@@ -19,9 +20,66 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //Added swift file
+        self.createSocketConnection()
         return true
     }
 
+    func createSocketConnection()  {
+        
+        StreamingConnection.sharedInstance.connection.started = {
+            print("Connected")
+            let language = "en"
+            let AppVersion = "1.2"//Bundle.main.infoDictionary!["CFBundleVersion"] as! String
+            let phoneType = "iPhone Demo"
+            let phoneId = "asddff"//UIDevice.current.identifierForVendor
+            let ageGroup = "All"
+            let gender = "All"
+            StreamingConnection.sharedInstance.hub.invoke(method: "register", withArgs: [phoneId,phoneType,AppVersion,language,ageGroup,gender], completionHandler: { (result, error) in
+            })
+            
+            StreamingConnection.sharedInstance.hub.on(eventName: "register") { (args) in
+                print(args)
+            }
+
+            StreamingConnection.sharedInstance.hub.on(eventName: "onBulletinSent") { (myArray) in
+                StreamingConnection.sharedInstance.hub.invoke(method: "BulletinAck", withArgs: ["messagaeId"])
+                let dic = myArray[0] as? NSDictionary
+                let title = dic?.value(forKey: "title") ?? ""
+                let messageDetails = dic?.value(forKey: "description") ?? ""
+                let featuredImage = dic?.value(forKey: "image_url") ?? ""
+                self.saveBulletin(title: title as! String, message: messageDetails as! String, imageUrlStr: featuredImage as! String)
+            }
+        }
+        
+        StreamingConnection.sharedInstance.connection.reconnecting = {
+            print("Reconnecting...")
+        }
+        
+        StreamingConnection.sharedInstance.connection.reconnected = {
+            print("Reconnected.")
+        }
+        
+        StreamingConnection.sharedInstance.connection.closed = {
+            print("Disconnected")
+        }
+        
+        StreamingConnection.sharedInstance.connection.connectionSlow = {
+            print("Connection slow...")
+        }
+        
+        StreamingConnection.sharedInstance.connection.error = { error in
+            print("Error")
+        }
+        
+        StreamingConnection.sharedInstance.connection.start()
+        
+    }
+    
+    func saveBulletin(title: String, message: String, imageUrlStr: String) {
+        print(title,message,imageUrlStr)
+    }
+    
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

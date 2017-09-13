@@ -11,6 +11,8 @@ target 'SmyrilLine' do
   pod 'SwiftyJSON'
   pod 'SDWebImage'
   pod "MXParallaxHeader"
+  #pod 'SwiftR'
+  pod 'SignalRSwift', '~> 1.0.3'
   # Pods for SmyrilLine
 
   target 'SmyrilLineTests' do
