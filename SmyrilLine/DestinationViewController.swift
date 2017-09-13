@@ -138,8 +138,14 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let vw = UIView()
-        vw.backgroundColor = UIColor.clear
-        
+        if section == 0
+        {
+            vw.backgroundColor = UIColor.darkGray
+        }
+        else
+        {
+            vw.backgroundColor = UIColor.clear
+        }
         return vw
     }
     
