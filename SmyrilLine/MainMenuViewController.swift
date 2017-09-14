@@ -70,6 +70,8 @@ class MainMenuViewController: UIViewController,UICollectionViewDataSource,UIColl
             performSegue(withIdentifier: "restaurants", sender: self)
         case 4:
             performSegue(withIdentifier: "shipTracker", sender: self)
+        case 5:
+            performSegue(withIdentifier: "inbox", sender: self)
         case 6:
             performSegue(withIdentifier: "Destinations", sender: self)
         case 8:

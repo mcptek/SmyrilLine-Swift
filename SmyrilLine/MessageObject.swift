@@ -9,9 +9,19 @@
 import UIKit
 
 class Message {
-    var memberName: String?
+    let messageTitle: String?
+    let messageDetails: String?
+    let messageUrlStr: String?
+    let messageId: String?
+    let messageStatus: NSNumber?
+    let messageTime: Double?
     
-    init(name: String) {
-        memberName = name
+    init(title: String, details: String, imageUrl: String, idOfdMessage: String, status: NSNumber, time: Double) {
+        self.messageId = idOfdMessage
+        self.messageTitle = title
+        self.messageDetails = details
+        self.messageUrlStr = imageUrl
+        self.messageStatus = status
+        self.messageTime = time
     }
 }

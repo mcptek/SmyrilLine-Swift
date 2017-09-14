@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         //Added swift file
         self.createSocketConnection()
-        self.retrieveTotalUnreadMessage()
         return true
     }
 
@@ -202,6 +201,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 4
         do {
             try managedContext.save()
+            // Define identifier
+            let nc = NotificationCenter.default
+            nc.post(name: Notification.Name("InboxNotification"), object: nil)
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
@@ -255,12 +257,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func retrieveAllInboxMessages() {
+    func retrieveAllInboxMessages() -> [Message]? {
         let managedContext =
             self.persistentContainer.viewContext
         //2
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Inbox")
+//        var AllMessages: [Message]?
+        var AllMessages:[Message] = []
+        
+        do {
+            let messsageObject = try managedContext.fetch(fetchRequest)
+            for object in messsageObject
+            {
+                let title = object.value(forKey: "title") as! String
+                let details = object.value(forKey: "details") as! String
+                let imageUrlStr = object.value(forKey: "imageUrlStr") as! String
+                let messageId = object.value(forKey: "messageId") as! String
+                let messageStatus = object.value(forKey: "status") as! NSNumber
+                let time = object.value(forKey: "time") as! Double
+                let object = Message.init(title: title, details: details, imageUrl: imageUrlStr, idOfdMessage: messageId, status: messageStatus, time: time)
+                AllMessages.append(object)
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        return AllMessages
+    }
+    
+    func deleteMessageforMessageId(messageId: String)  {
+        let managedContext = self.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Inbox")
+        let predicate = NSPredicate(format: "messageId = '\(messageId)'")
+        fetchRequest.predicate = predicate
+        do
+        {
+            let test = try managedContext.fetch(fetchRequest)
+            if test.count == 1
+            {
+                let objectDelete = test[0]
+                managedContext.delete(objectDelete)
+            }
+        }
+        catch
+        {
+            print(error)
+        }
+
     }
 
 }
