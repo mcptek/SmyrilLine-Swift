@@ -19,7 +19,12 @@ class InboxDetailsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.layer.cornerRadius = 2
+        self.layer.masksToBounds = true
+        self.layer.cornerRadius = 2
+        self.layer.masksToBounds = true
     }
+
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

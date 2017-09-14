@@ -69,6 +69,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         StreamingConnection.sharedInstance.connection.error = { error in
             print("Error")
+            if UIApplication.shared.applicationState == .active
+            {
+                StreamingConnection.sharedInstance.connection.stop()
+                StreamingConnection.sharedInstance.connection.start()
+            }
         }
         
         StreamingConnection.sharedInstance.connection.start()
@@ -77,6 +82,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func saveBulletin(title: String, message: String, imageUrlStr: String) {
         self.saveMeesageWith(messageId: self.retrieveMessageId(), messageTitle: title, messageDetails: message, imageUrlStr: imageUrlStr, UnixTime: NSDate().timeIntervalSince1970)
+        if UIApplication.shared.applicationState == .active
+        {
+            let alert = UIAlertController(title: "Notification", message:title, preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        }
     }
     
     
