@@ -29,12 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         StreamingConnection.sharedInstance.connection.started = {
             print("Connected")
             let language = "en"
-            let AppVersion = "1.2"//Bundle.main.infoDictionary!["CFBundleVersion"] as! String
+            let AppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
             let phoneType = "iPhone Demo"
-            let phoneId = "asddff"//UIDevice.current.identifierForVendor
+            let phoneId = UIDevice.current.identifierForVendor?.uuidString
             let ageGroup = "All"
             let gender = "All"
-            StreamingConnection.sharedInstance.hub.invoke(method: "register", withArgs: [phoneId,phoneType,AppVersion,language,ageGroup,gender], completionHandler: { (result, error) in
+            StreamingConnection.sharedInstance.hub.invoke(method: "register", withArgs: [phoneId ?? "1234",phoneType,AppVersion ?? "1.0",language,ageGroup,gender], completionHandler: { (result, error) in
             })
             
             StreamingConnection.sharedInstance.hub.on(eventName: "register") { (args) in
@@ -42,12 +42,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
 
             StreamingConnection.sharedInstance.hub.on(eventName: "onBulletinSent") { (myArray) in
-               // StreamingConnection.sharedInstance.hub.invoke(method: "BulletinAck", withArgs: ["messagaeId"])
                 let dic = myArray[0] as? NSDictionary
                 let title = dic?.value(forKey: "title") ?? ""
                 let messageDetails = dic?.value(forKey: "description") ?? ""
                 let featuredImage = dic?.value(forKey: "image_url") ?? ""
                 self.saveBulletin(title: title as! String, message: messageDetails as! String, imageUrlStr: featuredImage as! String)
+                StreamingConnection.sharedInstance.hub.invoke(method: "BulletinAck", withArgs: [phoneId ?? "1234",dic?.value(forKey: "title") ?? "id"])
             }
         }
         
@@ -76,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func saveBulletin(title: String, message: String, imageUrlStr: String) {
-        self.saveMeesageWith(messageId: self.retrieveMessageId(), messageTitle: title, messageDetails: message, imageUrlStr: imageUrlStr, UnixTime: NSTimeIntervalSince1970)
+        self.saveMeesageWith(messageId: self.retrieveMessageId(), messageTitle: title, messageDetails: message, imageUrlStr: imageUrlStr, UnixTime: NSDate().timeIntervalSince1970)
     }
     
     
@@ -282,7 +282,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
-        return AllMessages
+        return AllMessages.reversed()
     }
     
     func deleteMessageforMessageId(messageId: String)  {

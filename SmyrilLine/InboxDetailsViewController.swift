@@ -93,12 +93,12 @@ class InboxDetailsViewController: UIViewController,UITableViewDataSource, UITabl
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d, yyyy hh:mm a"
         cell.messageDateLabel.text = dateFormatter.string(from: date as Date)
-        if let imageUrlStr = self.messageObject?.messageUrlStr
+        if (self.messageObject?.messageUrlStr?.characters.count)! > 0
         {
             cell.messageImageView.isHidden = false
             cell.messageImageView.sd_setShowActivityIndicatorView(true)
             cell.messageImageView.sd_setIndicatorStyle(.gray)
-            cell.messageImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+            cell.messageImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + (self.messageObject?.messageUrlStr)!), placeholderImage: UIImage.init(named: ""))
         }
         else
         {
