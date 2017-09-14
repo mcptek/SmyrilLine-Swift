@@ -37,6 +37,7 @@
 		849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */; };
 		84A8E51A1F6A75CA00B5E569 /* InboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E5191F6A75CA00B5E569 /* InboxTableViewCell.swift */; };
 		84A8E51C1F6A842C00B5E569 /* InboxDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E51B1F6A842C00B5E569 /* InboxDetailsViewController.swift */; };
+		84A8E51E1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E51D1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift */; };
 		84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */; };
 		84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */; };
 		84EE5E241F6A601A001B4CA4 /* MessageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE5E231F6A601A001B4CA4 /* MessageObject.swift */; };
@@ -94,6 +95,7 @@
 		849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		84A8E5191F6A75CA00B5E569 /* InboxTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxTableViewCell.swift; sourceTree = "<group>"; };
 		84A8E51B1F6A842C00B5E569 /* InboxDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxDetailsViewController.swift; sourceTree = "<group>"; };
+		84A8E51D1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
 		84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalRConnection.swift; sourceTree = "<group>"; };
 		84EE5E231F6A601A001B4CA4 /* MessageObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageObject.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */,
 				84A8E5191F6A75CA00B5E569 /* InboxTableViewCell.swift */,
 				84A8E51B1F6A842C00B5E569 /* InboxDetailsViewController.swift */,
+				84A8E51D1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift */,
 			);
 			name = Inbox;
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 				842ED4181F4E8E8C000366BF /* ShiptrackerViewController.swift in Sources */,
 				840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */,
 				840DA9F61F4C615C001B3382 /* MainMenuCollectionViewCell.swift in Sources */,
+				84A8E51E1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift in Sources */,
 				842ED41C1F4E9A76000366BF /* ShipTracker.swift in Sources */,
 				842308471F57CB15004A4166 /* DestinationCategoryViewController.swift in Sources */,
 				84A8E51A1F6A75CA00B5E569 /* InboxTableViewCell.swift in Sources */,

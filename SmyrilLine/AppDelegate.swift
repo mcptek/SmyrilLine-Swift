@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
 
             StreamingConnection.sharedInstance.hub.on(eventName: "onBulletinSent") { (myArray) in
-                StreamingConnection.sharedInstance.hub.invoke(method: "BulletinAck", withArgs: ["messagaeId"])
+               // StreamingConnection.sharedInstance.hub.invoke(method: "BulletinAck", withArgs: ["messagaeId"])
                 let dic = myArray[0] as? NSDictionary
                 let title = dic?.value(forKey: "title") ?? ""
                 let messageDetails = dic?.value(forKey: "description") ?? ""

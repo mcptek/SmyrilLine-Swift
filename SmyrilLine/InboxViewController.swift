@@ -71,15 +71,21 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
 
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "inboxDetails"
+        {
+            let vc = segue.destination as! InboxDetailsViewController
+            let indexPath = self.inboxTableview.indexPathForSelectedRow
+            vc.messageObject = self.messageArray?[(indexPath?.section)!]
+        }
     }
-    */
+    
 
     
     func numberOfSections(in tableView: UITableView) -> Int {
