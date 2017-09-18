@@ -9,6 +9,10 @@
 import UIKit
 import CoreData
 import SignalRSwift
+import Alamofire
+import SwiftyJSON
+import UserNotifications
+import ReachabilitySwift
 
 @available(iOS 10.0, *)
 @UIApplicationMain
@@ -21,9 +25,83 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         //Added swift file
         self.createSocketConnection()
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            // Enable or disable features based on authorization.
+        }
+        
         return true
     }
+    
+    
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
+        let time = UserDefaults.standard.value(forKey: "LastTime") as! String
+        let clientId =  UIDevice.current.identifierForVendor?.uuidString
+        let params: Parameters = [
+            "startTime": time,
+            "clientid": clientId!
+        ]
+        
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.quedBulletinPath, method:.post, parameters: params, encoding: URLEncoding.httpBody, headers: nil)
+            .responseJSON { (response) in
+                switch response.result {
+                case .success:
+                    
+                    if response.response?.statusCode == 200
+                    {
+                        
+                        if let json = response.result.value as? [Any]
+                        {
+                            var messageId = ""
+                            for object in json
+                            {
+                                let dic = object as? NSDictionary
+                                
+                                if let title = dic?.value(forKey: "title") as? String, let details = dic?.value(forKey: "description") as? String, let imageUrl = dic?.value(forKey: "image_url") as? String
+                                {
+                                    self.saveBulletin(title: title, message: details, imageUrlStr: imageUrl)
+                                }
+                                
+                                if let id = dic?.value(forKey: "id") as? NSNumber
+                                {
+                                    if messageId.characters.count > 0
+                                    {
+                                        messageId += ",\( String(describing: id))"
+                                    }
+                                    else
+                                    {
+                                        messageId = String(describing: id)
+                                    }
+                                }
+                            }
+                            
+                            if messageId.characters.count > 0
+                            {
+                                let bulletinAcknowledgementUrl = String(format: "/api/Schedule/AckQueuedBulletin?scheduleId=%@&clientId=%@", messageId, clientId!)
+                                print(UrlMCP.server_base_url + bulletinAcknowledgementUrl)
+                                Alamofire.request(UrlMCP.server_base_url + bulletinAcknowledgementUrl, method:.get, parameters: nil, encoding: URLEncoding.httpBody, headers: nil)
+                                    .responseJSON { (response) in
+                                        switch response.result {
+                                        case .success:
+                                            print("success")
+                                            completionHandler(.newData)
+                                        case .failure(_):
+                                            print(response.result.error?.localizedDescription ?? "Default warning!!")
+                                            completionHandler(.newData)
+                                        }
+                                }
+                            }
+                        }
+                    }
+                case .failure( _):
+                    print(response.result.error!)
+                    completionHandler(.failed)
+                }
+        }
+    }
+    
     func createSocketConnection()  {
         
         StreamingConnection.sharedInstance.connection.started = {
@@ -43,11 +121,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             StreamingConnection.sharedInstance.hub.on(eventName: "onBulletinSent") { (myArray) in
                 let dic = myArray[0] as? NSDictionary
-                let title = dic?.value(forKey: "title") ?? ""
-                let messageDetails = dic?.value(forKey: "description") ?? ""
-                let featuredImage = dic?.value(forKey: "image_url") ?? ""
-                self.saveBulletin(title: title as! String, message: messageDetails as! String, imageUrlStr: featuredImage as! String)
-                StreamingConnection.sharedInstance.hub.invoke(method: "BulletinAck", withArgs: [phoneId ?? "1234",dic?.value(forKey: "title") ?? "id"])
+                
+                if let title = dic?.value(forKey: "title") as? String, let details = dic?.value(forKey: "description") as? String, let imageUrl = dic?.value(forKey: "image_url") as? String, let id = dic?.value(forKey: "id") as? String
+                {
+                    self.saveBulletin(title: title, message: details, imageUrlStr: imageUrl)
+                    StreamingConnection.sharedInstance.hub.invoke(method: "BulletinAck", withArgs: [id, phoneId ?? "1234"])
+                }
             }
         }
         
@@ -68,7 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         StreamingConnection.sharedInstance.connection.error = { error in
-            print("Error")
+            print(error.localizedDescription)
             if UIApplication.shared.applicationState == .active
             {
                 StreamingConnection.sharedInstance.connection.stop()
@@ -82,12 +161,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func saveBulletin(title: String, message: String, imageUrlStr: String) {
         self.saveMeesageWith(messageId: self.retrieveMessageId(), messageTitle: title, messageDetails: message, imageUrlStr: imageUrlStr, UnixTime: NSDate().timeIntervalSince1970)
+        
+        let defaults = UserDefaults.standard
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        let desiredDate = dateFormatter.string(from: date)
+        defaults.set(desiredDate, forKey: "LastTime")
+
         if UIApplication.shared.applicationState == .active
         {
             let alert = UIAlertController(title: "Notification", message:title, preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.window?.rootViewController?.present(alert, animated: true, completion: nil)
         }
+        
+        let notification = UILocalNotification()
+        notification.alertBody = title
+        notification.soundName = UILocalNotificationDefaultSoundName
+        UIApplication.shared.scheduleLocalNotification(notification)
     }
     
     
@@ -99,10 +192,91 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
+        StreamingConnection.sharedInstance.connection.stop()
+        
+        let defaults = UserDefaults.standard
+        if defaults.value(forKey: "LastTime") is String
+        {
+        }
+        else
+        {
+            let date = Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+            let desiredDate = dateFormatter.string(from: date)
+            defaults.set(desiredDate, forKey: "LastTime")
+
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        
+        StreamingConnection.sharedInstance.connection.start()
+        
+        let time = UserDefaults.standard.value(forKey: "LastTime") as! String
+        let clientId =  UIDevice.current.identifierForVendor?.uuidString
+        let params: Parameters = [
+            "startTime": time,
+            "clientid": clientId!
+        ]
+        
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.quedBulletinPath, method:.post, parameters: params, encoding: URLEncoding.httpBody, headers: nil)
+            .responseJSON { (response) in
+                switch response.result {
+                case .success:
+                    
+                    if response.response?.statusCode == 200
+                    {
+                        
+                        if let json = response.result.value as? [Any]
+                        {
+                            var messageId = ""
+                            for object in json
+                            {
+                                let dic = object as? NSDictionary
+                                
+                                if let title = dic?.value(forKey: "title") as? String, let details = dic?.value(forKey: "description") as? String, let imageUrl = dic?.value(forKey: "image_url") as? String
+                                {
+                                    self.saveBulletin(title: title, message: details, imageUrlStr: imageUrl)
+                                }
+                                
+                                if let id = dic?.value(forKey: "id") as? NSNumber
+                                {
+                                    if messageId.characters.count > 0
+                                    {
+                                        messageId += ",\( String(describing: id))"
+                                    }
+                                    else
+                                    {
+                                        messageId = String(describing: id)
+                                    }
+                                }
+                            }
+                            
+                            if messageId.characters.count > 0
+                            {
+                                let bulletinAcknowledgementUrl = String(format: "/api/Schedule/AckQueuedBulletin?scheduleId=%@&clientId=%@", messageId, clientId!)
+                                print(UrlMCP.server_base_url + bulletinAcknowledgementUrl)
+                                Alamofire.request(UrlMCP.server_base_url + bulletinAcknowledgementUrl, method:.get, parameters: nil, encoding: URLEncoding.httpBody, headers: nil)
+                                    .responseJSON { (response) in
+                                        switch response.result {
+                                        case .success:
+                                            print("success")
+                                        case .failure(_):
+                                            print(response.result.error?.localizedDescription ?? "Default warning!!")
+                                        }
+                                }
+                            }
+                        }
+                    }
+                case .failure( _):
+                    print(response.result.error!)
+                }
+        }
+
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

@@ -81,6 +81,25 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
      }
      */
     
+    
+    
+//    func Acknodledge()  {
+////        http://stage-smy-wp.mcp.com:82/api/Schedule/AckQueuedBulletin?scheduleId=66,67&clientId=31E9A95C-DA3A-43B2-B009-4C2DEE6B7433
+//        let bulletinAcknowledgementUrl = String(format: "/api/Schedule/AckQueuedBulletin?scheduleId=%@&clientId=%@", messageId, clientId!)
+//       // print(UrlMCP.server_base_url + bulletinAcknowledgementUrl)
+//        Alamofire.request(UrlMCP.server_base_url + bulletinAcknowledgementUrl, method:.get, parameters: params, encoding: URLEncoding.httpBody, headers: nil)
+//            .responseJSON { (response) in
+//                switch response.result {
+//                case .success:
+//                    print("success")
+//                    completionHandler(.newData)
+//                case .failure(_):
+//                    print(response.result.error?.localizedDescription ?? "Default warning!!")
+//                    completionHandler(.newData)
+//                }
+//        }
+//    }
+    
     func CallShipInfoAPI() {
         self.activityIndicatorView.startAnimating()
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + "/Eng", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)

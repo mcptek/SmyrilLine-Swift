@@ -6,6 +6,7 @@ PODS:
   - Mapbox-iOS-SDK (3.6.1)
   - MXParallaxHeader (0.6.1)
   - ObjectMapper (2.2.8)
+  - ReachabilitySwift (3)
   - SDWebImage (4.1.0):
     - SDWebImage/Core (= 4.1.0)
   - SDWebImage/Core (4.1.0)
@@ -21,6 +22,7 @@ DEPENDENCIES:
   - AlamofireObjectMapper (~> 4.0)
   - Mapbox-iOS-SDK (~> 3.6)
   - MXParallaxHeader
+  - ReachabilitySwift (~> 3)
   - SDWebImage
   - SignalRSwift (~> 1.0.3)
   - SwiftyJSON
@@ -31,11 +33,12 @@ SPEC CHECKSUMS:
   Mapbox-iOS-SDK: 7dd2a0fd08e9444b9c47f6e8fd1c32509bce3243
   MXParallaxHeader: 858c403532ed933b381556a81ce333d7065ad182
   ObjectMapper: 3d571bb5af471c779e1160828cd9ad5c4ef90958
+  ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
   SDWebImage: 0e435c14e402a6730315a0fb79f95e68654d55a4
   SignalRSwift: 5846d7ec15a88dc8d9484576d407a4ff76fa8f31
   SwiftWebSocket: 1ef8a0efb023544643bdf480c1ec4a62b204f293
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: c16763dce36281dcd207c009d0e4981e4a14d6df
+PODFILE CHECKSUM: 58a6e34c25ec6dea88a8602dce67dcb7cb8b3059
 
 COCOAPODS: 1.2.1

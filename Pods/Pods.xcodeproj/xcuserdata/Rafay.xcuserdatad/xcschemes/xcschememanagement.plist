@@ -34,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>ReachabilitySwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,17 +62,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0F9220A1C7532220DB1843A056D8D103</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>1A6B58F8BFF39D53F7591A90B4359BB3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>276B93512C17A51E3E1A4F6D573D93D4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2F5622F3B18DF497981AB58C6D1FC72F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>46F1EFA28A152782CE04427F50EAD66C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6EB0C4484DDF719E74854B76E8B447CE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>711FAD2C8D4AFBD4D90A1D952F8C3B6B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,22 +102,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B3FFEEE430D4A30B902324C787D5D4BB</key>
+		<key>AC3FFC70A2D5445B386894B866044C71</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BE90CB485DA06C303BCC3FB7867C47EE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D8B1F32344D8B100F89CA12E71074156</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DC4D92136D372A2E168E7A0B2B6BF1F0</key>
+		<key>CC0257A05070A8C5F89D28298A69A4E2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
