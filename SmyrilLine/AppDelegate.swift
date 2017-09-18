@@ -110,8 +110,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let AppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
             let phoneType = "iPhone Demo"
             let phoneId = UIDevice.current.identifierForVendor?.uuidString
-            let ageGroup = "All"
-            let gender = "All"
+            let ageGroup = "all"
+            let gender = "both"
             StreamingConnection.sharedInstance.hub.invoke(method: "register", withArgs: [phoneId ?? "1234",phoneType,AppVersion ?? "1.0",language,ageGroup,gender], completionHandler: { (result, error) in
             })
             
@@ -121,8 +121,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             StreamingConnection.sharedInstance.hub.on(eventName: "onBulletinSent") { (myArray) in
                 let dic = myArray[0] as? NSDictionary
-                
-                if let title = dic?.value(forKey: "title") as? String, let details = dic?.value(forKey: "description") as? String, let imageUrl = dic?.value(forKey: "image_url") as? String, let id = dic?.value(forKey: "id") as? String
+                print(dic)
+                if let title = dic?.value(forKey: "title") as? String, let details = dic?.value(forKey: "description") as? String, let imageUrl = dic?.value(forKey: "image_url") as? String, let id = dic?.value(forKey: "id") as? NSNumber
                 {
                     self.saveBulletin(title: title, message: details, imageUrlStr: imageUrl)
                     StreamingConnection.sharedInstance.hub.invoke(method: "BulletinAck", withArgs: [id, phoneId ?? "1234"])
