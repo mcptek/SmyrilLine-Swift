@@ -34,6 +34,7 @@
 		842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4261F4F06F5000366BF /* Restaurants.swift */; };
 		8445F1581F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445F1571F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift */; };
 		8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */; };
+		846E60FB1F6FD55900AC0234 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */; };
 		849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */; };
 		84A8E51A1F6A75CA00B5E569 /* InboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E5191F6A75CA00B5E569 /* InboxTableViewCell.swift */; };
 		84A8E51C1F6A842C00B5E569 /* InboxDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E51B1F6A842C00B5E569 /* InboxDetailsViewController.swift */; };
@@ -92,6 +93,7 @@
 		842ED4261F4F06F5000366BF /* Restaurants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurants.swift; sourceTree = "<group>"; };
 		8445F1571F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipInfoViewController.swift; sourceTree = "<group>"; };
+		846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		84A8E5191F6A75CA00B5E569 /* InboxTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxTableViewCell.swift; sourceTree = "<group>"; };
 		84A8E51B1F6A842C00B5E569 /* InboxDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxDetailsViewController.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				842ED4161F4E8E64000366BF /* Ship Tracker */,
 				8445F1591F66BDC9004F8B67 /* Ship Info */,
 				842ED4211F4EFA4F000366BF /* Restaurants */,
+				846E60F91F6FD51F00AC0234 /* Setting */,
 			);
 			name = Stories;
 			sourceTree = "<group>";
@@ -262,6 +265,14 @@
 				8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */,
 			);
 			name = "Ship Info";
+			sourceTree = "<group>";
+		};
+		846E60F91F6FD51F00AC0234 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */,
+			);
+			name = Setting;
 			sourceTree = "<group>";
 		};
 		84AA0E4B1F692A7E00E4354A /* Inbox */ = {
@@ -528,6 +539,7 @@
 				84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */,
 				842ED4181F4E8E8C000366BF /* ShiptrackerViewController.swift in Sources */,
 				840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */,
+				846E60FB1F6FD55900AC0234 /* SettingsViewController.swift in Sources */,
 				840DA9F61F4C615C001B3382 /* MainMenuCollectionViewCell.swift in Sources */,
 				84A8E51E1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift in Sources */,
 				842ED41C1F4E9A76000366BF /* ShipTracker.swift in Sources */,

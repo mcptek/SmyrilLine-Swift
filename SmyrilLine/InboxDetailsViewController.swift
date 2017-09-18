@@ -19,8 +19,9 @@ class InboxDetailsViewController: UIViewController,UITableViewDataSource, UITabl
         // Do any additional setup after loading the view.
         
         self.navigationController?.navigationBar.isHidden = false
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
+        self.title = "Inbox"
+        //let navigationBar = navigationController!.navigationBar
+       // navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
         
         self.messageDetailsTableview.estimatedRowHeight = 250
         self.messageDetailsTableview.rowHeight = UITableViewAutomaticDimension
@@ -30,23 +31,22 @@ class InboxDetailsViewController: UIViewController,UITableViewDataSource, UITabl
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.title = "Inbox"
         self.navigationController?.navigationBar.isHidden = false
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.attachToScrollView(self.messageDetailsTableview)
+//        let navigationBar = navigationController!.navigationBar
+//        navigationBar.attachToScrollView(self.messageDetailsTableview)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        self.navigationController?.navigationBar.backItem?.title = ""
+       // self.navigationController?.navigationBar.backItem?.title = ""
         self.makeMessageRead()
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.reset()
+//        let navigationBar = navigationController!.navigationBar
+//        navigationBar.reset()
     }
     
     override func didReceiveMemoryWarning() {

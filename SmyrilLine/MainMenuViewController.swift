@@ -17,6 +17,7 @@ class MainMenuViewController: UIViewController,UICollectionViewDataSource,UIColl
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.navigationController?.navigationBar.isHidden = true
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,6 +75,8 @@ class MainMenuViewController: UIViewController,UICollectionViewDataSource,UIColl
             performSegue(withIdentifier: "inbox", sender: self)
         case 6:
             performSegue(withIdentifier: "Destinations", sender: self)
+        case 7:
+            performSegue(withIdentifier: "settings", sender: self)
         case 8:
             performSegue(withIdentifier: "shipInfo", sender: self)
         default:

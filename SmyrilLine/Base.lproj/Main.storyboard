@@ -118,6 +118,7 @@
                         <segue destination="oMJ-cm-Ntn" kind="show" identifier="taxFree" id="j9S-5z-586"/>
                         <segue destination="ruF-2Q-Zzl" kind="show" identifier="shipInfo" id="2qx-vi-1Dr"/>
                         <segue destination="erD-jc-MZz" kind="show" identifier="inbox" id="eWX-xX-HhP"/>
+                        <segue destination="Edo-Z9-o1k" kind="show" identifier="settings" id="jWZ-9d-UwT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -129,7 +130,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MFR-go-1TD" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="VH4-4D-tdg">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="VH4-4D-tdg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -166,7 +167,7 @@
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="restaurantCell" rowHeight="275" id="CEI-ad-yo7" customClass="RestaurantTableViewCell" customModule="SmyrilLine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="275"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="275"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CEI-ad-yo7" id="6Wp-h9-RCW">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="275"/>
@@ -411,7 +412,7 @@
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="destinationCell" rowHeight="275" id="kjh-cj-TPc" customClass="DestinationTableViewCell" customModule="SmyrilLine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="275"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="275"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kjh-cj-TPc" id="AXB-4f-qHO">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="275"/>
@@ -1030,6 +1031,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7eg-hc-j8y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4165.6000000000004" y="196.55172413793105"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="RgP-FO-pPt">
+            <objects>
+                <viewController id="Edo-Z9-o1k" customClass="SettingsViewController" customModule="SmyrilLine" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TXa-8i-SJH"/>
+                        <viewControllerLayoutGuide type="bottom" id="yos-k3-BB7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Yrm-HA-5JX">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AbS-wV-MD2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5134" y="197"/>
         </scene>
         <!--Inbox Details View Controller-->
         <scene sceneID="eq5-a7-zpw">

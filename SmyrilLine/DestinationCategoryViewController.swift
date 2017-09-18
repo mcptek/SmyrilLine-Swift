@@ -28,8 +28,9 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
 
         // Do any additional setup after loading the view.
         self.navigationController?.navigationBar.isHidden = false
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
+        self.title = self.destinationName
+//        let navigationBar = navigationController!.navigationBar
+//        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
         self.categoryTableview.estimatedRowHeight = 140
         self.categoryTableview.rowHeight = UITableViewAutomaticDimension
         
@@ -47,21 +48,20 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.title = self.destinationName
-        self.navigationController?.navigationBar.isHidden = false
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.attachToScrollView(self.categoryTableview)
+        //self.navigationController?.navigationBar.isHidden = false
+//        let navigationBar = navigationController!.navigationBar
+//        navigationBar.attachToScrollView(self.categoryTableview)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.reset()
+//        let navigationBar = navigationController!.navigationBar
+//        navigationBar.reset()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        self.navigationController?.navigationBar.backItem?.title = ""
+//        self.navigationController?.navigationBar.backItem?.title = ""
         self.CallDestinationCategoryAPI()
     }
     

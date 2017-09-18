@@ -28,8 +28,9 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
         // Do any additional setup after loading the view.
         
         self.navigationController?.navigationBar.isHidden = false
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
+        self.title = "Ship Info"
+//        let navigationBar = navigationController!.navigationBar
+//        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
         self.shipInfotableView.estimatedRowHeight = 140
         self.shipInfotableView.rowHeight = UITableViewAutomaticDimension
         
@@ -48,21 +49,21 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.title = "Ship Info"
+        //self.title = "Ship Info"
         self.navigationController?.navigationBar.isHidden = false
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.attachToScrollView(self.shipInfotableView)
+//        let navigationBar = navigationController!.navigationBar
+//        navigationBar.attachToScrollView(self.shipInfotableView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.reset()
+//        let navigationBar = navigationController!.navigationBar
+//        navigationBar.reset()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        self.navigationController?.navigationBar.backItem?.title = ""
+       // self.navigationController?.navigationBar.backItem?.title = ""
         self.CallShipInfoAPI()
     }
     

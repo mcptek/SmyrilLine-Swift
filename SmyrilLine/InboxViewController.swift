@@ -20,8 +20,10 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         // Do any additional setup after loading the view.
         
         self.navigationController?.navigationBar.isHidden = false
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
+        self.title = "Inbox"
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Bacl", style: .plain, target: nil, action: nil)
+        //let navigationBar = navigationController!.navigationBar
+        //navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
         
         self.inboxTableview.estimatedRowHeight = 150
         self.inboxTableview.rowHeight = UITableViewAutomaticDimension
@@ -30,7 +32,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        self.navigationController?.navigationBar.backItem?.title = ""
+        //self.navigationController?.navigationBar.backItem?.title = ""
         self.newMessageReceived()
         
     }
@@ -40,18 +42,17 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         super.viewWillAppear(animated)
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(newMessageReceived), name: Notification.Name("InboxNotification"), object: nil)
-        self.title = "Inbox"
         self.navigationController?.navigationBar.isHidden = false
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.attachToScrollView(self.inboxTableview)
+       // let navigationBar = navigationController!.navigationBar
+       // navigationBar.attachToScrollView(self.inboxTableview)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         let nc = NotificationCenter.default
         nc.removeObserver(self, name: Notification.Name("InboxNotification"), object: nil)
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.reset()
+       // let navigationBar = navigationController!.navigationBar
+       // navigationBar.reset()
     }
     
     override func didReceiveMemoryWarning() {
