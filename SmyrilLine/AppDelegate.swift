@@ -19,7 +19,7 @@ import ReachabilitySwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    //let reachability = Reachability()!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -31,10 +31,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Enable or disable features based on authorization.
         }
         
+        ReachabilityManager.shared.startMonitoring()
         return true
     }
     
+    /*
+    func startMonitoring() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.reachabilityChanged),
+                                               name: ReachabilityChangedNotification,
+                                               object: reachability)
+        do{
+            try reachability.startNotifier()
+        } catch {
+            debugPrint("Could not start reachability notifier")
+        }
+    }
     
+    func reachabilityChanged(notification: Notification) {
+        let reachability = notification.object as! Reachability
+        switch reachability.currentReachabilityStatus {
+        case .notReachable:
+            debugPrint("Network became unreachable")
+        case .reachableViaWiFi:
+            debugPrint("Network reachable through WiFi")
+        case .reachableViaWWAN:
+            debugPrint("Network reachable through Cellular Data")
+        }
+    }
+    */
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
         let time = UserDefaults.standard.value(forKey: "LastTime") as! String
@@ -192,7 +217,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        
+        ReachabilityManager.shared.stopMonitoring()
         StreamingConnection.sharedInstance.connection.stop()
         
         let defaults = UserDefaults.standard
@@ -214,6 +239,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         
+        ReachabilityManager.shared.startMonitoring()
         StreamingConnection.sharedInstance.connection.start()
         
         let time = UserDefaults.standard.value(forKey: "LastTime") as! String

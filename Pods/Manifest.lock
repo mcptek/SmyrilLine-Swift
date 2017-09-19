@@ -22,7 +22,7 @@ DEPENDENCIES:
   - AlamofireObjectMapper (~> 4.0)
   - Mapbox-iOS-SDK (~> 3.6)
   - MXParallaxHeader
-  - ReachabilitySwift (~> 3)
+  - ReachabilitySwift
   - SDWebImage
   - SignalRSwift (~> 1.0.3)
   - SwiftyJSON
@@ -39,6 +39,6 @@ SPEC CHECKSUMS:
   SwiftWebSocket: 1ef8a0efb023544643bdf480c1ec4a62b204f293
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 58a6e34c25ec6dea88a8602dce67dcb7cb8b3059
+PODFILE CHECKSUM: e11b7300e24e69b1b5e84bc903d3357acae94e5f
 
 COCOAPODS: 1.2.1

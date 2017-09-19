@@ -15,6 +15,7 @@ target 'SmyrilLine' do
   #pod 'SwiftR'
   pod 'SignalRSwift', '~> 1.0.3'
   pod ‘ReachabilitySwift’, ‘~> 3’
+  #pod 'ReachabilitySwift'
   # Pods for SmyrilLine
 
   target 'SmyrilLineTests' do
