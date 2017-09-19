@@ -508,6 +508,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             {
                 let objectDelete = test[0]
                 managedContext.delete(objectDelete)
+                try managedContext.save()
             }
         }
         catch

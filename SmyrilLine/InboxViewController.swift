@@ -21,7 +21,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
         self.navigationController?.navigationBar.isHidden = false
         self.title = "Inbox"
-        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Bacl", style: .plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
         //let navigationBar = navigationController!.navigationBar
         //navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
         
@@ -33,13 +33,13 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         //self.navigationController?.navigationBar.backItem?.title = ""
-        self.newMessageReceived()
         
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.newMessageReceived()
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(newMessageReceived), name: Notification.Name("InboxNotification"), object: nil)
         self.navigationController?.navigationBar.isHidden = false
@@ -119,22 +119,27 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         dateFormatter.dateFormat = "MMM d"
         
         cell.messageDateLabel.text = dateFormatter.string(from: date as Date)
-        
-        
-//        cell.destinationName.text = self.destinaionArray?[indexPath.section].name
-//        if let imageUrlStr = self.destinaionArray?[indexPath.section].imageUrl
-//        {
-//            cell.destinationImageView.sd_setShowActivityIndicatorView(true)
-//            cell.destinationImageView.sd_setIndicatorStyle(.gray)
-//            cell.destinationImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
-//            
-//        }
         cell.selectionStyle = .none
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if #available(iOS 10.0, *) {
+                let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                messageObject = self.messageArray?[indexPath.section]
+                appDelegate?.deleteMessageforMessageId(messageId: (messageObject?.messageId)!)
+                self.messageArray?.removeAll()
+                self.messageArray = appDelegate?.retrieveAllInboxMessages()
+                self.inboxTableview.reloadData()
+            } else {
+                // Fallback on earlier versions
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
