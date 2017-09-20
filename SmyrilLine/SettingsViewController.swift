@@ -7,16 +7,22 @@
 //
 
 import UIKit
+import Device_swift
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
 
+    let ageGroupArray = ["Adult (from 15 yr)","Child 12 - 15 yr","Child 3 - 11 yr","All"]
+    let genderArray = ["Male","Female","Both"]
+    var settingDic = [String:Bool]()
+    
+    @IBOutlet weak var settingsCollectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         self.navigationController?.navigationBar.isHidden = false
         self.title = "Settings"
-        
+        self.loadSettingsdata()
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,5 +40,242 @@ class SettingsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func loadSettingsdata()  {
+        let defaults = UserDefaults.standard
+        if defaults.value(forKey: "Adult (from 15 yr)") is Bool
+        {
+            self.settingDic["Adult (from 15 yr)"] = defaults.value(forKey: "Adult (from 15 yr)") as? Bool
+        }
+        else
+        {
+            defaults.set(false, forKey: "Adult (from 15 yr)")
+            self.settingDic["Adult (from 15 yr)"] = true
+        }
+        
+        if defaults.value(forKey: "Child 12 - 15 yr") is Bool
+        {
+            self.settingDic["Child 12 - 15 yr"] = defaults.value(forKey: "Child 12 - 15 yr") as? Bool
+        }
+        else
+        {
+            defaults.set(false, forKey: "Child 12 - 15 yr")
+            self.settingDic["Child 12 - 15 yr"] = true
+        }
+        
+        if defaults.value(forKey: "Child 3 - 11 yr") is Bool
+        {
+            self.settingDic["Child 3 - 11 yr"] = defaults.value(forKey: "Child 3 - 11 yr") as? Bool
+        }
+        else
+        {
+            defaults.set(false, forKey: "Child 3 - 11 yr")
+            self.settingDic["Child 3 - 11 yr"] = true
+        }
+        
+        if defaults.value(forKey: "All") is Bool
+        {
+            self.settingDic["All"] = defaults.value(forKey: "All") as? Bool
+        }
+        else
+        {
+            defaults.set(false, forKey: "All")
+            self.settingDic["All"] = true
+        }
+        
+        if defaults.value(forKey: "Male") is Bool
+        {
+            self.settingDic["Male"] = defaults.value(forKey: "Male") as? Bool
+        }
+        else
+        {
+            defaults.set(false, forKey: "Male")
+            self.settingDic["Male"] = true
+        }
+        
+        if defaults.value(forKey: "Female") is Bool
+        {
+            self.settingDic["Female"] = defaults.value(forKey: "Female") as? Bool
+        }
+        else
+        {
+            defaults.set(false, forKey: "Female")
+            self.settingDic["Female"] = true
+        }
+        
+        if defaults.value(forKey: "Both") is Bool
+        {
+            self.settingDic["Both"] = defaults.value(forKey: "Both") as? Bool
+        }
+        else
+        {
+            defaults.set(false, forKey: "Both")
+            self.settingDic["Both"] = true
+        }
+        self.settingsCollectionView.reloadData()
+    }
+    
+    @IBAction func settingsSaveAction(_ sender: Any) {
+    }
+    
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int
+    {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        if section == 0
+        {
+            return 4
+        }
+        else
+        {
+            return 3
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "settingsCell", for: indexPath) as! SettingsCollectionViewCell
+        if indexPath.section == 0
+        {
+            cell.categoryNameLabel.text = self.ageGroupArray[indexPath.row]
+            cell.categoryImageView.image = UIImage.init(named: self.ageGroupArray[indexPath.row])
+            if self.settingDic[self.ageGroupArray[indexPath.row]]!
+            {
+                cell.transparentImageView.backgroundColor = UIColor.black
+                cell.categorySelectionImageView.isHidden = false
+            }
+            else
+            {
+                cell.transparentImageView.backgroundColor = UIColor.white
+                cell.categorySelectionImageView.isHidden = true
+            }
+        }
+        else
+        {
+            cell.categoryNameLabel.text = self.genderArray[indexPath.row]
+            cell.categoryImageView.image = UIImage.init(named: self.genderArray[indexPath.row])
+            if self.settingDic[self.genderArray[indexPath.row]]!
+            {
+                cell.transparentImageView.backgroundColor = UIColor.black
+                cell.categorySelectionImageView.isHidden = false
+            }
+            else
+            {
+                cell.transparentImageView.backgroundColor = UIColor.white
+                cell.categorySelectionImageView.isHidden = true
+            }
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        if indexPath.section == 0
+        {
+            if indexPath.row == 3
+            {
+                if self.settingDic[self.ageGroupArray[indexPath.row]]!
+                {
+                    self.settingDic[self.ageGroupArray[indexPath.row]] = false
+                    self.settingDic[self.ageGroupArray[0]] = false
+                    self.settingDic[self.ageGroupArray[1]] = false
+                    self.settingDic[self.ageGroupArray[2]] = false
+                }
+                else
+                {
+                    self.settingDic[self.ageGroupArray[indexPath.row]] = true
+                    self.settingDic[self.ageGroupArray[0]] = true
+                    self.settingDic[self.ageGroupArray[1]] = true
+                    self.settingDic[self.ageGroupArray[2]] = true
+                }
+            }
+            else
+            {
+                if self.settingDic[self.ageGroupArray[indexPath.row]]!
+                {
+                    self.settingDic[self.ageGroupArray[indexPath.row]] = false
+                    self.settingDic[self.ageGroupArray[3]] = false
+                }
+                else
+                {
+                    self.settingDic[self.ageGroupArray[indexPath.row]] = true
+                }
+            }
+            if self.settingDic[self.ageGroupArray[0]]! && self.settingDic[self.ageGroupArray[1]]!  && self.settingDic[self.ageGroupArray[2]]!
+            {
+                self.settingDic[self.ageGroupArray[3]] = true
+            }
+            
+        }
+        else
+        {
+            if indexPath.row == 2
+            {
+                if self.settingDic[self.genderArray[indexPath.row]]!
+                {
+                    self.settingDic[self.genderArray[indexPath.row]] = false
+                    self.settingDic[self.genderArray[0]] = false
+                    self.settingDic[self.genderArray[1]] = false
+                }
+                else
+                {
+                    self.settingDic[self.genderArray[indexPath.row]] = true
+                    self.settingDic[self.genderArray[0]] = true
+                    self.settingDic[self.genderArray[1]] = true
+                }
+            }
+            else
+            {
+                if self.settingDic[self.genderArray[indexPath.row]]!
+                {
+                    self.settingDic[self.genderArray[indexPath.row]] = false
+                    self.settingDic[self.genderArray[2]] = false
+                }
+                else
+                {
+                    self.settingDic[self.genderArray[indexPath.row]] = true
+                }
+            }
+            
+            if self.settingDic[self.genderArray[0]]! && self.settingDic[self.genderArray[1]]!
+            {
+                self.settingDic[self.genderArray[2]] = true
+            }
+        }
+        self.settingsCollectionView.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
+    {
+        return UIEdgeInsetsMake(16.0, 16.0, 16.0, 16.0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
+    {
+        return 8.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
+    {
+        return 8.0
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+    {
+        let deviceType = UIDevice.current.deviceType
+        switch deviceType {
+        case .iPhone6SPlus:
+            return CGSize(width: 100, height: 120)
+        case .iPhone6S:
+            return CGSize(width: 100, height: 120)
+        default:
+            return CGSize(width: 100, height: 120)
+        }
+    }
 
 }

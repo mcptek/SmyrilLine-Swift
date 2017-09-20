@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '711FAD2C8D4AFBD4D90A1D952F8C3B6B'
+               BlueprintIdentifier = '5ADB878654342A1A3150324ABB4DB57B'
                BlueprintName = 'SignalRSwift'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'SignalRSwift.framework'>
