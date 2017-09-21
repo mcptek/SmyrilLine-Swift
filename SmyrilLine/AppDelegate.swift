@@ -13,6 +13,7 @@ import Alamofire
 import SwiftyJSON
 import UserNotifications
 import ReachabilitySwift
+import Device_swift
 
 @available(iOS 10.0, *)
 @UIApplicationMain
@@ -128,16 +129,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func createSocketConnection()  {
-        
         StreamingConnection.sharedInstance.connection.started = {
             print("Connected")
             let language = "en"
             let AppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-            let phoneType = "iPhone Demo"
+            let phoneType = UIDevice.current.deviceType
             let phoneId = UIDevice.current.identifierForVendor?.uuidString
             let ageGroup = "all"
             let gender = "both"
-            StreamingConnection.sharedInstance.hub.invoke(method: "register", withArgs: [phoneId ?? "1234",phoneType,AppVersion ?? "1.0",language,ageGroup,gender], completionHandler: { (result, error) in
+            StreamingConnection.sharedInstance.hub.invoke(method: "register", withArgs: [phoneId ?? "1234",String(describing: phoneType),AppVersion ?? "1.0",language,ageGroup,gender], completionHandler: { (result, error) in
             })
             
             StreamingConnection.sharedInstance.hub.on(eventName: "register") { (args) in
@@ -146,7 +146,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             StreamingConnection.sharedInstance.hub.on(eventName: "onBulletinSent") { (myArray) in
                 let dic = myArray[0] as? NSDictionary
-                print(dic)
                 if let title = dic?.value(forKey: "title") as? String, let details = dic?.value(forKey: "description") as? String, let imageUrl = dic?.value(forKey: "image_url") as? String, let id = dic?.value(forKey: "id") as? NSNumber
                 {
                     self.saveBulletin(title: title, message: details, imageUrlStr: imageUrl)

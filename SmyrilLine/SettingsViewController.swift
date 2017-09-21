@@ -49,7 +49,7 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
         else
         {
-            defaults.set(false, forKey: "Adult (from 15 yr)")
+            defaults.set(true, forKey: "Adult (from 15 yr)")
             self.settingDic["Adult (from 15 yr)"] = true
         }
         
@@ -59,7 +59,7 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
         else
         {
-            defaults.set(false, forKey: "Child 12 - 15 yr")
+            defaults.set(true, forKey: "Child 12 - 15 yr")
             self.settingDic["Child 12 - 15 yr"] = true
         }
         
@@ -69,7 +69,7 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
         else
         {
-            defaults.set(false, forKey: "Child 3 - 11 yr")
+            defaults.set(true, forKey: "Child 3 - 11 yr")
             self.settingDic["Child 3 - 11 yr"] = true
         }
         
@@ -79,7 +79,7 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
         else
         {
-            defaults.set(false, forKey: "All")
+            defaults.set(true, forKey: "All")
             self.settingDic["All"] = true
         }
         
@@ -89,7 +89,7 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
         else
         {
-            defaults.set(false, forKey: "Male")
+            defaults.set(true, forKey: "Male")
             self.settingDic["Male"] = true
         }
         
@@ -99,7 +99,7 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
         else
         {
-            defaults.set(false, forKey: "Female")
+            defaults.set(true, forKey: "Female")
             self.settingDic["Female"] = true
         }
         
@@ -109,13 +109,22 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
         else
         {
-            defaults.set(false, forKey: "Both")
+            defaults.set(true, forKey: "Both")
             self.settingDic["Both"] = true
         }
         self.settingsCollectionView.reloadData()
     }
     
     @IBAction func settingsSaveAction(_ sender: Any) {
+        let defaults = UserDefaults.standard
+        defaults.set(self.settingDic["Adult (from 15 yr)"], forKey: "Adult (from 15 yr)")
+        defaults.set(self.settingDic["Child 12 - 15 yr"], forKey: "Child 12 - 15 yr")
+        defaults.set(self.settingDic["Child 3 - 11 yr"], forKey: "Child 3 - 11 yr")
+        defaults.set(self.settingDic["All"], forKey: "All")
+        defaults.set(self.settingDic["Male"], forKey: "Male")
+        defaults.set(self.settingDic["Female"], forKey: "Female")
+        defaults.set(self.settingDic["Both"], forKey: "Both")
+        self.displayToast(alertMsg: "Age group and gender recipient saved.")
     }
     
     
@@ -248,6 +257,45 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
         self.settingsCollectionView.reloadData()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.size.width, height: 35)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize
+    {
+        return CGSize(width: collectionView.frame.size.width, height: 15)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
+    {
+        switch kind {
+            
+        case UICollectionElementKindSectionHeader:
+            
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCell", for: indexPath as IndexPath) as! HeaderCollectionReusableView
+            if indexPath.section == 0
+            {
+                headerView.titlaLabel.text = "Age group"
+            }
+            else
+            {
+                headerView.titlaLabel.text = "Gender"
+            }
+            headerView.backgroundColor = UIColor.clear
+            return headerView
+            
+        case UICollectionElementKindSectionFooter:
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerCell", for: indexPath as IndexPath)
+            footerView.backgroundColor = UIColor.clear
+            return footerView
+            
+        default:
+            
+            assert(false, "Unexpected element kind")
+        }
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
     {

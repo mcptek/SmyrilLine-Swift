@@ -20,7 +20,7 @@ class SettingsCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.layer.borderWidth = 2
+        self.layer.borderWidth = 1
         let color = UIColor(colorLiteralRed: 19/255, green: 148/255, blue: 255/255, alpha: 1.0)
         self.layer.borderColor = color.cgColor
         // Initialization code
