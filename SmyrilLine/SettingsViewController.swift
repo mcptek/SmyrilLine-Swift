@@ -20,6 +20,7 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        settingsCollectionView.backgroundColor = UIColor.white.withAlphaComponent(0.8)
         self.navigationController?.navigationBar.isHidden = false
         self.title = "Settings"
         self.loadSettingsdata()
