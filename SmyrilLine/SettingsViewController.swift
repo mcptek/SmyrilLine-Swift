@@ -117,15 +117,6 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
     
     @IBAction func settingsSaveAction(_ sender: Any) {
         let defaults = UserDefaults.standard
-        defaults.set(self.settingDic["Adult (from 15 yr)"], forKey: "Adult (from 15 yr)")
-        defaults.set(self.settingDic["Child 12 - 15 yr"], forKey: "Child 12 - 15 yr")
-        defaults.set(self.settingDic["Child 3 - 11 yr"], forKey: "Child 3 - 11 yr")
-        defaults.set(self.settingDic["All"], forKey: "All")
-        defaults.set(self.settingDic["Male"], forKey: "Male")
-        defaults.set(self.settingDic["Female"], forKey: "Female")
-        defaults.set(self.settingDic["Both"], forKey: "Both")
-        self.displayToast(alertMsg: "Age group and gender recipient saved.")
-        
         var ageGroup = ""
         var genderGroup = ""
         if self.settingDic["All"]!
@@ -185,15 +176,45 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
                 }
             }
         }
-        defaults.set(ageGroup, forKey: "ageSettings")
-        defaults.set(genderGroup, forKey: "genderSettings")
-        StreamingConnection.sharedInstance.connection.stop()
-        if #available(iOS 10.0, *) {
-            let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            appDelegate?.createSocketConnection()
-        } else {
-            // Fallback on earlier versions
+        
+        if ageGroup.characters.count > 0 && genderGroup.characters.count > 0
+        {
+            self.saveMessageSettings()
+            defaults.set(ageGroup, forKey: "ageSettings")
+            defaults.set(genderGroup, forKey: "genderSettings")
+            StreamingConnection.sharedInstance.connection.stop()
+            if #available(iOS 10.0, *) {
+                let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                appDelegate?.createSocketConnection()
+            } else {
+                // Fallback on earlier versions
+            }
         }
+        else
+        {
+            var message = ""
+            if ageGroup.characters.count == 0
+            {
+                message = "Please select an age group."
+            }
+            else if genderGroup.characters.count == 0
+            {
+                message = "Please select a gender group."
+            }
+            self.showAlert(title: "Error", message: message)
+        }
+    }
+    
+    func saveMessageSettings()  {
+        let defaults = UserDefaults.standard
+        defaults.set(self.settingDic["Adult (from 15 yr)"], forKey: "Adult (from 15 yr)")
+        defaults.set(self.settingDic["Child 12 - 15 yr"], forKey: "Child 12 - 15 yr")
+        defaults.set(self.settingDic["Child 3 - 11 yr"], forKey: "Child 3 - 11 yr")
+        defaults.set(self.settingDic["All"], forKey: "All")
+        defaults.set(self.settingDic["Male"], forKey: "Male")
+        defaults.set(self.settingDic["Female"], forKey: "Female")
+        defaults.set(self.settingDic["Both"], forKey: "Both")
+        self.displayToast(alertMsg: "Age group and gender recipient saved.")
     }
     
     
