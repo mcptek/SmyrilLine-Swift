@@ -1094,10 +1094,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check-sign" translatesAutoresizingMaskIntoConstraints="NO" id="bWN-Cl-3Yn">
-                                                    <rect key="frame" x="116" y="5" width="16" height="16"/>
+                                                    <rect key="frame" x="112" y="5" width="21" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="16" id="eZY-XH-gzP"/>
-                                                        <constraint firstAttribute="height" constant="16" id="iee-Jq-dzw"/>
+                                                        <constraint firstAttribute="width" constant="21" id="A3M-dl-0kJ"/>
+                                                        <constraint firstAttribute="height" constant="21" id="OR3-ho-gcR"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
@@ -1111,12 +1111,12 @@
                                             <constraint firstAttribute="trailing" secondItem="6lB-rr-PTj" secondAttribute="trailing" id="MaH-CS-Bzu"/>
                                             <constraint firstItem="1pr-MX-Pgg" firstAttribute="leading" secondItem="vkR-7J-eia" secondAttribute="leading" constant="8" id="Nn5-wP-acH"/>
                                             <constraint firstAttribute="trailing" secondItem="1pr-MX-Pgg" secondAttribute="trailing" constant="8" id="PNg-p0-hAz"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="bWN-Cl-3Yn" secondAttribute="trailing" constant="8" id="Zw2-dd-ZCm"/>
                                             <constraint firstAttribute="bottom" secondItem="6lB-rr-PTj" secondAttribute="bottom" id="ex9-aY-RyO"/>
                                             <constraint firstItem="1pr-MX-Pgg" firstAttribute="top" secondItem="XeP-yu-Zgu" secondAttribute="bottom" constant="4" id="g0a-NR-rGL"/>
                                             <constraint firstAttribute="trailing" secondItem="XeP-yu-Zgu" secondAttribute="trailing" constant="12" id="h0k-XV-Bge"/>
                                             <constraint firstItem="6lB-rr-PTj" firstAttribute="leading" secondItem="vkR-7J-eia" secondAttribute="leading" id="hRf-ne-yXW"/>
-                                            <constraint firstItem="bWN-Cl-3Yn" firstAttribute="top" secondItem="vkR-7J-eia" secondAttribute="topMargin" constant="5" id="rJt-pi-ejd"/>
+                                            <constraint firstItem="bWN-Cl-3Yn" firstAttribute="top" secondItem="vkR-7J-eia" secondAttribute="top" constant="5" id="nyp-8f-YtR"/>
+                                            <constraint firstAttribute="trailing" secondItem="bWN-Cl-3Yn" secondAttribute="trailing" constant="7" id="zRj-c2-d5x"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="categoryImageView" destination="Bvh-Pu-894" id="xR8-qT-Gtv"/>
@@ -1328,7 +1328,7 @@
         <image name="Background-image" width="414" height="736"/>
         <image name="Child 12 - 15 yr" width="32" height="36"/>
         <image name="ShipDetailsPlusIcon" width="30" height="29"/>
-        <image name="check-sign" width="32" height="32"/>
+        <image name="check-sign" width="21" height="21"/>
         <image name="product-container" width="186" height="219"/>
     </resources>
 </document>

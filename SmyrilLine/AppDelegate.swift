@@ -135,9 +135,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let AppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
             let phoneType = UIDevice.current.deviceType
             let phoneId = UIDevice.current.identifierForVendor?.uuidString
-            let ageGroup = "all"
-            let gender = "both"
-            StreamingConnection.sharedInstance.hub.invoke(method: "register", withArgs: [phoneId ?? "1234",String(describing: phoneType),AppVersion ?? "1.0",language,ageGroup,gender], completionHandler: { (result, error) in
+            let ageGroup = UserDefaults.standard.value(forKey: "ageSettings")
+            let gender = UserDefaults.standard.value(forKey: "genderSettings")
+            StreamingConnection.sharedInstance.hub.invoke(method: "register", withArgs: [phoneId ?? "1234",String(describing: phoneType),AppVersion ?? "1.0",language,ageGroup ?? "all",gender ?? "both"], completionHandler: { (result, error) in
             })
             
             StreamingConnection.sharedInstance.hub.on(eventName: "register") { (args) in

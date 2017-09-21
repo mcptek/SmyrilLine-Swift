@@ -125,6 +125,75 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         defaults.set(self.settingDic["Female"], forKey: "Female")
         defaults.set(self.settingDic["Both"], forKey: "Both")
         self.displayToast(alertMsg: "Age group and gender recipient saved.")
+        
+        var ageGroup = ""
+        var genderGroup = ""
+        if self.settingDic["All"]!
+        {
+            ageGroup = "all"
+        }
+        else
+        {
+            if self.settingDic["Adult (from 15 yr)"]!
+            {
+                ageGroup = "adult"
+            }
+            if self.settingDic["Child 12 - 15 yr"]!
+            {
+                if ageGroup.characters.count > 0
+                {
+                    ageGroup = ageGroup + "," + "child18"
+                }
+                else
+                {
+                    ageGroup = "child18"
+                }
+            }
+            
+            if self.settingDic["Child 3 - 11 yr"]!
+            {
+                if ageGroup.characters.count > 0
+                {
+                    ageGroup = ageGroup + "," + "child15"
+                }
+                else
+                {
+                    ageGroup = "child15"
+                }
+            }
+        }
+        
+        if self.settingDic["Both"]!
+        {
+            genderGroup = "both"
+        }
+        else
+        {
+            if self.settingDic["Male"]!
+            {
+                genderGroup = "male"
+            }
+            if self.settingDic["Female"]!
+            {
+                if genderGroup.characters.count > 0
+                {
+                    genderGroup = genderGroup + "," + "female"
+                }
+                else
+                {
+                    genderGroup = "female"
+                }
+            }
+        }
+        defaults.set(ageGroup, forKey: "ageSettings")
+        defaults.set(genderGroup, forKey: "genderSettings")
+        StreamingConnection.sharedInstance.connection.stop()
+        if #available(iOS 10.0, *) {
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            appDelegate?.createSocketConnection()
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     
@@ -317,9 +386,9 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
     {
         let deviceType = UIDevice.current.deviceType
         switch deviceType {
-        case .iPhone6SPlus:
+        case .iPhone6SPlus,.iPhone6Plus:
             return CGSize(width: 100, height: 120)
-        case .iPhone6S:
+        case .iPhone6S,.iPhone6:
             return CGSize(width: 100, height: 120)
         default:
             return CGSize(width: 100, height: 120)
