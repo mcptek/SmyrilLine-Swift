@@ -20,6 +20,8 @@
 		840DA9F41F4C6139001B3382 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DA9F31F4C6139001B3382 /* MainMenuViewController.swift */; };
 		840DA9F61F4C615C001B3382 /* MainMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DA9F51F4C615C001B3382 /* MainMenuCollectionViewCell.swift */; };
 		84138C8C1F625B1600D3F06C /* UINavigationBar+Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84138C8B1F625B1600D3F06C /* UINavigationBar+Alpha.swift */; };
+		841D94491F7389C3008699A6 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D94481F7389C3008699A6 /* HeaderCollectionReusableView.swift */; };
+		842114081F70F066004459A9 /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842114071F70F066004459A9 /* ReachabilityManager.swift */; };
 		842308411F56ED48004A4166 /* TaxfreeParallaxHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842308401F56ED48004A4166 /* TaxfreeParallaxHeaderView.xib */; };
 		842308431F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842308421F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift */; };
 		842308451F56FB06004A4166 /* TaxfreeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842308441F56FB06004A4166 /* TaxfreeCollectionViewCell.swift */; };
@@ -34,7 +36,15 @@
 		842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4261F4F06F5000366BF /* Restaurants.swift */; };
 		8445F1581F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445F1571F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift */; };
 		8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */; };
+		846E60FB1F6FD55900AC0234 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */; };
 		849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */; };
+		84A8E51A1F6A75CA00B5E569 /* InboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E5191F6A75CA00B5E569 /* InboxTableViewCell.swift */; };
+		84A8E51C1F6A842C00B5E569 /* InboxDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E51B1F6A842C00B5E569 /* InboxDetailsViewController.swift */; };
+		84A8E51E1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E51D1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift */; };
+		84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */; };
+		84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */; };
+		84C1C0541F72307700B57B36 /* SettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C1C0531F72307700B57B36 /* SettingsCollectionViewCell.swift */; };
+		84EE5E241F6A601A001B4CA4 /* MessageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE5E231F6A601A001B4CA4 /* MessageObject.swift */; };
 		B2553924AF491ED961B2132C /* Pods_SmyrilLine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8F808BE45FE0AAC33C1FDB /* Pods_SmyrilLine.framework */; };
 		BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F2D11F4F2EEB003B77CA /* DestinationViewController.swift */; };
 		BB45F2D41F4F2FBD003B77CA /* DestinationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F2D31F4F2FBD003B77CA /* DestinationTableViewCell.swift */; };
@@ -72,6 +82,8 @@
 		840DA9F31F4C6139001B3382 /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		840DA9F51F4C615C001B3382 /* MainMenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		84138C8B1F625B1600D3F06C /* UINavigationBar+Alpha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Alpha.swift"; sourceTree = "<group>"; };
+		841D94481F7389C3008699A6 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		842114071F70F066004459A9 /* ReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		842308401F56ED48004A4166 /* TaxfreeParallaxHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaxfreeParallaxHeaderView.xib; sourceTree = "<group>"; };
 		842308421F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTaxfreeScrollViewHeader.swift; sourceTree = "<group>"; };
 		842308441F56FB06004A4166 /* TaxfreeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxfreeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -86,7 +98,15 @@
 		842ED4261F4F06F5000366BF /* Restaurants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurants.swift; sourceTree = "<group>"; };
 		8445F1571F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipInfoViewController.swift; sourceTree = "<group>"; };
+		846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryTableViewCell.swift; sourceTree = "<group>"; };
+		84A8E5191F6A75CA00B5E569 /* InboxTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxTableViewCell.swift; sourceTree = "<group>"; };
+		84A8E51B1F6A842C00B5E569 /* InboxDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxDetailsViewController.swift; sourceTree = "<group>"; };
+		84A8E51D1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
+		84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalRConnection.swift; sourceTree = "<group>"; };
+		84C1C0531F72307700B57B36 /* SettingsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCollectionViewCell.swift; sourceTree = "<group>"; };
+		84EE5E231F6A601A001B4CA4 /* MessageObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageObject.swift; sourceTree = "<group>"; };
 		BB45F2D11F4F2EEB003B77CA /* DestinationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationViewController.swift; sourceTree = "<group>"; };
 		BB45F2D31F4F2FBD003B77CA /* DestinationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationTableViewCell.swift; sourceTree = "<group>"; };
 		BB45F2D91F4F30A5003B77CA /* Destinations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Destinations.swift; sourceTree = "<group>"; };
@@ -184,12 +204,14 @@
 		840DA9F21F4C60FF001B3382 /* Stories */ = {
 			isa = PBXGroup;
 			children = (
+				84AA0E4B1F692A7E00E4354A /* Inbox */,
 				840A47851F4FE93D0038DAE6 /* Tax free shop */,
 				BB45F2D01F4F2EC6003B77CA /* Destinations */,
 				842ED4151F4E8E58000366BF /* Main Menu */,
 				842ED4161F4E8E64000366BF /* Ship Tracker */,
 				8445F1591F66BDC9004F8B67 /* Ship Info */,
 				842ED4211F4EFA4F000366BF /* Restaurants */,
+				846E60F91F6FD51F00AC0234 /* Setting */,
 			);
 			name = Stories;
 			sourceTree = "<group>";
@@ -218,6 +240,7 @@
 				842ED4261F4F06F5000366BF /* Restaurants.swift */,
 				BB45F2D91F4F30A5003B77CA /* Destinations.swift */,
 				840A47881F4FF2B40038DAE6 /* TaxFreeShop.swift */,
+				84EE5E231F6A601A001B4CA4 /* MessageObject.swift */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -228,6 +251,8 @@
 				842ED41D1F4E9B23000366BF /* SmyrilLineUrl.swift */,
 				84138C8B1F625B1600D3F06C /* UINavigationBar+Alpha.swift */,
 				842ED41F1F4E9B7B000366BF /* ViewControllerExtension.swift */,
+				84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */,
+				842114071F70F066004459A9 /* ReachabilityManager.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -247,6 +272,27 @@
 				8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */,
 			);
 			name = "Ship Info";
+			sourceTree = "<group>";
+		};
+		846E60F91F6FD51F00AC0234 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */,
+				84C1C0531F72307700B57B36 /* SettingsCollectionViewCell.swift */,
+				841D94481F7389C3008699A6 /* HeaderCollectionReusableView.swift */,
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
+		84AA0E4B1F692A7E00E4354A /* Inbox */ = {
+			isa = PBXGroup;
+			children = (
+				84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */,
+				84A8E5191F6A75CA00B5E569 /* InboxTableViewCell.swift */,
+				84A8E51B1F6A842C00B5E569 /* InboxDetailsViewController.swift */,
+				84A8E51D1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift */,
+			);
+			name = Inbox;
 			sourceTree = "<group>";
 		};
 		BB45F2D01F4F2EC6003B77CA /* Destinations */ = {
@@ -330,6 +376,11 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 79YLMQ62DM;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					840DA9E01F4C5C7F001B3382 = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -477,6 +528,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842114081F70F066004459A9 /* ReachabilityManager.swift in Sources */,
+				84A8E51C1F6A842C00B5E569 /* InboxDetailsViewController.swift in Sources */,
 				8445F1581F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift in Sources */,
 				BB45F2D41F4F2FBD003B77CA /* DestinationTableViewCell.swift in Sources */,
 				BB45F2DA1F4F30A5003B77CA /* Destinations.swift in Sources */,
@@ -486,18 +539,26 @@
 				842ED4231F4EFA78000366BF /* RestaurantViewController.swift in Sources */,
 				842308431F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift in Sources */,
 				840A47841F4FE9360038DAE6 /* TaxfreeViewController.swift in Sources */,
+				84EE5E241F6A601A001B4CA4 /* MessageObject.swift in Sources */,
 				842ED41E1F4E9B23000366BF /* SmyrilLineUrl.swift in Sources */,
 				842ED4251F4EFB65000366BF /* RestaurantTableViewCell.swift in Sources */,
 				842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */,
 				842ED4201F4E9B7B000366BF /* ViewControllerExtension.swift in Sources */,
 				840DA9D61F4C5C7F001B3382 /* SmyrilLine.xcdatamodeld in Sources */,
 				840DA9D01F4C5C7F001B3382 /* ViewController.swift in Sources */,
+				84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */,
 				842ED4181F4E8E8C000366BF /* ShiptrackerViewController.swift in Sources */,
 				840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */,
+				846E60FB1F6FD55900AC0234 /* SettingsViewController.swift in Sources */,
 				840DA9F61F4C615C001B3382 /* MainMenuCollectionViewCell.swift in Sources */,
+				84A8E51E1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift in Sources */,
 				842ED41C1F4E9A76000366BF /* ShipTracker.swift in Sources */,
 				842308471F57CB15004A4166 /* DestinationCategoryViewController.swift in Sources */,
+				84A8E51A1F6A75CA00B5E569 /* InboxTableViewCell.swift in Sources */,
+				84C1C0541F72307700B57B36 /* SettingsCollectionViewCell.swift in Sources */,
 				BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */,
+				84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */,
+				841D94491F7389C3008699A6 /* HeaderCollectionReusableView.swift in Sources */,
 				849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */,
 				8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */,
 				840A47891F4FF2B40038DAE6 /* TaxFreeShop.swift in Sources */,
@@ -583,7 +644,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -627,7 +688,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -642,7 +703,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 79YLMQ62DM;
 				INFOPLIST_FILE = SmyrilLine/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.rafayDebugProfile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -659,7 +720,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 79YLMQ62DM;
 				INFOPLIST_FILE = SmyrilLine/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.rafayDebugProfile;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -4,13 +4,17 @@
 target 'SmyrilLine' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-  use_frameworks!
+  pod 'SwiftyJSON'
   pod 'Mapbox-iOS-SDK', '~> 3.6'
   pod 'AlamofireObjectMapper', '~> 4.0'
   pod 'Alamofire', '~> 4.4'
   pod 'SwiftyJSON'
   pod 'SDWebImage'
   pod "MXParallaxHeader"
+  #pod 'SwiftR'
+  pod 'SignalRSwift', '~> 1.0.3'
+  pod ‘ReachabilitySwift’, ‘~> 3’
+  pod 'Device.swift'
   # Pods for SmyrilLine
 
   target 'SmyrilLineTests' do

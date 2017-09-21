@@ -8,20 +8,206 @@
 
 import UIKit
 import CoreData
+import SignalRSwift
+import Alamofire
+import SwiftyJSON
+import UserNotifications
+import ReachabilitySwift
+import Device_swift
 
 @available(iOS 10.0, *)
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    //let reachability = Reachability()!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //Added swift file
+        self.createSocketConnection()
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            // Enable or disable features based on authorization.
+        }
+        
+        ReachabilityManager.shared.startMonitoring()
         return true
     }
+    
+    /*
+    func startMonitoring() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.reachabilityChanged),
+                                               name: ReachabilityChangedNotification,
+                                               object: reachability)
+        do{
+            try reachability.startNotifier()
+        } catch {
+            debugPrint("Could not start reachability notifier")
+        }
+    }
+    
+    func reachabilityChanged(notification: Notification) {
+        let reachability = notification.object as! Reachability
+        switch reachability.currentReachabilityStatus {
+        case .notReachable:
+            debugPrint("Network became unreachable")
+        case .reachableViaWiFi:
+            debugPrint("Network reachable through WiFi")
+        case .reachableViaWWAN:
+            debugPrint("Network reachable through Cellular Data")
+        }
+    }
+    */
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
+        let time = UserDefaults.standard.value(forKey: "LastTime") as! String
+        let clientId =  UIDevice.current.identifierForVendor?.uuidString
+        let params: Parameters = [
+            "startTime": time,
+            "clientid": clientId!
+        ]
+        
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.quedBulletinPath, method:.post, parameters: params, encoding: URLEncoding.httpBody, headers: nil)
+            .responseJSON { (response) in
+                switch response.result {
+                case .success:
+                    
+                    if response.response?.statusCode == 200
+                    {
+                        
+                        if let json = response.result.value as? [Any]
+                        {
+                            var messageId = ""
+                            for object in json
+                            {
+                                let dic = object as? NSDictionary
+                                
+                                if let title = dic?.value(forKey: "title") as? String, let details = dic?.value(forKey: "description") as? String, let imageUrl = dic?.value(forKey: "image_url") as? String
+                                {
+                                    self.saveBulletin(title: title, message: details, imageUrlStr: imageUrl)
+                                }
+                                
+                                if let id = dic?.value(forKey: "id") as? NSNumber
+                                {
+                                    if messageId.characters.count > 0
+                                    {
+                                        messageId += ",\( String(describing: id))"
+                                    }
+                                    else
+                                    {
+                                        messageId = String(describing: id)
+                                    }
+                                }
+                            }
+                            
+                            if messageId.characters.count > 0
+                            {
+                                let bulletinAcknowledgementUrl = String(format: "/api/Schedule/AckQueuedBulletin?scheduleId=%@&clientId=%@", messageId, clientId!)
+                                print(UrlMCP.server_base_url + bulletinAcknowledgementUrl)
+                                Alamofire.request(UrlMCP.server_base_url + bulletinAcknowledgementUrl, method:.get, parameters: nil, encoding: URLEncoding.httpBody, headers: nil)
+                                    .responseJSON { (response) in
+                                        switch response.result {
+                                        case .success:
+                                            print("success")
+                                            completionHandler(.newData)
+                                        case .failure(_):
+                                            print(response.result.error?.localizedDescription ?? "Default warning!!")
+                                            completionHandler(.newData)
+                                        }
+                                }
+                            }
+                        }
+                    }
+                case .failure( _):
+                    print(response.result.error!)
+                    completionHandler(.failed)
+                }
+        }
+    }
+    
+    func createSocketConnection()  {
+        StreamingConnection.sharedInstance.connection.started = {
+            print("Connected")
+            let language = "en"
+            let AppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+            let phoneType = UIDevice.current.deviceType
+            let phoneId = UIDevice.current.identifierForVendor?.uuidString
+            let ageGroup = UserDefaults.standard.value(forKey: "ageSettings")
+            let gender = UserDefaults.standard.value(forKey: "genderSettings")
+            StreamingConnection.sharedInstance.hub.invoke(method: "register", withArgs: [phoneId ?? "1234",String(describing: phoneType),AppVersion ?? "1.0",language,ageGroup ?? "all",gender ?? "both"], completionHandler: { (result, error) in
+            })
+            
+            StreamingConnection.sharedInstance.hub.on(eventName: "register") { (args) in
+                print(args)
+            }
+
+            StreamingConnection.sharedInstance.hub.on(eventName: "onBulletinSent") { (myArray) in
+                let dic = myArray[0] as? NSDictionary
+                if let title = dic?.value(forKey: "title") as? String, let details = dic?.value(forKey: "description") as? String, let imageUrl = dic?.value(forKey: "image_url") as? String, let id = dic?.value(forKey: "id") as? NSNumber
+                {
+                    self.saveBulletin(title: title, message: details, imageUrlStr: imageUrl)
+                    StreamingConnection.sharedInstance.hub.invoke(method: "BulletinAck", withArgs: [id, phoneId ?? "1234"])
+                }
+            }
+        }
+        
+        StreamingConnection.sharedInstance.connection.reconnecting = {
+            print("Reconnecting...")
+        }
+        
+        StreamingConnection.sharedInstance.connection.reconnected = {
+            print("Reconnected.")
+        }
+        
+        StreamingConnection.sharedInstance.connection.closed = {
+            print("Disconnected")
+        }
+        
+        StreamingConnection.sharedInstance.connection.connectionSlow = {
+            print("Connection slow...")
+        }
+        
+        StreamingConnection.sharedInstance.connection.error = { error in
+            print(error.localizedDescription)
+            if UIApplication.shared.applicationState == .active
+            {
+                StreamingConnection.sharedInstance.connection.stop()
+                StreamingConnection.sharedInstance.connection.start()
+            }
+        }
+        
+        StreamingConnection.sharedInstance.connection.start()
+        
+    }
+    
+    func saveBulletin(title: String, message: String, imageUrlStr: String) {
+        self.saveMeesageWith(messageId: self.retrieveMessageId(), messageTitle: title, messageDetails: message, imageUrlStr: imageUrlStr, UnixTime: NSDate().timeIntervalSince1970)
+        
+        let defaults = UserDefaults.standard
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        let desiredDate = dateFormatter.string(from: date)
+        defaults.set(desiredDate, forKey: "LastTime")
+
+        if UIApplication.shared.applicationState == .active
+        {
+            let alert = UIAlertController(title: "Notification", message:title, preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        }
+        
+        let notification = UILocalNotification()
+        notification.alertBody = title
+        notification.soundName = UILocalNotificationDefaultSoundName
+        UIApplication.shared.scheduleLocalNotification(notification)
+    }
+    
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -30,10 +216,92 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        ReachabilityManager.shared.stopMonitoring()
+        StreamingConnection.sharedInstance.connection.stop()
+        
+        let defaults = UserDefaults.standard
+        if defaults.value(forKey: "LastTime") is String
+        {
+        }
+        else
+        {
+            let date = Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+            let desiredDate = dateFormatter.string(from: date)
+            defaults.set(desiredDate, forKey: "LastTime")
+
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        
+        ReachabilityManager.shared.startMonitoring()
+        StreamingConnection.sharedInstance.connection.start()
+        
+        let time = UserDefaults.standard.value(forKey: "LastTime") as! String
+        let clientId =  UIDevice.current.identifierForVendor?.uuidString
+        let params: Parameters = [
+            "startTime": time,
+            "clientid": clientId!
+        ]
+        
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.quedBulletinPath, method:.post, parameters: params, encoding: URLEncoding.httpBody, headers: nil)
+            .responseJSON { (response) in
+                switch response.result {
+                case .success:
+                    
+                    if response.response?.statusCode == 200
+                    {
+                        
+                        if let json = response.result.value as? [Any]
+                        {
+                            var messageId = ""
+                            for object in json
+                            {
+                                let dic = object as? NSDictionary
+                                
+                                if let title = dic?.value(forKey: "title") as? String, let details = dic?.value(forKey: "description") as? String, let imageUrl = dic?.value(forKey: "image_url") as? String
+                                {
+                                    self.saveBulletin(title: title, message: details, imageUrlStr: imageUrl)
+                                }
+                                
+                                if let id = dic?.value(forKey: "id") as? NSNumber
+                                {
+                                    if messageId.characters.count > 0
+                                    {
+                                        messageId += ",\( String(describing: id))"
+                                    }
+                                    else
+                                    {
+                                        messageId = String(describing: id)
+                                    }
+                                }
+                            }
+                            
+                            if messageId.characters.count > 0
+                            {
+                                let bulletinAcknowledgementUrl = String(format: "/api/Schedule/AckQueuedBulletin?scheduleId=%@&clientId=%@", messageId, clientId!)
+                                print(UrlMCP.server_base_url + bulletinAcknowledgementUrl)
+                                Alamofire.request(UrlMCP.server_base_url + bulletinAcknowledgementUrl, method:.get, parameters: nil, encoding: URLEncoding.httpBody, headers: nil)
+                                    .responseJSON { (response) in
+                                        switch response.result {
+                                        case .success:
+                                            print("success")
+                                        case .failure(_):
+                                            print(response.result.error?.localizedDescription ?? "Default warning!!")
+                                        }
+                                }
+                            }
+                        }
+                    }
+                case .failure( _):
+                    print(response.result.error!)
+                }
+        }
+
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -90,6 +358,163 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    func retrieveMessageId() -> String {
+        let managedContext =
+            self.persistentContainer.viewContext
+        //2
+        let fetchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "Inbox")
+        do {
+            let messsageObject = try managedContext.fetch(fetchRequest)
+            var messageId = 0
+            if messsageObject.count > 0
+            {
+                for object in messsageObject
+                {
+                    let tempId = object.value(forKey: "messageId") as! String
+                    if Int(tempId)! > messageId
+                    {
+                        messageId = Int(tempId)!
+                    }
+                }
+                return String(messageId + 1)
+            }
+            else
+            {
+                return "1"
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+            return "1"
+        }
+    }
+    
+    func saveMeesageWith(messageId: String, messageTitle: String, messageDetails: String, imageUrlStr: String, UnixTime: Double)  {
+        let managedContext =
+            self.persistentContainer.viewContext
+        let entity =
+            NSEntityDescription.entity(forEntityName: "Inbox", in: managedContext)!
+        
+        let message = NSManagedObject(entity: entity,
+                                     insertInto: managedContext)
+        
+        // 3
+        message.setValue(messageId, forKeyPath: "messageId")
+        message.setValue(messageTitle, forKeyPath: "title")
+        message.setValue(messageDetails, forKeyPath: "details")
+        message.setValue(imageUrlStr, forKeyPath: "imageUrlStr")
+        message.setValue(UnixTime, forKeyPath: "time")
+        message.setValue(NSNumber(value: false), forKeyPath: "status")
+        
+        // 4
+        do {
+            try managedContext.save()
+            // Define identifier
+            let nc = NotificationCenter.default
+            nc.post(name: Notification.Name("InboxNotification"), object: nil)
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func retrieveTotalUnreadMessage() -> Int {
+        let managedContext = self.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Inbox")
+        var totalUnreadMessages = 0
+        do {
+            let messsageObject = try managedContext.fetch(fetchRequest)
+            for object in messsageObject
+            {
+                let isMessageRead = object.value(forKey: "status") as! NSNumber
+                if isMessageRead == NSNumber(value: false)
+                {
+                    totalUnreadMessages += 1
+                }
+            }
+            return totalUnreadMessages
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+            return 0
+        }
+    }
+    
+    func updateMessageStatusWithMessageId(messageId: String) {
+        let managedContext = self.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Inbox")
+        let predicate = NSPredicate(format: "messageId = '\(messageId)'")
+        fetchRequest.predicate = predicate
+        do
+        {
+            let test = try managedContext.fetch(fetchRequest)
+            if test.count == 1
+            {
+                let objectUpdate = test[0] 
+                objectUpdate.setValue(NSNumber(value: true), forKeyPath: "status")
+                do{
+                    try managedContext.save()
+                }
+                catch
+                {
+                    print(error)
+                }
+            }
+        }
+        catch
+        {
+            print(error)
+        }
+    }
+    
+    func retrieveAllInboxMessages() -> [Message]? {
+        let managedContext =
+            self.persistentContainer.viewContext
+        //2
+        let fetchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "Inbox")
+//        var AllMessages: [Message]?
+        var AllMessages:[Message] = []
+        
+        do {
+            let messsageObject = try managedContext.fetch(fetchRequest)
+            for object in messsageObject
+            {
+                let title = object.value(forKey: "title") as! String
+                let details = object.value(forKey: "details") as! String
+                let imageUrlStr = object.value(forKey: "imageUrlStr") as! String
+                let messageId = object.value(forKey: "messageId") as! String
+                let messageStatus = object.value(forKey: "status") as! NSNumber
+                let time = object.value(forKey: "time") as! Double
+                let object = Message.init(title: title, details: details, imageUrl: imageUrlStr, idOfdMessage: messageId, status: messageStatus, time: time)
+                AllMessages.append(object)
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        return AllMessages.reversed()
+    }
+    
+    func deleteMessageforMessageId(messageId: String)  {
+        let managedContext = self.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Inbox")
+        let predicate = NSPredicate(format: "messageId = '\(messageId)'")
+        fetchRequest.predicate = predicate
+        do
+        {
+            let test = try managedContext.fetch(fetchRequest)
+            if test.count == 1
+            {
+                let objectDelete = test[0]
+                managedContext.delete(objectDelete)
+                try managedContext.save()
+            }
+        }
+        catch
+        {
+            print(error)
+        }
+
     }
 
 }

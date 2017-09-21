@@ -35,7 +35,7 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-         self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = false
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator

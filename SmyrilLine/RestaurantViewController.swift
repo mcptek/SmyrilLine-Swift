@@ -23,8 +23,8 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
 
         // Do any additional setup after loading the view.
         self.navigationController?.navigationBar.isHidden = false
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
+//        let navigationBar = navigationController!.navigationBar
+//        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
         self.title = "Restaurants & Bars"
         
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
@@ -41,19 +41,19 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.attachToScrollView(self.restauranttableview)
+//        let navigationBar = navigationController!.navigationBar
+//        navigationBar.attachToScrollView(self.restauranttableview)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        let navigationBar = navigationController!.navigationBar
-        navigationBar.reset()
+//        let navigationBar = navigationController!.navigationBar
+//        navigationBar.reset()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        self.navigationController?.navigationBar.backItem?.title = ""
+        //self.navigationController?.navigationBar.backItem?.title = ""
         self.CallRestaurantAPI()
     }
     override func didReceiveMemoryWarning() {
@@ -130,8 +130,14 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let vw = UIView()
-        vw.backgroundColor = UIColor.clear
-        
+        if section == 0
+        {
+            vw.backgroundColor = UIColor.darkGray
+        }
+        else
+        {
+            vw.backgroundColor = UIColor.clear
+        }
         return vw
     }
     
