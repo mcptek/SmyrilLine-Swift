@@ -360,8 +360,9 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
             return footerView
             
         default:
-            
-            assert(false, "Unexpected element kind")
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footerCell", for: indexPath as IndexPath)
+            footerView.backgroundColor = UIColor.clear
+            return footerView
         }
     }
     
