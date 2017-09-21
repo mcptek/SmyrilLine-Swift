@@ -16,6 +16,7 @@ class SettingsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var categorySelectionImageView: UIImageView!
     @IBOutlet weak var transparentImageView: UIImageView!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var categoryDescriptionNameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
