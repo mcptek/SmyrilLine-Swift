@@ -11,7 +11,7 @@ import Device_swift
 
 class SettingsViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
 
-    let ageGroupArray = ["Adult (from 15 yr)","Child 12 - 15 yr","Child 3 - 11 yr","All"]
+    let ageGroupArray = ["Adult from 15 year","Child 12 - 15 year","Child 3 - 11 year","All"]
     let genderArray = ["Male","Female","Both"]
     var settingDic = [String:Bool]()
     
@@ -20,6 +20,7 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        settingsCollectionView.backgroundColor = UIColor.white.withAlphaComponent(0.8)
         self.navigationController?.navigationBar.isHidden = false
         self.title = "Settings"
         self.loadSettingsdata()
@@ -43,34 +44,34 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
     
     func loadSettingsdata()  {
         let defaults = UserDefaults.standard
-        if defaults.value(forKey: "Adult (from 15 yr)") is Bool
+        if defaults.value(forKey: "Adult from 15 year") is Bool
         {
-            self.settingDic["Adult (from 15 yr)"] = defaults.value(forKey: "Adult (from 15 yr)") as? Bool
+            self.settingDic["Adult from 15 year"] = defaults.value(forKey: "Adult from 15 year") as? Bool
         }
         else
         {
-            defaults.set(true, forKey: "Adult (from 15 yr)")
-            self.settingDic["Adult (from 15 yr)"] = true
+            defaults.set(true, forKey: "Adult from 15 year")
+            self.settingDic["Adult from 15 year"] = true
         }
         
-        if defaults.value(forKey: "Child 12 - 15 yr") is Bool
+        if defaults.value(forKey: "Child 12 - 15 year") is Bool
         {
-            self.settingDic["Child 12 - 15 yr"] = defaults.value(forKey: "Child 12 - 15 yr") as? Bool
+            self.settingDic["Child 12 - 15 year"] = defaults.value(forKey: "Child 12 - 15 year") as? Bool
         }
         else
         {
-            defaults.set(true, forKey: "Child 12 - 15 yr")
-            self.settingDic["Child 12 - 15 yr"] = true
+            defaults.set(true, forKey: "Child 12 - 15 year")
+            self.settingDic["Child 12 - 15 year"] = true
         }
         
-        if defaults.value(forKey: "Child 3 - 11 yr") is Bool
+        if defaults.value(forKey: "Child 3 - 11 year") is Bool
         {
-            self.settingDic["Child 3 - 11 yr"] = defaults.value(forKey: "Child 3 - 11 yr") as? Bool
+            self.settingDic["Child 3 - 11 year"] = defaults.value(forKey: "Child 3 - 11 year") as? Bool
         }
         else
         {
-            defaults.set(true, forKey: "Child 3 - 11 yr")
-            self.settingDic["Child 3 - 11 yr"] = true
+            defaults.set(true, forKey: "Child 3 - 11 year")
+            self.settingDic["Child 3 - 11 year"] = true
         }
         
         if defaults.value(forKey: "All") is Bool
@@ -117,15 +118,6 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
     
     @IBAction func settingsSaveAction(_ sender: Any) {
         let defaults = UserDefaults.standard
-        defaults.set(self.settingDic["Adult (from 15 yr)"], forKey: "Adult (from 15 yr)")
-        defaults.set(self.settingDic["Child 12 - 15 yr"], forKey: "Child 12 - 15 yr")
-        defaults.set(self.settingDic["Child 3 - 11 yr"], forKey: "Child 3 - 11 yr")
-        defaults.set(self.settingDic["All"], forKey: "All")
-        defaults.set(self.settingDic["Male"], forKey: "Male")
-        defaults.set(self.settingDic["Female"], forKey: "Female")
-        defaults.set(self.settingDic["Both"], forKey: "Both")
-        self.displayToast(alertMsg: "Age group and gender recipient saved.")
-        
         var ageGroup = ""
         var genderGroup = ""
         if self.settingDic["All"]!
@@ -134,11 +126,11 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
         else
         {
-            if self.settingDic["Adult (from 15 yr)"]!
+            if self.settingDic["Adult from 15 year"]!
             {
                 ageGroup = "adult"
             }
-            if self.settingDic["Child 12 - 15 yr"]!
+            if self.settingDic["Child 12 - 15 year"]!
             {
                 if ageGroup.characters.count > 0
                 {
@@ -150,7 +142,7 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
                 }
             }
             
-            if self.settingDic["Child 3 - 11 yr"]!
+            if self.settingDic["Child 3 - 11 year"]!
             {
                 if ageGroup.characters.count > 0
                 {
@@ -185,15 +177,45 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
                 }
             }
         }
-        defaults.set(ageGroup, forKey: "ageSettings")
-        defaults.set(genderGroup, forKey: "genderSettings")
-        StreamingConnection.sharedInstance.connection.stop()
-        if #available(iOS 10.0, *) {
-            let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            appDelegate?.createSocketConnection()
-        } else {
-            // Fallback on earlier versions
+        
+        if ageGroup.characters.count > 0 && genderGroup.characters.count > 0
+        {
+            self.saveMessageSettings()
+            defaults.set(ageGroup, forKey: "ageSettings")
+            defaults.set(genderGroup, forKey: "genderSettings")
+            StreamingConnection.sharedInstance.connection.stop()
+            if #available(iOS 10.0, *) {
+                let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                appDelegate?.createSocketConnection()
+            } else {
+                // Fallback on earlier versions
+            }
         }
+        else
+        {
+            var message = ""
+            if ageGroup.characters.count == 0
+            {
+                message = "Please select an age group."
+            }
+            else if genderGroup.characters.count == 0
+            {
+                message = "Please select a gender group."
+            }
+            self.showAlert(title: "Error", message: message)
+        }
+    }
+    
+    func saveMessageSettings()  {
+        let defaults = UserDefaults.standard
+        defaults.set(self.settingDic["Adult from 15 year"], forKey: "Adult from 15 year")
+        defaults.set(self.settingDic["Child 12 - 15 year"], forKey: "Child 12 - 15 year")
+        defaults.set(self.settingDic["Child 3 - 11 year"], forKey: "Child 3 - 11 year")
+        defaults.set(self.settingDic["All"], forKey: "All")
+        defaults.set(self.settingDic["Male"], forKey: "Male")
+        defaults.set(self.settingDic["Female"], forKey: "Female")
+        defaults.set(self.settingDic["Both"], forKey: "Both")
+        self.displayToast(alertMsg: "Age group and gender recipient saved.")
     }
     
     
@@ -219,7 +241,17 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "settingsCell", for: indexPath) as! SettingsCollectionViewCell
         if indexPath.section == 0
         {
-            cell.categoryNameLabel.text = self.ageGroupArray[indexPath.row]
+            let fullString = self.ageGroupArray[indexPath.row]
+            let splittedStringsArray = fullString.split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true)
+            cell.categoryNameLabel.text = String(describing: splittedStringsArray.first!)
+            if splittedStringsArray.count > 1
+            {
+                cell.categoryDescriptionNameLabel.text = String(describing: splittedStringsArray.last!)
+            }
+            else
+            {
+                cell.categoryDescriptionNameLabel.text = nil
+            }
             cell.categoryImageView.image = UIImage.init(named: self.ageGroupArray[indexPath.row])
             if self.settingDic[self.ageGroupArray[indexPath.row]]!
             {
@@ -234,7 +266,17 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
         else
         {
-            cell.categoryNameLabel.text = self.genderArray[indexPath.row]
+            let fullString = self.genderArray[indexPath.row]
+            let splittedStringsArray = fullString.split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true)
+            cell.categoryNameLabel.text = String(describing: splittedStringsArray.first!)
+            if splittedStringsArray.count > 1
+            {
+                cell.categoryDescriptionNameLabel.text = String(describing: splittedStringsArray.last!)
+            }
+            else
+            {
+                cell.categoryDescriptionNameLabel.text = nil
+            }
             cell.categoryImageView.image = UIImage.init(named: self.genderArray[indexPath.row])
             if self.settingDic[self.genderArray[indexPath.row]]!
             {
@@ -369,7 +411,7 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
     {
-        return UIEdgeInsetsMake(16.0, 16.0, 16.0, 16.0)
+        return UIEdgeInsetsMake(8.0, 16.0, 8.0, 16.0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
@@ -388,11 +430,11 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         let deviceType = UIDevice.current.deviceType
         switch deviceType {
         case .iPhone6SPlus,.iPhone6Plus:
-            return CGSize(width: 100, height: 120)
+            return CGSize(width: 120, height: 160)
         case .iPhone6S,.iPhone6:
-            return CGSize(width: 100, height: 120)
+            return CGSize(width: 105, height: 145)
         default:
-            return CGSize(width: 100, height: 120)
+            return CGSize(width: 105, height: 145)
         }
     }
 
