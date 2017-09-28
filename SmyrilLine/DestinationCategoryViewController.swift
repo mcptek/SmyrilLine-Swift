@@ -21,6 +21,8 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     var scrollView: MXScrollView!
     var destinationId:String?
     var destinationName:String?
+    var destinationCategoryId: String?
+    
     
     var activityIndicatorView: UIActivityIndicatorView!
     override func viewDidLoad() {
@@ -80,6 +82,27 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     }
     */
     
+    func CallDestinationCategoryDetailsAPI() {
+        print(self.destinationCategoryId!)
+        self.activityIndicatorView.startAnimating()
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng/" + self.destinationCategoryId!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+            .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
+                self.activityIndicatorView.stopAnimating()
+                switch response.result {
+                case .success:
+                    if response.response?.statusCode == 200
+                    {
+                        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                        let nextScene = storyBoard.instantiateViewController(withIdentifier: "destinationCategoryDetails") as! DestinationCategoryDetailsViewController
+                        nextScene.destinationCategoryDetailsArray = response.result.value
+                        self.navigationController?.pushViewController(nextScene, animated: true)
+                    }
+                case .failure(let error):
+                    self.showAlert(title: "Error", message: error.localizedDescription)
+                }
+        }
+    }
+    
     func CallDestinationCategoryAPI() {
         self.activityIndicatorView.startAnimating()
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng/" + self.destinationId!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
@@ -125,6 +148,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryHeaderCell", for: indexPath) as! CategoryHeaderTableViewCell
             cell.headerTitleLabel.text = self.destinationCategoryArray?.shopOpeningClosingTime
+            self.lines(yourLabel: cell.headerTitleLabel)
             cell.selectionStyle = .none
             return cell
         }
@@ -142,11 +166,17 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
             {
                 cell.leftCategoryNameLabel.text = categoryname
             }
+            if let categoryId = self.destinationCategoryArray?.itemArray?[self.cellIndex].objectId
+            {
+                cell.leftContainerButton.tag = 1000 + Int(categoryId)!
+                cell.leftContainerButton.addTarget(self, action: #selector(categoryDetailsButton(_:)), for: .touchUpInside)
+            }
             self.cellIndex += 1
             if self.cellIndex < (self.destinationCategoryArray?.itemArray?.count)!
             {
                 if let imageUrlStr = self.destinationCategoryArray?.itemArray?[self.cellIndex].imageUrl
                 {
+                    cell.rightContainerView.isHidden = false
                     cell.rightCategotyImageView.sd_setShowActivityIndicatorView(true)
                     cell.rightCategotyImageView.sd_setIndicatorStyle(.gray)
                     cell.rightCategotyImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
@@ -156,11 +186,17 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
                 {
                     cell.rightCategoryNameLabel.text = categoryname
                 }
+                if let categoryId = self.destinationCategoryArray?.itemArray?[self.cellIndex].objectId
+                {
+                    cell.rightContainerButton.tag = 1000 + Int(categoryId)!
+                    cell.rightContainerButton.addTarget(self, action: #selector(categoryDetailsButton(_:)), for: .touchUpInside)
+                }
             }
             else
             {
                 cell.rightCategotyImageView.image = nil
                 cell.rightCategoryNameLabel.text = ""
+                cell.rightContainerView.isHidden = true
             }
             cell.selectionStyle = .none
             return cell
@@ -197,7 +233,19 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
         
         return vw
     }
-
-
+    
+    func lines(yourLabel: UILabel) {
+        var lineCount = 0
+        let textSize = CGSize(width: yourLabel.frame.size.width, height: CGFloat(Float.infinity))
+        let rHeight = lroundf(Float(yourLabel.sizeThatFits(textSize).height))
+        let charSize = lroundf(Float(yourLabel.font.lineHeight))
+        lineCount = rHeight/charSize
+        print("No of lines \(lineCount)")
+    }
+    
+    func categoryDetailsButton(_ sender : UIButton)  {
+        self.destinationCategoryId = String(sender.tag - 1000)
+        self.CallDestinationCategoryDetailsAPI()
+    }
 
 }

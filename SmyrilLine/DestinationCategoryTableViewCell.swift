@@ -16,6 +16,8 @@ class DestinationCategoryTableViewCell: UITableViewCell {
     @IBOutlet weak var rightContainerView: UIView!
     @IBOutlet weak var rightCategotyImageView: UIImageView!
     @IBOutlet weak var rightCategoryNameLabel: UILabel!
+    @IBOutlet weak var leftContainerButton: UIButton!
+    @IBOutlet weak var rightContainerButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

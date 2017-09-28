@@ -36,6 +36,8 @@
 		842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4261F4F06F5000366BF /* Restaurants.swift */; };
 		8445F1581F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445F1571F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift */; };
 		8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */; };
+		8447D1691F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447D1681F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift */; };
+		8447D16B1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447D16A1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift */; };
 		846E60FB1F6FD55900AC0234 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */; };
 		849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */; };
 		84A8E51A1F6A75CA00B5E569 /* InboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E5191F6A75CA00B5E569 /* InboxTableViewCell.swift */; };
@@ -98,6 +100,8 @@
 		842ED4261F4F06F5000366BF /* Restaurants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurants.swift; sourceTree = "<group>"; };
 		8445F1571F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipInfoViewController.swift; sourceTree = "<group>"; };
+		8447D1681F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCategoryDetailsViewController.swift; sourceTree = "<group>"; };
+		8447D16A1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCategoryDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		84A8E5191F6A75CA00B5E569 /* InboxTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxTableViewCell.swift; sourceTree = "<group>"; };
@@ -303,6 +307,8 @@
 				842308461F57CB15004A4166 /* DestinationCategoryViewController.swift */,
 				849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */,
 				8445F1571F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift */,
+				8447D1681F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift */,
+				8447D16A1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift */,
 			);
 			name = Destinations;
 			sourceTree = "<group>";
@@ -533,6 +539,7 @@
 				8445F1581F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift in Sources */,
 				BB45F2D41F4F2FBD003B77CA /* DestinationTableViewCell.swift in Sources */,
 				BB45F2DA1F4F30A5003B77CA /* Destinations.swift in Sources */,
+				8447D16B1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift in Sources */,
 				840DA9F41F4C6139001B3382 /* MainMenuViewController.swift in Sources */,
 				842308451F56FB06004A4166 /* TaxfreeCollectionViewCell.swift in Sources */,
 				84138C8C1F625B1600D3F06C /* UINavigationBar+Alpha.swift in Sources */,
@@ -551,6 +558,7 @@
 				840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */,
 				846E60FB1F6FD55900AC0234 /* SettingsViewController.swift in Sources */,
 				840DA9F61F4C615C001B3382 /* MainMenuCollectionViewCell.swift in Sources */,
+				8447D1691F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift in Sources */,
 				84A8E51E1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift in Sources */,
 				842ED41C1F4E9A76000366BF /* ShipTracker.swift in Sources */,
 				842308471F57CB15004A4166 /* DestinationCategoryViewController.swift in Sources */,
