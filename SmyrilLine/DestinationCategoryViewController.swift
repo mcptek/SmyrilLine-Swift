@@ -96,7 +96,6 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
                         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                         let nextScene = storyBoard.instantiateViewController(withIdentifier: "destinationCategoryDetails") as! DestinationCategoryDetailsViewController
                         nextScene.destinationCategoryDetailsArray = response.result.value
-                        nextScene.destinationName = self.destinationName
                         self.navigationController?.pushViewController(nextScene, animated: true)
                     }
                 case .failure(let error):
