@@ -22,7 +22,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     var destinationId:String?
     var destinationName:String?
     var destinationCategoryId: String?
-    
+    var headerCurrentStatus = 2
     
     var activityIndicatorView: UIActivityIndicatorView!
     override func viewDidLoad() {
@@ -31,6 +31,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
         // Do any additional setup after loading the view.
         self.navigationController?.navigationBar.isHidden = false
         self.title = self.destinationName
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
 //        let navigationBar = navigationController!.navigationBar
 //        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
         self.categoryTableview.estimatedRowHeight = 140
@@ -95,6 +96,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
                         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                         let nextScene = storyBoard.instantiateViewController(withIdentifier: "destinationCategoryDetails") as! DestinationCategoryDetailsViewController
                         nextScene.destinationCategoryDetailsArray = response.result.value
+                        nextScene.destinationName = self.destinationName
                         self.navigationController?.pushViewController(nextScene, animated: true)
                     }
                 case .failure(let error):
@@ -148,6 +150,26 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryHeaderCell", for: indexPath) as! CategoryHeaderTableViewCell
             cell.headerTitleLabel.text = self.destinationCategoryArray?.shopOpeningClosingTime
+            let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel)
+            if LineLengthOfLabel <= 2
+            {
+                cell.seeMoreButton.isHidden = true
+            }
+            else
+            {
+                cell.seeMoreButton.isHidden = false
+                if self.headerCurrentStatus == 2
+                {
+                    cell.headerTitleLabel.numberOfLines = 0
+                    cell.seeMoreButton.setTitle("See Less", for: .normal)
+                }
+                else
+                {
+                    cell.headerTitleLabel.numberOfLines = 2
+                    cell.seeMoreButton.setTitle("See More", for: .normal)
+                }
+                cell.seeMoreButton.addTarget(self, action: #selector(headerSeeMoreOrLesssButtonAction(_:)), for: .touchUpInside)
+            }
             cell.selectionStyle = .none
             return cell
         }
@@ -236,6 +258,34 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     func categoryDetailsButton(_ sender : UIButton)  {
         self.destinationCategoryId = String(sender.tag - 1000)
         self.CallDestinationCategoryDetailsAPI()
+    }
+    
+    func countLabelLines(label: UILabel) -> Int {
+        //  Call self.layoutIfNeeded() //if your view uses auto layout
+        if label.text != nil
+        {
+            let myText = label.text! as NSString
+            let rect = CGSize(width: label.bounds.width, height: CGFloat.greatestFiniteMagnitude)
+            let labelSize = myText.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: label.font], context: nil)
+            return Int(ceil(CGFloat(labelSize.height) / label.font.lineHeight))
+        }
+        else
+        {
+            return 0
+        }
+    }
+    
+    func headerSeeMoreOrLesssButtonAction(_ sender : UIButton)  {
+        if self.headerCurrentStatus == 2
+        {
+            self.headerCurrentStatus = 0
+        }
+        else
+        {
+            self.headerCurrentStatus = 2
+        }
+        self.categoryTableview.reloadData()
+        
     }
 
 }

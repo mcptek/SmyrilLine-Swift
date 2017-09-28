@@ -615,8 +615,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kar-UQ-lVI">
-                                                    <rect key="frame" x="16" y="8" width="343" height="130.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kar-UQ-lVI">
+                                                    <rect key="frame" x="16" y="8" width="343" height="89"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                     <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -628,21 +628,32 @@
                                                         <constraint firstAttribute="height" constant="0.5" id="Xvh-xy-UFo"/>
                                                     </constraints>
                                                 </view>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZUI-Vq-alP">
+                                                    <rect key="frame" x="277" y="105" width="82" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="Phr-kp-bx1"/>
+                                                        <constraint firstAttribute="width" constant="82" id="Wxe-Rq-HiG"/>
+                                                    </constraints>
+                                                    <state key="normal" title="See More"/>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="Kar-UQ-lVI" firstAttribute="top" secondItem="hjW-KT-7ME" secondAttribute="top" constant="8" id="KBT-sd-nay"/>
                                                 <constraint firstAttribute="trailing" secondItem="dHs-Zs-Ljk" secondAttribute="trailing" id="Lfx-PJ-WM6"/>
-                                                <constraint firstItem="dHs-Zs-Ljk" firstAttribute="top" secondItem="Kar-UQ-lVI" secondAttribute="bottom" constant="5" id="OuN-Mu-Aqs"/>
-                                                <constraint firstAttribute="trailing" secondItem="Kar-UQ-lVI" secondAttribute="trailing" constant="16" id="S8c-eB-7Pr"/>
-                                                <constraint firstItem="Kar-UQ-lVI" firstAttribute="leading" secondItem="hjW-KT-7ME" secondAttribute="leading" constant="16" id="Yea-PP-Fda"/>
-                                                <constraint firstItem="dHs-Zs-Ljk" firstAttribute="top" secondItem="Kar-UQ-lVI" secondAttribute="bottom" constant="5" id="k1X-mL-Iyl"/>
+                                                <constraint firstItem="ZUI-Vq-alP" firstAttribute="top" secondItem="Kar-UQ-lVI" secondAttribute="bottom" constant="8" id="Xc6-Kd-lOd"/>
+                                                <constraint firstItem="Kar-UQ-lVI" firstAttribute="top" secondItem="hjW-KT-7ME" secondAttribute="top" constant="8" id="bU7-B5-6US"/>
+                                                <constraint firstItem="dHs-Zs-Ljk" firstAttribute="top" secondItem="ZUI-Vq-alP" secondAttribute="bottom" constant="8" id="c1I-gn-jlZ"/>
+                                                <constraint firstItem="Kar-UQ-lVI" firstAttribute="leading" secondItem="hjW-KT-7ME" secondAttribute="leading" constant="16" id="dGg-fE-Uf3"/>
+                                                <constraint firstAttribute="trailing" secondItem="ZUI-Vq-alP" secondAttribute="trailing" constant="16" id="fnY-lY-MyI"/>
+                                                <constraint firstItem="ZUI-Vq-alP" firstAttribute="top" secondItem="Kar-UQ-lVI" secondAttribute="bottom" constant="8" id="icE-hH-NEI"/>
                                                 <constraint firstAttribute="bottom" secondItem="dHs-Zs-Ljk" secondAttribute="bottom" constant="5" id="neQ-PF-aWd"/>
                                                 <constraint firstItem="dHs-Zs-Ljk" firstAttribute="leading" secondItem="hjW-KT-7ME" secondAttribute="leading" id="vMQ-IQ-ekw"/>
+                                                <constraint firstAttribute="trailing" secondItem="Kar-UQ-lVI" secondAttribute="trailing" constant="16" id="ylb-WD-SeR"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="headerTitleLabel" destination="Kar-UQ-lVI" id="Naf-GP-bhD"/>
+                                            <outlet property="seeMoreButton" destination="ZUI-Vq-alP" id="kyb-dE-gRT"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

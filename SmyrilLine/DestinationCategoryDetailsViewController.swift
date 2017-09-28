@@ -14,6 +14,7 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
 
     @IBOutlet weak var categoryDetailsTableview: UITableView!
     
+    var destinationName:String?
     var activityIndicatorView: UIActivityIndicatorView!
     var myHeaderView: MyTaxfreeScrollViewHeader!
     var scrollView: MXScrollView!
@@ -25,6 +26,7 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.title = self.destinationName
         
         self.categoryDetailsTableview.estimatedRowHeight = 140
         self.categoryDetailsTableview.rowHeight = UITableViewAutomaticDimension
