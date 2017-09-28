@@ -18,6 +18,9 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
     var myHeaderView: MyTaxfreeScrollViewHeader!
     var scrollView: MXScrollView!
     var destinationCategoryDetailsArray: TaxFreeShopInfo?
+    var headerCurrentStatus = 2
+    var isExpanded = [Bool]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,6 +40,13 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
         self.categoryDetailsTableview.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.categoryDetailsTableview.parallaxHeader.minimumHeight = 50
         
+        if self.destinationCategoryDetailsArray?.itemArray?.isEmpty == false
+        {
+            for _ in (self.destinationCategoryDetailsArray?.itemArray)!
+            {
+                self.isExpanded.append(false)
+            }
+        }
         
     }
 
@@ -67,7 +77,6 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
     */
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return (self.destinationCategoryDetailsArray?.itemArray?.count)! + 1
     }
     
@@ -80,6 +89,26 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "categoryDetailsHeaderCell", for: indexPath) as! CategoryHeaderTableViewCell
             cell.headerTitleLabel.text = self.destinationCategoryDetailsArray?.shopOpeningClosingTime
+            let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel)
+            if LineLengthOfLabel <= 2
+            {
+                cell.seeMoreButton.isHidden = true
+            }
+            else
+            {
+                cell.seeMoreButton.isHidden = false
+                if self.headerCurrentStatus == 2
+                {
+                    cell.headerTitleLabel.numberOfLines = 0
+                    cell.seeMoreButton.setTitle("See Less", for: .normal)
+                }
+                else
+                {
+                    cell.headerTitleLabel.numberOfLines = 2
+                    cell.seeMoreButton.setTitle("See More", for: .normal)
+                }
+                cell.seeMoreButton.addTarget(self, action: #selector(headerSeeMoreOrLesssButtonAction(_:)), for: .touchUpInside)
+            }
             cell.selectionStyle = .none
             return cell
         }
@@ -99,6 +128,28 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
             if let headerName = self.destinationCategoryDetailsArray?.itemArray?[indexPath.section - 1].objectHeader
             {
                 cell.headerTitleLabel.text = headerName
+            }
+            
+            let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel)
+            if LineLengthOfLabel <= 2
+            {
+                cell.headerTitleSeeMoreButton.isHidden = true
+            }
+            else
+            {
+                cell.headerTitleSeeMoreButton.isHidden = false
+                if self.isExpanded[indexPath.section - 1] == false
+                {
+                    cell.headerTitleLabel.numberOfLines = 2
+                    cell.headerTitleSeeMoreButton.setTitle("See More", for: .normal)
+                }
+                else
+                {
+                    cell.headerTitleLabel.numberOfLines = 0
+                    cell.headerTitleSeeMoreButton.setTitle("See Less", for: .normal)
+                }
+                cell.headerTitleSeeMoreButton.tag = 1000 + (indexPath.section - 1)
+                cell.headerTitleSeeMoreButton.addTarget(self, action: #selector(CategorySeeMoreOrLesssButtonAction(_:)), for: .touchUpInside)
             }
             cell.selectionStyle = .none
             return cell
@@ -135,4 +186,44 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
         return vw
     }
 
+    func countLabelLines(label: UILabel) -> Int {
+        //  Call self.layoutIfNeeded() //if your view uses auto layout
+        if label.text != nil
+        {
+            let myText = label.text! as NSString
+            let rect = CGSize(width: label.bounds.width, height: CGFloat.greatestFiniteMagnitude)
+            let labelSize = myText.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: label.font], context: nil)
+            return Int(ceil(CGFloat(labelSize.height) / label.font.lineHeight))
+        }
+        else
+        {
+            return 0
+        }
+    }
+    
+    func headerSeeMoreOrLesssButtonAction(_ sender : UIButton)  {
+        if self.headerCurrentStatus == 2
+        {
+            self.headerCurrentStatus = 0
+        }
+        else
+        {
+            self.headerCurrentStatus = 2
+        }
+        self.categoryDetailsTableview.reloadData()
+        
+    }
+    
+    func CategorySeeMoreOrLesssButtonAction(_ sender : UIButton)  {
+        if self.isExpanded[sender.tag - 1000] == false
+        {
+            self.isExpanded[sender.tag - 1000] = true
+        }
+        else
+        {
+             self.isExpanded[sender.tag - 1000] = false
+        }
+        self.categoryDetailsTableview.reloadData()
+        
+    }
 }

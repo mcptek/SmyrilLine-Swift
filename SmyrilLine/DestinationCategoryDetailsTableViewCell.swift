@@ -14,6 +14,7 @@ class DestinationCategoryDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var nameTitleLabel: UILabel!
     @IBOutlet weak var categoryImageView: UIImageView!
     @IBOutlet weak var headerTitleLabel: UILabel!
+    @IBOutlet weak var headerTitleSeeMoreButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
