@@ -12,6 +12,7 @@ class CategoryHeaderTableViewCell: UITableViewCell {
 
     @IBOutlet weak var headerTitleLabel: UILabel!
     @IBOutlet weak var seeMoreButton: UIButton!
+    @IBOutlet weak var seeMoreButtonHeightConstraint: NSLayoutConstraint!
     
     
     override func awakeFromNib() {

@@ -157,10 +157,12 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
             if LineLengthOfLabel <= 2
             {
                 cell.seeMoreButton.isHidden = true
+                cell.seeMoreButtonHeightConstraint.constant = 0
             }
             else
             {
                 cell.seeMoreButton.isHidden = false
+                cell.seeMoreButtonHeightConstraint.constant = 30
                 if self.headerCurrentStatus == 2
                 {
                     cell.headerTitleLabel.numberOfLines = 0

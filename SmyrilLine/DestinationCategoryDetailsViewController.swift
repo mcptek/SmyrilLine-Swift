@@ -94,10 +94,12 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
             if LineLengthOfLabel <= 2
             {
                 cell.seeMoreButton.isHidden = true
+                cell.seeMoreButtonHeightConstraint.constant = 0
             }
             else
             {
                 cell.seeMoreButton.isHidden = false
+                cell.seeMoreButtonHeightConstraint.constant = 30
                 if self.headerCurrentStatus == 2
                 {
                     cell.headerTitleLabel.numberOfLines = 0
@@ -120,7 +122,6 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
                 cell.categoryImageView.sd_setShowActivityIndicatorView(true)
                 cell.categoryImageView.sd_setIndicatorStyle(.gray)
                 cell.categoryImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
-                
             }
             else
             {
@@ -149,10 +150,12 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
             if LineLengthOfLabel <= 2
             {
                 cell.headerTitleSeeMoreButton.isHidden = true
+                cell.seeMoreButtonHeightConstraint.constant = 0
             }
             else
             {
                 cell.headerTitleSeeMoreButton.isHidden = false
+                cell.seeMoreButtonHeightConstraint.constant = 30
                 if self.isExpanded[indexPath.section - 1] == false
                 {
                     cell.headerTitleLabel.numberOfLines = 2
