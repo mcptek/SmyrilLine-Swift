@@ -86,9 +86,11 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     func CallDestinationCategoryDetailsAPI() {
         print(self.destinationCategoryId!)
         self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng/" + self.destinationCategoryId!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
                 self.activityIndicatorView.stopAnimating()
+                self.view.isUserInteractionEnabled = true
                 switch response.result {
                 case .success:
                     if response.response?.statusCode == 200
@@ -106,9 +108,11 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     
     func CallDestinationCategoryAPI() {
         self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng/" + self.destinationId!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
                 self.activityIndicatorView.stopAnimating()
+                self.view.isUserInteractionEnabled = true
                 switch response.result {
                 case .success:
                     if response.response?.statusCode == 200
@@ -149,7 +153,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryHeaderCell", for: indexPath) as! CategoryHeaderTableViewCell
             cell.headerTitleLabel.text = self.destinationCategoryArray?.shopOpeningClosingTime
-            let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel)
+            let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel) - 1
             if LineLengthOfLabel <= 2
             {
                 cell.seeMoreButton.isHidden = true

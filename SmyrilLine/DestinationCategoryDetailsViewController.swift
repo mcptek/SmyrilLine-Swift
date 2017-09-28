@@ -90,7 +90,7 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "categoryDetailsHeaderCell", for: indexPath) as! CategoryHeaderTableViewCell
             cell.headerTitleLabel.text = self.destinationCategoryDetailsArray?.shopOpeningClosingTime
-            let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel)
+            let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel) - 1
             if LineLengthOfLabel <= 2
             {
                 cell.seeMoreButton.isHidden = true
@@ -145,7 +145,7 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
                 cell.headerTitleLabel.text = nil
             }
             
-            let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel)
+            let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel) - 1
             if LineLengthOfLabel <= 2
             {
                 cell.headerTitleSeeMoreButton.isHidden = true

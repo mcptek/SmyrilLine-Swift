@@ -80,12 +80,13 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
         }
     }
     
-    
     func CallDestinationAPI() {
         self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseArray { (response: DataResponse<[DestinationInfo]>) in
                 self.activityIndicatorView.stopAnimating()
+                self.view.isUserInteractionEnabled = true
                 switch response.result {
                 case .success:
                     if response.response?.statusCode == 200
@@ -100,7 +101,6 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return self.destinaionArray?.count ?? 0
     }
     
