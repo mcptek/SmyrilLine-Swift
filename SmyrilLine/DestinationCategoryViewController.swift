@@ -22,7 +22,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     var destinationId:String?
     var destinationName:String?
     var destinationCategoryId: String?
-    var headerCurrentStatus = 2
+    var headerCurrentStatus = 0
     
     var activityIndicatorView: UIActivityIndicatorView!
     override func viewDidLoad() {
@@ -237,12 +237,12 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        return 1.0
+        return 3.5
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
     {
-        return 1.0
+        return 3.5
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
