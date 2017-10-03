@@ -84,7 +84,6 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     */
     
     func CallDestinationCategoryDetailsAPI() {
-        print(self.destinationCategoryId!)
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng/" + self.destinationCategoryId!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)

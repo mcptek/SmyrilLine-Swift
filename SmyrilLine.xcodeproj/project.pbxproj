@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7E2C7922B3F0743786AA81A3 /* Pods_SmyrilLineTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59F54DB87F9880483BD34714 /* Pods_SmyrilLineTests.framework */; };
+		8409ED2E1F83602E0005F3AA /* ShipInfoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8409ED2D1F83602E0005F3AA /* ShipInfoDetailsViewController.swift */; };
 		840A47841F4FE9360038DAE6 /* TaxfreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A47831F4FE9360038DAE6 /* TaxfreeViewController.swift */; };
 		840A47891F4FF2B40038DAE6 /* TaxFreeShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A47881F4FF2B40038DAE6 /* TaxFreeShop.swift */; };
 		840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DA9CD1F4C5C7F001B3382 /* AppDelegate.swift */; };
@@ -68,6 +69,7 @@
 		4FFE8A9499D1FD5795D950CC /* Pods-SmyrilLineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmyrilLineTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmyrilLineTests/Pods-SmyrilLineTests.release.xcconfig"; sourceTree = "<group>"; };
 		59F54DB87F9880483BD34714 /* Pods_SmyrilLineTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmyrilLineTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69D87D022E6D229866A01C47 /* Pods-SmyrilLine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmyrilLine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmyrilLine/Pods-SmyrilLine.debug.xcconfig"; sourceTree = "<group>"; };
+		8409ED2D1F83602E0005F3AA /* ShipInfoDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipInfoDetailsViewController.swift; sourceTree = "<group>"; };
 		840A47831F4FE9360038DAE6 /* TaxfreeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxfreeViewController.swift; sourceTree = "<group>"; };
 		840A47881F4FF2B40038DAE6 /* TaxFreeShop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxFreeShop.swift; sourceTree = "<group>"; };
 		840DA9CA1F4C5C7F001B3382 /* SmyrilLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmyrilLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */,
+				8409ED2D1F83602E0005F3AA /* ShipInfoDetailsViewController.swift */,
 			);
 			name = "Ship Info";
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				842ED4231F4EFA78000366BF /* RestaurantViewController.swift in Sources */,
 				842308431F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift in Sources */,
 				840A47841F4FE9360038DAE6 /* TaxfreeViewController.swift in Sources */,
+				8409ED2E1F83602E0005F3AA /* ShipInfoDetailsViewController.swift in Sources */,
 				84EE5E241F6A601A001B4CA4 /* MessageObject.swift in Sources */,
 				842ED41E1F4E9B23000366BF /* SmyrilLineUrl.swift in Sources */,
 				842ED4251F4EFB65000366BF /* RestaurantTableViewCell.swift in Sources */,

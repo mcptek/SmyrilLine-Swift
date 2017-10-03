@@ -20,6 +20,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
     var shipInfoObject: TaxFreeShopInfo?
     var myHeaderView: MyTaxfreeScrollViewHeader!
     var scrollView: MXScrollView!
+    var shipInfoCategoryId: String?
     
     var activityIndicatorView: UIActivityIndicatorView!
     override func viewDidLoad() {
@@ -27,7 +28,8 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
 
         // Do any additional setup after loading the view.
         
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = true
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
         self.title = "Ship Info"
 //        let navigationBar = navigationController!.navigationBar
 //        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
@@ -84,22 +86,27 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
     
     
     
-//    func Acknodledge()  {
-////        http://stage-smy-wp.mcp.com:82/api/Schedule/AckQueuedBulletin?scheduleId=66,67&clientId=31E9A95C-DA3A-43B2-B009-4C2DEE6B7433
-//        let bulletinAcknowledgementUrl = String(format: "/api/Schedule/AckQueuedBulletin?scheduleId=%@&clientId=%@", messageId, clientId!)
-//       // print(UrlMCP.server_base_url + bulletinAcknowledgementUrl)
-//        Alamofire.request(UrlMCP.server_base_url + bulletinAcknowledgementUrl, method:.get, parameters: params, encoding: URLEncoding.httpBody, headers: nil)
-//            .responseJSON { (response) in
-//                switch response.result {
-//                case .success:
-//                    print("success")
-//                    completionHandler(.newData)
-//                case .failure(_):
-//                    print(response.result.error?.localizedDescription ?? "Default warning!!")
-//                    completionHandler(.newData)
-//                }
-//        }
-//    }
+    func CallShipInfoDetailsAPI() {
+        self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + "/Eng/" + self.shipInfoCategoryId!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+            .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
+                self.activityIndicatorView.stopAnimating()
+                self.view.isUserInteractionEnabled = true
+                switch response.result {
+                case .success:
+                    if response.response?.statusCode == 200
+                    {
+                        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                        let nextScene = storyBoard.instantiateViewController(withIdentifier: "shipInfoDetails") as! ShipInfoDetailsViewController
+                        nextScene.shipInfoCategoryDetailsArray = response.result.value
+                        self.navigationController?.pushViewController(nextScene, animated: true)
+                    }
+                case .failure(let error):
+                    self.showAlert(title: "Error", message: error.localizedDescription)
+                }
+        }
+    }
     
     func CallShipInfoAPI() {
         self.activityIndicatorView.startAnimating()
@@ -164,6 +171,12 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
             {
                 cell.leftCategoryNameLabel.text = categoryname
             }
+            if let categoryId = self.shipInfoObject?.itemArray?[self.cellIndex].objectId
+            {
+                cell.leftContainerButton.tag = 1000 + Int(categoryId)!
+                cell.leftContainerButton.addTarget(self, action: #selector(shipInfoCategoryDetailsButton(_:)), for: .touchUpInside)
+            }
+            
             self.cellIndex += 1
             if self.cellIndex < (self.shipInfoObject?.itemArray?.count)!
             {
@@ -178,11 +191,18 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
                 {
                     cell.rightCategoryNameLabel.text = categoryname
                 }
+                
+                if let categoryId = self.shipInfoObject?.itemArray?[self.cellIndex].objectId
+                {
+                    cell.rightContainerButton.tag = 1000 + Int(categoryId)!
+                    cell.rightContainerButton.addTarget(self, action: #selector(shipInfoCategoryDetailsButton(_:)), for: .touchUpInside)
+                }
             }
             else
             {
                 cell.rightCategotyImageView.image = nil
                 cell.rightCategoryNameLabel.text = ""
+                cell.rightContainerView.isHidden = true
             }
             cell.selectionStyle = .none
             return cell
@@ -219,6 +239,12 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
         
         return vw
     }
+    
+    func shipInfoCategoryDetailsButton(_ sender : UIButton)  {
+        self.shipInfoCategoryId = String(sender.tag - 1000)
+        self.CallShipInfoDetailsAPI()
+    }
+    
     
 
 }
