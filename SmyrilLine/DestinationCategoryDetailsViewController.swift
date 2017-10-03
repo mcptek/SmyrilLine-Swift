@@ -14,7 +14,6 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
 
     @IBOutlet weak var categoryDetailsTableview: UITableView!
     
-    var destinationName:String?
     var activityIndicatorView: UIActivityIndicatorView!
     var myHeaderView: MyTaxfreeScrollViewHeader!
     var scrollView: MXScrollView!
@@ -26,7 +25,7 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.title = self.destinationName
+        self.title = self.destinationCategoryDetailsArray?.shopName
         
         self.categoryDetailsTableview.estimatedRowHeight = 140
         self.categoryDetailsTableview.rowHeight = UITableViewAutomaticDimension
@@ -91,14 +90,16 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "categoryDetailsHeaderCell", for: indexPath) as! CategoryHeaderTableViewCell
             cell.headerTitleLabel.text = self.destinationCategoryDetailsArray?.shopOpeningClosingTime
-            let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel)
+            let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel) - 1
             if LineLengthOfLabel <= 2
             {
                 cell.seeMoreButton.isHidden = true
+                cell.seeMoreButtonHeightConstraint.constant = 0
             }
             else
             {
                 cell.seeMoreButton.isHidden = false
+                cell.seeMoreButtonHeightConstraint.constant = 30
                 if self.headerCurrentStatus == 2
                 {
                     cell.headerTitleLabel.numberOfLines = 0
@@ -121,25 +122,40 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
                 cell.categoryImageView.sd_setShowActivityIndicatorView(true)
                 cell.categoryImageView.sd_setIndicatorStyle(.gray)
                 cell.categoryImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
-                
             }
+            else
+            {
+                cell.categoryImageView.image = nil
+            }
+            
             if let categoryname = self.destinationCategoryDetailsArray?.itemArray?[indexPath.section - 1].name
             {
                 cell.nameTitleLabel.text = categoryname
             }
+            else
+            {
+                cell.nameTitleLabel.text = nil
+            }
+            
             if let headerName = self.destinationCategoryDetailsArray?.itemArray?[indexPath.section - 1].objectHeader
             {
                 cell.headerTitleLabel.text = headerName
             }
+            else
+            {
+                cell.headerTitleLabel.text = nil
+            }
             
-            let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel)
+            let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel) - 1
             if LineLengthOfLabel <= 2
             {
                 cell.headerTitleSeeMoreButton.isHidden = true
+                cell.seeMoreButtonHeightConstraint.constant = 0
             }
             else
             {
                 cell.headerTitleSeeMoreButton.isHidden = false
+                cell.seeMoreButtonHeightConstraint.constant = 30
                 if self.isExpanded[indexPath.section - 1] == false
                 {
                     cell.headerTitleLabel.numberOfLines = 2
@@ -165,12 +181,12 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        return 1.0
+        return 2.0
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
     {
-        return 1.0
+        return 2.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -226,6 +242,9 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
              self.isExpanded[sender.tag - 1000] = false
         }
         self.categoryDetailsTableview.reloadData()
+        self.categoryDetailsTableview.scrollToNearestSelectedRow(at: .middle, animated: true)
+        //let savedIndex = self.categoryDetailsTableview.indexPathsForVisibleRows?.first
+        //self.categoryDetailsTableview.scrollToRow(at: savedIndex!, at: .top, animated: false)
         
     }
 }

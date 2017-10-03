@@ -175,7 +175,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if UIApplication.shared.applicationState == .active
             {
                 StreamingConnection.sharedInstance.connection.stop()
-                StreamingConnection.sharedInstance.connection.start()
+                self.createSocketConnection()
+                //StreamingConnection.sharedInstance.connection.start()
             }
         }
         

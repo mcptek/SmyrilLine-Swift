@@ -15,6 +15,7 @@ class DestinationCategoryDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var categoryImageView: UIImageView!
     @IBOutlet weak var headerTitleLabel: UILabel!
     @IBOutlet weak var headerTitleSeeMoreButton: UIButton!
+    @IBOutlet weak var seeMoreButtonHeightConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
