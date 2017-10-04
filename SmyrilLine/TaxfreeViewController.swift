@@ -105,6 +105,10 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
+        if let objectId = self.shopObject?.itemArray?[indexPath.row].objectId
+        {
+            self.CallTaxfreeShopDetailsAPIwithObjectId(objectId: objectId)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
@@ -152,6 +156,28 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     }
     */
 
+    func CallTaxfreeShopDetailsAPIwithObjectId(objectId: String) {
+        self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng/" + objectId, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+            .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
+                self.activityIndicatorView.stopAnimating()
+                self.view.isUserInteractionEnabled = true
+                switch response.result {
+                case .success:
+                    if response.response?.statusCode == 200
+                    {
+                        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                        let nextScene = storyBoard.instantiateViewController(withIdentifier: "taxfreeShopDetails") as! TaxfreeDetailsViewController
+                        nextScene.productDetailsObject = response.result.value
+                        self.navigationController?.pushViewController(nextScene, animated: true)
+                    }
+                case .failure(let error):
+                    self.showAlert(title: "Error", message: error.localizedDescription)
+                }
+        }
+    }
+    
     func CallTaxfreeShopAPI() {
         self.activityIndicatorView.startAnimating()
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)

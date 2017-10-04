@@ -24,6 +24,7 @@
 		841D94491F7389C3008699A6 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D94481F7389C3008699A6 /* HeaderCollectionReusableView.swift */; };
 		841F13101F8488D7009CBAD9 /* TaxfreeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F130F1F8488D7009CBAD9 /* TaxfreeHeader.swift */; };
 		841F13121F8488F2009CBAD9 /* TaxfreeHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841F13111F8488F2009CBAD9 /* TaxfreeHeader.xib */; };
+		841F13141F84A16B009CBAD9 /* TaxfreeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F13131F84A16B009CBAD9 /* TaxfreeDetailsViewController.swift */; };
 		842114081F70F066004459A9 /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842114071F70F066004459A9 /* ReachabilityManager.swift */; };
 		842308411F56ED48004A4166 /* TaxfreeParallaxHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842308401F56ED48004A4166 /* TaxfreeParallaxHeaderView.xib */; };
 		842308431F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842308421F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift */; };
@@ -91,6 +92,7 @@
 		841D94481F7389C3008699A6 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		841F130F1F8488D7009CBAD9 /* TaxfreeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxfreeHeader.swift; sourceTree = "<group>"; };
 		841F13111F8488F2009CBAD9 /* TaxfreeHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaxfreeHeader.xib; sourceTree = "<group>"; };
+		841F13131F84A16B009CBAD9 /* TaxfreeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxfreeDetailsViewController.swift; sourceTree = "<group>"; };
 		842114071F70F066004459A9 /* ReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		842308401F56ED48004A4166 /* TaxfreeParallaxHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaxfreeParallaxHeaderView.xib; sourceTree = "<group>"; };
 		842308421F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTaxfreeScrollViewHeader.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				842308441F56FB06004A4166 /* TaxfreeCollectionViewCell.swift */,
 				841F130F1F8488D7009CBAD9 /* TaxfreeHeader.swift */,
 				842308421F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift */,
+				841F13131F84A16B009CBAD9 /* TaxfreeDetailsViewController.swift */,
 			);
 			name = "Tax free shop";
 			sourceTree = "<group>";
@@ -578,6 +581,7 @@
 				84C1C0541F72307700B57B36 /* SettingsCollectionViewCell.swift in Sources */,
 				BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */,
 				84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */,
+				841F13141F84A16B009CBAD9 /* TaxfreeDetailsViewController.swift in Sources */,
 				841D94491F7389C3008699A6 /* HeaderCollectionReusableView.swift in Sources */,
 				849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */,
 				8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */,
