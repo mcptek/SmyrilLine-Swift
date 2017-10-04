@@ -23,7 +23,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="249"/>
                         </imageView>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZHM-b9-6cu">
-                            <rect key="frame" x="16" y="218" width="103" height="15"/>
+                            <rect key="frame" x="16" y="218" width="125" height="15"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" translatesAutoresizingMaskIntoConstraints="NO" id="sWM-s0-MGu">
                                     <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
@@ -32,16 +32,16 @@
                                         <constraint firstAttribute="height" constant="15" id="vUb-KG-KUZ"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="08:00 - 22:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fWe-vj-6wh">
-                                    <rect key="frame" x="23" y="0.0" width="80" height="15"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="08:00 - 22:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fWe-vj-6wh">
+                                    <rect key="frame" x="23" y="0.0" width="102" height="15"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                     <color key="textColor" red="0.99215686270000003" green="0.98823529409999999" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1DG-gF-08z">
-                            <rect key="frame" x="291.5" y="218" width="67.5" height="15"/>
+                            <rect key="frame" x="278" y="218" width="81" height="15"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Location" translatesAutoresizingMaskIntoConstraints="NO" id="YO1-Bh-79g">
                                     <rect key="frame" x="0.0" y="0.0" width="11" height="15"/>
@@ -51,12 +51,12 @@
                                         <constraint firstAttribute="height" constant="15" id="gQb-Vh-2As"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSx-WD-MOq">
-                                    <rect key="frame" x="19" y="0.0" width="48.5" height="15"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSx-WD-MOq">
+                                    <rect key="frame" x="19" y="0.0" width="62" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="15" id="XOh-4L-wpz"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                     <color key="textColor" red="0.99215686270000003" green="0.98823529409999999" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>

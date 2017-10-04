@@ -160,7 +160,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng/" + objectId, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
-            .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
+            .responseObject { (response: DataResponse<ShopObject>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
                 switch response.result {
