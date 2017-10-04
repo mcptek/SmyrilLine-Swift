@@ -39,7 +39,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
-        view.addSubview(self.activityIndicatorView)
+        view.addSubview(self.activityIndicatorView) 
         
         self.myHeaderView = Bundle.main.loadNibNamed("TaxfreeParallaxHeaderView", owner: self, options: nil)?.first as? UIView as! MyTaxfreeScrollViewHeader
         self.shipInfotableView.parallaxHeader.view = self.myHeaderView

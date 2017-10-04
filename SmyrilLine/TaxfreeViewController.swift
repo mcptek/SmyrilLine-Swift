@@ -16,15 +16,26 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
 
     @IBOutlet weak var myTaxfreeCollectionView: UICollectionView!
     
-    var myHeaderView: MyTaxfreeScrollViewHeader!
+    var myHeaderView: TaxfreeHeader!
     var scrollView: MXScrollView!
+    var productInfoCategoryId: String?
+    var activityIndicatorView: UIActivityIndicatorView!
     var shopObject: TaxFreeShopInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.myHeaderView = Bundle.main.loadNibNamed("TaxfreeParallaxHeaderView", owner: self, options: nil)?.first as? UIView as! MyTaxfreeScrollViewHeader
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
+        self.title = "Tax free"
+        
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        myActivityIndicator.center = view.center
+        self.activityIndicatorView = myActivityIndicator
+        view.addSubview(self.activityIndicatorView)
+        
+        self.myHeaderView = Bundle.main.loadNibNamed("TaxfreeHeader", owner: self, options: nil)?.first as? UIView as! TaxfreeHeader
         self.myTaxfreeCollectionView.parallaxHeader.view = self.myHeaderView
         self.myTaxfreeCollectionView.parallaxHeader.height = 250
         self.myTaxfreeCollectionView.parallaxHeader.mode = MXParallaxHeaderMode.fill
@@ -33,7 +44,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        self.CallTaxFreeShopAPI()
+        self.CallTaxfreeShopAPI()
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,12 +59,47 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 25
+        return self.shopObject?.itemArray?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "taxfreeCell", for: indexPath) as! TaxfreeCollectionViewCell
+        if let productName = self.shopObject?.itemArray?[indexPath.row].name
+        {
+            cell.productNameLabel.text = productName
+        }
+        else
+        {
+            cell.productNameLabel.text = nil
+        }
+        
+        if let productHeader = self.shopObject?.itemArray?[indexPath.row].objectHeader
+        {
+            cell.productHeaderLabel.text = productHeader
+        }
+        else
+        {
+            cell.productHeaderLabel.text = nil
+        }
+        
+        if let productPrice = self.shopObject?.itemArray?[indexPath.row].objectPrice
+        {
+            cell.productPriceLabel.text = productPrice
+        }
+        else
+        {
+            cell.productPriceLabel.text = nil
+        }
+        
+        if let imageUrlStr = self.shopObject?.itemArray?[indexPath.row].imageUrl
+        {
+            cell.productImageView.sd_setShowActivityIndicatorView(true)
+            cell.productImageView.sd_setIndicatorStyle(.gray)
+            cell.productImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+            
+        }
+        
         return cell
     }
     
@@ -106,11 +152,11 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     }
     */
 
-    func CallTaxFreeShopAPI() {
-        
+    func CallTaxfreeShopAPI() {
+        self.activityIndicatorView.startAnimating()
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
-                
+                self.activityIndicatorView.stopAnimating()
                 switch response.result
                 {
                 case .success:
@@ -119,26 +165,25 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
                         self.shopObject = response.result.value
                         if let imageUrlStr = self.shopObject?.shopImageUrlStr
                         {
-                            //self.taxFreeShopHeaderImageview.sd_setShowActivityIndicatorView(true)
-                            //self.taxFreeShopHeaderImageview.sd_setIndicatorStyle(.gray)
-                            //self.myCustomView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                            self.myHeaderView.headerImageView.sd_setShowActivityIndicatorView(true)
+                            self.myHeaderView.headerImageView.sd_setIndicatorStyle(.gray)
+                            self.myHeaderView.headerImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
                         }
                         
-//                        if let location = self.shopObject?.shopLocation
-//                        {
-//                            self.shopLocationLabel.text = location
-//                        }
-//                        
-//                        if let time = self.shopObject?.shopOpeningClosingTime
-//                        {
-//                            self.shopOPeningClosingTimeLabel.text = time
-//                        }
+                        if let time = self.shopObject?.shopOpeningClosingTime
+                        {
+                            self.myHeaderView.headerTimeLabel.text = time
+                        }
                         
+                        if let location = self.shopObject?.shopLocation
+                        {
+                             self.myHeaderView.headerLocationLabel.text = location
+                        }
+                        self.myTaxfreeCollectionView.reloadData()
                     }
                 case .failure:
                     self.showAlert(title: "Error", message: (response.result.error?.localizedDescription)!)
                 }
-                self.myTaxfreeCollectionView.reloadData()
         }
     }
 

@@ -22,6 +22,8 @@
 		840DA9F61F4C615C001B3382 /* MainMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DA9F51F4C615C001B3382 /* MainMenuCollectionViewCell.swift */; };
 		84138C8C1F625B1600D3F06C /* UINavigationBar+Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84138C8B1F625B1600D3F06C /* UINavigationBar+Alpha.swift */; };
 		841D94491F7389C3008699A6 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D94481F7389C3008699A6 /* HeaderCollectionReusableView.swift */; };
+		841F13101F8488D7009CBAD9 /* TaxfreeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F130F1F8488D7009CBAD9 /* TaxfreeHeader.swift */; };
+		841F13121F8488F2009CBAD9 /* TaxfreeHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841F13111F8488F2009CBAD9 /* TaxfreeHeader.xib */; };
 		842114081F70F066004459A9 /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842114071F70F066004459A9 /* ReachabilityManager.swift */; };
 		842308411F56ED48004A4166 /* TaxfreeParallaxHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842308401F56ED48004A4166 /* TaxfreeParallaxHeaderView.xib */; };
 		842308431F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842308421F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift */; };
@@ -87,6 +89,8 @@
 		840DA9F51F4C615C001B3382 /* MainMenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		84138C8B1F625B1600D3F06C /* UINavigationBar+Alpha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Alpha.swift"; sourceTree = "<group>"; };
 		841D94481F7389C3008699A6 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		841F130F1F8488D7009CBAD9 /* TaxfreeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxfreeHeader.swift; sourceTree = "<group>"; };
+		841F13111F8488F2009CBAD9 /* TaxfreeHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaxfreeHeader.xib; sourceTree = "<group>"; };
 		842114071F70F066004459A9 /* ReachabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		842308401F56ED48004A4166 /* TaxfreeParallaxHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TaxfreeParallaxHeaderView.xib; sourceTree = "<group>"; };
 		842308421F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTaxfreeScrollViewHeader.swift; sourceTree = "<group>"; };
@@ -154,6 +158,7 @@
 			children = (
 				840A47831F4FE9360038DAE6 /* TaxfreeViewController.swift */,
 				842308441F56FB06004A4166 /* TaxfreeCollectionViewCell.swift */,
+				841F130F1F8488D7009CBAD9 /* TaxfreeHeader.swift */,
 				842308421F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift */,
 			);
 			name = "Tax free shop";
@@ -189,6 +194,7 @@
 				842ED41A1F4E9A34000366BF /* Utilities */,
 				840DA9D11F4C5C7F001B3382 /* Main.storyboard */,
 				842308401F56ED48004A4166 /* TaxfreeParallaxHeaderView.xib */,
+				841F13111F8488F2009CBAD9 /* TaxfreeHeader.xib */,
 				8423084C1F57E0B5004A4166 /* DestinationCategoryHeader.xib */,
 				840DA9D91F4C5C7F001B3382 /* LaunchScreen.storyboard */,
 				840DA9F01F4C5FF6001B3382 /* Assets.xcassets */,
@@ -422,6 +428,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				841F13121F8488F2009CBAD9 /* TaxfreeHeader.xib in Resources */,
 				840DA9DB1F4C5C7F001B3382 /* LaunchScreen.storyboard in Resources */,
 				840DA9F11F4C5FF6001B3382 /* Assets.xcassets in Resources */,
 				8423084D1F57E0B5004A4166 /* DestinationCategoryHeader.xib in Resources */,
@@ -561,6 +568,7 @@
 				842ED4181F4E8E8C000366BF /* ShiptrackerViewController.swift in Sources */,
 				840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */,
 				846E60FB1F6FD55900AC0234 /* SettingsViewController.swift in Sources */,
+				841F13101F8488D7009CBAD9 /* TaxfreeHeader.swift in Sources */,
 				840DA9F61F4C615C001B3382 /* MainMenuCollectionViewCell.swift in Sources */,
 				8447D1691F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift in Sources */,
 				84A8E51E1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift in Sources */,

@@ -10,4 +10,10 @@ import UIKit
 
 class TaxfreeCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet weak var productHeaderLabel: UILabel!
+    
+    @IBOutlet weak var productPriceLabel: UILabel!
+    @IBOutlet weak var productImageView: UIImageView!
+    
 }
