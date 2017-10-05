@@ -62,7 +62,7 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
                 let numericPart = String(describing: firstString)
                 let fractionPart = String(describing: secondString)
                 let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
-                let scriptFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.callout)
+                let scriptFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
                 let stringwithSquare = numericPart.attributedStringWithSuperscript(fractionPart, mainStringFont: mainFont, subStringFont: scriptFont, offSetFromBaseLine: 10)
                 self.myHeaderView.productPriceLabel.attributedText = stringwithSquare
             }
