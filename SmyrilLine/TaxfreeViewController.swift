@@ -138,7 +138,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         case 667:
             return CGSize(width: 166, height: 219)
         case 736:
-            return CGSize(width: 186, height: 219)
+            return CGSize(width: 186, height: 225)
         case 480:
             return CGSize(width: 140, height: 219)
         default:
