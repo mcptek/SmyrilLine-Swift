@@ -16,6 +16,8 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
     var productDetailsObject: ShopObject?
     var myHeaderView: TaxfreeHeaderDetailsHeader!
     var scrollView: MXScrollView!
+    var headerCurrentStatus = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -30,6 +32,10 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
         self.productDetailsTableview.parallaxHeader.height = 250
         self.productDetailsTableview.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.productDetailsTableview.parallaxHeader.minimumHeight = 50
+        
+        //self.productDetailsTableview.backgroundColor = UIColor.white.withAlphaComponent(0.8)
+        self.productDetailsTableview.tableFooterView = UIView()
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -46,9 +52,24 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
             self.myHeaderView.productNameLabel.text = productName
         }
         
-        if let price = self.productDetailsObject?.objectPrice
+        if let priceObject = self.productDetailsObject?.objectPrice
         {
-            self.myHeaderView.productPriceLabel.text = price
+            var price = priceObject.replacingOccurrences(of: ".", with: ",", options: .literal, range: nil)
+            price = "€" + price
+            let splittedStringsArray = price.split(separator: ",", maxSplits: 1, omittingEmptySubsequences: true)
+            if let firstString = splittedStringsArray.first, let secondString = splittedStringsArray.last
+            {
+                let numericPart = String(describing: firstString)
+                let fractionPart = String(describing: secondString)
+                let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
+                let scriptFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.callout)
+                let stringwithSquare = numericPart.attributedStringWithSuperscript(fractionPart, mainStringFont: mainFont, subStringFont: scriptFont, offSetFromBaseLine: 10)
+                self.myHeaderView.productPriceLabel.attributedText = stringwithSquare
+            }
+            else
+            {
+                self.myHeaderView.productPriceLabel.text = price
+            }
         }
     }
     override func didReceiveMemoryWarning() {
@@ -69,7 +90,7 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -78,17 +99,49 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "productDetailsCell", for: indexPath) as! TaxfreeProductDetailsTableViewCell
-        if let productDetails = self.productDetailsObject?.objectHeader
+        if indexPath.section == 0
         {
-            cell.productDetailsLabel.text = productDetails
+            let cell = tableView.dequeueReusableCell(withIdentifier: "productDetailsCell", for: indexPath) as! TaxfreeProductDetailsTableViewCell
+            if let productDetails = self.productDetailsObject?.objectHeader
+            {
+                cell.productDetailsLabel.text = productDetails
+            }
+            else
+            {
+                cell.productDetailsLabel.text = nil
+            }
+            
+            let LineLengthOfLabel = self.countLabelLines(label: cell.productDetailsLabel) - 1
+            if LineLengthOfLabel <= 2
+            {
+                cell.seeMoreButton.isHidden = true
+                cell.seeMoreButtonHeightConstraint.constant = 0
+            }
+            else
+            {
+                cell.seeMoreButton.isHidden = false
+                cell.seeMoreButtonHeightConstraint.constant = 30
+                if self.headerCurrentStatus == 2
+                {
+                    cell.productDetailsLabel.numberOfLines = 0
+                    cell.seeMoreButton.setTitle("See Less", for: .normal)
+                }
+                else
+                {
+                    cell.productDetailsLabel.numberOfLines = 2
+                    cell.seeMoreButton.setTitle("See More", for: .normal)
+                }
+                cell.seeMoreButton.addTarget(self, action: #selector(headerSeeMoreOrLesssButtonAction(_:)), for: .touchUpInside)
+            }
+            cell.selectionStyle = .none
+            return cell
         }
         else
         {
-            cell.productDetailsLabel.text = nil
+            let cell = tableView.dequeueReusableCell(withIdentifier: "placeOrderCell", for: indexPath) as! PlaceOrderTableViewCell
+            cell.selectionStyle = .none
+            return cell
         }
-        cell.selectionStyle = .none
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -119,5 +172,19 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
         
         return vw
     }
+    
+    func headerSeeMoreOrLesssButtonAction(_ sender : UIButton)  {
+        if self.headerCurrentStatus == 2
+        {
+            self.headerCurrentStatus = 0
+        }
+        else
+        {
+            self.headerCurrentStatus = 2
+        }
+        self.productDetailsTableview.reloadData()
+        
+    }
+
 
 }

@@ -40,6 +40,8 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         self.myTaxfreeCollectionView.parallaxHeader.height = 250
         self.myTaxfreeCollectionView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.myTaxfreeCollectionView.parallaxHeader.minimumHeight = 50
+        
+        //self.myTaxfreeCollectionView.backgroundColor = UIColor.white.withAlphaComponent(0.8)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -83,9 +85,25 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
             cell.productHeaderLabel.text = nil
         }
         
-        if let productPrice = self.shopObject?.itemArray?[indexPath.row].objectPrice
+        
+        if let priceObject = self.shopObject?.itemArray?[indexPath.row].objectPrice
         {
-            cell.productPriceLabel.text = productPrice
+            var price = priceObject.replacingOccurrences(of: ".", with: ",", options: .literal, range: nil)
+            price = "€" + price
+            let splittedStringsArray = price.split(separator: ",", maxSplits: 1, omittingEmptySubsequences: true)
+            if let firstString = splittedStringsArray.first, let secondString = splittedStringsArray.last
+            {
+                let numericPart = String(describing: firstString)
+                let fractionPart = String(describing: secondString)
+                let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
+                let scriptFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.callout)
+                let stringwithSquare = numericPart.attributedStringWithSuperscript(fractionPart, mainStringFont: mainFont, subStringFont: scriptFont, offSetFromBaseLine: 10)
+                cell.productPriceLabel.attributedText = stringwithSquare
+            }
+            else
+            {
+                cell.productPriceLabel.text = price
+            }
         }
         else
         {

@@ -8,6 +8,43 @@
 
 import UIKit
 
+
+public extension String{
+    
+    func attributedStringWithSubscript(_ subString: String, mainStringFont: UIFont, subStringFont: UIFont) -> NSMutableAttributedString {
+        
+        let fullString = self+subString
+        
+        let reqLocation = self.characters.count
+        
+        let reqLangth = subString.characters.count
+        
+        let attString:NSMutableAttributedString = NSMutableAttributedString(string: fullString, attributes: [NSFontAttributeName:mainStringFont])
+        
+        attString.setAttributes([NSFontAttributeName:subStringFont,NSBaselineOffsetAttributeName:0], range: NSRange(location:reqLocation,length:reqLangth))
+        
+        return attString
+        
+    }
+    
+    func attributedStringWithSuperscript(_ superString: String, mainStringFont: UIFont, subStringFont: UIFont, offSetFromBaseLine offSet: CGFloat) -> NSMutableAttributedString {
+        
+        let fullString = self+superString
+        
+        let reqLocation = self.characters.count
+        
+        let reqLangth = superString.characters.count
+        
+        let attString:NSMutableAttributedString = NSMutableAttributedString(string: fullString, attributes: [NSFontAttributeName:mainStringFont])
+        
+        attString.setAttributes([NSFontAttributeName:subStringFont,NSBaselineOffsetAttributeName:offSet], range: NSRange(location:reqLocation,length:reqLangth))
+        
+        return attString
+        
+    }
+    
+}
+
 public extension UIViewController {
     func showErrorAlert(error: NSError) {
         let title = error.localizedDescription 
@@ -98,6 +135,21 @@ public extension UIViewController {
         let timeStamp = dateFormatter.string(from: date!)
         
         return timeStamp
+    }
+    
+    func countLabelLines(label: UILabel) -> Int {
+        //  Call self.layoutIfNeeded() //if your view uses auto layout
+        if label.text != nil
+        {
+            let myText = label.text! as NSString
+            let rect = CGSize(width: label.bounds.width, height: CGFloat.greatestFiniteMagnitude)
+            let labelSize = myText.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: label.font], context: nil)
+            return Int(ceil(CGFloat(labelSize.height) / label.font.lineHeight))
+        }
+        else
+        {
+            return 0
+        }
     }
 
 }

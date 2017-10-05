@@ -54,6 +54,7 @@
 		84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */; };
 		84C1C0541F72307700B57B36 /* SettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C1C0531F72307700B57B36 /* SettingsCollectionViewCell.swift */; };
 		84EE5E241F6A601A001B4CA4 /* MessageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE5E231F6A601A001B4CA4 /* MessageObject.swift */; };
+		84FA7EA01F85EC7400D2A299 /* PlaceOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA7E9F1F85EC7400D2A299 /* PlaceOrderTableViewCell.swift */; };
 		B2553924AF491ED961B2132C /* Pods_SmyrilLine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8F808BE45FE0AAC33C1FDB /* Pods_SmyrilLine.framework */; };
 		BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F2D11F4F2EEB003B77CA /* DestinationViewController.swift */; };
 		BB45F2D41F4F2FBD003B77CA /* DestinationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F2D31F4F2FBD003B77CA /* DestinationTableViewCell.swift */; };
@@ -125,6 +126,7 @@
 		84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalRConnection.swift; sourceTree = "<group>"; };
 		84C1C0531F72307700B57B36 /* SettingsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCollectionViewCell.swift; sourceTree = "<group>"; };
 		84EE5E231F6A601A001B4CA4 /* MessageObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageObject.swift; sourceTree = "<group>"; };
+		84FA7E9F1F85EC7400D2A299 /* PlaceOrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceOrderTableViewCell.swift; sourceTree = "<group>"; };
 		BB45F2D11F4F2EEB003B77CA /* DestinationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationViewController.swift; sourceTree = "<group>"; };
 		BB45F2D31F4F2FBD003B77CA /* DestinationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationTableViewCell.swift; sourceTree = "<group>"; };
 		BB45F2D91F4F30A5003B77CA /* Destinations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Destinations.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				841F13131F84A16B009CBAD9 /* TaxfreeDetailsViewController.swift */,
 				841F13171F84DD35009CBAD9 /* TaxfreeHeaderDetailsHeader.swift */,
 				841F131B1F84E136009CBAD9 /* TaxfreeProductDetailsTableViewCell.swift */,
+				84FA7E9F1F85EC7400D2A299 /* PlaceOrderTableViewCell.swift */,
 			);
 			name = "Tax free shop";
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 				840A47841F4FE9360038DAE6 /* TaxfreeViewController.swift in Sources */,
 				8409ED2E1F83602E0005F3AA /* ShipInfoDetailsViewController.swift in Sources */,
 				84EE5E241F6A601A001B4CA4 /* MessageObject.swift in Sources */,
+				84FA7EA01F85EC7400D2A299 /* PlaceOrderTableViewCell.swift in Sources */,
 				842ED41E1F4E9B23000366BF /* SmyrilLineUrl.swift in Sources */,
 				842ED4251F4EFB65000366BF /* RestaurantTableViewCell.swift in Sources */,
 				842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */,

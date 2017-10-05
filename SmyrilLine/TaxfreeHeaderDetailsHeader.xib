@@ -19,21 +19,9 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ul3-LP-oH8">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="222"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="XdC-f9-EQ7">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="217"/>
-                            <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hkq-Yo-1Mc">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="208"/>
-                                </imageView>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yio-r7-kxM">
-                                    <rect key="frame" x="0.0" y="216" width="375" height="1"/>
-                                    <color key="backgroundColor" red="0.90980392156862744" green="0.90980392156862744" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="1" id="7nJ-YU-Egn"/>
-                                    </constraints>
-                                </view>
-                            </subviews>
-                        </stackView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hkq-Yo-1Mc">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="222"/>
+                        </imageView>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYC-AI-Z8A">
                             <rect key="frame" x="16" y="188" width="375" height="18"/>
                             <subviews>
@@ -54,13 +42,13 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="XdC-f9-EQ7" secondAttribute="bottom" constant="5" id="7o6-VE-bBZ"/>
+                        <constraint firstAttribute="bottom" secondItem="hkq-Yo-1Mc" secondAttribute="bottom" id="1Wm-kW-zrN"/>
+                        <constraint firstItem="hkq-Yo-1Mc" firstAttribute="leading" secondItem="Ul3-LP-oH8" secondAttribute="leading" id="A1n-Zh-uFn"/>
                         <constraint firstAttribute="bottom" secondItem="HYC-AI-Z8A" secondAttribute="bottom" constant="16" id="BS0-El-n9M"/>
-                        <constraint firstItem="XdC-f9-EQ7" firstAttribute="top" secondItem="Ul3-LP-oH8" secondAttribute="top" id="FwY-Dh-9sP"/>
-                        <constraint firstAttribute="trailing" secondItem="XdC-f9-EQ7" secondAttribute="trailing" id="b5e-nf-K1l"/>
+                        <constraint firstItem="hkq-Yo-1Mc" firstAttribute="top" secondItem="Ul3-LP-oH8" secondAttribute="top" id="Uam-CD-NqJ"/>
                         <constraint firstAttribute="trailing" secondItem="HYC-AI-Z8A" secondAttribute="trailing" constant="16" id="oRc-RC-wpZ"/>
                         <constraint firstItem="HYC-AI-Z8A" firstAttribute="leading" secondItem="Ul3-LP-oH8" secondAttribute="leading" constant="16" id="t7o-dW-e1y"/>
-                        <constraint firstItem="XdC-f9-EQ7" firstAttribute="leading" secondItem="Ul3-LP-oH8" secondAttribute="leading" id="vcS-eX-4gz"/>
+                        <constraint firstAttribute="trailing" secondItem="hkq-Yo-1Mc" secondAttribute="trailing" id="xgd-Js-UON"/>
                     </constraints>
                 </view>
             </subviews>

@@ -11,8 +11,9 @@ import UIKit
 class TaxfreeProductDetailsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var productDetailsLabel: UILabel!
+    @IBOutlet weak var seeMoreButton: UIButton!
+    @IBOutlet weak var seeMoreButtonHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var placeOrderButton: UIButton!
     @IBOutlet weak var containerView: UIView!
     
     override func awakeFromNib() {
@@ -26,12 +27,6 @@ class TaxfreeProductDetailsTableViewCell: UITableViewCell {
         self.containerView.layer.masksToBounds = true
         self.containerView.layer.cornerRadius = 3
         self.containerView.layer.masksToBounds = true
-        
-        // Initialization code
-        self.placeOrderButton.layer.cornerRadius = 3
-        self.placeOrderButton.layer.masksToBounds = true
-        self.placeOrderButton.layer.cornerRadius = 3
-        self.placeOrderButton.layer.masksToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
