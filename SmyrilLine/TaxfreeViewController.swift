@@ -16,24 +16,37 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
 
     @IBOutlet weak var myTaxfreeCollectionView: UICollectionView!
     
-    var myHeaderView: MyTaxfreeScrollViewHeader!
+    var myHeaderView: TaxfreeHeader!
     var scrollView: MXScrollView!
+    var productInfoCategoryId: String?
+    var activityIndicatorView: UIActivityIndicatorView!
     var shopObject: TaxFreeShopInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.myHeaderView = Bundle.main.loadNibNamed("TaxfreeParallaxHeaderView", owner: self, options: nil)?.first as? UIView as! MyTaxfreeScrollViewHeader
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
+        self.title = "Tax free"
+        
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        myActivityIndicator.center = view.center
+        self.activityIndicatorView = myActivityIndicator
+        view.addSubview(self.activityIndicatorView)
+        
+        self.myHeaderView = Bundle.main.loadNibNamed("TaxfreeHeader", owner: self, options: nil)?.first as? UIView as! TaxfreeHeader
         self.myTaxfreeCollectionView.parallaxHeader.view = self.myHeaderView
         self.myTaxfreeCollectionView.parallaxHeader.height = 250
         self.myTaxfreeCollectionView.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.myTaxfreeCollectionView.parallaxHeader.minimumHeight = 50
+        
+        //self.myTaxfreeCollectionView.backgroundColor = UIColor.white.withAlphaComponent(0.8)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        self.CallTaxFreeShopAPI()
+        self.CallTaxfreeShopAPI()
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,17 +61,72 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 25
+        return self.shopObject?.itemArray?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "taxfreeCell", for: indexPath) as! TaxfreeCollectionViewCell
+        if let productName = self.shopObject?.itemArray?[indexPath.row].name
+        {
+            cell.productNameLabel.text = productName
+        }
+        else
+        {
+            cell.productNameLabel.text = nil
+        }
+        
+        if let productHeader = self.shopObject?.itemArray?[indexPath.row].objectHeader
+        {
+            cell.productHeaderLabel.text = productHeader
+        }
+        else
+        {
+            cell.productHeaderLabel.text = nil
+        }
+        
+        
+        if let priceObject = self.shopObject?.itemArray?[indexPath.row].objectPrice
+        {
+            var price = priceObject.replacingOccurrences(of: ".", with: ",", options: .literal, range: nil)
+            price = "€" + price
+            let splittedStringsArray = price.split(separator: ",", maxSplits: 1, omittingEmptySubsequences: true)
+            if let firstString = splittedStringsArray.first, let secondString = splittedStringsArray.last
+            {
+                let numericPart = String(describing: firstString)
+                let fractionPart = String(describing: secondString)
+                let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
+                let scriptFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
+                let stringwithSquare = numericPart.attributedStringWithSuperscript(fractionPart, mainStringFont: mainFont, subStringFont: scriptFont, offSetFromBaseLine: 10)
+                cell.productPriceLabel.attributedText = stringwithSquare
+            }
+            else
+            {
+                cell.productPriceLabel.text = price
+            }
+        }
+        else
+        {
+            cell.productPriceLabel.text = nil
+        }
+        
+        if let imageUrlStr = self.shopObject?.itemArray?[indexPath.row].imageUrl
+        {
+            cell.productImageView.sd_setShowActivityIndicatorView(true)
+            cell.productImageView.sd_setIndicatorStyle(.gray)
+            cell.productImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+            
+        }
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
+        if let objectId = self.shopObject?.itemArray?[indexPath.row].objectId
+        {
+            self.CallTaxfreeShopDetailsAPIwithObjectId(objectId: objectId)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
@@ -88,7 +156,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         case 667:
             return CGSize(width: 166, height: 219)
         case 736:
-            return CGSize(width: 186, height: 219)
+            return CGSize(width: 186, height: 225)
         case 480:
             return CGSize(width: 140, height: 219)
         default:
@@ -106,11 +174,33 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     }
     */
 
-    func CallTaxFreeShopAPI() {
-        
+    func CallTaxfreeShopDetailsAPIwithObjectId(objectId: String) {
+        self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng/" + objectId, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+            .responseObject { (response: DataResponse<ShopObject>) in
+                self.activityIndicatorView.stopAnimating()
+                self.view.isUserInteractionEnabled = true
+                switch response.result {
+                case .success:
+                    if response.response?.statusCode == 200
+                    {
+                        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                        let nextScene = storyBoard.instantiateViewController(withIdentifier: "taxfreeShopDetails") as! TaxfreeDetailsViewController
+                        nextScene.productDetailsObject = response.result.value
+                        self.navigationController?.pushViewController(nextScene, animated: true)
+                    }
+                case .failure(let error):
+                    self.showAlert(title: "Error", message: error.localizedDescription)
+                }
+        }
+    }
+    
+    func CallTaxfreeShopAPI() {
+        self.activityIndicatorView.startAnimating()
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
-                
+                self.activityIndicatorView.stopAnimating()
                 switch response.result
                 {
                 case .success:
@@ -119,26 +209,25 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
                         self.shopObject = response.result.value
                         if let imageUrlStr = self.shopObject?.shopImageUrlStr
                         {
-                            //self.taxFreeShopHeaderImageview.sd_setShowActivityIndicatorView(true)
-                            //self.taxFreeShopHeaderImageview.sd_setIndicatorStyle(.gray)
-                            //self.myCustomView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                            self.myHeaderView.headerImageView.sd_setShowActivityIndicatorView(true)
+                            self.myHeaderView.headerImageView.sd_setIndicatorStyle(.gray)
+                            self.myHeaderView.headerImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
                         }
                         
-//                        if let location = self.shopObject?.shopLocation
-//                        {
-//                            self.shopLocationLabel.text = location
-//                        }
-//                        
-//                        if let time = self.shopObject?.shopOpeningClosingTime
-//                        {
-//                            self.shopOPeningClosingTimeLabel.text = time
-//                        }
+                        if let time = self.shopObject?.shopOpeningClosingTime
+                        {
+                            self.myHeaderView.headerTimeLabel.text = time
+                        }
                         
+                        if let location = self.shopObject?.shopLocation
+                        {
+                             self.myHeaderView.headerLocationLabel.text = location
+                        }
+                        self.myTaxfreeCollectionView.reloadData()
                     }
                 case .failure:
                     self.showAlert(title: "Error", message: (response.result.error?.localizedDescription)!)
                 }
-                self.myTaxfreeCollectionView.reloadData()
         }
     }
 

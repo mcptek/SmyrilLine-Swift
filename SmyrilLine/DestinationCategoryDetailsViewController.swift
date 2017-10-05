@@ -203,21 +203,6 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
         
         return vw
     }
-
-    func countLabelLines(label: UILabel) -> Int {
-        //  Call self.layoutIfNeeded() //if your view uses auto layout
-        if label.text != nil
-        {
-            let myText = label.text! as NSString
-            let rect = CGSize(width: label.bounds.width, height: CGFloat.greatestFiniteMagnitude)
-            let labelSize = myText.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: label.font], context: nil)
-            return Int(ceil(CGFloat(labelSize.height) / label.font.lineHeight))
-        }
-        else
-        {
-            return 0
-        }
-    }
     
     func headerSeeMoreOrLesssButtonAction(_ sender : UIButton)  {
         if self.headerCurrentStatus == 2

@@ -84,7 +84,6 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     */
     
     func CallDestinationCategoryDetailsAPI() {
-        print(self.destinationCategoryId!)
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng/" + self.destinationCategoryId!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
@@ -263,21 +262,6 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     func categoryDetailsButton(_ sender : UIButton)  {
         self.destinationCategoryId = String(sender.tag - 1000)
         self.CallDestinationCategoryDetailsAPI()
-    }
-    
-    func countLabelLines(label: UILabel) -> Int {
-        //  Call self.layoutIfNeeded() //if your view uses auto layout
-        if label.text != nil
-        {
-            let myText = label.text! as NSString
-            let rect = CGSize(width: label.bounds.width, height: CGFloat.greatestFiniteMagnitude)
-            let labelSize = myText.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [NSFontAttributeName: label.font], context: nil)
-            return Int(ceil(CGFloat(labelSize.height) / label.font.lineHeight))
-        }
-        else
-        {
-            return 0
-        }
     }
     
     func headerSeeMoreOrLesssButtonAction(_ sender : UIButton)  {
