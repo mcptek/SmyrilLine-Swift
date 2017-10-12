@@ -25,7 +25,7 @@ class HelpViewController: UIViewController,UIWebViewDelegate {
         // Do any additional setup after loading the view.
         
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-        myActivityIndicator.center = view.center
+        myActivityIndicator.center = self.myWebview.center
         self.activityIndicatorView = myActivityIndicator
         view.addSubview(self.activityIndicatorView)
         
@@ -33,7 +33,19 @@ class HelpViewController: UIViewController,UIWebViewDelegate {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
         self.title = "Help"
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        self.LoadHelpViewContent()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func LoadHelpViewContent()  {
         self.appVersionLabel.text = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         self.clientIdLabel.text = UIDevice.current.identifierForVendor?.uuidString
         
@@ -41,21 +53,18 @@ class HelpViewController: UIViewController,UIWebViewDelegate {
         self.myWebview.delegate = self
         self.myWebview.loadHTMLString("<html><body><p><strong>Wi-Fi Connectivity</strong></p><p>Remember to connect to our local Wi-Fi network to take full advantage of our Smyril Line APP.</p><p><strong>Ship Tracker</strong></p><p>Ship Tracker gives you a quick glimps of next port, previous port, time of arrival and path of journey.</p><p><strong>Coupons and Offers</strong></p><p>You can see all the available offers at a glance in this section. Hurry up before the promotional offers expire.</p><p><strong>Restaurants</strong></p><p>You will find list of all the restaurants in our ship and their menu. Enjoy delicious food at our cozy restaurants.</p><p><strong>About the Ship</strong></p><p>You will find all the info about Norröna in this section.</p></body></html>", baseURL: nil)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func webViewDidStartLoad(_ webView: UIWebView) {
         self.activityIndicatorView.startAnimating()
     }
-    
+    //[self.myWebview stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"]
     func webViewDidFinishLoad(_ webView: UIWebView) {
         self.activityIndicatorView.stopAnimating()
         self.myWebview.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('body')[0].style.fontFamily =\"-apple-system\"")
+        let contentHeigt = self.myWebview.stringByEvaluatingJavaScript(from: "document.body.offsetHeight;")
         self.webViewHeightConstraint.constant = webView.scrollView.contentSize.height
-        self.containerHeightConstraint.constant =  self.webViewHeightConstraint.constant + self.clientIdLabel.bounds.size.height + 24 + 20.5
+        self.containerHeightConstraint.constant =  self.webViewHeightConstraint.constant + self.clientIdLabel.bounds.size.height + 42 + 20.5
+        print(self.webViewHeightConstraint.constant,Int(contentHeigt!)! )
     }
 
     func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
