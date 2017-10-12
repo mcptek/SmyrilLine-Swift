@@ -14,6 +14,8 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
     let ageGroupArray = ["Adult from 15 year","Child 12 - 15 year","Child 3 - 11 year","All"]
     let genderArray = ["Male","Female","Both"]
     var settingDic = [String:Bool]()
+    var currentSelectedLanguage = 0
+    
     
     @IBOutlet weak var settingsCollectionView: UICollectionView!
     
@@ -113,6 +115,15 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
             defaults.set(true, forKey: "Both")
             self.settingDic["Both"] = true
         }
+        if defaults.value(forKey: "CurrentSelectedLanguage") == nil
+        {
+            defaults.set(0, forKey: "CurrentSelectedLanguage")
+        }
+        else
+        {
+            self.currentSelectedLanguage = defaults.value(forKey: "CurrentSelectedLanguage") as! Int
+        }
+        
         self.settingsCollectionView.reloadData()
     }
     
@@ -215,24 +226,25 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         defaults.set(self.settingDic["Male"], forKey: "Male")
         defaults.set(self.settingDic["Female"], forKey: "Female")
         defaults.set(self.settingDic["Both"], forKey: "Both")
+        defaults.set(self.currentSelectedLanguage, forKey: "CurrentSelectedLanguage")
         self.displayToast(alertMsg: "Age group and gender recipient saved.")
     }
     
     
     func numberOfSections(in collectionView: UICollectionView) -> Int
     {
-        return 2
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        if section == 0
-        {
+        switch section {
+        case 0:
             return 4
-        }
-        else
-        {
+        case 1:
             return 3
+        default:
+            return 4
         }
     }
     
@@ -266,27 +278,58 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
         else
         {
-            let fullString = self.genderArray[indexPath.row]
-            let splittedStringsArray = fullString.split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true)
-            cell.categoryNameLabel.text = String(describing: splittedStringsArray.first!)
-            if splittedStringsArray.count > 1
-            {
-                cell.categoryDescriptionNameLabel.text = String(describing: splittedStringsArray.last!)
-            }
-            else
+            if indexPath.section == 2
             {
                 cell.categoryDescriptionNameLabel.text = nil
-            }
-            cell.categoryImageView.image = UIImage.init(named: self.genderArray[indexPath.row])
-            if self.settingDic[self.genderArray[indexPath.row]]!
-            {
-                cell.transparentImageView.backgroundColor = UIColor.black
-                cell.categorySelectionImageView.isHidden = false
+                switch indexPath.row {
+                case 0:
+                    cell.categoryNameLabel.text = "English"
+                    cell.categoryImageView.image = UIImage.init(named: "UK Flag")
+                case 1:
+                    cell.categoryNameLabel.text = "German"
+                    cell.categoryImageView.image = UIImage.init(named: "German Flag")
+                case 2:
+                    cell.categoryNameLabel.text = "Faroese"
+                    cell.categoryImageView.image = UIImage.init(named: "Farose Flag")
+                default:
+                    cell.categoryNameLabel.text = "Danish"
+                    cell.categoryImageView.image = UIImage.init(named: "Danish flag")
+                }
+                
+                if indexPath.row == self.currentSelectedLanguage {
+                    cell.transparentImageView.backgroundColor = UIColor.black
+                    cell.categorySelectionImageView.isHidden = false
+                }
+                else
+                {
+                    cell.transparentImageView.backgroundColor = UIColor.white
+                    cell.categorySelectionImageView.isHidden = true
+                }
             }
             else
             {
-                cell.transparentImageView.backgroundColor = UIColor.white
-                cell.categorySelectionImageView.isHidden = true
+                let fullString = self.genderArray[indexPath.row]
+                let splittedStringsArray = fullString.split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true)
+                cell.categoryNameLabel.text = String(describing: splittedStringsArray.first!)
+                if splittedStringsArray.count > 1
+                {
+                    cell.categoryDescriptionNameLabel.text = String(describing: splittedStringsArray.last!)
+                }
+                else
+                {
+                    cell.categoryDescriptionNameLabel.text = nil
+                }
+                cell.categoryImageView.image = UIImage.init(named: self.genderArray[indexPath.row])
+                if self.settingDic[self.genderArray[indexPath.row]]!
+                {
+                    cell.transparentImageView.backgroundColor = UIColor.black
+                    cell.categorySelectionImageView.isHidden = false
+                }
+                else
+                {
+                    cell.transparentImageView.backgroundColor = UIColor.white
+                    cell.categorySelectionImageView.isHidden = true
+                }
             }
         }
         return cell
@@ -330,6 +373,10 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
                 self.settingDic[self.ageGroupArray[3]] = true
             }
             
+        }
+        else if indexPath.section == 2
+        {
+            self.currentSelectedLanguage = indexPath.row
         }
         else
         {
@@ -385,13 +432,13 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         case UICollectionElementKindSectionHeader:
             
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerCell", for: indexPath as IndexPath) as! HeaderCollectionReusableView
-            if indexPath.section == 0
-            {
-                headerView.titlaLabel.text = "Age group"
-            }
-            else
-            {
+            switch indexPath.section {
+            case 0:
+                 headerView.titlaLabel.text = "Age group"
+            case 1:
                 headerView.titlaLabel.text = "Gender"
+            default:
+                headerView.titlaLabel.text = "Language"
             }
             headerView.backgroundColor = UIColor.clear
             return headerView
