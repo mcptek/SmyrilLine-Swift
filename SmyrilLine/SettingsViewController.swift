@@ -227,7 +227,7 @@ class SettingsViewController: UIViewController,UICollectionViewDataSource,UIColl
         defaults.set(self.settingDic["Female"], forKey: "Female")
         defaults.set(self.settingDic["Both"], forKey: "Both")
         defaults.set(self.currentSelectedLanguage, forKey: "CurrentSelectedLanguage")
-        self.displayToast(alertMsg: "Age group and gender recipient saved.")
+        self.displayToast(alertMsg: "Settings saved.")
     }
     
     
