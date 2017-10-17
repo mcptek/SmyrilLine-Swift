@@ -79,7 +79,7 @@ public extension UIViewController {
     }
     
     func displayToast(alertMsg : String){
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 130, y: self.view.frame.size.height-100, width: 250, height: 45))
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 130, y: self.view.frame.size.height-130, width: 250, height: 45))
         toastLabel.backgroundColor = UIColor.gray
         toastLabel.textColor = UIColor.white
         toastLabel.font = UIFont(name: toastLabel.font.fontName, size: 12)

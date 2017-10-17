@@ -131,7 +131,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func createSocketConnection()  {
         StreamingConnection.sharedInstance.connection.started = {
             print("Connected")
-            let language = "en"
+            var language = "en"
+            if UserDefaults.standard.value(forKey: "CurrentSelectedLanguage") != nil {
+                let settingsLanguage = UserDefaults.standard.value(forKey: "CurrentSelectedLanguage")  as! Int
+                switch settingsLanguage {
+                case 0:
+                    language = "en"
+                case 1:
+                    language = "de"
+                case 2:
+                    language = "fo"
+                default:
+                   language = "da"
+                }
+            }
+            
             let AppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
             let phoneType = UIDevice.current.deviceType
             let phoneId = UIDevice.current.identifierForVendor?.uuidString

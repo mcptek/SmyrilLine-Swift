@@ -79,6 +79,8 @@ class MainMenuViewController: UIViewController,UICollectionViewDataSource,UIColl
             performSegue(withIdentifier: "settings", sender: self)
         case 8:
             performSegue(withIdentifier: "shipInfo", sender: self)
+        case 10:
+            performSegue(withIdentifier: "help", sender: self)
         default:
             print("Do nothing")
         }
