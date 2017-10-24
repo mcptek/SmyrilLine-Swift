@@ -15,6 +15,7 @@ target 'SmyrilLine' do
   pod 'SignalRSwift', '~> 1.0.3'
   pod ‘ReachabilitySwift’, ‘~> 3’
   pod 'Device.swift'
+  pod 'NewRelicAgent'
   # pod 'HandyUIKit', '~> 1.6'
   # Pods for SmyrilLine
 

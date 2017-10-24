@@ -6,6 +6,7 @@ PODS:
   - Device.swift (1.0)
   - Mapbox-iOS-SDK (3.6.4)
   - MXParallaxHeader (0.6.1)
+  - NewRelicAgent (5.14.2)
   - ObjectMapper (2.2.9)
   - ReachabilitySwift (3)
   - SDWebImage (4.1.0):
@@ -24,6 +25,7 @@ DEPENDENCIES:
   - Device.swift
   - Mapbox-iOS-SDK (~> 3.6)
   - MXParallaxHeader
+  - NewRelicAgent
   - ReachabilitySwift (~> 3)
   - SDWebImage
   - SignalRSwift (~> 1.0.3)
@@ -35,6 +37,7 @@ SPEC CHECKSUMS:
   Device.swift: edb7ee47de78dbfeb42730dacc7075abaa5c2fde
   Mapbox-iOS-SDK: 47847dd44285477e0dfffd0130f65c8a52823ada
   MXParallaxHeader: 858c403532ed933b381556a81ce333d7065ad182
+  NewRelicAgent: 28645401ac7531eeeabde64410c9d5efd49e083f
   ObjectMapper: 63cfe41bc6f8e7c8f44344c49901b8ae7de14c52
   ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
   SDWebImage: 0e435c14e402a6730315a0fb79f95e68654d55a4
@@ -42,6 +45,6 @@ SPEC CHECKSUMS:
   SwiftWebSocket: 1ef8a0efb023544643bdf480c1ec4a62b204f293
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: e43d5fc724996b8936285a9818c070638b8a1cb7
+PODFILE CHECKSUM: 2a2337d9ca11fe323bb0caf656ea895b4ef13ec6
 
 COCOAPODS: 1.2.1
