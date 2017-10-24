@@ -45,6 +45,7 @@
 		8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */; };
 		8447D1691F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447D1681F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift */; };
 		8447D16B1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447D16A1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift */; };
+		84623FF41F9F117300B0DE50 /* SmyrilLineBridgeHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 84623FF31F9F117300B0DE50 /* SmyrilLineBridgeHeader.m */; };
 		846643331F8F554600146A68 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846643321F8F554600146A68 /* HelpViewController.swift */; };
 		846E60FB1F6FD55900AC0234 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */; };
 		849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */; };
@@ -118,6 +119,8 @@
 		8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipInfoViewController.swift; sourceTree = "<group>"; };
 		8447D1681F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCategoryDetailsViewController.swift; sourceTree = "<group>"; };
 		8447D16A1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCategoryDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		84623FF21F9F117200B0DE50 /* SmyrilLine-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmyrilLine-Bridging-Header.h"; sourceTree = "<group>"; };
+		84623FF31F9F117300B0DE50 /* SmyrilLineBridgeHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmyrilLineBridgeHeader.m; sourceTree = "<group>"; };
 		846643321F8F554600146A68 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -217,6 +220,8 @@
 				840DA9F01F4C5FF6001B3382 /* Assets.xcassets */,
 				840DA9DC1F4C5C7F001B3382 /* Info.plist */,
 				840DA9D41F4C5C7F001B3382 /* SmyrilLine.xcdatamodeld */,
+				84623FF21F9F117200B0DE50 /* SmyrilLine-Bridging-Header.h */,
+				84623FF31F9F117300B0DE50 /* SmyrilLineBridgeHeader.m */,
 			);
 			path = SmyrilLine;
 			sourceTree = "<group>";
@@ -372,6 +377,7 @@
 				840DA9C81F4C5C7F001B3382 /* Resources */,
 				AF38006464140E20F1634485 /* [CP] Embed Pods Frameworks */,
 				66D4889786FDFE57AACC169F /* [CP] Copy Pods Resources */,
+				84623FF51F9F120400B0DE50 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -415,7 +421,8 @@
 				TargetAttributes = {
 					840DA9C91F4C5C7F001B3382 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 79YLMQ62DM;
+						DevelopmentTeam = CZ4ZW9TPK7;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -503,6 +510,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmyrilLine/Pods-SmyrilLine-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		84623FF51F9F120400B0DE50 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name newrelic_postbuild.sh | head -n 1`\n\n/bin/sh \"${SCRIPT}\" \"AAc3ed7fc1d51b98bee31eafc0d5aa389bd9979495\"";
 		};
 		AF38006464140E20F1634485 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -592,6 +612,7 @@
 				842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */,
 				842ED4201F4E9B7B000366BF /* ViewControllerExtension.swift in Sources */,
 				840DA9D61F4C5C7F001B3382 /* SmyrilLine.xcdatamodeld in Sources */,
+				84623FF41F9F117300B0DE50 /* SmyrilLineBridgeHeader.m in Sources */,
 				840DA9D01F4C5C7F001B3382 /* ViewController.swift in Sources */,
 				84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */,
 				841F13181F84DD35009CBAD9 /* TaxfreeHeaderDetailsHeader.swift in Sources */,
@@ -753,14 +774,19 @@
 			baseConfigurationReference = 69D87D022E6D229866A01C47 /* Pods-SmyrilLine.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 79YLMQ62DM;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = CZ4ZW9TPK7;
 				INFOPLIST_FILE = SmyrilLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.mcpdebug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.qbs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "605b9c30-cedc-453e-99f3-8f1794ccd554";
-				PROVISIONING_PROFILE_SPECIFIER = "MCP development profile";
+				PROVISIONING_PROFILE = "e4506205-29e4-4f65-bc01-112aa5cc8ec8";
+				PROVISIONING_PROFILE_SPECIFIER = "QBS debug profile";
+				SWIFT_OBJC_BRIDGING_HEADER = "SmyrilLine/SmyrilLine-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -770,14 +796,18 @@
 			baseConfigurationReference = FAF5CEFB6DE5FDDAC81FD0E7 /* Pods-SmyrilLine.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 79YLMQ62DM;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = CZ4ZW9TPK7;
 				INFOPLIST_FILE = SmyrilLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.mcpdebug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.qbs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "605b9c30-cedc-453e-99f3-8f1794ccd554";
-				PROVISIONING_PROFILE_SPECIFIER = "MCP development profile";
+				PROVISIONING_PROFILE = "e4506205-29e4-4f65-bc01-112aa5cc8ec8";
+				PROVISIONING_PROFILE_SPECIFIER = "QBS debug profile";
+				SWIFT_OBJC_BRIDGING_HEADER = "SmyrilLine/SmyrilLine-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
