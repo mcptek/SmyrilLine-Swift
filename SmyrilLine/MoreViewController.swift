@@ -16,6 +16,7 @@ class MoreViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
         self.moreTableview.backgroundColor = UIColor.white.withAlphaComponent(0.8)
         self.moreTableview.tableFooterView = UIView()
     }
@@ -58,6 +59,21 @@ class MoreViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch indexPath.row {
+        case 0:
+            self.performSegue(withIdentifier: "taxfree", sender: self)
+        case 1:
+            self.performSegue(withIdentifier: "destination", sender: self)
+        case 2:
+            self.performSegue(withIdentifier: "shipInfo", sender: self)
+        case 3:
+            self.performSegue(withIdentifier: "help", sender: self)
+        case 4:
+            self.performSegue(withIdentifier: "settings", sender: self)
+        default:
+            print("LogOut Action")
+        }
     }
     
 }
