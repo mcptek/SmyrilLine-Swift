@@ -25,7 +25,7 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
         self.navigationController?.navigationBar.isHidden = false
 //        let navigationBar = navigationController!.navigationBar
 //        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
-        self.title = "Restaurants & Bars"
+        //self.title = "Restaurants & Bars"
         
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center

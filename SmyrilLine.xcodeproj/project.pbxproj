@@ -48,6 +48,7 @@
 		84623FF41F9F117300B0DE50 /* SmyrilLineBridgeHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 84623FF31F9F117300B0DE50 /* SmyrilLineBridgeHeader.m */; };
 		846643331F8F554600146A68 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846643321F8F554600146A68 /* HelpViewController.swift */; };
 		846E60FB1F6FD55900AC0234 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */; };
+		849BC7AD1FA04A85003BCEB1 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849BC7AC1FA04A85003BCEB1 /* MoreViewController.swift */; };
 		849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */; };
 		84A8E51A1F6A75CA00B5E569 /* InboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E5191F6A75CA00B5E569 /* InboxTableViewCell.swift */; };
 		84A8E51C1F6A842C00B5E569 /* InboxDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E51B1F6A842C00B5E569 /* InboxDetailsViewController.swift */; };
@@ -123,6 +124,7 @@
 		84623FF31F9F117300B0DE50 /* SmyrilLineBridgeHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmyrilLineBridgeHeader.m; sourceTree = "<group>"; };
 		846643321F8F554600146A68 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		849BC7AC1FA04A85003BCEB1 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		84A8E5191F6A75CA00B5E569 /* InboxTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxTableViewCell.swift; sourceTree = "<group>"; };
 		84A8E51B1F6A842C00B5E569 /* InboxDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxDetailsViewController.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				842ED4211F4EFA4F000366BF /* Restaurants */,
 				846E60F91F6FD51F00AC0234 /* Setting */,
 				846643311F8F551200146A68 /* Help */,
+				849BC7AB1FA04A62003BCEB1 /* More */,
 			);
 			name = Stories;
 			sourceTree = "<group>";
@@ -326,6 +329,14 @@
 				841D94481F7389C3008699A6 /* HeaderCollectionReusableView.swift */,
 			);
 			name = Setting;
+			sourceTree = "<group>";
+		};
+		849BC7AB1FA04A62003BCEB1 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				849BC7AC1FA04A85003BCEB1 /* MoreViewController.swift */,
+			);
+			name = More;
 			sourceTree = "<group>";
 		};
 		84AA0E4B1F692A7E00E4354A /* Inbox */ = {
@@ -591,6 +602,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				849BC7AD1FA04A85003BCEB1 /* MoreViewController.swift in Sources */,
 				842114081F70F066004459A9 /* ReachabilityManager.swift in Sources */,
 				84A8E51C1F6A842C00B5E569 /* InboxDetailsViewController.swift in Sources */,
 				8445F1581F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift in Sources */,
