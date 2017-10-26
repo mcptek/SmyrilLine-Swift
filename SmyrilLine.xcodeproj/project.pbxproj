@@ -432,7 +432,7 @@
 				TargetAttributes = {
 					840DA9C91F4C5C7F001B3382 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = CZ4ZW9TPK7;
+						DevelopmentTeam = 79YLMQ62DM;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -789,14 +789,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = CZ4ZW9TPK7;
+				DEVELOPMENT_TEAM = 79YLMQ62DM;
 				INFOPLIST_FILE = SmyrilLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.qbs;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.mcpdebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e4506205-29e4-4f65-bc01-112aa5cc8ec8";
-				PROVISIONING_PROFILE_SPECIFIER = "QBS debug profile";
+				PROVISIONING_PROFILE = "14ad0db3-2cef-4865-83a0-89127c6ae1b5";
+				PROVISIONING_PROFILE_SPECIFIER = "MCP Debug";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmyrilLine/SmyrilLine-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -811,14 +811,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = CZ4ZW9TPK7;
+				DEVELOPMENT_TEAM = 79YLMQ62DM;
 				INFOPLIST_FILE = SmyrilLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.qbs;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.mcpdebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e4506205-29e4-4f65-bc01-112aa5cc8ec8";
-				PROVISIONING_PROFILE_SPECIFIER = "QBS debug profile";
+				PROVISIONING_PROFILE = "14ad0db3-2cef-4865-83a0-89127c6ae1b5";
+				PROVISIONING_PROFILE_SPECIFIER = "MCP Debug";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmyrilLine/SmyrilLine-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
