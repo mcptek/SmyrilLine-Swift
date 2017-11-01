@@ -40,6 +40,7 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
         view.addSubview(self.activityIndicatorView)
+        self.createAPICallForShipTrajectory()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,7 +51,7 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         //self.checkShipServer()
-        self.createAPICallForShipTrajectory()
+//        self.createAPICallForShipTrajectory()
     }
 
     override func didReceiveMemoryWarning() {

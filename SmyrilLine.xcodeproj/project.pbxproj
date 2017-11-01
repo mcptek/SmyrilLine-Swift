@@ -34,6 +34,7 @@
 		842308451F56FB06004A4166 /* TaxfreeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842308441F56FB06004A4166 /* TaxfreeCollectionViewCell.swift */; };
 		842308471F57CB15004A4166 /* DestinationCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842308461F57CB15004A4166 /* DestinationCategoryViewController.swift */; };
 		8423084D1F57E0B5004A4166 /* DestinationCategoryHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8423084C1F57E0B5004A4166 /* DestinationCategoryHeader.xib */; };
+		842EB2331FA9892300652F68 /* RestaurantDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842EB2321FA9892300652F68 /* RestaurantDetailsViewController.swift */; };
 		842ED4181F4E8E8C000366BF /* ShiptrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4171F4E8E8C000366BF /* ShiptrackerViewController.swift */; };
 		842ED41C1F4E9A76000366BF /* ShipTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED41B1F4E9A76000366BF /* ShipTracker.swift */; };
 		842ED41E1F4E9B23000366BF /* SmyrilLineUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED41D1F4E9B23000366BF /* SmyrilLineUrl.swift */; };
@@ -109,6 +110,7 @@
 		842308441F56FB06004A4166 /* TaxfreeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxfreeCollectionViewCell.swift; sourceTree = "<group>"; };
 		842308461F57CB15004A4166 /* DestinationCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryViewController.swift; sourceTree = "<group>"; };
 		8423084C1F57E0B5004A4166 /* DestinationCategoryHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DestinationCategoryHeader.xib; sourceTree = "<group>"; };
+		842EB2321FA9892300652F68 /* RestaurantDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsViewController.swift; sourceTree = "<group>"; };
 		842ED4171F4E8E8C000366BF /* ShiptrackerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShiptrackerViewController.swift; sourceTree = "<group>"; };
 		842ED41B1F4E9A76000366BF /* ShipTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipTracker.swift; sourceTree = "<group>"; };
 		842ED41D1F4E9B23000366BF /* SmyrilLineUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmyrilLineUrl.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 			children = (
 				842ED4221F4EFA78000366BF /* RestaurantViewController.swift */,
 				842ED4241F4EFB65000366BF /* RestaurantTableViewCell.swift */,
+				842EB2321FA9892300652F68 /* RestaurantDetailsViewController.swift */,
 			);
 			name = Restaurants;
 			sourceTree = "<group>";
@@ -626,6 +629,7 @@
 				840DA9D61F4C5C7F001B3382 /* SmyrilLine.xcdatamodeld in Sources */,
 				84623FF41F9F117300B0DE50 /* SmyrilLineBridgeHeader.m in Sources */,
 				840DA9D01F4C5C7F001B3382 /* ViewController.swift in Sources */,
+				842EB2331FA9892300652F68 /* RestaurantDetailsViewController.swift in Sources */,
 				84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */,
 				841F13181F84DD35009CBAD9 /* TaxfreeHeaderDetailsHeader.swift in Sources */,
 				842ED4181F4E8E8C000366BF /* ShiptrackerViewController.swift in Sources */,
