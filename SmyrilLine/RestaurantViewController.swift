@@ -23,9 +23,7 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
 
         // Do any additional setup after loading the view.
         self.navigationController?.navigationBar.isHidden = false
-//        let navigationBar = navigationController!.navigationBar
-//        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
-        //self.title = "Restaurants & Bars"
+       self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
         
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
@@ -71,6 +69,25 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
         // Pass the selected object to the new view controller.
     }
     */
+    func CallRestaurantDetailsAPI(restaurantId: String) {
+        self.activityIndicatorView.startAnimating()
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.restaurantParentPath + "/Eng" + "/" + restaurantId , method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+            .responseObject { (response: DataResponse<RestaurantDetailsInfo>) in
+                self.activityIndicatorView.stopAnimating()
+                
+                switch response.result {
+                case .success:
+                    if response.response?.statusCode == 200
+                    {
+                        let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "restaurantDetails") as! RestaurantDetailsViewController
+                        vc.restaurantDetailsObject = response.result.value
+                        self.navigationController?.pushViewController(vc, animated:true)
+                    }
+                case .failure(let error):
+                    self.showAlert(title: "Error", message: error.localizedDescription)
+                }
+        }
+    }
     
     func CallRestaurantAPI() {
         self.activityIndicatorView.startAnimating()
@@ -116,6 +133,9 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        if let restaurantId = self.restaurantsArray?[indexPath.section].objectId {
+            self.CallRestaurantDetailsAPI(restaurantId: restaurantId)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat

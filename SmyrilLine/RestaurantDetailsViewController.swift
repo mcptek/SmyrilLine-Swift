@@ -10,10 +10,13 @@ import UIKit
 
 class RestaurantDetailsViewController: UIViewController {
 
+    var restaurantDetailsObject: RestaurantDetailsInfo?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
+        self.title = self.restaurantDetailsObject?.name
     }
 
     override func didReceiveMemoryWarning() {
