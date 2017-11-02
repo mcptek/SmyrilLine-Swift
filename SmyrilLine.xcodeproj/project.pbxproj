@@ -60,6 +60,7 @@
 		84EE5E241F6A601A001B4CA4 /* MessageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE5E231F6A601A001B4CA4 /* MessageObject.swift */; };
 		84F481611FAAE8A20065A915 /* RestaurantOpenCloseTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F481601FAAE8A20065A915 /* RestaurantOpenCloseTimeTableViewCell.swift */; };
 		84F481631FAAEECE0065A915 /* RestaurantDetailsInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F481621FAAEECE0065A915 /* RestaurantDetailsInfoTableViewCell.swift */; };
+		84F481671FAB44CD0065A915 /* MealTypeHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F481661FAB44CD0065A915 /* MealTypeHeaderTableViewCell.swift */; };
 		84FA7EA01F85EC7400D2A299 /* PlaceOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA7E9F1F85EC7400D2A299 /* PlaceOrderTableViewCell.swift */; };
 		B2553924AF491ED961B2132C /* Pods_SmyrilLine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8F808BE45FE0AAC33C1FDB /* Pods_SmyrilLine.framework */; };
 		BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F2D11F4F2EEB003B77CA /* DestinationViewController.swift */; };
@@ -139,6 +140,7 @@
 		84EE5E231F6A601A001B4CA4 /* MessageObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageObject.swift; sourceTree = "<group>"; };
 		84F481601FAAE8A20065A915 /* RestaurantOpenCloseTimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantOpenCloseTimeTableViewCell.swift; sourceTree = "<group>"; };
 		84F481621FAAEECE0065A915 /* RestaurantDetailsInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsInfoTableViewCell.swift; sourceTree = "<group>"; };
+		84F481661FAB44CD0065A915 /* MealTypeHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTypeHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		84FA7E9F1F85EC7400D2A299 /* PlaceOrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceOrderTableViewCell.swift; sourceTree = "<group>"; };
 		BB45F2D11F4F2EEB003B77CA /* DestinationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationViewController.swift; sourceTree = "<group>"; };
 		BB45F2D31F4F2FBD003B77CA /* DestinationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationTableViewCell.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 				842EB2321FA9892300652F68 /* RestaurantDetailsViewController.swift */,
 				84F481601FAAE8A20065A915 /* RestaurantOpenCloseTimeTableViewCell.swift */,
 				84F481621FAAEECE0065A915 /* RestaurantDetailsInfoTableViewCell.swift */,
+				84F481661FAB44CD0065A915 /* MealTypeHeaderTableViewCell.swift */,
 			);
 			name = Restaurants;
 			sourceTree = "<group>";
@@ -630,6 +633,7 @@
 				84FA7EA01F85EC7400D2A299 /* PlaceOrderTableViewCell.swift in Sources */,
 				84F481631FAAEECE0065A915 /* RestaurantDetailsInfoTableViewCell.swift in Sources */,
 				842ED41E1F4E9B23000366BF /* SmyrilLineUrl.swift in Sources */,
+				84F481671FAB44CD0065A915 /* MealTypeHeaderTableViewCell.swift in Sources */,
 				842ED4251F4EFB65000366BF /* RestaurantTableViewCell.swift in Sources */,
 				842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */,
 				842ED4201F4E9B7B000366BF /* ViewControllerExtension.swift in Sources */,

@@ -62,7 +62,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -134,6 +134,33 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
             }
             cell.selectionStyle = .none
             return cell
+        case 2:
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "mealTypeCell", for: indexPath) as! MealTypeHeaderTableViewCell
+                cell.adultButton.addTarget(self, action:#selector(adultButtonAction), for: .touchUpInside)
+                cell.childButton.addTarget(self, action:#selector(ChildButtonAction), for: .touchUpInside)
+                if self.currentLyAdultMealSelected {
+                    cell.adultContainerView.backgroundColor = UIColor(red: 10.0/255, green: 138.0/255, blue: 216.0/255, alpha: 1.0)
+                    cell.childContainerView.backgroundColor = UIColor(red: 231.0/255, green: 231.0/255, blue: 231.0/255, alpha: 1.0)
+                    cell.adultLabel.textColor = UIColor.white
+                    cell.childLabel.textColor = UIColor.black
+                    cell.childrenLabel.textColor = UIColor.black
+                }
+                else {
+                    cell.adultContainerView.backgroundColor = UIColor(red: 231.0/255, green: 231.0/255, blue: 231.0/255, alpha: 1.0)
+                    cell.childContainerView.backgroundColor = UIColor(red: 10.0/255, green: 138.0/255, blue: 216.0/255, alpha: 1.0)
+                    cell.adultLabel.textColor = UIColor.black
+                    cell.childLabel.textColor = UIColor.white
+                    cell.childrenLabel.textColor = UIColor.white
+                }
+                cell.selectionStyle = .none
+                return cell
+            }
+            else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "demoCell", for: indexPath)
+                cell.selectionStyle = .none
+                return cell
+            }
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "demoCell", for: indexPath)
             cell.selectionStyle = .none
@@ -152,6 +179,16 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 self.expandCollapseArray[indexPath.section] = true
             }
             self.restaurantDetailasTableview.reloadData()
+        case 2:
+            if indexPath.row == 0 {
+                if self.currentLyAdultMealSelected {
+                    self.currentLyAdultMealSelected = false
+                }
+                else {
+                    self.currentLyAdultMealSelected = true
+                }
+                self.restaurantDetailasTableview.reloadData()
+            }
         default:
             print("Do nothing")
         }
@@ -179,6 +216,15 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
         vw.backgroundColor = UIColor.clear
         
         return vw
+    }
+    func adultButtonAction () {
+        self.currentLyAdultMealSelected = true
+        self.restaurantDetailasTableview.reloadData()
+        
+    }
+    func ChildButtonAction () {
+        self.currentLyAdultMealSelected = false
+        self.restaurantDetailasTableview.reloadData()
     }
 
 }

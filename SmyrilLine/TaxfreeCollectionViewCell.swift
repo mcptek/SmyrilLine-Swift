@@ -20,7 +20,7 @@ class TaxfreeCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         self.layer.borderWidth = 1
-        let color = UIColor(colorLiteralRed: 232/255, green: 232/255, blue: 232/255, alpha: 1.0)
+        let color = UIColor(red: 232.0/255, green: 232.0/255, blue: 232.0/255, alpha: 1.0)
         self.layer.borderColor = color.cgColor
         // Initialization code
         self.layer.cornerRadius = 3
