@@ -26,11 +26,17 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
         self.title = self.restaurantDetailsObject?.name
         
+        self.restaurantDetailasTableview.estimatedRowHeight = 140
+        self.restaurantDetailasTableview.rowHeight = UITableViewAutomaticDimension
+        
         self.myHeaderView = Bundle.main.loadNibNamed("TaxfreeParallaxHeaderView", owner: self, options: nil)?.first as? UIView as! MyTaxfreeScrollViewHeader
         self.restaurantDetailasTableview.parallaxHeader.view = self.myHeaderView
         self.restaurantDetailasTableview.parallaxHeader.height = 250
         self.restaurantDetailasTableview.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.restaurantDetailasTableview.parallaxHeader.minimumHeight = 50
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         if let imageUrlStr = self.restaurantDetailsObject?.imageUrl
         {
             self.myHeaderView.taxFreeHeaderImageView.sd_setShowActivityIndicatorView(true)
@@ -38,7 +44,6 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
             self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
         }
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -57,7 +62,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 6
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -111,10 +116,14 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 cell.dinnerTimeLabel.text = DinnerTime
             }
             if self.expandCollapseArray[indexPath.section] {
-                cell.expandCollapseImageView.image = UIImage(named: "CollapseArrow")
+                cell.expandCollpaseImageView.image = UIImage(named: "CollapseArrow")
+                let firstView = cell.containerStackView.arrangedSubviews[1]
+                firstView.isHidden = false
             }
             else {
-                cell.expandCollapseImageView.image = UIImage(named: "ExpandArrow")
+                cell.expandCollpaseImageView.image = UIImage(named: "ExpandArrow")
+                let firstView = cell.containerStackView.arrangedSubviews[1]
+                firstView.isHidden = true
             }
             cell.selectionStyle = .none
             return cell
@@ -148,15 +157,15 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
         }
     }
     
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
-//    {
-//        return 1.0
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
-//    {
-//        return 1.0
-//    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
+        return 1.0
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
+    {
+        return 1.0
+    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let vw = UIView()
