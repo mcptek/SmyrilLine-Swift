@@ -18,6 +18,8 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     var myHeaderView: MyTaxfreeScrollViewHeader!
     var scrollView: MXScrollView!
     var currentLyAdultMealSelected = true
+    var MealType: [MealType]?
+    
     
     
     override func viewDidLoad() {
@@ -157,7 +159,34 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 return cell
             }
             else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "demoCell", for: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: "mealTYpeDetails", for: indexPath) as! MealTypeDescriptionTableViewCell
+                if currentLyAdultMealSelected {
+                    self.MealType = self.restaurantDetailsObject?.adultMeals
+                }
+                else {
+                    self.MealType = self.restaurantDetailsObject?.childrenMeals
+                }
+                if let mealName = self.MealType![indexPath.row - 1].name {
+                    cell.maelNameLabel.text = mealName
+                }
+                if let mealNote = self.MealType![indexPath.row - 1].description {
+                    cell.mealNameDetailsLabel.text = mealNote
+                }
+                if let prebookPrice = self.MealType![indexPath.row - 1].prebookPrice {
+                    cell.prebookPriceLabel.text = prebookPrice
+                }
+                if let onboardPrce = self.MealType![indexPath.row - 1].onboardPrice {
+                    cell.onboardPriceLabel.text = "Onboard price: " + onboardPrce
+                }
+                if let priceSave = self.MealType![indexPath.row - 1].save {
+                    cell.priceSaveLabel.text = "Save: " + priceSave
+                }
+                if let time = self.MealType![indexPath.row - 1].time {
+                    cell.priceSaveLabel.text = time
+                }
+                if let timeNote = self.MealType![indexPath.row - 1].timeNote {
+                    cell.timeNoteLabel.text = timeNote
+                }
                 cell.selectionStyle = .none
                 return cell
             }
