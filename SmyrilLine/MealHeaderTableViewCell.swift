@@ -1,36 +1,22 @@
 //
-//  MealTypeDescriptionTableViewCell.swift
+//  MealHeaderTableViewCell.swift
 //  SmyrilLine
 //
-//  Created by Rafay Hasan on 11/2/17.
+//  Created by Rafay Hasan on 11/3/17.
 //  Copyright © 2017 Rafay Hasan. All rights reserved.
 //
 
 import UIKit
 
-class MealTypeDescriptionTableViewCell: UITableViewCell {
+class MealHeaderTableViewCell: UITableViewCell {
 
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var maelNameLabel: UILabel!
-    @IBOutlet weak var mealNameDetailsLabel: UILabel!
-    @IBOutlet weak var onboardPriceLabel: UILabel!
-    @IBOutlet weak var priceSaveLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var prebookPriceLabel: UILabel!
-    @IBOutlet weak var timeNoteLabel: UILabel!
-    
+    @IBOutlet weak var headernameLabel: UILabel!
+    @IBOutlet weak var expandCollapseImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
-//        self.maelNameLabel.text = ""
-//        self.mealNameDetailsLabel.text = ""
-//        self.onboardPriceLabel.text = ""
-//        self.priceSaveLabel.text = ""
-//        self.timeLabel.text = ""
-//        self.timeNoteLabel.text = ""
-        
         self.containerView.layer.borderWidth = 1
         let color = UIColor(red: 232.0/255, green: 232.0/255, blue: 232.0/255, alpha: 1.0)
         self.containerView.layer.borderColor = color.cgColor

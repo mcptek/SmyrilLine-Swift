@@ -8,7 +8,17 @@
 
 import UIKit
 
-
+public extension NSMutableAttributedString {
+    
+    func setColorForStr(textToFind: String, color: UIColor) {
+        
+        let range = self.mutableString.range(of: textToFind, options:NSString.CompareOptions.caseInsensitive);
+        if range.location != NSNotFound {
+            self.addAttribute(NSForegroundColorAttributeName, value: color, range: range);
+        }
+        
+    }
+}
 public extension String{
     
     func attributedStringWithSubscript(_ subString: String, mainStringFont: UIFont, subStringFont: UIFont) -> NSMutableAttributedString {

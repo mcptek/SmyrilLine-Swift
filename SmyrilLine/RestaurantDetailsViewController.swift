@@ -64,7 +64,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 3
+        return 6
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -166,41 +166,107 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 else {
                     self.MealType = self.restaurantDetailsObject?.childrenMeals
                 }
+                
                 if let mealName = self.MealType![indexPath.row - 1].name {
                     cell.maelNameLabel.text = mealName
                 }
+                else {
+                    cell.maelNameLabel.text = nil
+                }
+                
                 if let mealNote = self.MealType![indexPath.row - 1].description {
                     cell.mealNameDetailsLabel.text = mealNote
                 }
-                if let prebookPrice = self.MealType![indexPath.row - 1].prebookPrice {
-                    cell.prebookPriceLabel.text = prebookPrice
+                else {
+                    cell.mealNameDetailsLabel.text = nil
                 }
+                
+                if let prebookPrice = self.MealType![indexPath.row - 1].prebookPrice {
+                    let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "Prebbok price: " + prebookPrice)
+                    attributedString.setColorForStr(textToFind: "Prebbok price: ", color: UIColor(red: 0.3294, green: 0.3294, blue: 0.3294, alpha: 1.0))
+                    attributedString.setColorForStr(textToFind: prebookPrice, color: UIColor(red: 0.4039, green: 0.6470, blue: 0.9911, alpha: 1.0))
+                    cell.prebookPriceLabel.attributedText = attributedString
+                }
+                else {
+                    cell.prebookPriceLabel.attributedText = nil
+                }
+                
                 if let onboardPrce = self.MealType![indexPath.row - 1].onboardPrice {
                     cell.onboardPriceLabel.text = "Onboard price: " + onboardPrce
                 }
+                else {
+                    cell.onboardPriceLabel.text = nil
+                }
+                
                 if let priceSave = self.MealType![indexPath.row - 1].save {
                     cell.priceSaveLabel.text = "Save: " + priceSave
                 }
-                if let time = self.MealType![indexPath.row - 1].time {
-                    cell.priceSaveLabel.text = time
+                else {
+                    cell.priceSaveLabel.text = nil
                 }
+                
+                if let time = self.MealType![indexPath.row - 1].time {
+                    cell.timeLabel.text = time
+                }
+                else {
+                    cell.timeLabel.text = nil
+                }
+                
                 if let timeNote = self.MealType![indexPath.row - 1].timeNote {
                     cell.timeNoteLabel.text = timeNote
                 }
+                else {
+                    cell.timeNoteLabel.text = nil
+                }
+                
                 cell.selectionStyle = .none
                 return cell
             }
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "demoCell", for: indexPath)
-            cell.selectionStyle = .none
-            return cell
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "mealHeader", for: indexPath) as! MealHeaderTableViewCell
+                if indexPath.section == 3 {
+                    cell.headernameLabel.text = "Breakfast"
+                    if self.expandCollapseArray[indexPath.section] {
+                        cell.expandCollapseImageView.image = UIImage(named: "CollapseArrow")
+                    }
+                    else {
+                        cell.expandCollapseImageView.image = UIImage(named: "ExpandArrow")
+                    }
+                }
+                else if indexPath.section == 4 {
+                    cell.headernameLabel.text = "Lunch"
+                    if self.expandCollapseArray[indexPath.section] {
+                        cell.expandCollapseImageView.image = UIImage(named: "CollapseArrow")
+                    }
+                    else {
+                        cell.expandCollapseImageView.image = UIImage(named: "ExpandArrow")
+                    }
+                }
+                else if indexPath.section == 5 {
+                    cell.headernameLabel.text = "Dinner"
+                    if self.expandCollapseArray[indexPath.section] {
+                        cell.expandCollapseImageView.image = UIImage(named: "CollapseArrow")
+                    }
+                    else {
+                        cell.expandCollapseImageView.image = UIImage(named: "ExpandArrow")
+                    }
+                }
+                cell.selectionStyle = .none
+                return cell
+            }
+            else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "demoCell", for: indexPath)
+                cell.selectionStyle = .none
+                return cell
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         switch indexPath.section {
-        case 0:
+        case 0,3,4,5:
             if self.expandCollapseArray[indexPath.section] {
                 self.expandCollapseArray[indexPath.section] = false
             }
