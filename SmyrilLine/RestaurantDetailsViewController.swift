@@ -276,6 +276,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 cell.layoutIfNeeded()
                 cell.mealCollectionView.reloadData()
                 cell.mealCollectionViewHeight.constant = cell.mealCollectionView.collectionViewLayout.collectionViewContentSize.height
+                cell.mealCollectionView.layoutIfNeeded()
                 cell.selectionStyle = .none
                 return cell
             }
@@ -425,7 +426,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
     {
-        return 4.0
+        return 8.0
         
     }
     
