@@ -10,7 +10,7 @@ import UIKit
 import SDWebImage
 import MXParallaxHeader
 
-class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
+class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
 
     @IBOutlet weak var restaurantDetailasTableview: UITableView!
     var restaurantDetailsObject: RestaurantDetailsInfo?
@@ -19,7 +19,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     var scrollView: MXScrollView!
     var currentLyAdultMealSelected = true
     var MealType: [MealType]?
-    
+    var menuType: [ObjectSample]?
     
     
     override func viewDidLoad() {
@@ -87,20 +87,35 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 return 1
             }
         case 3:
-            if self.restaurantDetailsObject?.breakfastItems?.isEmpty == false {
-                return (self.restaurantDetailsObject?.breakfastItems?.count)! + 1
+            if self.expandCollapseArray[section] {
+                if self.restaurantDetailsObject?.breakfastItems?.isEmpty == false {
+                    return 2
+                }
+                return 1
             }
-            return 1
+            else {
+                return 1
+            }
         case 4:
-            if self.restaurantDetailsObject?.lunchItems?.isEmpty == false {
-                return (self.restaurantDetailsObject?.lunchItems?.count)! + 1
+            if self.expandCollapseArray[section] {
+                if self.restaurantDetailsObject?.lunchItems?.isEmpty == false {
+                    return 2
+                }
+                return 1
             }
-            return 1
+            else {
+                return 1
+            }
         default:
-            if self.restaurantDetailsObject?.dinnerItems?.isEmpty == false {
-                return (self.restaurantDetailsObject?.dinnerItems?.count)! + 1
+            if self.expandCollapseArray[section] {
+                if self.restaurantDetailsObject?.dinnerItems?.isEmpty == false {
+                    return 2
+                }
+                return 1
             }
-            return 1
+            else {
+                return 1
+            }
         }
     }
     
@@ -256,7 +271,11 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 return cell
             }
             else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "demoCell", for: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: "mealDetailsCell", for: indexPath) as! MealDetailsTableViewCell
+                cell.mealCollectionView.tag = indexPath.section + 1000
+                cell.layoutIfNeeded()
+                cell.mealCollectionView.reloadData()
+                cell.mealCollectionViewHeight.constant = cell.mealCollectionView.collectionViewLayout.collectionViewContentSize.height
                 cell.selectionStyle = .none
                 return cell
             }
@@ -312,6 +331,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
         
         return vw
     }
+    
     func adultButtonAction () {
         self.currentLyAdultMealSelected = true
         self.restaurantDetailasTableview.reloadData()
@@ -320,6 +340,123 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     func ChildButtonAction () {
         self.currentLyAdultMealSelected = false
         self.restaurantDetailasTableview.reloadData()
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int
+    {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
+    {
+        if collectionView.tag == 1003 {
+            return self.restaurantDetailsObject?.breakfastItems?.count ?? 0
+        }
+        else if collectionView.tag == 1004 {
+            return self.restaurantDetailsObject?.lunchItems?.count ?? 0
+        }
+        else {
+            return self.restaurantDetailsObject?.dinnerItems?.count ?? 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mealCell", for: indexPath) as! MealCollectionViewCell
+        if collectionView.tag == 1003 {
+            self.menuType = self.restaurantDetailsObject?.breakfastItems
+        }
+        else if collectionView.tag == 1004 {
+            self.menuType = self.restaurantDetailsObject?.lunchItems
+        }
+        else {
+            self.menuType = self.restaurantDetailsObject?.dinnerItems
+        }
+        
+        if let productName = self.menuType![indexPath.row ].name
+        {
+            cell.mealNameLabel.text = productName
+        }
+        else
+        {
+            cell.mealNameLabel.text = nil
+        }
+        
+        if let imageUrlStr = self.menuType![indexPath.row].imageUrl
+        {
+            cell.mealImageView.sd_setShowActivityIndicatorView(true)
+            cell.mealImageView.sd_setIndicatorStyle(.gray)
+            cell.mealImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+            
+        }
+        if let productPrice = self.menuType![indexPath.row].price
+        {
+            cell.mealPriceLabel.text = productPrice
+        }
+        else
+        {
+            cell.mealPriceLabel.text = nil
+        }
+        
+        return cell
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        collectionView.layoutIfNeeded()
+//    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+//        if let objectId = self.shopObject?.itemArray?[indexPath.row].objectId
+//        {
+//            self.CallTaxfreeShopDetailsAPIwithObjectId(objectId: objectId)
+//        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
+    {
+        return UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
+    {
+        return 8.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
+    {
+        return 4.0
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+    {
+        let deviceType = UIDevice.current.deviceType
+        switch deviceType {
+        case .iPhone6SPlus,.iPhone6Plus:
+            return CGSize(width: 120, height: 150)
+        case .iPhone6S,.iPhone6:
+            return CGSize(width: 105, height: 145)
+        default:
+            return CGSize(width: 105, height: 145)
+        }
+        
+        
+//        let screenHeight = UIScreen.main.bounds.size.height
+//        switch screenHeight {
+//        case 480:
+//            return CGSize(width: 100, height: 150)
+//        case 568:
+//            return CGSize(width: 100, height: 150)
+//        case 667:
+//            return CGSize(width: 100, height: 150)
+//        case 736:
+//            return CGSize(width: 100, height: 150)
+//        case 480:
+//            return CGSize(width: 100, height: 150)
+//        default:
+//            return CGSize(width: 100, height: 150)
+//        }
     }
 
 }
