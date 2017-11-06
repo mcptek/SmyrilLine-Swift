@@ -15,7 +15,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     @IBOutlet weak var restaurantDetailasTableview: UITableView!
     var restaurantDetailsObject: RestaurantDetailsInfo?
     var expandCollapseArray = [true,true,true,false,false,false]
-    var myHeaderView: MyTaxfreeScrollViewHeader!
+    var myHeaderView: RestaurantDetailsHeader!
     var scrollView: MXScrollView!
     var currentLyAdultMealSelected = true
     var MealType: [MealType]?
@@ -31,7 +31,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
         self.restaurantDetailasTableview.estimatedRowHeight = 140
         self.restaurantDetailasTableview.rowHeight = UITableViewAutomaticDimension
         
-        self.myHeaderView = Bundle.main.loadNibNamed("TaxfreeParallaxHeaderView", owner: self, options: nil)?.first as? UIView as! MyTaxfreeScrollViewHeader
+        self.myHeaderView = Bundle.main.loadNibNamed("RestaurantDetailsParallaxHeader", owner: self, options: nil)?.first as? UIView as! RestaurantDetailsHeader
         self.restaurantDetailasTableview.parallaxHeader.view = self.myHeaderView
         self.restaurantDetailasTableview.parallaxHeader.height = 250
         self.restaurantDetailasTableview.parallaxHeader.mode = MXParallaxHeaderMode.fill
@@ -41,9 +41,9 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
         super.viewWillAppear(true)
         if let imageUrlStr = self.restaurantDetailsObject?.imageUrl
         {
-            self.myHeaderView.taxFreeHeaderImageView.sd_setShowActivityIndicatorView(true)
-            self.myHeaderView.taxFreeHeaderImageView.sd_setIndicatorStyle(.gray)
-            self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+            self.myHeaderView.restaurantDetailsHeaderImageView.sd_setShowActivityIndicatorView(true)
+            self.myHeaderView.restaurantDetailsHeaderImageView.sd_setIndicatorStyle(.gray)
+            self.myHeaderView.restaurantDetailsHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
         }
     }
     override func didReceiveMemoryWarning() {
@@ -126,10 +126,10 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
             if let breakfastTime = self.restaurantDetailsObject?.breakfastTime {
                 cell.breakfastTimeLabel.text = breakfastTime
             }
-            if let lunchTime = self.restaurantDetailsObject?.breakfastTime {
+            if let lunchTime = self.restaurantDetailsObject?.lunchTime {
                 cell.lunchTimeLabel.text = lunchTime
             }
-            if let DinnerTime = self.restaurantDetailsObject?.breakfastTime {
+            if let DinnerTime = self.restaurantDetailsObject?.dinnerTime {
                 cell.dinnerTimeLabel.text = DinnerTime
             }
             if self.expandCollapseArray[indexPath.section] {
@@ -142,6 +142,8 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 let firstView = cell.containerStackView.arrangedSubviews[1]
                 firstView.isHidden = true
             }
+            cell.expandCollpaseImageView.image = cell.expandCollpaseImageView.image!.withRenderingMode(.alwaysTemplate)
+            cell.expandCollpaseImageView.tintColor = UIColor.lightGray
             cell.selectionStyle = .none
             return cell
         case 1:
@@ -149,7 +151,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
             if let detailsInfo = self.restaurantDetailsObject?.restaurantDescription {
                 cell.detailsInfoLabel.text = detailsInfo
             }
-            cell.selectionStyle = .none
+            cell.selectionStyle = .default
             return cell
         case 2:
             if indexPath.row == 0 {
@@ -197,8 +199,8 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 }
                 
                 if let prebookPrice = self.MealType![indexPath.row - 1].prebookPrice {
-                    let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "Prebbok price: " + prebookPrice)
-                    attributedString.setColorForStr(textToFind: "Prebbok price: ", color: UIColor(red: 0.3294, green: 0.3294, blue: 0.3294, alpha: 1.0))
+                    let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "Prebook: " + prebookPrice)
+                    attributedString.setColorForStr(textToFind: "Prebook: ", color: UIColor(red: 0.3294, green: 0.3294, blue: 0.3294, alpha: 1.0))
                     attributedString.setColorForStr(textToFind: prebookPrice, color: UIColor(red: 0.4039, green: 0.6470, blue: 0.9911, alpha: 1.0))
                     cell.prebookPriceLabel.attributedText = attributedString
                 }
@@ -267,7 +269,9 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                         cell.expandCollapseImageView.image = UIImage(named: "ExpandArrow")
                     }
                 }
-                cell.selectionStyle = .none
+                cell.expandCollapseImageView.image = cell.expandCollapseImageView.image!.withRenderingMode(.alwaysTemplate)
+                cell.expandCollapseImageView.tintColor = UIColor.lightGray
+                cell.selectionStyle = .default
                 return cell
             }
             else {
