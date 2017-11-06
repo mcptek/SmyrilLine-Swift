@@ -235,7 +235,17 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 else {
                     cell.timeNoteLabel.text = nil
                 }
-                
+//                cell.containerView.borders(for: [.left, .bottom], width: 1, color: .lightGray)
+                if (self.MealType?.count)! - 1 == indexPath.row {
+                  // cell.containerView.borders(for: [.left, .bottom], width: 1, color: .lightGray)
+
+                    cell.containerView.layer.cornerRadius = 1
+                    cell.containerView.layer.masksToBounds = true
+                }
+                else {
+                    cell.containerView.layer.cornerRadius = 3
+                    cell.containerView.layer.masksToBounds = true
+                }
                 cell.selectionStyle = .none
                 return cell
             }
@@ -318,13 +328,22 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        return 1.0
+        if section == 2 {
+            return 4
+        }
+        else {
+            return 1
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
     {
-        return 1.0
-    }
+        if section == 2 {
+            return 4
+        }
+        else {
+            return 1
+        }    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let vw = UIView()

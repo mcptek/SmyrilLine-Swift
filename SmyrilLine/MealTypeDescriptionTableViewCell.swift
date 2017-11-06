@@ -24,21 +24,14 @@ class MealTypeDescriptionTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-//        self.maelNameLabel.text = ""
-//        self.mealNameDetailsLabel.text = ""
-//        self.onboardPriceLabel.text = ""
-//        self.priceSaveLabel.text = ""
-//        self.timeLabel.text = ""
-//        self.timeNoteLabel.text = ""
-        
-        self.containerView.layer.borderWidth = 1
         let color = UIColor(red: 232.0/255, green: 232.0/255, blue: 232.0/255, alpha: 1.0)
-        self.containerView.layer.borderColor = color.cgColor
+        self.containerView.borders(for: [.left, .bottom, .right,], width: 1, color: color)
+        //self.containerView.borders(for: [.all], width: 1, color: color)
+        
+//        self.containerView.layer.borderWidth = 1
+//        let color = UIColor(red: 232.0/255, green: 232.0/255, blue: 232.0/255, alpha: 1.0)
+//        self.containerView.layer.borderColor = color.cgColor
         // Initialization code
-        self.containerView.layer.cornerRadius = 3
-        self.containerView.layer.masksToBounds = true
-        self.containerView.layer.cornerRadius = 3
-        self.containerView.layer.masksToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
