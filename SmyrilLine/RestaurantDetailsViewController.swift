@@ -294,6 +294,9 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 self.expandCollapseArray[indexPath.section] = true
             }
             self.restaurantDetailasTableview.reloadData()
+            //tableView.scrollToNearestSelectedRow(at: .middle, animated: true)
+            let indexPath = IndexPath.init(row: 0, section: indexPath.section)
+            tableView.scrollToRow(at: indexPath as IndexPath, at: .middle, animated: true)
         case 2:
             if indexPath.row == 0 {
                 if self.currentLyAdultMealSelected {
@@ -432,27 +435,35 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
+        
         let deviceType = UIDevice.current.deviceType
         switch deviceType {
-        case .iPhone6SPlus,.iPhone6Plus:
-            return CGSize(width: 120, height: 150)
-        case .iPhone6S,.iPhone6:
-            return CGSize(width: 105, height: 145)
+        case .iPhone5,.iPhone5S,.iPhone5C,.iPhoneSE:
+            return CGSize(width: 95, height: 150)
+        case .iPhone8Plus,.iPhone7Plus,.iPhone6SPlus,.iPhone6Plus:
+            return CGSize(width: 125, height: 150)
+        case .iPhone8,.iPhone7,.iPhone6S,.iPhone6:
+            return CGSize(width: 110, height: 150)
+        case .iPhoneX:
+            return CGSize(width: 110, height: 150)
+        case .iPhone4S, .iPhone4:
+            return CGSize(width: 90, height: 150)
         default:
-            return CGSize(width: 105, height: 145)
+            return CGSize(width: 125, height: 150)
         }
-        
         
 //        let screenHeight = UIScreen.main.bounds.size.height
 //        switch screenHeight {
 //        case 480:
-//            return CGSize(width: 100, height: 150)
+//            return CGSize(width: 95, height: 150)
 //        case 568:
-//            return CGSize(width: 100, height: 150)
+//            return CGSize(width: 95, height: 150)
 //        case 667:
-//            return CGSize(width: 100, height: 150)
+//            return CGSize(width: 110, height: 150)
 //        case 736:
-//            return CGSize(width: 100, height: 150)
+//            return CGSize(width: 125, height: 150)
+//        case 812:
+//            return CGSize(width: 110, height: 150)
 //        case 480:
 //            return CGSize(width: 100, height: 150)
 //        default:
