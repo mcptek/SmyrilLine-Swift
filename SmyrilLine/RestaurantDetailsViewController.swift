@@ -144,7 +144,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
             }
             cell.expandCollpaseImageView.image = cell.expandCollpaseImageView.image!.withRenderingMode(.alwaysTemplate)
             cell.expandCollpaseImageView.tintColor = UIColor.lightGray
-            cell.selectionStyle = .none
+            cell.selectionStyle = .default
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "RestaurantDetailsInfoCell", for: indexPath) as! RestaurantDetailsInfoTableViewCell
