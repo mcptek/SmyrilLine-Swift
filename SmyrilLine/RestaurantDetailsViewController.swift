@@ -223,9 +223,13 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 }
                 
                 if let time = self.MealType![indexPath.row - 1].time {
+                    cell.timeHeaderNameLabel.text = "Time"
                     cell.timeLabel.text = time
                 }
                 else {
+                    if let seatingTime = self.MealType![indexPath.row - 1].seatingTime {
+                        cell.timeHeaderNameLabel.text = "Seatings: " + seatingTime
+                    }
                     cell.timeLabel.text = nil
                 }
                 

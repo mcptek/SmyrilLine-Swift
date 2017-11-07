@@ -18,6 +18,7 @@ class MealTypeDescriptionTableViewCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var prebookPriceLabel: UILabel!
     @IBOutlet weak var timeNoteLabel: UILabel!
+    @IBOutlet weak var timeHeaderNameLabel: UILabel!
     
     
     override func awakeFromNib() {
