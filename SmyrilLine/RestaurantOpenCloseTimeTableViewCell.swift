@@ -26,8 +26,6 @@ class RestaurantOpenCloseTimeTableViewCell: UITableViewCell {
         // Initialization code
         self.parentContainerView.layer.cornerRadius = 3
         self.parentContainerView.layer.masksToBounds = true
-        self.parentContainerView.layer.cornerRadius = 3
-        self.parentContainerView.layer.masksToBounds = true
         /*
         // Initialization code
         self.openCloseTimeContainerView.layer.borderWidth = 1

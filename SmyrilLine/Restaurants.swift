@@ -56,6 +56,7 @@ class MealType: Mappable{
     var description : String?
     var save : String?
     var time : String?
+    var seatingTime : String?
     var timeNote : String?
     required init?(map: Map){
     }
@@ -67,6 +68,7 @@ class MealType: Mappable{
         description <- map["tag"]
         save <- map["save"]
         time <- map["time"]
+        seatingTime <- map["seatingTime"]
         timeNote <- map["seatingText"]
     }
 }

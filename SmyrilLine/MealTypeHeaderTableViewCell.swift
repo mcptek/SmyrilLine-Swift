@@ -29,8 +29,6 @@ class MealTypeHeaderTableViewCell: UITableViewCell {
         // Initialization code
         self.parentContainerView.layer.cornerRadius = 3
         self.parentContainerView.layer.masksToBounds = true
-        self.parentContainerView.layer.cornerRadius = 3
-        self.parentContainerView.layer.masksToBounds = true
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
