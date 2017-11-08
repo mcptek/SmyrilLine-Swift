@@ -23,7 +23,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="l08-lZ-jsk" kind="relationship" relationship="viewControllers" id="Ji0-Zl-ceA"/>
-                        <segue destination="eGt-3Q-RWi" kind="relationship" relationship="viewControllers" id="zNS-zi-acu"/>
+                        <segue destination="HRa-79-wrH" kind="relationship" relationship="viewControllers" id="IHP-wz-G9q"/>
                         <segue destination="NkF-Vd-29u" kind="relationship" relationship="viewControllers" id="VZ4-r4-MJO"/>
                         <segue destination="Vqe-bm-fNa" kind="relationship" relationship="viewControllers" id="TWM-8x-WDa"/>
                         <segue destination="D6S-rz-2KQ" kind="relationship" relationship="viewControllers" id="WwW-qV-XMC"/>
@@ -52,7 +52,7 @@
             </objects>
             <point key="canvasLocation" x="-644" y="161"/>
         </scene>
-        <!--Restaurants & Bars-->
+        <!--Restaurants-->
         <scene sceneID="niF-Ke-J1f">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="1hG-ZO-edQ" customClass="RestaurantViewController" customModule="SmyrilLine" customModuleProvider="target" sceneMemberID="viewController">
@@ -130,7 +130,7 @@
                             <constraint firstItem="LLy-lS-eP6" firstAttribute="leading" secondItem="Scs-N2-09s" secondAttribute="leading" id="yJ1-nr-OKl"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Restaurants &amp; Bars" id="VHm-zm-EEE"/>
+                    <navigationItem key="navigationItem" title="Restaurants" id="VHm-zm-EEE"/>
                     <connections>
                         <outlet property="restauranttableview" destination="LLy-lS-eP6" id="G9v-xc-UZO"/>
                         <segue destination="KJy-Xq-BYQ" kind="show" identifier="restaurantDetailsSegue" id="nSf-h4-fPz"/>
@@ -138,7 +138,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w47-4R-d3E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1862" y="162"/>
+            <point key="canvasLocation" x="2200.8000000000002" y="161.46926536731635"/>
         </scene>
         <!--Ship Tracker-->
         <scene sceneID="Ocu-Kk-LqA">
@@ -297,7 +297,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wry-QC-hw8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="593" y="162"/>
+            <point key="canvasLocation" x="7185" y="-802"/>
         </scene>
         <!--Destination View Controller-->
         <scene sceneID="hKC-tA-qPK">
@@ -732,7 +732,7 @@
             </objects>
             <point key="canvasLocation" x="10038" y="2246"/>
         </scene>
-        <!--Taxfree View Controller-->
+        <!--Tax Free-->
         <scene sceneID="hw0-4B-HSy">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="oMJ-cm-Ntn" customClass="TaxfreeViewController" customModule="SmyrilLine" customModuleProvider="target" sceneMemberID="viewController">
@@ -841,6 +841,7 @@
                             <constraint firstItem="Fj1-Su-S9A" firstAttribute="leading" secondItem="Pw7-Yb-epG" secondAttribute="leading" id="ymh-pV-s6U"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Tax Free" id="cBN-ud-Mpi"/>
                     <connections>
                         <outlet property="myTaxfreeCollectionView" destination="wvT-Xz-WPQ" id="pah-t7-Bf5"/>
                         <segue destination="Nff-Bd-cOf" kind="show" id="o9L-71-D9Y"/>
@@ -848,7 +849,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TqU-8h-qC1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6846" y="-777"/>
+            <point key="canvasLocation" x="812" y="161"/>
         </scene>
         <!--Ship Info View Controller-->
         <scene sceneID="yV7-iI-Byb">
@@ -1150,7 +1151,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7eg-hc-j8y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2869.5999999999999" y="160.56971514242881"/>
+            <point key="canvasLocation" x="3208.8000000000002" y="160.56971514242881"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="RgP-FO-pPt">
@@ -1347,7 +1348,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AbS-wV-MD2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6847" y="679"/>
+            <point key="canvasLocation" x="7184.8000000000002" y="678.71064467766121"/>
         </scene>
         <!--Help View Controller-->
         <scene sceneID="QRA-mP-3mC">
@@ -1472,7 +1473,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7xZ-D6-yQ6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6846" y="-45"/>
+            <point key="canvasLocation" x="7184.8000000000002" y="-45.42728635682159"/>
         </scene>
         <!--More-->
         <scene sceneID="yNV-GA-zo2">
@@ -1526,14 +1527,14 @@
                         <outlet property="moreTableview" destination="giQ-Yb-haY" id="cMx-hn-MAJ"/>
                         <segue destination="Edo-Z9-o1k" kind="show" identifier="settings" id="mR2-Zh-O0u"/>
                         <segue destination="ZkO-eE-iyO" kind="show" identifier="help" id="9Z0-lW-JDJ"/>
-                        <segue destination="oMJ-cm-Ntn" kind="show" identifier="taxfree" id="oXp-9y-X8y"/>
                         <segue destination="ruF-2Q-Zzl" kind="show" identifier="shipInfo" id="Kz3-eH-LTW"/>
                         <segue destination="pEL-zi-kzw" kind="show" identifier="destination" id="yhY-DR-Kqy"/>
+                        <segue destination="24O-q8-xON" kind="show" identifier="shipTracker" id="fJa-jF-YZ2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vRD-bK-sb5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4047" y="161"/>
+            <point key="canvasLocation" x="4384.8000000000002" y="160.56971514242881"/>
         </scene>
         <!--Taxfree Details View Controller-->
         <scene sceneID="Mgt-or-fRF">
@@ -1667,7 +1668,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LMU-22-kdG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8118" y="-778"/>
+            <point key="canvasLocation" x="812" y="933"/>
         </scene>
         <!--Ship Info Details View Controller-->
         <scene sceneID="H1N-Fb-kNv">
@@ -1826,51 +1827,51 @@
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8iI-4C-0me">
                                                                             <rect key="frame" x="8" y="10" width="343" height="99"/>
                                                                             <subviews>
-                                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Ln3-TK-dom">
+                                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="firstBaseline" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Ln3-TK-dom">
                                                                                     <rect key="frame" x="96" y="0.0" width="151" height="27.5"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breakfast:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n29-d6-V5I">
-                                                                                            <rect key="frame" x="0.0" y="4" width="73.5" height="19.5"/>
+                                                                                            <rect key="frame" x="0.0" y="8" width="73.5" height="19.5"/>
                                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EvH-2u-aB9">
-                                                                                            <rect key="frame" x="77.5" y="4" width="73.5" height="19.5"/>
+                                                                                            <rect key="frame" x="77.5" y="8" width="73.5" height="19.5"/>
                                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                     </subviews>
                                                                                 </stackView>
-                                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="PH1-7Q-mdK">
+                                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="firstBaseline" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="PH1-7Q-mdK">
                                                                                     <rect key="frame" x="120" y="35.5" width="103" height="28"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lunch:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bY5-D6-YJD">
-                                                                                            <rect key="frame" x="0.0" y="4.5" width="49.5" height="19.5"/>
+                                                                                            <rect key="frame" x="0.0" y="8.5" width="49.5" height="19.5"/>
                                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XB3-Nj-IQg">
-                                                                                            <rect key="frame" x="53.5" y="4.5" width="49.5" height="19.5"/>
+                                                                                            <rect key="frame" x="53.5" y="8.5" width="49.5" height="19.5"/>
                                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                     </subviews>
                                                                                 </stackView>
-                                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="XyQ-xd-C9S">
+                                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="firstBaseline" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="XyQ-xd-C9S">
                                                                                     <rect key="frame" x="117" y="71.5" width="109" height="27.5"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dinner:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xdw-lC-zLF">
-                                                                                            <rect key="frame" x="0.0" y="4" width="52.5" height="19.5"/>
+                                                                                            <rect key="frame" x="0.0" y="8" width="52.5" height="19.5"/>
                                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m1b-z8-JHe">
-                                                                                            <rect key="frame" x="56.5" y="4" width="52.5" height="19.5"/>
+                                                                                            <rect key="frame" x="56.5" y="8" width="52.5" height="19.5"/>
                                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                                                             <nil key="textColor"/>
                                                                                             <nil key="highlightedColor"/>
@@ -2459,11 +2460,11 @@
             </objects>
             <point key="canvasLocation" x="2869.5999999999999" y="1093.4032983508246"/>
         </scene>
-        <!--View Booking-->
+        <!--Booking-->
         <scene sceneID="b3g-A7-mKt">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="l08-lZ-jsk" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="View Booking" image="My-Ticket" id="saA-LC-nJ2"/>
+                    <tabBarItem key="tabBarItem" title="Booking" image="My-Ticket" id="saA-LC-nJ2"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="QjL-NM-d5m">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -2483,35 +2484,11 @@
             </objects>
             <point key="canvasLocation" x="-610" y="-708"/>
         </scene>
-        <!--Ship Tracker-->
-        <scene sceneID="mPs-XT-nKd">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eGt-3Q-RWi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Ship Tracker" image="Ship-Tracker" id="9KR-8q-zBR"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="E0u-35-Cmc">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.039215686274509803" green="0.54117647058823526" blue="0.84705882352941175" alpha="1" colorSpace="calibratedRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="24O-q8-xON" kind="relationship" relationship="rootViewController" id="zlh-Zv-VDU"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ENs-Kf-b27" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="594" y="-731"/>
-        </scene>
-        <!--Restaurants & Bars-->
+        <!--Restaurants-->
         <scene sceneID="VCh-jV-LM1">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NkF-Vd-29u" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Restaurants &amp; Bars" image="Restaurant" id="af3-kR-AV1"/>
+                    <tabBarItem key="tabBarItem" title="Restaurants" image="Restaurant" id="af3-kR-AV1"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="4Iz-oB-fxm">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -2588,6 +2565,30 @@
             </objects>
             <point key="canvasLocation" x="4122" y="-732"/>
         </scene>
+        <!--Tax Free-->
+        <scene sceneID="Uqr-Dn-aWW">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HRa-79-wrH" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Tax Free" image="Tax Free Shop" id="cNd-95-AB4"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="nM6-ca-hbg">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.039215686274509803" green="0.54117647058823526" blue="0.84705882352941175" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="oMJ-cm-Ntn" kind="relationship" relationship="rootViewController" id="hW7-2S-FNc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QxX-RE-hzx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="812" y="-708"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Background-image" width="414" height="736"/>
@@ -2595,8 +2596,8 @@
         <image name="ExpandArrow" width="20" height="11"/>
         <image name="My-Ticket" width="30" height="30"/>
         <image name="Restaurant" width="30" height="30"/>
-        <image name="Ship-Tracker" width="30" height="30"/>
         <image name="ShipDetailsPlusIcon" width="30" height="29"/>
+        <image name="Tax Free Shop" width="30" height="30"/>
         <image name="check-sign" width="21" height="21"/>
         <image name="clockIcon" width="23" height="23"/>
         <image name="inbox" width="30" height="30"/>

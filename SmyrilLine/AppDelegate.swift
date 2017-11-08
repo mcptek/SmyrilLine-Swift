@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Added swift file
         NewRelic.start(withApplicationToken:"AAc3ed7fc1d51b98bee31eafc0d5aa389bd9979495")
         self.createSocketConnection()
+        self.setMessageLastTimeIfNotSet()
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
@@ -223,18 +224,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.scheduleLocalNotification(notification)
     }
     
-    
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        ReachabilityManager.shared.stopMonitoring()
-        StreamingConnection.sharedInstance.connection.stop()
-        
+    func setMessageLastTimeIfNotSet()  {
         let defaults = UserDefaults.standard
         if defaults.value(forKey: "LastTime") is String
         {
@@ -247,8 +237,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
             let desiredDate = dateFormatter.string(from: date)
             defaults.set(desiredDate, forKey: "LastTime")
-
+            
         }
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+    }
+
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        ReachabilityManager.shared.stopMonitoring()
+        StreamingConnection.sharedInstance.connection.stop()
+        self.setMessageLastTimeIfNotSet()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -256,7 +259,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ReachabilityManager.shared.startMonitoring()
         StreamingConnection.sharedInstance.connection.start()
-        
+        self.setMessageLastTimeIfNotSet()
         let time = UserDefaults.standard.value(forKey: "LastTime") as! String
         let clientId =  UIDevice.current.identifierForVendor?.uuidString
         let params: Parameters = [
