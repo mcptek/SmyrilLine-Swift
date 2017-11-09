@@ -153,7 +153,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sxw-Rq-cfN">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="489"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="496"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ltz-XG-eBG">
@@ -249,7 +249,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BTU-q2-dDf">
-                                <rect key="frame" x="316" y="454" width="35" height="35"/>
+                                <rect key="frame" x="316" y="461" width="35" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="IcM-O3-FA6"/>
                                     <constraint firstAttribute="width" constant="35" id="SKF-yt-ygA"/>
@@ -267,7 +267,7 @@
                             <constraint firstItem="BTU-q2-dDf" firstAttribute="top" secondItem="sxw-Rq-cfN" secondAttribute="bottom" constant="-35" id="PVW-oJ-xAX"/>
                             <constraint firstItem="sxw-Rq-cfN" firstAttribute="leading" secondItem="i2T-fQ-ghO" secondAttribute="leading" id="UEu-0x-46s"/>
                             <constraint firstAttribute="trailingMargin" secondItem="BTU-q2-dDf" secondAttribute="trailing" constant="8" id="Y97-wH-5ew"/>
-                            <constraint firstItem="ltz-XG-eBG" firstAttribute="top" secondItem="BTU-q2-dDf" secondAttribute="bottom" constant="-10" id="Zgn-aE-b7i"/>
+                            <constraint firstItem="ltz-XG-eBG" firstAttribute="top" secondItem="BTU-q2-dDf" secondAttribute="bottom" constant="-17" id="Zgn-aE-b7i"/>
                             <constraint firstAttribute="trailing" secondItem="ltz-XG-eBG" secondAttribute="trailing" id="b6H-K8-hYq"/>
                             <constraint firstItem="h05-Ns-K2K" firstAttribute="top" secondItem="ltz-XG-eBG" secondAttribute="bottom" id="g3F-u9-2ua"/>
                             <constraint firstAttribute="trailing" secondItem="sxw-Rq-cfN" secondAttribute="trailing" id="rGY-sB-Z8A"/>

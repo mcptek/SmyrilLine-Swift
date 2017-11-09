@@ -46,6 +46,8 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.isHidden = false
+        let color = UIColor(red: 232.0/255, green: 232.0/255, blue: 232.0/255, alpha: 1.0)
+        self.shipInfoContainerView.borders(for: [.top,], width: 1, color: color)
     }
     
     override func viewDidAppear(_ animated: Bool) {
