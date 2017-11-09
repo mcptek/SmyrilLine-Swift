@@ -13,7 +13,7 @@ target 'SmyrilLine' do
   pod "MXParallaxHeader"
   #pod 'SwiftR'
   pod 'SignalRSwift', '~> 1.0.3'
-  pod ‘ReachabilitySwift’, ‘~> 3’
+  pod 'ReachabilitySwift'
   pod 'Device.swift'
   pod 'NewRelicAgent'
   # pod 'HandyUIKit', '~> 1.6'

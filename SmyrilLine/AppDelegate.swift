@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NewRelic.start(withApplicationToken:"AAc3ed7fc1d51b98bee31eafc0d5aa389bd9979495")
         self.createSocketConnection()
         self.setMessageLastTimeIfNotSet()
+        self.checkIfThereIsAnyPendingNotificatio()
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
@@ -36,6 +37,69 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ReachabilityManager.shared.startMonitoring()
         return true
+    }
+    
+    func checkIfThereIsAnyPendingNotificatio()  {
+        let time = UserDefaults.standard.value(forKey: "LastTime") as! String
+        let clientId =  UIDevice.current.identifierForVendor?.uuidString
+        let params: Parameters = [
+            "startTime": time,
+            "clientid": clientId!
+        ]
+        
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.quedBulletinPath, method:.post, parameters: params, encoding: URLEncoding.httpBody, headers: nil)
+            .responseJSON { (response) in
+                switch response.result {
+                case .success:
+                    
+                    if response.response?.statusCode == 200
+                    {
+                        
+                        if let json = response.result.value as? [Any]
+                        {
+                            var messageId = ""
+                            for object in json
+                            {
+                                let dic = object as? NSDictionary
+                                
+                                if let title = dic?.value(forKey: "title") as? String, let details = dic?.value(forKey: "description") as? String, let imageUrl = dic?.value(forKey: "image_url") as? String
+                                {
+                                    self.saveBulletin(title: title, message: details, imageUrlStr: imageUrl)
+                                }
+                                
+                                if let id = dic?.value(forKey: "id") as? NSNumber
+                                {
+                                    if messageId.characters.count > 0
+                                    {
+                                        messageId += ",\( String(describing: id))"
+                                    }
+                                    else
+                                    {
+                                        messageId = String(describing: id)
+                                    }
+                                }
+                            }
+                            
+                            if messageId.characters.count > 0
+                            {
+                                let bulletinAcknowledgementUrl = String(format: "/api/Schedule/AckQueuedBulletin?scheduleId=%@&clientId=%@", messageId, clientId!)
+                                print(UrlMCP.server_base_url + bulletinAcknowledgementUrl)
+                                Alamofire.request(UrlMCP.server_base_url + bulletinAcknowledgementUrl, method:.get, parameters: nil, encoding: URLEncoding.httpBody, headers: nil)
+                                    .responseJSON { (response) in
+                                        switch response.result {
+                                        case .success:
+                                            print("success")
+                                        case .failure(_):
+                                            print(response.result.error?.localizedDescription ?? "Default warning!!")
+                                        }
+                                }
+                            }
+                        }
+                    }
+                case .failure( _):
+                    print(response.result.error!)
+                }
+        }
     }
     
     /*
@@ -325,6 +389,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

@@ -26,7 +26,7 @@ DEPENDENCIES:
   - Mapbox-iOS-SDK (~> 3.6)
   - MXParallaxHeader
   - NewRelicAgent
-  - ReachabilitySwift (~> 3)
+  - ReachabilitySwift
   - SDWebImage
   - SignalRSwift (~> 1.0.3)
   - SwiftyJSON
@@ -45,6 +45,6 @@ SPEC CHECKSUMS:
   SwiftWebSocket: 1ef8a0efb023544643bdf480c1ec4a62b204f293
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 2a2337d9ca11fe323bb0caf656ea895b4ef13ec6
+PODFILE CHECKSUM: 5d7102b9730efe5b7cd0203d80cc171ab010bbb8
 
 COCOAPODS: 1.2.1
