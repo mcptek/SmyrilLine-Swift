@@ -70,7 +70,8 @@ class MoreViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         case 3:
             self.performSegue(withIdentifier: "help", sender: self)
         case 4:
-            self.performSegue(withIdentifier: "settings", sender: self)
+//            self.performSegue(withIdentifier: "settings", sender: self)
+            self.performSegue(withIdentifier: "setting", sender: self)
         default:
             print("LogOut Action")
         }
