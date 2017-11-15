@@ -432,16 +432,25 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        collectionView.layoutIfNeeded()
-//    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-//        if let objectId = self.shopObject?.itemArray?[indexPath.row].objectId
-//        {
-//            self.CallTaxfreeShopDetailsAPIwithObjectId(objectId: objectId)
-//        }
+        if collectionView.tag == 1003 {
+            self.menuType = self.restaurantDetailsObject?.breakfastItems
+        }
+        else if collectionView.tag == 1004 {
+            self.menuType = self.restaurantDetailsObject?.lunchItems
+        }
+        else {
+            self.menuType = self.restaurantDetailsObject?.dinnerItems
+        }
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextScene = storyBoard.instantiateViewController(withIdentifier: "taxfreeShopDetails") as! TaxfreeDetailsViewController
+        nextScene.productName = self.menuType![indexPath.row].name
+        nextScene.productPrice = self.menuType![indexPath.row].price
+        nextScene.productImageUrl = self.menuType![indexPath.row].imageUrl
+        nextScene.productDetails = self.menuType![indexPath.row].description
+        self.navigationController?.pushViewController(nextScene, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets

@@ -64,6 +64,9 @@
 		84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */; };
 		84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */; };
 		84C1C0541F72307700B57B36 /* SettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C1C0531F72307700B57B36 /* SettingsCollectionViewCell.swift */; };
+		84DFCBD31FBAF78300BCEF8D /* MessageFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFCBD21FBAF78300BCEF8D /* MessageFilterTableViewCell.swift */; };
+		84DFCBD51FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFCBD41FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift */; };
+		84DFCBD71FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFCBD61FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift */; };
 		84EE5E241F6A601A001B4CA4 /* MessageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE5E231F6A601A001B4CA4 /* MessageObject.swift */; };
 		84F481611FAAE8A20065A915 /* RestaurantOpenCloseTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F481601FAAE8A20065A915 /* RestaurantOpenCloseTimeTableViewCell.swift */; };
 		84F481631FAAEECE0065A915 /* RestaurantDetailsInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F481621FAAEECE0065A915 /* RestaurantDetailsInfoTableViewCell.swift */; };
@@ -152,6 +155,9 @@
 		84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
 		84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalRConnection.swift; sourceTree = "<group>"; };
 		84C1C0531F72307700B57B36 /* SettingsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCollectionViewCell.swift; sourceTree = "<group>"; };
+		84DFCBD21FBAF78300BCEF8D /* MessageFilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFilterTableViewCell.swift; sourceTree = "<group>"; };
+		84DFCBD41FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgegroupCollectionViewCell.swift; sourceTree = "<group>"; };
+		84DFCBD61FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderGroupCollectionViewCell.swift; sourceTree = "<group>"; };
 		84EE5E231F6A601A001B4CA4 /* MessageObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageObject.swift; sourceTree = "<group>"; };
 		84F481601FAAE8A20065A915 /* RestaurantOpenCloseTimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantOpenCloseTimeTableViewCell.swift; sourceTree = "<group>"; };
 		84F481621FAAEECE0065A915 /* RestaurantDetailsInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -361,6 +367,9 @@
 				846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */,
 				8429F53E1FB47C9A001C2740 /* SettingViewController.swift */,
 				849D4BA21FB572BA00863F81 /* SettingsHeaderTableViewCell.swift */,
+				84DFCBD21FBAF78300BCEF8D /* MessageFilterTableViewCell.swift */,
+				84DFCBD41FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift */,
+				84DFCBD61FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift */,
 				84C1C0531F72307700B57B36 /* SettingsCollectionViewCell.swift */,
 				841D94481F7389C3008699A6 /* HeaderCollectionReusableView.swift */,
 			);
@@ -651,6 +660,7 @@
 				84F481691FAB50E20065A915 /* MealTypeDescriptionTableViewCell.swift in Sources */,
 				842308451F56FB06004A4166 /* TaxfreeCollectionViewCell.swift in Sources */,
 				849D4BA31FB572BA00863F81 /* SettingsHeaderTableViewCell.swift in Sources */,
+				84DFCBD31FBAF78300BCEF8D /* MessageFilterTableViewCell.swift in Sources */,
 				84138C8C1F625B1600D3F06C /* UINavigationBar+Alpha.swift in Sources */,
 				842ED4231F4EFA78000366BF /* RestaurantViewController.swift in Sources */,
 				842308431F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift in Sources */,
@@ -677,6 +687,7 @@
 				840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */,
 				846E60FB1F6FD55900AC0234 /* SettingsViewController.swift in Sources */,
 				841F13101F8488D7009CBAD9 /* TaxfreeHeader.swift in Sources */,
+				84DFCBD71FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift in Sources */,
 				840FCFA51FAC6754002A2067 /* MealCollectionViewCell.swift in Sources */,
 				840DA9F61F4C615C001B3382 /* MainMenuCollectionViewCell.swift in Sources */,
 				8447D1691F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift in Sources */,
@@ -688,6 +699,7 @@
 				8429F53F1FB47C9A001C2740 /* SettingViewController.swift in Sources */,
 				84A8E51A1F6A75CA00B5E569 /* InboxTableViewCell.swift in Sources */,
 				84C1C0541F72307700B57B36 /* SettingsCollectionViewCell.swift in Sources */,
+				84DFCBD51FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift in Sources */,
 				BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */,
 				84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */,
 				841F13141F84A16B009CBAD9 /* TaxfreeDetailsViewController.swift in Sources */,

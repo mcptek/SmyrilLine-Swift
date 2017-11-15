@@ -13,7 +13,10 @@ import MXParallaxHeader
 class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet weak var productDetailsTableview: UITableView!
     
-    var productDetailsObject: ShopObject?
+    var productName: String?
+    var productPrice: String?
+    var productDetails: String?
+    var productImageUrl: String?
     var myHeaderView: TaxfreeHeaderDetailsHeader!
     var scrollView: MXScrollView!
     var headerCurrentStatus = 0
@@ -40,35 +43,46 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        if let imageUrlStr = self.productDetailsObject?.imageUrl
+        if let imageUrlStr = self.productImageUrl
         {
             self.myHeaderView.productImageView.sd_setShowActivityIndicatorView(true)
             self.myHeaderView.productImageView.sd_setIndicatorStyle(.gray)
             self.myHeaderView.productImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
         }
         
-        if let productName = self.productDetailsObject?.name
+        if let productName = self.productName
         {
             self.myHeaderView.productNameLabel.text = productName
         }
         
-        if let priceObject = self.productDetailsObject?.objectPrice
+        self.productPrice = self.productPrice?.replacingOccurrences(of: "€", with: "", options: .literal, range: nil)
+        if let priceObject = self.productPrice
         {
             var price = priceObject.replacingOccurrences(of: ".", with: ",", options: .literal, range: nil)
             price = "€" + price
-            let splittedStringsArray = price.split(separator: ",", maxSplits: 1, omittingEmptySubsequences: true)
-            if let firstString = splittedStringsArray.first, let secondString = splittedStringsArray.last
-            {
-                let numericPart = String(describing: firstString)
-                let fractionPart = String(describing: secondString)
-                let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
-                let scriptFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
-                let stringwithSquare = numericPart.attributedStringWithSuperscript(fractionPart, mainStringFont: mainFont, subStringFont: scriptFont, offSetFromBaseLine: 10)
-                self.myHeaderView.productPriceLabel.attributedText = stringwithSquare
+            if price.characters.contains(",") {
+                let splittedStringsArray = price.split(separator: ",", maxSplits: 1, omittingEmptySubsequences: true)
+                if let firstString = splittedStringsArray.first, let secondString = splittedStringsArray.last
+                {
+                    let numericPart = String(describing: firstString)
+                    let fractionPart = String(describing: secondString)
+                    let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
+                    let scriptFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
+                    let stringwithSquare = numericPart.attributedStringWithSuperscript(fractionPart, mainStringFont: mainFont, subStringFont: scriptFont, offSetFromBaseLine: 10)
+                    self.myHeaderView.productPriceLabel.attributedText = stringwithSquare
+                }
+                else
+                {
+                    let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
+                    self.myHeaderView.productPriceLabel.text = price
+                    self.myHeaderView.productPriceLabel.font = mainFont
+                    
+                }
             }
-            else
-            {
+            else {
+                let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
                 self.myHeaderView.productPriceLabel.text = price
+                self.myHeaderView.productPriceLabel.font = mainFont
             }
         }
     }
@@ -102,7 +116,7 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
         if indexPath.section == 0
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "productDetailsCell", for: indexPath) as! TaxfreeProductDetailsTableViewCell
-            if let productDetails = self.productDetailsObject?.objectHeader
+            if let productDetails = self.productDetails
             {
                 cell.productDetailsLabel.text = productDetails
             }
@@ -124,7 +138,7 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
                 if self.headerCurrentStatus == 2
                 {
                     cell.productDetailsLabel.numberOfLines = 0
-                    cell.seeMoreButton.setTitle("See Less", for: .normal)
+                    cell.seeMoreButton.setTitle("See More", for: .normal)
                 }
                 else
                 {
@@ -174,14 +188,7 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func headerSeeMoreOrLesssButtonAction(_ sender : UIButton)  {
-        if self.headerCurrentStatus == 2
-        {
-            self.headerCurrentStatus = 0
-        }
-        else
-        {
-            self.headerCurrentStatus = 2
-        }
+        self.headerCurrentStatus = 2
         self.productDetailsTableview.reloadData()
         
     }

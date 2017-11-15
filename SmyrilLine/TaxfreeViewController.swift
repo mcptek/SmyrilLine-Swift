@@ -187,7 +187,10 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
                     {
                         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                         let nextScene = storyBoard.instantiateViewController(withIdentifier: "taxfreeShopDetails") as! TaxfreeDetailsViewController
-                        nextScene.productDetailsObject = response.result.value
+                        nextScene.productName = response.result.value?.name
+                        nextScene.productPrice = response.result.value?.objectPrice
+                        nextScene.productImageUrl = response.result.value?.imageUrl
+                        nextScene.productDetails = response.result.value?.objectHeader
                         self.navigationController?.pushViewController(nextScene, animated: true)
                     }
                 case .failure(let error):
