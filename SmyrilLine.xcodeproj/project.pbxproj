@@ -73,6 +73,9 @@
 		84F481671FAB44CD0065A915 /* MealTypeHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F481661FAB44CD0065A915 /* MealTypeHeaderTableViewCell.swift */; };
 		84F481691FAB50E20065A915 /* MealTypeDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F481681FAB50E20065A915 /* MealTypeDescriptionTableViewCell.swift */; };
 		84FA7EA01F85EC7400D2A299 /* PlaceOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FA7E9F1F85EC7400D2A299 /* PlaceOrderTableViewCell.swift */; };
+		84FBCB451FBC53BE00B74707 /* GenderFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FBCB441FBC53BE00B74707 /* GenderFilterTableViewCell.swift */; };
+		84FBCB471FBC636A00B74707 /* LanguageFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FBCB461FBC636A00B74707 /* LanguageFilterTableViewCell.swift */; };
+		84FBCB491FBC639100B74707 /* LanguageGroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FBCB481FBC639100B74707 /* LanguageGroupCollectionViewCell.swift */; };
 		B2553924AF491ED961B2132C /* Pods_SmyrilLine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8F808BE45FE0AAC33C1FDB /* Pods_SmyrilLine.framework */; };
 		BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F2D11F4F2EEB003B77CA /* DestinationViewController.swift */; };
 		BB45F2D41F4F2FBD003B77CA /* DestinationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F2D31F4F2FBD003B77CA /* DestinationTableViewCell.swift */; };
@@ -164,6 +167,9 @@
 		84F481661FAB44CD0065A915 /* MealTypeHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTypeHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		84F481681FAB50E20065A915 /* MealTypeDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTypeDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		84FA7E9F1F85EC7400D2A299 /* PlaceOrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceOrderTableViewCell.swift; sourceTree = "<group>"; };
+		84FBCB441FBC53BE00B74707 /* GenderFilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderFilterTableViewCell.swift; sourceTree = "<group>"; };
+		84FBCB461FBC636A00B74707 /* LanguageFilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageFilterTableViewCell.swift; sourceTree = "<group>"; };
+		84FBCB481FBC639100B74707 /* LanguageGroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageGroupCollectionViewCell.swift; sourceTree = "<group>"; };
 		BB45F2D11F4F2EEB003B77CA /* DestinationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationViewController.swift; sourceTree = "<group>"; };
 		BB45F2D31F4F2FBD003B77CA /* DestinationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationTableViewCell.swift; sourceTree = "<group>"; };
 		BB45F2D91F4F30A5003B77CA /* Destinations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Destinations.swift; sourceTree = "<group>"; };
@@ -368,8 +374,11 @@
 				8429F53E1FB47C9A001C2740 /* SettingViewController.swift */,
 				849D4BA21FB572BA00863F81 /* SettingsHeaderTableViewCell.swift */,
 				84DFCBD21FBAF78300BCEF8D /* MessageFilterTableViewCell.swift */,
+				84FBCB441FBC53BE00B74707 /* GenderFilterTableViewCell.swift */,
+				84FBCB461FBC636A00B74707 /* LanguageFilterTableViewCell.swift */,
 				84DFCBD41FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift */,
 				84DFCBD61FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift */,
+				84FBCB481FBC639100B74707 /* LanguageGroupCollectionViewCell.swift */,
 				84C1C0531F72307700B57B36 /* SettingsCollectionViewCell.swift */,
 				841D94481F7389C3008699A6 /* HeaderCollectionReusableView.swift */,
 			);
@@ -652,7 +661,9 @@
 				842114081F70F066004459A9 /* ReachabilityManager.swift in Sources */,
 				84A8E51C1F6A842C00B5E569 /* InboxDetailsViewController.swift in Sources */,
 				8445F1581F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift in Sources */,
+				84FBCB451FBC53BE00B74707 /* GenderFilterTableViewCell.swift in Sources */,
 				BB45F2D41F4F2FBD003B77CA /* DestinationTableViewCell.swift in Sources */,
+				84FBCB491FBC639100B74707 /* LanguageGroupCollectionViewCell.swift in Sources */,
 				846643331F8F554600146A68 /* HelpViewController.swift in Sources */,
 				BB45F2DA1F4F30A5003B77CA /* Destinations.swift in Sources */,
 				8447D16B1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift in Sources */,
@@ -698,6 +709,7 @@
 				842308471F57CB15004A4166 /* DestinationCategoryViewController.swift in Sources */,
 				8429F53F1FB47C9A001C2740 /* SettingViewController.swift in Sources */,
 				84A8E51A1F6A75CA00B5E569 /* InboxTableViewCell.swift in Sources */,
+				84FBCB471FBC636A00B74707 /* LanguageFilterTableViewCell.swift in Sources */,
 				84C1C0541F72307700B57B36 /* SettingsCollectionViewCell.swift in Sources */,
 				84DFCBD51FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift in Sources */,
 				BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */,

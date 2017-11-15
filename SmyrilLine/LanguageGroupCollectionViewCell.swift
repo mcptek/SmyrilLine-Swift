@@ -1,21 +1,20 @@
 //
-//  AgegroupCollectionViewCell.swift
+//  LanguageGroupCollectionViewCell.swift
 //  SmyrilLine
 //
-//  Created by Rafay Hasan on 11/14/17.
+//  Created by Rafay Hasan on 11/15/17.
 //  Copyright © 2017 Rafay Hasan. All rights reserved.
 //
 
 import UIKit
 
-class AgegroupCollectionViewCell: UICollectionViewCell {
+class LanguageGroupCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var ageTitleLabel: UILabel!
-    @IBOutlet weak var ageDescriptionLabel: UILabel!
-    @IBOutlet weak var ageGroupImageView: UIImageView!
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var ageDescriptionLabelHeight: NSLayoutConstraint!
+    @IBOutlet weak var languageImageView: UIImageView!
+    @IBOutlet weak var languageName: UILabel!
     @IBOutlet weak var selectionImageView: UIImageView!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,9 +25,6 @@ class AgegroupCollectionViewCell: UICollectionViewCell {
         // Initialization code
         self.layer.cornerRadius = 3
         self.layer.masksToBounds = true
-        self.layer.cornerRadius = 3
-        self.layer.masksToBounds = true
-        
         self.containerView.layer.cornerRadius = 3
         self.containerView.layer.masksToBounds = true
         
