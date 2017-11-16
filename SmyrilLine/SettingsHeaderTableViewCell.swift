@@ -20,6 +20,7 @@ class SettingsHeaderTableViewCell: UITableViewCell {
         // Initialization code
         self.layer.cornerRadius = 3
         self.layer.masksToBounds = true
+        //self.backgroundColor = UIColor.white.withAlphaComponent(0.8)
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

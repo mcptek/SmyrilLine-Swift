@@ -271,6 +271,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
             cell.expandCollapseImageView.image = cell.expandCollapseImageView.image!.withRenderingMode(.alwaysTemplate)
             cell.expandCollapseImageView.tintColor = UIColor.lightGray
             cell.selectionStyle = .default
+            //cell.backgroundColor = UIColor.white.withAlphaComponent(0.8)
             return cell
         }
         else
@@ -285,6 +286,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
                     cell.layoutIfNeeded()
                     self.settingsTableView.layoutIfNeeded()
                     cell.selectionStyle = .none
+                    //cell.backgroundColor = UIColor.white.withAlphaComponent(0.8)
                     return cell
                 }
                 else {
@@ -296,6 +298,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
                     cell.layoutIfNeeded()
                     self.settingsTableView.layoutIfNeeded()
                     cell.selectionStyle = .none
+                    //cell.backgroundColor = UIColor.white.withAlphaComponent(0.8)
                     return cell
                 }
             }
@@ -308,6 +311,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 cell.layoutIfNeeded()
                 self.settingsTableView.layoutIfNeeded()
                 cell.selectionStyle = .none
+                //cell.backgroundColor = UIColor.white.withAlphaComponent(0.8)
                 return cell
             }
         }
@@ -321,7 +325,10 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
             else {
                 self.expandCollapseArrau[indexPath.section] = true
             }
-            self.settingsTableView.reloadData()
+            let sectionIndex = IndexSet(integer: indexPath.section)
+            tableView.reloadSections(sectionIndex, with: .automatic)
+            let indexPath = IndexPath.init(row: 0, section: indexPath.section)
+            tableView.scrollToRow(at: indexPath as IndexPath, at: .middle, animated: true)
         }
     }
     
