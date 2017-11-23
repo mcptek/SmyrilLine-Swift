@@ -24,7 +24,6 @@
 		840FCFA31FAC6692002A2067 /* MealDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840FCFA21FAC6692002A2067 /* MealDetailsTableViewCell.swift */; };
 		840FCFA51FAC6754002A2067 /* MealCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840FCFA41FAC6754002A2067 /* MealCollectionViewCell.swift */; };
 		84138C8C1F625B1600D3F06C /* UINavigationBar+Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84138C8B1F625B1600D3F06C /* UINavigationBar+Alpha.swift */; };
-		841D94491F7389C3008699A6 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841D94481F7389C3008699A6 /* HeaderCollectionReusableView.swift */; };
 		841F13101F8488D7009CBAD9 /* TaxfreeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F130F1F8488D7009CBAD9 /* TaxfreeHeader.swift */; };
 		841F13121F8488F2009CBAD9 /* TaxfreeHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 841F13111F8488F2009CBAD9 /* TaxfreeHeader.xib */; };
 		841F13141F84A16B009CBAD9 /* TaxfreeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F13131F84A16B009CBAD9 /* TaxfreeDetailsViewController.swift */; };
@@ -54,7 +53,6 @@
 		84635BD41FB0882E00B92F61 /* RestaurantDetailsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84635BD31FB0882E00B92F61 /* RestaurantDetailsHeader.swift */; };
 		84635BD61FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84635BD51FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib */; };
 		846643331F8F554600146A68 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846643321F8F554600146A68 /* HelpViewController.swift */; };
-		846E60FB1F6FD55900AC0234 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */; };
 		849BC7AD1FA04A85003BCEB1 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849BC7AC1FA04A85003BCEB1 /* MoreViewController.swift */; };
 		849D4BA31FB572BA00863F81 /* SettingsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D4BA21FB572BA00863F81 /* SettingsHeaderTableViewCell.swift */; };
 		849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */; };
@@ -63,7 +61,10 @@
 		84A8E51E1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E51D1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift */; };
 		84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */; };
 		84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */; };
-		84C1C0541F72307700B57B36 /* SettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C1C0531F72307700B57B36 /* SettingsCollectionViewCell.swift */; };
+		84BAA35A1FC545D700431A9E /* RegisterChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAA3591FC545D700431A9E /* RegisterChat.swift */; };
+		84BAA35F1FC54D5100431A9E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84BAA35C1FC54D5100431A9E /* Info.plist */; };
+		84BAA3601FC54D5100431A9E /* JsonSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAA35D1FC54D5100431A9E /* JsonSerializer.swift */; };
+		84BAA3621FC550B500431A9E /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAA3611FC550B500431A9E /* MessageType.swift */; };
 		84DFCBD31FBAF78300BCEF8D /* MessageFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFCBD21FBAF78300BCEF8D /* MessageFilterTableViewCell.swift */; };
 		84DFCBD51FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFCBD41FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift */; };
 		84DFCBD71FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFCBD61FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift */; };
@@ -117,7 +118,6 @@
 		840FCFA21FAC6692002A2067 /* MealDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		840FCFA41FAC6754002A2067 /* MealCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealCollectionViewCell.swift; sourceTree = "<group>"; };
 		84138C8B1F625B1600D3F06C /* UINavigationBar+Alpha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Alpha.swift"; sourceTree = "<group>"; };
-		841D94481F7389C3008699A6 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		841F130F1F8488D7009CBAD9 /* TaxfreeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxfreeHeader.swift; sourceTree = "<group>"; };
 		841F13111F8488F2009CBAD9 /* TaxfreeHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaxfreeHeader.xib; sourceTree = "<group>"; };
 		841F13131F84A16B009CBAD9 /* TaxfreeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxfreeDetailsViewController.swift; sourceTree = "<group>"; };
@@ -148,7 +148,6 @@
 		84635BD31FB0882E00B92F61 /* RestaurantDetailsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsHeader.swift; sourceTree = "<group>"; };
 		84635BD51FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestaurantDetailsParallaxHeader.xib; sourceTree = "<group>"; };
 		846643321F8F554600146A68 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
-		846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		849BC7AC1FA04A85003BCEB1 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		849D4BA21FB572BA00863F81 /* SettingsHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -157,7 +156,11 @@
 		84A8E51D1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
 		84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalRConnection.swift; sourceTree = "<group>"; };
-		84C1C0531F72307700B57B36 /* SettingsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCollectionViewCell.swift; sourceTree = "<group>"; };
+		84BAA3591FC545D700431A9E /* RegisterChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterChat.swift; sourceTree = "<group>"; };
+		84BAA35C1FC54D5100431A9E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84BAA35D1FC54D5100431A9E /* JsonSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonSerializer.swift; sourceTree = "<group>"; };
+		84BAA35E1FC54D5100431A9E /* JsonSerializerSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonSerializerSwift.h; sourceTree = "<group>"; };
+		84BAA3611FC550B500431A9E /* MessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageType.swift; sourceTree = "<group>"; };
 		84DFCBD21FBAF78300BCEF8D /* MessageFilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFilterTableViewCell.swift; sourceTree = "<group>"; };
 		84DFCBD41FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgegroupCollectionViewCell.swift; sourceTree = "<group>"; };
 		84DFCBD61FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderGroupCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -246,6 +249,7 @@
 			children = (
 				840DA9CD1F4C5C7F001B3382 /* AppDelegate.swift */,
 				840DA9CF1F4C5C7F001B3382 /* ViewController.swift */,
+				84BAA35B1FC54D5100431A9E /* JsonSerializerSwift */,
 				842ED4191F4E9A2A000366BF /* Modal */,
 				840DA9F21F4C60FF001B3382 /* Stories */,
 				842ED41A1F4E9A34000366BF /* Utilities */,
@@ -316,6 +320,8 @@
 				BB45F2D91F4F30A5003B77CA /* Destinations.swift */,
 				840A47881F4FF2B40038DAE6 /* TaxFreeShop.swift */,
 				84EE5E231F6A601A001B4CA4 /* MessageObject.swift */,
+				84BAA3611FC550B500431A9E /* MessageType.swift */,
+				84BAA3591FC545D700431A9E /* RegisterChat.swift */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -370,7 +376,6 @@
 		846E60F91F6FD51F00AC0234 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				846E60FA1F6FD55900AC0234 /* SettingsViewController.swift */,
 				8429F53E1FB47C9A001C2740 /* SettingViewController.swift */,
 				849D4BA21FB572BA00863F81 /* SettingsHeaderTableViewCell.swift */,
 				84DFCBD21FBAF78300BCEF8D /* MessageFilterTableViewCell.swift */,
@@ -379,8 +384,6 @@
 				84DFCBD41FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift */,
 				84DFCBD61FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift */,
 				84FBCB481FBC639100B74707 /* LanguageGroupCollectionViewCell.swift */,
-				84C1C0531F72307700B57B36 /* SettingsCollectionViewCell.swift */,
-				841D94481F7389C3008699A6 /* HeaderCollectionReusableView.swift */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -402,6 +405,16 @@
 				84A8E51D1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift */,
 			);
 			name = Inbox;
+			sourceTree = "<group>";
+		};
+		84BAA35B1FC54D5100431A9E /* JsonSerializerSwift */ = {
+			isa = PBXGroup;
+			children = (
+				84BAA35C1FC54D5100431A9E /* Info.plist */,
+				84BAA35D1FC54D5100431A9E /* JsonSerializer.swift */,
+				84BAA35E1FC54D5100431A9E /* JsonSerializerSwift.h */,
+			);
+			path = JsonSerializerSwift;
 			sourceTree = "<group>";
 		};
 		BB45F2D01F4F2EC6003B77CA /* Destinations */ = {
@@ -528,6 +541,7 @@
 			files = (
 				841F13121F8488F2009CBAD9 /* TaxfreeHeader.xib in Resources */,
 				84635BD61FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib in Resources */,
+				84BAA35F1FC54D5100431A9E /* Info.plist in Resources */,
 				841F131A1F84DD6D009CBAD9 /* TaxfreeHeaderDetailsHeader.xib in Resources */,
 				840DA9DB1F4C5C7F001B3382 /* LaunchScreen.storyboard in Resources */,
 				840DA9F11F4C5FF6001B3382 /* Assets.xcassets in Resources */,
@@ -691,12 +705,12 @@
 				84623FF41F9F117300B0DE50 /* SmyrilLineBridgeHeader.m in Sources */,
 				840DA9D01F4C5C7F001B3382 /* ViewController.swift in Sources */,
 				84F481611FAAE8A20065A915 /* RestaurantOpenCloseTimeTableViewCell.swift in Sources */,
+				84BAA35A1FC545D700431A9E /* RegisterChat.swift in Sources */,
 				842EB2331FA9892300652F68 /* RestaurantDetailsViewController.swift in Sources */,
 				84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */,
 				841F13181F84DD35009CBAD9 /* TaxfreeHeaderDetailsHeader.swift in Sources */,
 				842ED4181F4E8E8C000366BF /* ShiptrackerViewController.swift in Sources */,
 				840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */,
-				846E60FB1F6FD55900AC0234 /* SettingsViewController.swift in Sources */,
 				841F13101F8488D7009CBAD9 /* TaxfreeHeader.swift in Sources */,
 				84DFCBD71FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift in Sources */,
 				840FCFA51FAC6754002A2067 /* MealCollectionViewCell.swift in Sources */,
@@ -706,16 +720,16 @@
 				84A8E51E1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift in Sources */,
 				842ED41C1F4E9A76000366BF /* ShipTracker.swift in Sources */,
 				840FCFA31FAC6692002A2067 /* MealDetailsTableViewCell.swift in Sources */,
+				84BAA3601FC54D5100431A9E /* JsonSerializer.swift in Sources */,
 				842308471F57CB15004A4166 /* DestinationCategoryViewController.swift in Sources */,
 				8429F53F1FB47C9A001C2740 /* SettingViewController.swift in Sources */,
 				84A8E51A1F6A75CA00B5E569 /* InboxTableViewCell.swift in Sources */,
 				84FBCB471FBC636A00B74707 /* LanguageFilterTableViewCell.swift in Sources */,
-				84C1C0541F72307700B57B36 /* SettingsCollectionViewCell.swift in Sources */,
 				84DFCBD51FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift in Sources */,
+				84BAA3621FC550B500431A9E /* MessageType.swift in Sources */,
 				BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */,
 				84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */,
 				841F13141F84A16B009CBAD9 /* TaxfreeDetailsViewController.swift in Sources */,
-				841D94491F7389C3008699A6 /* HeaderCollectionReusableView.swift in Sources */,
 				849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */,
 				8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */,
 				840A47891F4FF2B40038DAE6 /* TaxFreeShop.swift in Sources */,

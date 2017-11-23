@@ -16,6 +16,7 @@ PODS:
     - Alamofire (~> 4.2)
     - AlamofireObjectMapper (~> 4.0)
     - SwiftWebSocket
+  - Starscream (3.0.2)
   - SwiftWebSocket (2.6.5)
   - SwiftyJSON (3.1.4)
 
@@ -29,6 +30,7 @@ DEPENDENCIES:
   - ReachabilitySwift
   - SDWebImage
   - SignalRSwift (~> 1.0.3)
+  - Starscream (~> 3.0.2)
   - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -42,9 +44,10 @@ SPEC CHECKSUMS:
   ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
   SDWebImage: 0e435c14e402a6730315a0fb79f95e68654d55a4
   SignalRSwift: 6f686538df9ea5a88167afff00ffd048f98c1ee1
+  Starscream: b512c62f6706421221b5ceb2ba01a9f58aca5bea
   SwiftWebSocket: 1ef8a0efb023544643bdf480c1ec4a62b204f293
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 5d7102b9730efe5b7cd0203d80cc171ab010bbb8
+PODFILE CHECKSUM: d778ac1d2f96204a84594820edba944201efbe48
 
 COCOAPODS: 1.2.1

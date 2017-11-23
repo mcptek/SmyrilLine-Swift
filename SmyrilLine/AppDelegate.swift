@@ -14,11 +14,14 @@ import SwiftyJSON
 import UserNotifications
 import ReachabilitySwift
 import Device_swift
+import Starscream
+//import JSONSerializer
 
 @available(iOS 10.0, *)
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
+class AppDelegate: UIResponder, UIApplicationDelegate, WebSocketDelegate {
+    
+    var socket = WebSocket(url: URL(string: UrlMCP.WebSocket_url + "?deviceId=" + (UIDevice.current.identifierForVendor?.uuidString)!)!, protocols: ["chat", "superchat"])
     var window: UIWindow?
     //let reachability = Reachability()!
 
@@ -34,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             // Enable or disable features based on authorization.
         }
-        
+        self.createWebSocketConnection()
         ReachabilityManager.shared.startMonitoring()
         return true
     }
@@ -194,6 +197,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func createWebSocketConnection()  {
+        //let socket = WebSocket(url: URL(string: "ws://192.168.1.47:5000/ws/?deviceId=123789")!, protocols: ["chat", "superchat"])//WebSocket(url: URL(string: "ws://192.168.1.47:5000/ws/?deviceId=123789")!)
+        self.socket.delegate = self
+        self.socket.connect()
+    }
+    
     func createSocketConnection()  {
         StreamingConnection.sharedInstance.connection.started = {
             print("Connected")
@@ -303,6 +312,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.set(desiredDate, forKey: "LastTime")
             
         }
+    }
+    
+    func websocketDidConnect(socket: WebSocketClient) {
+        print("websocket is connected")
+        let registerChat = RegisterChat.init(name: "Rafay", bookingNumber: 123456, profileDescription: "Websoket messaging", imageUrl: "Bla ba ", country: "Bangladesh", deviceId: (UIDevice.current.identifierForVendor?.uuidString)!, gender: "Male", status: 1, visibility: 2)
+        let messageType = MessageSignature.init(type: 2, list: registerChat)
+        
+        let json = JSONSerializer.toJson(messageType)
+        print(json)
+        socket.write(string: json)
+    }
+    
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        print("websocket is disconnected: \(String(describing: error?.localizedDescription))")
+    }
+    
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        print("got some text: \(text)")
+    }
+    
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+        print("got some data: \(data.count)")
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
