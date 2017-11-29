@@ -14,16 +14,13 @@ import SwiftyJSON
 import UserNotifications
 import ReachabilitySwift
 import Device_swift
-import Starscream
-//import JSONSerializer
+
 
 @available(iOS 10.0, *)
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, WebSocketDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var socket = WebSocket(url: URL(string: UrlMCP.WebSocket_url + "?deviceId=" + (UIDevice.current.identifierForVendor?.uuidString)!)!, protocols: ["chat", "superchat"])
     var window: UIWindow?
-    //let reachability = Reachability()!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -37,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WebSocketDelegate {
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             // Enable or disable features based on authorization.
         }
-        self.createWebSocketConnection()
         ReachabilityManager.shared.startMonitoring()
         return true
     }
@@ -105,31 +101,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WebSocketDelegate {
         }
     }
     
-    /*
-    func startMonitoring() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.reachabilityChanged),
-                                               name: ReachabilityChangedNotification,
-                                               object: reachability)
-        do{
-            try reachability.startNotifier()
-        } catch {
-            debugPrint("Could not start reachability notifier")
-        }
-    }
-    
-    func reachabilityChanged(notification: Notification) {
-        let reachability = notification.object as! Reachability
-        switch reachability.currentReachabilityStatus {
-        case .notReachable:
-            debugPrint("Network became unreachable")
-        case .reachableViaWiFi:
-            debugPrint("Network reachable through WiFi")
-        case .reachableViaWWAN:
-            debugPrint("Network reachable through Cellular Data")
-        }
-    }
-    */
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
         let time = UserDefaults.standard.value(forKey: "LastTime") as! String
@@ -195,12 +166,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WebSocketDelegate {
                     completionHandler(.failed)
                 }
         }
-    }
-    
-    func createWebSocketConnection()  {
-        //let socket = WebSocket(url: URL(string: "ws://192.168.1.47:5000/ws/?deviceId=123789")!, protocols: ["chat", "superchat"])//WebSocket(url: URL(string: "ws://192.168.1.47:5000/ws/?deviceId=123789")!)
-        self.socket.delegate = self
-        self.socket.connect()
     }
     
     func createSocketConnection()  {
@@ -312,28 +277,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WebSocketDelegate {
             defaults.set(desiredDate, forKey: "LastTime")
             
         }
-    }
-    
-    func websocketDidConnect(socket: WebSocketClient) {
-        print("websocket is connected")
-        let registerChat = RegisterChat.init(name: "Rafay", bookingNumber: 123456, profileDescription: "Websoket messaging", imageUrl: "Bla ba ", country: "Bangladesh", deviceId: (UIDevice.current.identifierForVendor?.uuidString)!, gender: "Male", status: 1, visibility: 2)
-        let messageType = MessageSignature.init(type: 2, list: registerChat)
-        
-        let json = JSONSerializer.toJson(messageType)
-        print(json)
-        socket.write(string: json)
-    }
-    
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        print("websocket is disconnected: \(String(describing: error?.localizedDescription))")
-    }
-    
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        print("got some text: \(text)")
-    }
-    
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
-        print("got some data: \(data.count)")
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

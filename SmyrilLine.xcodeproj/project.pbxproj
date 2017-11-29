@@ -53,6 +53,10 @@
 		84635BD41FB0882E00B92F61 /* RestaurantDetailsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84635BD31FB0882E00B92F61 /* RestaurantDetailsHeader.swift */; };
 		84635BD61FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84635BD51FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib */; };
 		846643331F8F554600146A68 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846643321F8F554600146A68 /* HelpViewController.swift */; };
+		84745ED51FC69587005E2E99 /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84745ED41FC69587005E2E99 /* WebSocketManager.swift */; };
+		84745ED91FC6A465005E2E99 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84745ED81FC6A465005E2E99 /* ChatTableViewCell.swift */; };
+		84745EDB1FC6A487005E2E99 /* UserListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84745EDA1FC6A487005E2E99 /* UserListCollectionViewCell.swift */; };
+		84745EDD1FC6C568005E2E99 /* Messaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84745EDC1FC6C568005E2E99 /* Messaging.swift */; };
 		849BC7AD1FA04A85003BCEB1 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849BC7AC1FA04A85003BCEB1 /* MoreViewController.swift */; };
 		849D4BA31FB572BA00863F81 /* SettingsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D4BA21FB572BA00863F81 /* SettingsHeaderTableViewCell.swift */; };
 		849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */; };
@@ -61,7 +65,7 @@
 		84A8E51E1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E51D1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift */; };
 		84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */; };
 		84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */; };
-		84BAA35A1FC545D700431A9E /* RegisterChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAA3591FC545D700431A9E /* RegisterChat.swift */; };
+		84BAA35A1FC545D700431A9E /* userList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAA3591FC545D700431A9E /* userList.swift */; };
 		84BAA35F1FC54D5100431A9E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84BAA35C1FC54D5100431A9E /* Info.plist */; };
 		84BAA3601FC54D5100431A9E /* JsonSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAA35D1FC54D5100431A9E /* JsonSerializer.swift */; };
 		84BAA3621FC550B500431A9E /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAA3611FC550B500431A9E /* MessageType.swift */; };
@@ -148,6 +152,10 @@
 		84635BD31FB0882E00B92F61 /* RestaurantDetailsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsHeader.swift; sourceTree = "<group>"; };
 		84635BD51FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestaurantDetailsParallaxHeader.xib; sourceTree = "<group>"; };
 		846643321F8F554600146A68 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		84745ED41FC69587005E2E99 /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
+		84745ED81FC6A465005E2E99 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
+		84745EDA1FC6A487005E2E99 /* UserListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCollectionViewCell.swift; sourceTree = "<group>"; };
+		84745EDC1FC6C568005E2E99 /* Messaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messaging.swift; sourceTree = "<group>"; };
 		849BC7AC1FA04A85003BCEB1 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		849D4BA21FB572BA00863F81 /* SettingsHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -156,7 +164,7 @@
 		84A8E51D1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
 		84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalRConnection.swift; sourceTree = "<group>"; };
-		84BAA3591FC545D700431A9E /* RegisterChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterChat.swift; sourceTree = "<group>"; };
+		84BAA3591FC545D700431A9E /* userList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userList.swift; sourceTree = "<group>"; };
 		84BAA35C1FC54D5100431A9E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84BAA35D1FC54D5100431A9E /* JsonSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonSerializer.swift; sourceTree = "<group>"; };
 		84BAA35E1FC54D5100431A9E /* JsonSerializerSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonSerializerSwift.h; sourceTree = "<group>"; };
@@ -319,9 +327,10 @@
 				842ED4261F4F06F5000366BF /* Restaurants.swift */,
 				BB45F2D91F4F30A5003B77CA /* Destinations.swift */,
 				840A47881F4FF2B40038DAE6 /* TaxFreeShop.swift */,
+				84745EDC1FC6C568005E2E99 /* Messaging.swift */,
 				84EE5E231F6A601A001B4CA4 /* MessageObject.swift */,
 				84BAA3611FC550B500431A9E /* MessageType.swift */,
-				84BAA3591FC545D700431A9E /* RegisterChat.swift */,
+				84BAA3591FC545D700431A9E /* userList.swift */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -334,6 +343,7 @@
 				842ED41F1F4E9B7B000366BF /* ViewControllerExtension.swift */,
 				84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */,
 				842114071F70F066004459A9 /* ReachabilityManager.swift */,
+				84745ED41FC69587005E2E99 /* WebSocketManager.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -388,6 +398,26 @@
 			name = Setting;
 			sourceTree = "<group>";
 		};
+		84745ED61FC6A40D005E2E99 /* Bulletin */ = {
+			isa = PBXGroup;
+			children = (
+				84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */,
+				84A8E5191F6A75CA00B5E569 /* InboxTableViewCell.swift */,
+				84A8E51B1F6A842C00B5E569 /* InboxDetailsViewController.swift */,
+				84A8E51D1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift */,
+			);
+			name = Bulletin;
+			sourceTree = "<group>";
+		};
+		84745ED71FC6A42C005E2E99 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				84745ED81FC6A465005E2E99 /* ChatTableViewCell.swift */,
+				84745EDA1FC6A487005E2E99 /* UserListCollectionViewCell.swift */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
 		849BC7AB1FA04A62003BCEB1 /* More */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,10 +429,8 @@
 		84AA0E4B1F692A7E00E4354A /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
-				84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */,
-				84A8E5191F6A75CA00B5E569 /* InboxTableViewCell.swift */,
-				84A8E51B1F6A842C00B5E569 /* InboxDetailsViewController.swift */,
-				84A8E51D1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift */,
+				84745ED71FC6A42C005E2E99 /* Chat */,
+				84745ED61FC6A40D005E2E99 /* Bulletin */,
 			);
 			name = Inbox;
 			sourceTree = "<group>";
@@ -522,6 +550,18 @@
 			knownRegions = (
 				en,
 				Base,
+				da,
+				de,
+				es,
+				fr,
+				it,
+				ja,
+				ko,
+				nl,
+				pl,
+				ru,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 840DA9C11F4C5C7F001B3382;
 			productRefGroup = 840DA9CB1F4C5C7F001B3382 /* Products */;
@@ -671,6 +711,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84745EDB1FC6A487005E2E99 /* UserListCollectionViewCell.swift in Sources */,
 				849BC7AD1FA04A85003BCEB1 /* MoreViewController.swift in Sources */,
 				842114081F70F066004459A9 /* ReachabilityManager.swift in Sources */,
 				84A8E51C1F6A842C00B5E569 /* InboxDetailsViewController.swift in Sources */,
@@ -705,13 +746,15 @@
 				84623FF41F9F117300B0DE50 /* SmyrilLineBridgeHeader.m in Sources */,
 				840DA9D01F4C5C7F001B3382 /* ViewController.swift in Sources */,
 				84F481611FAAE8A20065A915 /* RestaurantOpenCloseTimeTableViewCell.swift in Sources */,
-				84BAA35A1FC545D700431A9E /* RegisterChat.swift in Sources */,
+				84BAA35A1FC545D700431A9E /* userList.swift in Sources */,
 				842EB2331FA9892300652F68 /* RestaurantDetailsViewController.swift in Sources */,
 				84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */,
+				84745EDD1FC6C568005E2E99 /* Messaging.swift in Sources */,
 				841F13181F84DD35009CBAD9 /* TaxfreeHeaderDetailsHeader.swift in Sources */,
 				842ED4181F4E8E8C000366BF /* ShiptrackerViewController.swift in Sources */,
 				840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */,
 				841F13101F8488D7009CBAD9 /* TaxfreeHeader.swift in Sources */,
+				84745ED51FC69587005E2E99 /* WebSocketManager.swift in Sources */,
 				84DFCBD71FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift in Sources */,
 				840FCFA51FAC6754002A2067 /* MealCollectionViewCell.swift in Sources */,
 				840DA9F61F4C615C001B3382 /* MainMenuCollectionViewCell.swift in Sources */,
@@ -723,6 +766,7 @@
 				84BAA3601FC54D5100431A9E /* JsonSerializer.swift in Sources */,
 				842308471F57CB15004A4166 /* DestinationCategoryViewController.swift in Sources */,
 				8429F53F1FB47C9A001C2740 /* SettingViewController.swift in Sources */,
+				84745ED91FC6A465005E2E99 /* ChatTableViewCell.swift in Sources */,
 				84A8E51A1F6A75CA00B5E569 /* InboxTableViewCell.swift in Sources */,
 				84FBCB471FBC636A00B74707 /* LanguageFilterTableViewCell.swift in Sources */,
 				84DFCBD51FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift in Sources */,

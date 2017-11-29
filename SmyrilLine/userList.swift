@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegisterChat: NSObject {
+class CurrentUserList: NSObject {
     var bookingNo: Int
     var name: String
     var profileDescription: String

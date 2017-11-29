@@ -17,6 +17,7 @@ target 'SmyrilLine' do
   pod 'Device.swift'
   pod 'NewRelicAgent'
   pod 'Starscream', '~> 3.0.2'
+  #pod 'TOSearchBar'
   # pod 'HandyUIKit', '~> 1.6'
   # Pods for SmyrilLine
 
