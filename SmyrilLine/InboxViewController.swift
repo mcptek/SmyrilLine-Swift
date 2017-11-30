@@ -12,14 +12,16 @@ import ObjectMapper
 //import TOSearchBar
 import SDWebImage
 
-class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WebSocketDelegate {
+class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WebSocketDelegate,UISearchBarDelegate {
     
     @IBOutlet weak var chatSearchBar: UISearchBar!
     
     var messageArray:[Message]?
     var messageObject: Message?
     var OnlineUserListArray = [User]()
+    var filteredOnlineUserListArray = [User]()
     var RecentUserListArray = [User]()
+    var filteredRecentUserListArray = [User]()
     
     @IBOutlet weak var inboxSegmentControl: UISegmentedControl!
     
@@ -90,8 +92,8 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         self.chatSearchBar.placeholder = "Search"
         self.chatSearchBar.setTextColor(color: .white)
         self.chatSearchBar.setTextFieldColor(color: color)
-        //self.chatSearchBar.setPlaceholderTextColor(color: .white)
-        //self.chatSearchBar.setSearchImageColor(color: .white)
+        self.chatSearchBar.setPlaceholderTextColor(color: .white)
+        self.chatSearchBar.setSearchImageColor(color: .white)
         //self.chatSearchBar.setTextFieldClearButtonColor(color: .white)
  
         if let searchTextField = self.chatSearchBar.value(forKey: "_searchField") as? UITextField, let clearButton = searchTextField.value(forKey: "_clearButton") as? UIButton {
@@ -103,7 +105,8 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             clearButton.tintColor = UIColor.white
         }
 
-        //self.chatSearchBar.setImage(UIImage(), for: .clear, state: .normal)
+        self.chatSearchBar.setImage(UIImage(), for: .clear, state: .normal)
+        self.chatSearchBar.delegate = self
 
     }
     
@@ -124,6 +127,10 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     }
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        self.OnlineUserListArray.removeAll()
+        self.filteredOnlineUserListArray.removeAll()
+        self.RecentUserListArray.removeAll()
+        self.filteredRecentUserListArray.removeAll()
         if let arr: Array<Messaging> = Mapper<Messaging>().mapArray(JSONString: text) {
             if let userType = arr[0].MessageType {
                 if userType == 5 {
@@ -131,10 +138,12 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                         for object in UserList {
                             if object.lastCommunication! > 0 {
                                 self.RecentUserListArray.append(object)
+                                self.filteredRecentUserListArray.append(object)
                             }
                             else {
                                 if object.status == 1 {
                                     self.OnlineUserListArray.append(object)
+                                    self.filteredOnlineUserListArray.append(object)
                                 }
                             }
                         }
@@ -179,6 +188,32 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         }
     }
 
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        self.filteredRecentUserListArray.removeAll()
+        self.filteredOnlineUserListArray.removeAll()
+        
+        self.filteredRecentUserListArray = self.RecentUserListArray.filter({ (object: User) -> Bool in
+            return (object.name?.lowercased().range(of: searchText.lowercased()) != nil)
+        })
+        
+        self.filteredOnlineUserListArray = self.OnlineUserListArray.filter({ (object: User) -> Bool in
+            return (object.name?.lowercased().range(of: searchText.lowercased()) != nil)
+        })
+        
+        if searchText == "" {
+            self.filteredRecentUserListArray.removeAll()
+            self.filteredOnlineUserListArray.removeAll()
+            self.filteredRecentUserListArray = self.RecentUserListArray
+            self.filteredOnlineUserListArray = self.OnlineUserListArray
+        }
+        self.inboxTableview.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.chatSearchBar.resignFirstResponder()
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         
         switch self.inboxSegmentControl.selectedSegmentIndex {
@@ -204,7 +239,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         switch self.inboxSegmentControl.selectedSegmentIndex {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "recentCell", for: indexPath) as! ChatTableViewCell
-            if indexPath.section == 0 && self.RecentUserListArray.count > 0 {
+            if indexPath.section == 0 && self.filteredRecentUserListArray.count > 0 {
                 cell.statusHeaderLabel.text = "Recent"
                 cell.userCollectionView.tag = 1010
             }
@@ -297,10 +332,10 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         if collectionView.tag == 1010 {
-            return self.RecentUserListArray.count
+            return self.filteredRecentUserListArray.count
         }
         else {
-            return self.OnlineUserListArray.count
+            return self.filteredOnlineUserListArray.count
         }
     }
     
@@ -313,15 +348,20 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             cell.userImageView.backgroundColor = UIColor.white
             cell.userImageView.layer.cornerRadius = cell.userImageView.frame.height / 2
             cell.userImageView.clipsToBounds = true
-            
-            if let name = self.RecentUserListArray[indexPath.row].name {
+            if self.filteredRecentUserListArray[indexPath.row].status == 1 {
+                cell.onlineTrackerImageView.isHidden = false
+            }
+            else {
+                cell.onlineTrackerImageView.isHidden = true
+            }
+            if let name = self.filteredRecentUserListArray[indexPath.row].name {
                 cell.userNameLabel.text = name
             }
             else {
                 cell.userNameLabel.text = "No name Found"
             }
             
-            if let imageUrlStr = self.RecentUserListArray[indexPath.row].imageUrl
+            if let imageUrlStr = self.filteredRecentUserListArray[indexPath.row].imageUrl
             {
                 cell.userImageView.sd_setShowActivityIndicatorView(true)
                 cell.userImageView.sd_setIndicatorStyle(.gray)
@@ -335,15 +375,15 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             cell.userNameLabel.textColor = UIColor(red: 0.0/255, green: 135.0/255, blue: 215.0/255, alpha: 1.0)
             cell.userImageView.layer.cornerRadius = 0
             cell.userImageView.clipsToBounds = true
-            
-            if let name = self.OnlineUserListArray[indexPath.row].name {
+            cell.onlineTrackerImageView.isHidden = false
+            if let name = self.filteredOnlineUserListArray[indexPath.row].name {
                 cell.userNameLabel.text = name
             }
             else {
                 cell.userNameLabel.text = "No name Found"
             }
             
-            if let imageUrlStr = self.OnlineUserListArray[indexPath.row].imageUrl
+            if let imageUrlStr = self.filteredOnlineUserListArray[indexPath.row].imageUrl
             {
                 cell.userImageView.sd_setShowActivityIndicatorView(true)
                 cell.userImageView.sd_setIndicatorStyle(.gray)

@@ -9,7 +9,7 @@
 import Foundation
 struct UrlMCP {
     static let server_base_url = "http://stage-smy-wp.mcp.com:82"
-    static let WebSocket_url = "ws://109.74.192.138:82/ws/"
+    static let WebSocket_url = "ws://192.168.1.47:5000/ws/"
     static let quedBulletinPath = "/api/Schedule/FindQueuedBulletin"
     static let shipServerPath = "http://smy-wp.mcp.com"
     static let shiptrackerInfo = "http://console.mcp.com/mtracking.php?ship=22"
