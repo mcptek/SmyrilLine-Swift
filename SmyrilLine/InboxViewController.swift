@@ -58,9 +58,9 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.chatSearchBar.resignFirstResponder()
         self.newMessageReceived()
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(newMessageReceived), name: Notification.Name("InboxNotification"), object: nil)
@@ -111,7 +111,17 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     }
     
     func RetrieveCurrentUserList() {
-        let userListObject = CurrentUserList.init(name: "Rafay", bookingNumber: 123456, profileDescription: "Websoket messaging", imageUrl: "", country: "Bangladesh", deviceId: (UIDevice.current.identifierForVendor?.uuidString)!, gender: "Male", status: 1, visibility: 2)
+        var visibilityStatus = 2
+        if let status = UserDefaults.standard.value(forKey: "userVisibilityStatus") as? String {
+            if status == "Visible to boking" {
+                visibilityStatus = 1
+            }
+            else if status == "Invisible" {
+                visibilityStatus = 3
+            }
+        }
+        
+        let userListObject = CurrentUserList.init(name: "Rafay", bookingNumber: 123456, profileDescription: "Websoket messaging", imageUrl: "", country: "Bangladesh", deviceId: (UIDevice.current.identifierForVendor?.uuidString)!, gender: "Male", status: 1, visibility: visibilityStatus)
         let messageType = MessageSignature.init(type: 5, list: userListObject)
         let json = JSONSerializer.toJson(messageType)
         WebSocketSharedManager.sharedInstance.socket?.write(string: json)
@@ -348,11 +358,11 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             cell.userImageView.backgroundColor = UIColor.white
             cell.userImageView.layer.cornerRadius = cell.userImageView.frame.height / 2
             cell.userImageView.clipsToBounds = true
-            if self.filteredRecentUserListArray[indexPath.row].status == 1 {
-                cell.onlineTrackerImageView.isHidden = false
-            }
-            else {
-                cell.onlineTrackerImageView.isHidden = true
+            cell.onlineTrackerImageView.isHidden = true
+            if let status = self.filteredRecentUserListArray[indexPath.row].status {
+                if status == 1 {
+                    cell.onlineTrackerImageView.isHidden = false
+                }
             }
             if let name = self.filteredRecentUserListArray[indexPath.row].name {
                 cell.userNameLabel.text = name

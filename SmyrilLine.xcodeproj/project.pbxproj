@@ -73,6 +73,9 @@
 		84DFCBD51FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFCBD41FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift */; };
 		84DFCBD71FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFCBD61FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift */; };
 		84EE5E241F6A601A001B4CA4 /* MessageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE5E231F6A601A001B4CA4 /* MessageObject.swift */; };
+		84F311291FCFDC4900BF37E8 /* ProfileStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F311281FCFDC4900BF37E8 /* ProfileStatusViewController.swift */; };
+		84F3112B1FCFE3F300BF37E8 /* ProfileVisibilityStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F3112A1FCFE3F300BF37E8 /* ProfileVisibilityStatusTableViewCell.swift */; };
+		84F3112D1FCFE8E200BF37E8 /* UserVisibilityStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F3112C1FCFE8E200BF37E8 /* UserVisibilityStatus.swift */; };
 		84F481611FAAE8A20065A915 /* RestaurantOpenCloseTimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F481601FAAE8A20065A915 /* RestaurantOpenCloseTimeTableViewCell.swift */; };
 		84F481631FAAEECE0065A915 /* RestaurantDetailsInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F481621FAAEECE0065A915 /* RestaurantDetailsInfoTableViewCell.swift */; };
 		84F481671FAB44CD0065A915 /* MealTypeHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F481661FAB44CD0065A915 /* MealTypeHeaderTableViewCell.swift */; };
@@ -173,6 +176,9 @@
 		84DFCBD41FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgegroupCollectionViewCell.swift; sourceTree = "<group>"; };
 		84DFCBD61FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderGroupCollectionViewCell.swift; sourceTree = "<group>"; };
 		84EE5E231F6A601A001B4CA4 /* MessageObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageObject.swift; sourceTree = "<group>"; };
+		84F311281FCFDC4900BF37E8 /* ProfileStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusViewController.swift; sourceTree = "<group>"; };
+		84F3112A1FCFE3F300BF37E8 /* ProfileVisibilityStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVisibilityStatusTableViewCell.swift; sourceTree = "<group>"; };
+		84F3112C1FCFE8E200BF37E8 /* UserVisibilityStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVisibilityStatus.swift; sourceTree = "<group>"; };
 		84F481601FAAE8A20065A915 /* RestaurantOpenCloseTimeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantOpenCloseTimeTableViewCell.swift; sourceTree = "<group>"; };
 		84F481621FAAEECE0065A915 /* RestaurantDetailsInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsInfoTableViewCell.swift; sourceTree = "<group>"; };
 		84F481661FAB44CD0065A915 /* MealTypeHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTypeHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -344,6 +350,7 @@
 				84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */,
 				842114071F70F066004459A9 /* ReachabilityManager.swift */,
 				84745ED41FC69587005E2E99 /* WebSocketManager.swift */,
+				84F3112C1FCFE8E200BF37E8 /* UserVisibilityStatus.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -414,6 +421,8 @@
 			children = (
 				84745ED81FC6A465005E2E99 /* ChatTableViewCell.swift */,
 				84745EDA1FC6A487005E2E99 /* UserListCollectionViewCell.swift */,
+				84F311281FCFDC4900BF37E8 /* ProfileStatusViewController.swift */,
+				84F3112A1FCFE3F300BF37E8 /* ProfileVisibilityStatusTableViewCell.swift */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -721,6 +730,7 @@
 				84FBCB491FBC639100B74707 /* LanguageGroupCollectionViewCell.swift in Sources */,
 				846643331F8F554600146A68 /* HelpViewController.swift in Sources */,
 				BB45F2DA1F4F30A5003B77CA /* Destinations.swift in Sources */,
+				84F3112D1FCFE8E200BF37E8 /* UserVisibilityStatus.swift in Sources */,
 				8447D16B1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift in Sources */,
 				840DA9F41F4C6139001B3382 /* MainMenuViewController.swift in Sources */,
 				84F481691FAB50E20065A915 /* MealTypeDescriptionTableViewCell.swift in Sources */,
@@ -766,6 +776,7 @@
 				84BAA3601FC54D5100431A9E /* JsonSerializer.swift in Sources */,
 				842308471F57CB15004A4166 /* DestinationCategoryViewController.swift in Sources */,
 				8429F53F1FB47C9A001C2740 /* SettingViewController.swift in Sources */,
+				84F311291FCFDC4900BF37E8 /* ProfileStatusViewController.swift in Sources */,
 				84745ED91FC6A465005E2E99 /* ChatTableViewCell.swift in Sources */,
 				84A8E51A1F6A75CA00B5E569 /* InboxTableViewCell.swift in Sources */,
 				84FBCB471FBC636A00B74707 /* LanguageFilterTableViewCell.swift in Sources */,
@@ -775,6 +786,7 @@
 				84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */,
 				841F13141F84A16B009CBAD9 /* TaxfreeDetailsViewController.swift in Sources */,
 				849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */,
+				84F3112B1FCFE3F300BF37E8 /* ProfileVisibilityStatusTableViewCell.swift in Sources */,
 				8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */,
 				840A47891F4FF2B40038DAE6 /* TaxFreeShop.swift in Sources */,
 			);
