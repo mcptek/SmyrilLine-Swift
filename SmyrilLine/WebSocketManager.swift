@@ -18,7 +18,7 @@ class WebSocketSharedManager {
     var socket: WebSocket?
     
     private init() {
-       self.socket =  WebSocket(url: URL(string: UrlMCP.WebSocket_url + "?deviceId=" + (UIDevice.current.identifierForVendor?.uuidString)!)!, protocols: ["chat", "superchat"])
+       self.socket =  WebSocket(url: URL(string: UrlMCP.WebSocketStageurl + "?deviceId=" + (UIDevice.current.identifierForVendor?.uuidString)!)!, protocols: ["chat", "superchat"])
     }
     
 }

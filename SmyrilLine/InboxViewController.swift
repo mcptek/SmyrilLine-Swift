@@ -41,6 +41,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         self.inboxTableview.estimatedRowHeight = 150
         self.inboxTableview.rowHeight = UITableViewAutomaticDimension
         self.configureSearchBar()
+        self.hideKeyboardWhenTappedAround()
 
     }
 
@@ -95,7 +96,10 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         self.chatSearchBar.setPlaceholderTextColor(color: .white)
         self.chatSearchBar.setSearchImageColor(color: .white)
         //self.chatSearchBar.setTextFieldClearButtonColor(color: .white)
- 
+        self.chatSearchBar.tintColor = UIColor.white
+        self.chatSearchBar.subviews[0].subviews.flatMap(){ $0 as? UITextField }.first?.tintColor = UIColor.gray
+        
+        /*
         if let searchTextField = self.chatSearchBar.value(forKey: "_searchField") as? UITextField, let clearButton = searchTextField.value(forKey: "_clearButton") as? UIButton {
             // Create a template copy of the original button image
             let templateImage =  clearButton.imageView?.image?.withRenderingMode(.alwaysTemplate)
@@ -104,7 +108,8 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             // Finally, set the image color
             clearButton.tintColor = UIColor.white
         }
-
+ 
+ */
         self.chatSearchBar.setImage(UIImage(), for: .clear, state: .normal)
         self.chatSearchBar.delegate = self
 
@@ -229,10 +234,10 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         switch self.inboxSegmentControl.selectedSegmentIndex {
         case 0:
             var totalSection = 0
-            if self.RecentUserListArray.count > 0 {
+            if self.filteredRecentUserListArray.count > 0 {
                 totalSection += 1
             }
-            if self.OnlineUserListArray.count > 0 {
+            if self.filteredOnlineUserListArray.count > 0 {
                 totalSection += 1
             }
             return totalSection
@@ -322,14 +327,19 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let vw = UIView()
-        vw.backgroundColor = UIColor.white
+        if self.chatSearchBar.selectedScopeButtonIndex == 0 {
+            vw.backgroundColor = UIColor.clear
+        }
+        else {
+            vw.backgroundColor = UIColor.white
+        }
         return vw
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
     {
         let vw = UIView()
-        vw.backgroundColor = UIColor.white
+        vw.backgroundColor = UIColor.clear
         
         return vw
     }
@@ -376,7 +386,9 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 cell.userImageView.sd_setShowActivityIndicatorView(true)
                 cell.userImageView.sd_setIndicatorStyle(.gray)
                 cell.userImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: ""))
-                
+            }
+            else {
+                cell.userImageView.image = UIImage.init(named: "UserPlaceholder")
             }
         }
         else {
@@ -399,6 +411,9 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 cell.userImageView.sd_setIndicatorStyle(.gray)
                 cell.userImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: ""))
                 
+            }
+            else {
+                cell.userImageView.image = UIImage.init(named: "UserPlaceholder")
             }
         }
         return cell

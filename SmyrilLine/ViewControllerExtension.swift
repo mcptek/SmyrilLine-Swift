@@ -89,6 +89,17 @@ public extension UIImage {
         UIGraphicsEndImageContext()
         return newImage
     }
+    
+    func convertToBase64(image:UIImage)-> String{
+        let imageData:NSData = UIImagePNGRepresentation(image)! as NSData
+        let dataImage = imageData.base64EncodedString(options: .lineLength64Characters)
+        //let base64 = dataImage.removeSpecialCharsFromString(str: dataImage)
+        return dataImage
+    }
+    
+    public var hasContent: Bool {
+        return cgImage != nil || ciImage != nil
+    }
 }
 
  public extension UISegmentedControl{

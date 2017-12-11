@@ -13,18 +13,16 @@ class ProfileStatusViewController: UIViewController, UITableViewDataSource, UITa
     let profileStatusArray = ["My profile", "Visible to boking", "Public", "Invisible"]
     var currentProfileStatus: String?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        
         if let status = UserDefaults.standard.value(forKey: "userVisibilityStatus") as? String {
             self.currentProfileStatus = status
         }
         else {
             self.currentProfileStatus = "Public"
         }
+
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -35,6 +33,11 @@ class ProfileStatusViewController: UIViewController, UITableViewDataSource, UITa
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    @IBAction func doneButtonAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
 
@@ -74,7 +77,10 @@ class ProfileStatusViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row > 0 {
+        if indexPath.row == 0 {
+            self.performSegue(withIdentifier: "profileDetails", sender: self)
+        }
+        else {
             self.currentProfileStatus = self.profileStatusArray[indexPath.row]
         }
         tableView.reloadData()
