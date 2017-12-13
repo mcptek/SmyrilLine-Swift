@@ -10,11 +10,11 @@ import Foundation
 import ObjectMapper
 
 class UserProfile: Mappable{
-    var name : String?
+    var imageUrl : String?
     required init?(map: Map){
     }
     
     func mapping(map: Map) {
-        name <- map["name"]
+        imageUrl <- map["imageUrl"]
     }
 }

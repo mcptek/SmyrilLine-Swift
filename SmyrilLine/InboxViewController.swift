@@ -8,14 +8,16 @@
 
 import UIKit
 import Starscream
-import ObjectMapper
-//import TOSearchBar
+import AlamofireObjectMapper
+import Alamofire
+import SwiftyJSON
 import SDWebImage
+import ObjectMapper
 
 class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WebSocketDelegate,UISearchBarDelegate {
     
     @IBOutlet weak var chatSearchBar: UISearchBar!
-    
+    var activityIndicatorView: UIActivityIndicatorView!
     var messageArray:[Message]?
     var messageObject: Message?
     var OnlineUserListArray = [User]()
@@ -43,6 +45,11 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         self.configureSearchBar()
         self.hideKeyboardWhenTappedAround()
 
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        myActivityIndicator.center = view.center
+        self.activityIndicatorView = myActivityIndicator
+        view.addSubview(self.activityIndicatorView)
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -115,7 +122,33 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
 
     }
     
-    func RetrieveCurrentUserList() {
+    func retrieveUserProfileDetailsInfo() -> [String: Any] {
+        
+        
+        var imageUrl = String()
+        if let url = UserDefaults.standard.value(forKey: "userProfileImageUrl") as? String {
+            imageUrl = url
+        }
+        else {
+            imageUrl = ""
+        }
+        
+        var userName = ""
+        if let profileUserName = UserDefaults.standard.value(forKey: "userName") as? String {
+            userName = profileUserName
+        }
+        else {
+            userName = ""
+        }
+        
+        var introInfo = ""
+        if let profileUserIntroInfo = UserDefaults.standard.value(forKey: "introInfo") as? String {
+            introInfo = profileUserIntroInfo
+        }
+        else {
+            introInfo = ""
+        }
+        
         var visibilityStatus = 2
         if let status = UserDefaults.standard.value(forKey: "userVisibilityStatus") as? String {
             if status == "Visible to boking" {
@@ -126,10 +159,75 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             }
         }
         
-        let userListObject = CurrentUserList.init(name: "Rafay", bookingNumber: 123456, profileDescription: "Websoket messaging", imageUrl: "", country: "Bangladesh", deviceId: (UIDevice.current.identifierForVendor?.uuidString)!, gender: "Male", status: 1, visibility: visibilityStatus)
-        let messageType = MessageSignature.init(type: 5, list: userListObject)
-        let json = JSONSerializer.toJson(messageType)
-        WebSocketSharedManager.sharedInstance.socket?.write(string: json)
+        let bookingNumber = 123456
+        let status = 1
+        
+        
+        let params: Parameters = [
+            "bookingNo": bookingNumber,
+            "Name": userName,
+            "description": introInfo,
+            "imageUrl": imageUrl,
+            "country": "Bangladesh",
+            "deviceId": (UIDevice.current.identifierForVendor?.uuidString)!,
+            "gender": "Male",
+            "status": status,
+            "visibility": visibilityStatus,
+            "phoneType": "iOS",
+            ]
+        return params
+    }
+    
+    func RetrieveCurrentUserList() {
+//        var visibilityStatus = 2
+//        if let status = UserDefaults.standard.value(forKey: "userVisibilityStatus") as? String {
+//            if status == "Visible to boking" {
+//                visibilityStatus = 1
+//            }
+//            else if status == "Invisible" {
+//                visibilityStatus = 3
+//            }
+//        }
+//
+//        let userListObject = CurrentUserList.init(name: "Rafay", bookingNumber: 123456, profileDescription: "Websoket messaging", imageUrl: "", country: "Bangladesh", deviceId: (UIDevice.current.identifierForVendor?.uuidString)!, gender: "Male", status: 1, visibility: visibilityStatus)
+        
+        self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        let url = UrlMCP.server_base_url + UrlMCP.WebSocketGetUserList//"http://stage-smy-wp.mcp.com:82/chat/api/v2/profileupdate"
+        
+        Alamofire.request(url, method: .post, parameters: self.retrieveUserProfileDetailsInfo(), encoding: JSONEncoding.default, headers: nil)
+            .responseArray { (response: DataResponse<[User]>) in
+            self.activityIndicatorView.stopAnimating()
+            self.view.isUserInteractionEnabled = true
+            switch response.result {
+            case .success:
+                let forecastArray = response.result.value
+                if let UserList = forecastArray {
+                    for object in UserList {
+                        if object.lastCommunication! > 0 {
+                            self.RecentUserListArray.append(object)
+                            self.filteredRecentUserListArray.append(object)
+                        }
+                        else {
+                            if object.status == 1 {
+                                self.OnlineUserListArray.append(object)
+                                self.filteredOnlineUserListArray.append(object)
+                            }
+                        }
+                    }
+                    self.inboxTableview.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+
+        }
+        
+        
+        
+//        let messageType = MessageSignature.init(type: 5, list: userListObject)
+//        let json = JSONSerializer.toJson(messageType)
+//        WebSocketSharedManager.sharedInstance.socket?.write(string: json)
     }
     
     func websocketDidConnect(socket: WebSocketClient) {

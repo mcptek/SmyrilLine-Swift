@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ObjectMapper
 
 class CurrentUserList: NSObject {
     var bookingNo: Int
@@ -31,3 +32,5 @@ class CurrentUserList: NSObject {
         self.visibility = visibility
     }
 }
+
+

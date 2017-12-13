@@ -10,13 +10,17 @@ import UIKit
 
 class EditProfileViewController: UIViewController {
 
+    var headerStr: String?
+    
     
     @IBOutlet weak var profileEditTextField: UITextField!
+    @IBOutlet weak var headerNameLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.headerNameLabel.text = headerStr
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,6 +39,15 @@ class EditProfileViewController: UIViewController {
     }
     */
     @IBAction func saveButtonAction(_ sender: Any) {
+        self.profileEditTextField.resignFirstResponder()
+        if let text = self.profileEditTextField.text {
+            if headerStr == "Set user name" {
+                UserDefaults.standard.set(text, forKey: "userName")
+            }
+            else {
+                UserDefaults.standard.set(text, forKey: "introInfo")
+            }
+        }
         self.dismiss(animated: true, completion: nil)
     }
     

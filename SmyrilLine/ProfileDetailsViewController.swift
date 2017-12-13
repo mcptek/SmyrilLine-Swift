@@ -11,15 +11,22 @@ import Photos
 import AlamofireObjectMapper
 import Alamofire
 import SwiftyJSON
-
+import SDWebImage
 
 class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
+    
+    @IBOutlet weak var picImageView: UIImageView!
     @IBOutlet weak var picButton: UIButton!
     @IBOutlet weak var profileDetailsTableview: UITableView!
-    var base64Data = String()
+    var base64Data: String?
     var activityIndicatorView: UIActivityIndicatorView!
     var selectedImage = UIImage()
+    var gender: String?
+    var language: String?
+    var ticket: String?
+    var username: String?
+    var introInfo: String?
     
     let imagePicker = UIImagePickerController()
     override func viewDidLoad() {
@@ -34,6 +41,13 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
         view.addSubview(self.activityIndicatorView)
         
         self.picButton.layer.cornerRadius = self.picButton.frame.size.height / 2
+        self.picImageView.layer.cornerRadius = self.picImageView.frame.size.height / 2
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.setUserDetailsData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,19 +55,57 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
         // Dispose of any resources that can be recreated.
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "editUserProfileData" {
+            let row = (sender as! NSIndexPath).row
+            let navVC = segue.destination as? UINavigationController
+            let vc = navVC?.viewControllers.first as! EditProfileViewController
+            if row == 0 {
+                vc.headerStr = "Set user name"
+            }
+            else {
+                vc.headerStr = "Set intro info"
+            }
+        }
     }
-    */
+    
+    
+    func setUserDetailsData()  {
+        self.language = "English"
+        self.gender = "Male"
+        self.ticket = "123456"
+        if ((UserDefaults.standard.value(forKey: "userName") as? String) != nil) {
+            self.username = (UserDefaults.standard.value(forKey: "userName") as! String)
+        }
+        else {
+            self.username = "Add text"
+        }
+        
+        if ((UserDefaults.standard.value(forKey: "introInfo") as? String) != nil) {
+            self.introInfo = (UserDefaults.standard.value(forKey: "introInfo") as! String)
+        }
+        else {
+            self.introInfo = "Add text"
+        }
+        
+        if let imageUrlStr = UserDefaults.standard.value(forKey: "userProfileImageUrl") as? String {
+            self.picImageView.sd_setShowActivityIndicatorView(true)
+            self.picImageView.sd_setIndicatorStyle(.gray)
+            self.picImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: ""))
+        }
+        
+        self.profileDetailsTableview.reloadData()
+    }
     
     @IBAction func doneButtonAction(_ sender: Any) {
         self.uploadProfilePic()
-        //self.uploadImage()
     }
     
     @IBAction func pictureButtonAction(_ sender: Any) {
@@ -81,11 +133,30 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
         }
         
         var imageUrl = String()
-        if let url = UserDefaults.standard.value(forKey: "UserProfilePicUrl") as? String {
+        if let url = UserDefaults.standard.value(forKey: "userProfileImageUrl") as? String {
             imageUrl = url
+            if self.base64Data != nil {
+                imageUrl = ""
+            }
         }
         else {
             imageUrl = ""
+        }
+        
+        var userName = ""
+        if let profileUserName = UserDefaults.standard.value(forKey: "userName") as? String {
+            userName = profileUserName
+        }
+        else {
+            userName = ""
+        }
+        
+        var introInfo = ""
+        if let profileUserIntroInfo = UserDefaults.standard.value(forKey: "introInfo") as? String {
+            introInfo = profileUserIntroInfo
+        }
+        else {
+            introInfo = ""
         }
         
         var visibilityStatus = 2
@@ -104,34 +175,45 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
         
         let params: Parameters = [
             "bookingNo": bookingNumber,
-            "Name": "Rafay",
-            "description": "Test description",
+            "Name": userName,
+            "description": introInfo,
             "imageUrl": imageUrl,
             "country": "Bangladesh",
             "deviceId": (UIDevice.current.identifierForVendor?.uuidString)!,
             "gender": "Male",
             "status": status,
             "visibility": visibilityStatus,
-            "imageBase64": self.base64Data,
+            "imageBase64": self.base64Data ?? "",
             "phoneType": "iOS",
         ]
         return params
     }
     
     func uploadProfilePic()  {
+        self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        let url = UrlMCP.server_base_url + UrlMCP.WebSocketProfilePicImageUpload
         
-        let url = "http://192.168.1.47:5000/chat/api/v2/profileupdate"
-        
-        Alamofire.request(url, method:.post, parameters:self.retrieveUserProfileDetails(), headers:nil).responseJSON { response in
+        Alamofire.request(url, method:.post, parameters:self.retrieveUserProfileDetails(), headers:nil).responseObject { (response: DataResponse<UserProfile>) in
+            self.activityIndicatorView.stopAnimating()
+            self.view.isUserInteractionEnabled = true
             switch response.result {
             case .success:
-                debugPrint(response)
+                if let url = response.result.value?.imageUrl {
+                    UserDefaults.standard.set(url, forKey: "userProfileImageUrl")
+                }
+                else {
+                    print("Image upload failed")
+                }
+                self.dismiss(animated: true, completion: nil)
                 
             case .failure(let error):
                 print(error)
+                self.dismiss(animated: true, completion: nil)
             }
             
         }
+        
     }
     
     
@@ -173,23 +255,23 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
         switch indexPath.row {
         case 0:
             cell.headerLabel.text = "User name"
-            cell.valuelabel.text = "Add text"
+            cell.valuelabel.text = self.username
             cell.accessoryType = .disclosureIndicator
         case 1:
             cell.headerLabel.text = "Intro info"
-            cell.valuelabel.text = "Add text"
+            cell.valuelabel.text = self.introInfo
             cell.accessoryType = .disclosureIndicator
         case 2:
             cell.headerLabel.text = "Gender"
-            cell.valuelabel.text = "Male"
+            cell.valuelabel.text = self.gender
             cell.accessoryType = .none
         case 3:
             cell.headerLabel.text = "Language"
-            cell.valuelabel.text = "English"
+            cell.valuelabel.text = self.language
             cell.accessoryType = .none
         case 4:
             cell.headerLabel.text = "Ticket"
-            cell.valuelabel.text = "123456789"
+            cell.valuelabel.text = self.ticket
             cell.accessoryType = .none
         default:
             cell.headerLabel.text = nil
@@ -203,7 +285,7 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
     {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 || indexPath.row == 1 {
-            self.performSegue(withIdentifier: "editUserProfileData", sender: self)
+            self.performSegue(withIdentifier: "editUserProfileData", sender: indexPath)
         }
     }
     
@@ -250,8 +332,8 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
     
     func openCamera() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
-            self.imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-            self.imagePicker.allowsEditing = false
+            self.imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+            self.imagePicker.allowsEditing = true
             self.imagePicker.modalPresentationStyle = .overCurrentContext
             self.present(self.imagePicker, animated: true, completion: nil)
         }
@@ -264,7 +346,7 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
     func openGallary() {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
             self.imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-            self.imagePicker.allowsEditing = false
+            self.imagePicker.allowsEditing = true
             self.imagePicker.modalPresentationStyle = .overCurrentContext
             self.present(self.imagePicker, animated: true, completion: nil)
         }
@@ -286,7 +368,9 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage  {
             self.selectedImage = resizeImage(image: image, newWidth: 128)
-            self.picButton?.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+            //self.picButton?.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+            self.picImageView.image = self.selectedImage
+            self.picImageView.layer.cornerRadius = self.picImageView.frame.size.height / 2
             self.picButton.imageView?.layer.cornerRadius = self.picButton.frame.size.height / 2
         }
         else{
