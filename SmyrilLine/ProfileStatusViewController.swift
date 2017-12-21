@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileStatusViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    let profileStatusArray = ["My profile", "Visible to boking", "Public", "Invisible"]
+    let profileStatusArray = ["My profile", "Visible to booking", "Public", "Invisible"]
     var currentProfileStatus: String?
     
     override func viewDidLoad() {
@@ -25,18 +25,18 @@ class ProfileStatusViewController: UIViewController, UITableViewDataSource, UITa
 
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        UserDefaults.standard.set(self.currentProfileStatus, forKey: "userVisibilityStatus")
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func cancelButtonAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func doneButtonAction(_ sender: Any) {
+        UserDefaults.standard.set(self.currentProfileStatus, forKey: "userVisibilityStatus")
         self.dismiss(animated: true, completion: nil)
     }
     

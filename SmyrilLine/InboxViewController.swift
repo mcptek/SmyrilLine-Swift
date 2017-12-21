@@ -124,6 +124,14 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     func retrieveUserProfileDetailsInfo() -> [String: Any] {
         
+        var bookingNo = Int()
+        if let bookingNumber = UserDefaults.standard.value(forKey: "bookingNumber") as? Int {
+            bookingNo = bookingNumber
+        }
+        else {
+            UserDefaults.standard.set(123456, forKey: "bookingNumber")
+            bookingNo = 123456
+        }
         
         var imageUrl = String()
         if let url = UserDefaults.standard.value(forKey: "userProfileImageUrl") as? String {
@@ -159,12 +167,11 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             }
         }
         
-        let bookingNumber = 123456
         let status = 1
         
         
         let params: Parameters = [
-            "bookingNo": bookingNumber,
+            "bookingNo": bookingNo,
             "Name": userName,
             "description": introInfo,
             "imageUrl": imageUrl,
@@ -179,18 +186,12 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     }
     
     func RetrieveCurrentUserList() {
-//        var visibilityStatus = 2
-//        if let status = UserDefaults.standard.value(forKey: "userVisibilityStatus") as? String {
-//            if status == "Visible to boking" {
-//                visibilityStatus = 1
-//            }
-//            else if status == "Invisible" {
-//                visibilityStatus = 3
-//            }
-//        }
 //
 //        let userListObject = CurrentUserList.init(name: "Rafay", bookingNumber: 123456, profileDescription: "Websoket messaging", imageUrl: "", country: "Bangladesh", deviceId: (UIDevice.current.identifierForVendor?.uuidString)!, gender: "Male", status: 1, visibility: visibilityStatus)
-        
+        self.OnlineUserListArray.removeAll()
+        self.filteredOnlineUserListArray.removeAll()
+        self.RecentUserListArray.removeAll()
+        self.filteredRecentUserListArray.removeAll()
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
         let url = UrlMCP.server_base_url + UrlMCP.WebSocketGetUserList//"http://stage-smy-wp.mcp.com:82/chat/api/v2/profileupdate"
@@ -203,22 +204,13 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             case .success:
                 let forecastArray = response.result.value
                 if let UserList = forecastArray {
-                    for object in UserList {
-                        if object.lastCommunication! > 0 {
-                            self.RecentUserListArray.append(object)
-                            self.filteredRecentUserListArray.append(object)
-                        }
-                        else {
-                            if object.status == 1 {
-                                self.OnlineUserListArray.append(object)
-                                self.filteredOnlineUserListArray.append(object)
-                            }
-                        }
-                    }
-                    self.inboxTableview.reloadData()
+                    self.filterChatUserList(UserList: UserList)
+                }
+                else {
+                    self.showAlert(title: "Message", message: "No user list found")
                 }
             case .failure(let error):
-                print(error)
+                self.showErrorAlert(error: error as NSError)
             }
 
         }
@@ -248,19 +240,10 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             if let userType = arr[0].MessageType {
                 if userType == 5 {
                     if let UserList = arr[0].userList {
-                        for object in UserList {
-                            if object.lastCommunication! > 0 {
-                                self.RecentUserListArray.append(object)
-                                self.filteredRecentUserListArray.append(object)
-                            }
-                            else {
-                                if object.status == 1 {
-                                    self.OnlineUserListArray.append(object)
-                                    self.filteredOnlineUserListArray.append(object)
-                                }
-                            }
-                        }
-                        self.inboxTableview.reloadData()
+                       self.filterChatUserList(UserList: UserList)
+                    }
+                    else {
+                        self.showAlert(title: "Message", message: "No user list found")
                     }
                 }
             }
@@ -270,6 +253,37 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
         print("got some data: \(data.count)")
     }
+    
+    func filterChatUserList(UserList: [User] )  {
+        for object in UserList {
+            if let deviviceId = object.deviceId {
+                if deviviceId == (UIDevice.current.identifierForVendor?.uuidString)! {
+                    if let imageUrl = object.imageUrl {
+                        UserDefaults.standard.set(imageUrl, forKey: "userProfileImageUrl")
+                    }
+                    if let userName = object.name {
+                        UserDefaults.standard.set(userName, forKey: "userName")
+                    }
+                    if let intro = object.description {
+                        UserDefaults.standard.set(intro, forKey: "introInfo")
+                    }
+                    continue
+                }
+            }
+            if object.lastCommunication! > 0 {
+                self.RecentUserListArray.append(object)
+                self.filteredRecentUserListArray.append(object)
+            }
+            else {
+                if object.status == 1 {
+                    self.OnlineUserListArray.append(object)
+                    self.filteredOnlineUserListArray.append(object)
+                }
+            }
+        }
+        self.inboxTableview.reloadData()
+    }
+    
     
     func newMessageReceived()  {
         if #available(iOS 10.0, *) {
@@ -473,7 +487,12 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 }
             }
             if let name = self.filteredRecentUserListArray[indexPath.row].name {
-                cell.userNameLabel.text = name
+                if let decodedname = name.base64Decoded() {
+                    cell.userNameLabel.text = decodedname
+                }
+                else {
+                    cell.userNameLabel.text = name
+                }
             }
             else {
                 cell.userNameLabel.text = "No name Found"
@@ -497,7 +516,12 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             cell.userImageView.clipsToBounds = true
             cell.onlineTrackerImageView.isHidden = false
             if let name = self.filteredOnlineUserListArray[indexPath.row].name {
-                cell.userNameLabel.text = name
+                if let decodedname = name.base64Decoded() {
+                    cell.userNameLabel.text = decodedname
+                }
+                else {
+                    cell.userNameLabel.text = name
+                }
             }
             else {
                 cell.userNameLabel.text = "No name Found"
@@ -519,6 +543,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
+        self.performSegue(withIdentifier: "chatMessageCell", sender: nil)
 //        if let objectId = self.shopObject?.itemArray?[indexPath.row].objectId
 //        {
 //            self.CallTaxfreeShopDetailsAPIwithObjectId(objectId: objectId)

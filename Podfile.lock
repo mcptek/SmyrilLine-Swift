@@ -4,9 +4,11 @@ PODS:
     - Alamofire (~> 4.1)
     - ObjectMapper (~> 2.0)
   - Device.swift (1.0)
+  - IQKeyboardManagerSwift (5.0.3)
   - Mapbox-iOS-SDK (3.6.4)
   - MXParallaxHeader (0.6.1)
   - NewRelicAgent (5.14.2)
+  - NextGrowingTextView (1.2.0)
   - ObjectMapper (2.2.9)
   - ReachabilitySwift (3)
   - SDWebImage (4.1.0):
@@ -24,9 +26,11 @@ DEPENDENCIES:
   - Alamofire (~> 4.4)
   - AlamofireObjectMapper (~> 4.0)
   - Device.swift
+  - IQKeyboardManagerSwift
   - Mapbox-iOS-SDK (~> 3.6)
   - MXParallaxHeader
   - NewRelicAgent
+  - NextGrowingTextView
   - ReachabilitySwift
   - SDWebImage
   - SignalRSwift (~> 1.0.3)
@@ -37,9 +41,11 @@ SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   AlamofireObjectMapper: 435adc82f5b367679bd9e71c4974a54efd0b2521
   Device.swift: edb7ee47de78dbfeb42730dacc7075abaa5c2fde
+  IQKeyboardManagerSwift: e257e513744cf32123eca7061272acea0246fc83
   Mapbox-iOS-SDK: 47847dd44285477e0dfffd0130f65c8a52823ada
   MXParallaxHeader: 858c403532ed933b381556a81ce333d7065ad182
   NewRelicAgent: 28645401ac7531eeeabde64410c9d5efd49e083f
+  NextGrowingTextView: 547575c639c41a938ccdb58bc10e53a86ef2d956
   ObjectMapper: 63cfe41bc6f8e7c8f44344c49901b8ae7de14c52
   ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
   SDWebImage: 0e435c14e402a6730315a0fb79f95e68654d55a4
@@ -48,6 +54,6 @@ SPEC CHECKSUMS:
   SwiftWebSocket: 1ef8a0efb023544643bdf480c1ec4a62b204f293
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: be84f027f17a334a459da6106bf6ac53a4c0066b
+PODFILE CHECKSUM: 736956bff44f05c962dccb9a7caa065a1edd1120
 
 COCOAPODS: 1.2.1

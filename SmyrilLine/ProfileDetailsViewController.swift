@@ -43,6 +43,13 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
         self.picButton.layer.cornerRadius = self.picButton.frame.size.height / 2
         self.picImageView.layer.cornerRadius = self.picImageView.frame.size.height / 2
         
+        if (UserDefaults.standard.value(forKey: "userProfileImageUrl") as? String) != nil {
+            self.picButton.backgroundColor = UIColor.clear
+        }
+        else {
+            self.picButton.backgroundColor = UIColor.lightGray
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,28 +75,34 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
             let navVC = segue.destination as? UINavigationController
             let vc = navVC?.viewControllers.first as! EditProfileViewController
             if row == 0 {
-                vc.headerStr = "Set user name"
+                vc.headerStr = "Username"
             }
             else {
-                vc.headerStr = "Set intro info"
+                vc.headerStr = "Intro"
             }
         }
     }
     
     
     func setUserDetailsData()  {
-        self.language = "English"
+        self.language = "Bangladesh"
         self.gender = "Male"
         self.ticket = "123456"
         if ((UserDefaults.standard.value(forKey: "userName") as? String) != nil) {
             self.username = (UserDefaults.standard.value(forKey: "userName") as! String)
+            if let userName = self.username?.base64Decoded() {
+                self.username = userName
+            }
         }
         else {
-            self.username = "Add text"
+            self.username = "Set username"
         }
         
         if ((UserDefaults.standard.value(forKey: "introInfo") as? String) != nil) {
             self.introInfo = (UserDefaults.standard.value(forKey: "introInfo") as! String)
+            if let intro = self.introInfo?.base64Decoded() {
+                self.introInfo = intro
+            }
         }
         else {
             self.introInfo = "Add text"
@@ -104,8 +117,18 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
         self.profileDetailsTableview.reloadData()
     }
     
+    
+    @IBAction func cancelButtonAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func doneButtonAction(_ sender: Any) {
-        self.uploadProfilePic()
+        if self.username == "Set username" {
+            self.showAlert(title: "Error", message: "Please select a username.")
+        }
+        else {
+            self.uploadProfilePic()
+        }
     }
     
     @IBAction func pictureButtonAction(_ sender: Any) {
@@ -197,19 +220,40 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
         Alamofire.request(url, method:.post, parameters:self.retrieveUserProfileDetails(), headers:nil).responseObject { (response: DataResponse<UserProfile>) in
             self.activityIndicatorView.stopAnimating()
             self.view.isUserInteractionEnabled = true
+            var message = ""
+            
             switch response.result {
             case .success:
                 if let url = response.result.value?.imageUrl {
+                    print(url);
                     UserDefaults.standard.set(url, forKey: "userProfileImageUrl")
+                    self.picButton.backgroundColor = UIColor.clear
+                    message = "Profile updated successfully."
                 }
-                else {
-                    print("Image upload failed")
+                message = "Profile updated successfully."
+                    
+//                else {
+//                    message = "Profile update failed. Please try again later."
+//                }
+                let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+                    UIAlertAction in
+                    if message == "Profile updated successfully." {
+                        self.dismiss(animated: true, completion: nil)
+                    }
                 }
-                self.dismiss(animated: true, completion: nil)
+                alertController.addAction(okAction)
+                self.present(alertController, animated: true, completion: nil)
                 
             case .failure(let error):
-                print(error)
-                self.dismiss(animated: true, completion: nil)
+                let alertController = UIAlertController(title: nil, message: error.localizedDescription, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+                    UIAlertAction in
+                    self.dismiss(animated: true, completion: nil)
+                }
+                alertController.addAction(okAction)
+                self.present(alertController, animated: true, completion: nil)
+                
             }
             
         }
@@ -254,11 +298,11 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
         let cell = tableView.dequeueReusableCell(withIdentifier: "userDetailsCell", for: indexPath) as! UserDetailsInfoTableViewCell
         switch indexPath.row {
         case 0:
-            cell.headerLabel.text = "User name"
+            cell.headerLabel.text = "Username"
             cell.valuelabel.text = self.username
             cell.accessoryType = .disclosureIndicator
         case 1:
-            cell.headerLabel.text = "Intro info"
+            cell.headerLabel.text = "Intro"
             cell.valuelabel.text = self.introInfo
             cell.accessoryType = .disclosureIndicator
         case 2:
@@ -266,7 +310,7 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
             cell.valuelabel.text = self.gender
             cell.accessoryType = .none
         case 3:
-            cell.headerLabel.text = "Language"
+            cell.headerLabel.text = "Country"
             cell.valuelabel.text = self.language
             cell.accessoryType = .none
         case 4:
@@ -313,7 +357,6 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
         return vw
     }
     func takeProfilePic()  {
-        print("Button clicke")
         let alertViewController = UIAlertController(title: "", message: "Choose your option", preferredStyle: .actionSheet)
         let camera = UIAlertAction(title: "Camera", style: .default, handler: { (alert) in
             self.openCamera()
@@ -334,6 +377,7 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
             self.imagePicker.sourceType = UIImagePickerControllerSourceType.camera
             self.imagePicker.allowsEditing = true
+            self.imagePicker.cameraDevice = .front
             self.imagePicker.modalPresentationStyle = .overCurrentContext
             self.present(self.imagePicker, animated: true, completion: nil)
         }
@@ -372,6 +416,7 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
             self.picImageView.image = self.selectedImage
             self.picImageView.layer.cornerRadius = self.picImageView.frame.size.height / 2
             self.picButton.imageView?.layer.cornerRadius = self.picButton.frame.size.height / 2
+            self.picButton.backgroundColor = UIColor.clear
         }
         else{
             print("Something went wrong")

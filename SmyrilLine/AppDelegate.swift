@@ -14,6 +14,8 @@ import SwiftyJSON
 import UserNotifications
 import ReachabilitySwift
 import Device_swift
+import IQKeyboardManagerSwift
+
 
 
 @available(iOS 10.0, *)
@@ -35,6 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Enable or disable features based on authorization.
         }
         ReachabilityManager.shared.startMonitoring()
+        //IQKeyboardManager.sharedManager().enable = true
+        //IQKeyboardManager.sharedManager().keyboardDistanceFromTextField = 0.0
+        //IQKeyboardManager.sharedManager().enableAutoToolbar = false
         return true
     }
     

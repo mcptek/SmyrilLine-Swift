@@ -45,6 +45,7 @@
 		842ED4231F4EFA78000366BF /* RestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4221F4EFA78000366BF /* RestaurantViewController.swift */; };
 		842ED4251F4EFB65000366BF /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4241F4EFB65000366BF /* RestaurantTableViewCell.swift */; };
 		842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4261F4F06F5000366BF /* Restaurants.swift */; };
+		842FE9621FEB72FB00D40FF7 /* ChatContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FE9611FEB72FB00D40FF7 /* ChatContainerViewController.swift */; };
 		8445F1581F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445F1571F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift */; };
 		8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */; };
 		8447D1691F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447D1681F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift */; };
@@ -151,6 +152,7 @@
 		842ED4221F4EFA78000366BF /* RestaurantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantViewController.swift; sourceTree = "<group>"; };
 		842ED4241F4EFB65000366BF /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
 		842ED4261F4F06F5000366BF /* Restaurants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurants.swift; sourceTree = "<group>"; };
+		842FE9611FEB72FB00D40FF7 /* ChatContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatContainerViewController.swift; sourceTree = "<group>"; };
 		8445F1571F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipInfoViewController.swift; sourceTree = "<group>"; };
 		8447D1681F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCategoryDetailsViewController.swift; sourceTree = "<group>"; };
@@ -401,6 +403,14 @@
 			name = Help;
 			sourceTree = "<group>";
 		};
+		8466C7B61FEA5975000727F9 /* One2OneChat */ = {
+			isa = PBXGroup;
+			children = (
+				842FE9611FEB72FB00D40FF7 /* ChatContainerViewController.swift */,
+			);
+			name = One2OneChat;
+			sourceTree = "<group>";
+		};
 		846E60F91F6FD51F00AC0234 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
@@ -453,6 +463,7 @@
 		84AA0E4B1F692A7E00E4354A /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
+				8466C7B61FEA5975000727F9 /* One2OneChat */,
 				84745ED71FC6A42C005E2E99 /* Chat */,
 				84745ED61FC6A40D005E2E99 /* Bulletin */,
 			);
@@ -737,6 +748,7 @@
 			files = (
 				84745EDB1FC6A487005E2E99 /* UserListCollectionViewCell.swift in Sources */,
 				849BC7AD1FA04A85003BCEB1 /* MoreViewController.swift in Sources */,
+				842FE9621FEB72FB00D40FF7 /* ChatContainerViewController.swift in Sources */,
 				842114081F70F066004459A9 /* ReachabilityManager.swift in Sources */,
 				84A8E51C1F6A842C00B5E569 /* InboxDetailsViewController.swift in Sources */,
 				849F93D91FDA63E600D2FE2C /* Userprofile.swift in Sources */,
