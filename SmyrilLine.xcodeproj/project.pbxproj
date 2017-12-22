@@ -50,6 +50,9 @@
 		8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */; };
 		8447D1691F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447D1681F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift */; };
 		8447D16B1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447D16A1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift */; };
+		845F33681FECC6BB0068A655 /* IncomingMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F33671FECC6BB0068A655 /* IncomingMessageTableViewCell.swift */; };
+		845F336A1FECC6DF0068A655 /* OutgoingMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F33691FECC6DF0068A655 /* OutgoingMessageTableViewCell.swift */; };
+		845F336C1FECCF4D0068A655 /* ChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F336B1FECCF4D0068A655 /* ChatMessageModel.swift */; };
 		84623FF41F9F117300B0DE50 /* SmyrilLineBridgeHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 84623FF31F9F117300B0DE50 /* SmyrilLineBridgeHeader.m */; };
 		84635BD41FB0882E00B92F61 /* RestaurantDetailsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84635BD31FB0882E00B92F61 /* RestaurantDetailsHeader.swift */; };
 		84635BD61FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84635BD51FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib */; };
@@ -157,6 +160,9 @@
 		8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipInfoViewController.swift; sourceTree = "<group>"; };
 		8447D1681F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCategoryDetailsViewController.swift; sourceTree = "<group>"; };
 		8447D16A1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCategoryDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		845F33671FECC6BB0068A655 /* IncomingMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessageTableViewCell.swift; sourceTree = "<group>"; };
+		845F33691FECC6DF0068A655 /* OutgoingMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessageTableViewCell.swift; sourceTree = "<group>"; };
+		845F336B1FECCF4D0068A655 /* ChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageModel.swift; sourceTree = "<group>"; };
 		84623FF21F9F117200B0DE50 /* SmyrilLine-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmyrilLine-Bridging-Header.h"; sourceTree = "<group>"; };
 		84623FF31F9F117300B0DE50 /* SmyrilLineBridgeHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmyrilLineBridgeHeader.m; sourceTree = "<group>"; };
 		84635BD31FB0882E00B92F61 /* RestaurantDetailsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsHeader.swift; sourceTree = "<group>"; };
@@ -349,6 +355,7 @@
 				84EE5E231F6A601A001B4CA4 /* MessageObject.swift */,
 				84BAA3611FC550B500431A9E /* MessageType.swift */,
 				84BAA3591FC545D700431A9E /* userList.swift */,
+				845F336B1FECCF4D0068A655 /* ChatMessageModel.swift */,
 				849F93D81FDA63E500D2FE2C /* Userprofile.swift */,
 			);
 			name = Modal;
@@ -407,6 +414,8 @@
 			isa = PBXGroup;
 			children = (
 				842FE9611FEB72FB00D40FF7 /* ChatContainerViewController.swift */,
+				845F33671FECC6BB0068A655 /* IncomingMessageTableViewCell.swift */,
+				845F33691FECC6DF0068A655 /* OutgoingMessageTableViewCell.swift */,
 			);
 			name = One2OneChat;
 			sourceTree = "<group>";
@@ -751,6 +760,7 @@
 				842FE9621FEB72FB00D40FF7 /* ChatContainerViewController.swift in Sources */,
 				842114081F70F066004459A9 /* ReachabilityManager.swift in Sources */,
 				84A8E51C1F6A842C00B5E569 /* InboxDetailsViewController.swift in Sources */,
+				845F336C1FECCF4D0068A655 /* ChatMessageModel.swift in Sources */,
 				849F93D91FDA63E600D2FE2C /* Userprofile.swift in Sources */,
 				8445F1581F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift in Sources */,
 				84FBCB451FBC53BE00B74707 /* GenderFilterTableViewCell.swift in Sources */,
@@ -759,6 +769,7 @@
 				846643331F8F554600146A68 /* HelpViewController.swift in Sources */,
 				BB45F2DA1F4F30A5003B77CA /* Destinations.swift in Sources */,
 				84F3112D1FCFE8E200BF37E8 /* UserVisibilityStatus.swift in Sources */,
+				845F33681FECC6BB0068A655 /* IncomingMessageTableViewCell.swift in Sources */,
 				8447D16B1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift in Sources */,
 				840DA9F41F4C6139001B3382 /* MainMenuViewController.swift in Sources */,
 				84F481691FAB50E20065A915 /* MealTypeDescriptionTableViewCell.swift in Sources */,
@@ -782,6 +793,7 @@
 				842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */,
 				842ED4201F4E9B7B000366BF /* ViewControllerExtension.swift in Sources */,
 				840DA9D61F4C5C7F001B3382 /* SmyrilLine.xcdatamodeld in Sources */,
+				845F336A1FECC6DF0068A655 /* OutgoingMessageTableViewCell.swift in Sources */,
 				84623FF41F9F117300B0DE50 /* SmyrilLineBridgeHeader.m in Sources */,
 				840DA9D01F4C5C7F001B3382 /* ViewController.swift in Sources */,
 				8487F22E1FD9566000D5DDEA /* EditProfileViewController.swift in Sources */,
