@@ -19,6 +19,7 @@ target 'SmyrilLine' do
   pod 'Starscream', '~> 3.0.2'
   pod 'IQKeyboardManagerSwift'
   pod 'NextGrowingTextView'
+  pod 'AFNetworking', '~> 3.0'
   #pod 'WDImagePicker'
   #pod 'TOSearchBar'
   # pod 'HandyUIKit', '~> 1.6'

@@ -61,6 +61,12 @@
 		84745ED91FC6A465005E2E99 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84745ED81FC6A465005E2E99 /* ChatTableViewCell.swift */; };
 		84745EDB1FC6A487005E2E99 /* UserListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84745EDA1FC6A487005E2E99 /* UserListCollectionViewCell.swift */; };
 		84745EDD1FC6C568005E2E99 /* Messaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84745EDC1FC6C568005E2E99 /* Messaging.swift */; };
+		84805FFA1FF51348005AC8DA /* OnyxBeaconLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84805FF91FF51348005AC8DA /* OnyxBeaconLib.framework */; };
+		84805FFC1FF51389005AC8DA /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84805FFB1FF51389005AC8DA /* CoreBluetooth.framework */; };
+		84805FFE1FF51391005AC8DA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84805FFD1FF51391005AC8DA /* CoreLocation.framework */; };
+		848060061FF51561005AC8DA /* AFHTTPRequestSerializer+OAuth2.m in Sources */ = {isa = PBXBuildFile; fileRef = 848060011FF51561005AC8DA /* AFHTTPRequestSerializer+OAuth2.m */; };
+		848060071FF51561005AC8DA /* AFOAuth2Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 848060031FF51561005AC8DA /* AFOAuth2Manager.m */; };
+		848060081FF51561005AC8DA /* AFOAuthCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 848060051FF51561005AC8DA /* AFOAuthCredential.m */; };
 		8487F22E1FD9566000D5DDEA /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8487F22D1FD9566000D5DDEA /* EditProfileViewController.swift */; };
 		849BC7AD1FA04A85003BCEB1 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849BC7AC1FA04A85003BCEB1 /* MoreViewController.swift */; };
 		849D4BA31FB572BA00863F81 /* SettingsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D4BA21FB572BA00863F81 /* SettingsHeaderTableViewCell.swift */; };
@@ -172,6 +178,15 @@
 		84745ED81FC6A465005E2E99 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		84745EDA1FC6A487005E2E99 /* UserListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCollectionViewCell.swift; sourceTree = "<group>"; };
 		84745EDC1FC6C568005E2E99 /* Messaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messaging.swift; sourceTree = "<group>"; };
+		84805FF91FF51348005AC8DA /* OnyxBeaconLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OnyxBeaconLib.framework; sourceTree = "<group>"; };
+		84805FFB1FF51389005AC8DA /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		84805FFD1FF51391005AC8DA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		848060001FF51561005AC8DA /* AFHTTPRequestSerializer+OAuth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestSerializer+OAuth2.h"; sourceTree = "<group>"; };
+		848060011FF51561005AC8DA /* AFHTTPRequestSerializer+OAuth2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestSerializer+OAuth2.m"; sourceTree = "<group>"; };
+		848060021FF51561005AC8DA /* AFOAuth2Manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFOAuth2Manager.h; sourceTree = "<group>"; };
+		848060031FF51561005AC8DA /* AFOAuth2Manager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFOAuth2Manager.m; sourceTree = "<group>"; };
+		848060041FF51561005AC8DA /* AFOAuthCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFOAuthCredential.h; sourceTree = "<group>"; };
+		848060051FF51561005AC8DA /* AFOAuthCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFOAuthCredential.m; sourceTree = "<group>"; };
 		8487F22D1FD9566000D5DDEA /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		849BC7AC1FA04A85003BCEB1 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		849D4BA21FB572BA00863F81 /* SettingsHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -217,6 +232,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84805FFE1FF51391005AC8DA /* CoreLocation.framework in Frameworks */,
+				84805FFC1FF51389005AC8DA /* CoreBluetooth.framework in Frameworks */,
+				84805FFA1FF51348005AC8DA /* OnyxBeaconLib.framework in Frameworks */,
 				B2553924AF491ED961B2132C /* Pods_SmyrilLine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,6 +253,8 @@
 		78F5FC5518D8CC48F45A8589 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84805FFD1FF51391005AC8DA /* CoreLocation.framework */,
+				84805FFB1FF51389005AC8DA /* CoreBluetooth.framework */,
 				EA8F808BE45FE0AAC33C1FDB /* Pods_SmyrilLine.framework */,
 				59F54DB87F9880483BD34714 /* Pods_SmyrilLineTests.framework */,
 			);
@@ -285,6 +305,7 @@
 				842ED4191F4E9A2A000366BF /* Modal */,
 				840DA9F21F4C60FF001B3382 /* Stories */,
 				842ED41A1F4E9A34000366BF /* Utilities */,
+				84805FF81FF5132A005AC8DA /* OnyxBeacon */,
 				840DA9D11F4C5C7F001B3382 /* Main.storyboard */,
 				841F13191F84DD6D009CBAD9 /* TaxfreeHeaderDetailsHeader.xib */,
 				842308401F56ED48004A4166 /* TaxfreeParallaxHeaderView.xib */,
@@ -459,6 +480,28 @@
 				8487F22D1FD9566000D5DDEA /* EditProfileViewController.swift */,
 			);
 			name = Chat;
+			sourceTree = "<group>";
+		};
+		84805FF81FF5132A005AC8DA /* OnyxBeacon */ = {
+			isa = PBXGroup;
+			children = (
+				84805FFF1FF51561005AC8DA /* AFOAuth2Manager */,
+				84805FF91FF51348005AC8DA /* OnyxBeaconLib.framework */,
+			);
+			name = OnyxBeacon;
+			sourceTree = "<group>";
+		};
+		84805FFF1FF51561005AC8DA /* AFOAuth2Manager */ = {
+			isa = PBXGroup;
+			children = (
+				848060001FF51561005AC8DA /* AFHTTPRequestSerializer+OAuth2.h */,
+				848060011FF51561005AC8DA /* AFHTTPRequestSerializer+OAuth2.m */,
+				848060021FF51561005AC8DA /* AFOAuth2Manager.h */,
+				848060031FF51561005AC8DA /* AFOAuth2Manager.m */,
+				848060041FF51561005AC8DA /* AFOAuthCredential.h */,
+				848060051FF51561005AC8DA /* AFOAuthCredential.m */,
+			);
+			path = AFOAuth2Manager;
 			sourceTree = "<group>";
 		};
 		849BC7AB1FA04A62003BCEB1 /* More */ = {
@@ -651,13 +694,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SmyrilLineTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		66D4889786FDFE57AACC169F /* [CP] Copy Pods Resources */ = {
@@ -694,9 +740,42 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SmyrilLine/Pods-SmyrilLine-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Device.swift/Device_swift.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/MXParallaxHeader/MXParallaxHeader.framework",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
+				"${BUILT_PRODUCTS_DIR}/NextGrowingTextView/NextGrowingTextView.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/ReachabilitySwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SignalRSwift/SignalRSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftWebSocket/SwiftWebSocket.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Device_swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MXParallaxHeader.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NextGrowingTextView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReachabilitySwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SignalRSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftWebSocket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -739,13 +818,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SmyrilLine-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -756,6 +838,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84745EDB1FC6A487005E2E99 /* UserListCollectionViewCell.swift in Sources */,
+				848060071FF51561005AC8DA /* AFOAuth2Manager.m in Sources */,
 				849BC7AD1FA04A85003BCEB1 /* MoreViewController.swift in Sources */,
 				842FE9621FEB72FB00D40FF7 /* ChatContainerViewController.swift in Sources */,
 				842114081F70F066004459A9 /* ReachabilityManager.swift in Sources */,
@@ -804,6 +887,7 @@
 				84745EDD1FC6C568005E2E99 /* Messaging.swift in Sources */,
 				841F13181F84DD35009CBAD9 /* TaxfreeHeaderDetailsHeader.swift in Sources */,
 				842ED4181F4E8E8C000366BF /* ShiptrackerViewController.swift in Sources */,
+				848060081FF51561005AC8DA /* AFOAuthCredential.m in Sources */,
 				840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */,
 				841F13101F8488D7009CBAD9 /* TaxfreeHeader.swift in Sources */,
 				84745ED51FC69587005E2E99 /* WebSocketManager.swift in Sources */,
@@ -823,6 +907,7 @@
 				84745ED91FC6A465005E2E99 /* ChatTableViewCell.swift in Sources */,
 				84A8E51A1F6A75CA00B5E569 /* InboxTableViewCell.swift in Sources */,
 				84FBCB471FBC636A00B74707 /* LanguageFilterTableViewCell.swift in Sources */,
+				848060061FF51561005AC8DA /* AFHTTPRequestSerializer+OAuth2.m in Sources */,
 				84DFCBD51FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift in Sources */,
 				84BAA3621FC550B500431A9E /* MessageType.swift in Sources */,
 				BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */,
@@ -976,6 +1061,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 79YLMQ62DM;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SmyrilLine",
+				);
 				INFOPLIST_FILE = SmyrilLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -998,6 +1087,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 79YLMQ62DM;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SmyrilLine",
+				);
 				INFOPLIST_FILE = SmyrilLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
