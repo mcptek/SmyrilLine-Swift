@@ -17,7 +17,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     var messageArray =  [ChatMessageMOdel]()
     var messageObject:  ChatMessageMOdel?
     
-    override func viewDidLoad() {
+    override func viewDidLoad() { 
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
