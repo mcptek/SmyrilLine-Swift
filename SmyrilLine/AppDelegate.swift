@@ -20,10 +20,12 @@ import IQKeyboardManagerSwift
 
 @available(iOS 10.0, *)
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate {
     
     var window: UIWindow?
-
+    let SA_CLIENTID = "1f4654d91e78d061a0e00e6962e7de6bb5957276"
+    let SA_SECRET  = "3c925c9c3e0040cf914a139355092ba972bd4a90"
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //Added swift file
@@ -40,8 +42,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //IQKeyboardManager.sharedManager().enable = true
         //IQKeyboardManager.sharedManager().keyboardDistanceFromTextField = 0.0
         //IQKeyboardManager.sharedManager().enableAutoToolbar = false
+        let onyxBeacon = OnyxBeacon.sharedInstance()
+        onyxBeacon?.requestAlwaysAuthorization()
+        onyxBeacon?.startService(withClientID: SA_CLIENTID, secret:SA_SECRET)
+        onyxBeacon?.delegate = self
+        
         return true
     }
+    
+    func onyxBeaconError(_ error: Error!) {
+        print("Error: \(error) ");
+    }
+
     
     func checkIfThereIsAnyPendingNotificatio()  {
         let time = UserDefaults.standard.value(forKey: "LastTime") as! String
@@ -292,6 +304,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        OnyxBeacon.sharedInstance().appWillResignActive()
         ReachabilityManager.shared.stopMonitoring()
         StreamingConnection.sharedInstance.connection.stop()
         self.setMessageLastTimeIfNotSet()
@@ -299,7 +312,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        
+        OnyxBeacon.sharedInstance().willEnterForeground()
         ReachabilityManager.shared.startMonitoring()
         StreamingConnection.sharedInstance.connection.start()
         self.setMessageLastTimeIfNotSet()

@@ -40,7 +40,7 @@ class RestaurantDetailsInfo: Mappable{
         breakfastTime <- map["breakfastTime"]
         lunchTime <- map["lunchTime"]
         dinnerTime <- map["dinnerTime"]
-        restaurantDescription <- map["openCloseTimeText"]
+        restaurantDescription <- map["description"]
         breakfastItems <- map["breakfastItems"]
         lunchItems <- map["lunchItems"]
         dinnerItems <- map["dinnerItems"]
@@ -85,8 +85,8 @@ class ObjectSample: Mappable{
     func mapping(map: Map) {
         name <- map["name"]
         imageUrl <- map["imageUrl"]
-        price <- map["subheader"]
-        description <- map["header"]
+        price <- map["price"]
+        description <- map["description"]
         objectId <- map["id"]
     }
 }
