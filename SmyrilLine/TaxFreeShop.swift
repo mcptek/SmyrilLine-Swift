@@ -21,7 +21,7 @@ class TaxFreeShopInfo: Mappable{
     func mapping(map: Map) {
         shopName <- map["name"]
         shopImageUrlStr <- map["imageUrl"]
-        shopOpeningClosingTime <- map["header"]
+        shopOpeningClosingTime <- map["openingHours"]
         shopLocation <- map["subheader"]
         itemArray <- map["children"]
     }
@@ -40,7 +40,7 @@ class ShopObject: Mappable{
         name <- map["name"]
         imageUrl <- map["imageUrl"]
         objectId <- map["id"]
-        objectHeader <- map["header"]
+        objectHeader <- map["description"]
         objectPrice <- map["price"]
     }
 }

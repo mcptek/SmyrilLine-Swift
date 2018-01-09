@@ -3,4 +3,4 @@
 //
 
 #import "NewRelicAgent/NewRelic.h"
-
+#import <OnyxBeaconLib/OnyxBeacon.h>

@@ -86,23 +86,52 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         }
         
         
+//        if let priceObject = self.shopObject?.itemArray?[indexPath.row].objectPrice
+//        {
+//            var price = priceObject.replacingOccurrences(of: ".", with: ",", options: .literal, range: nil)
+//            price = "€" + price
+//            let splittedStringsArray = price.split(separator: ",", maxSplits: 1, omittingEmptySubsequences: true)
+//            if let firstString = splittedStringsArray.first, let secondString = splittedStringsArray.last
+//            {
+//                let numericPart = String(describing: firstString)
+//                let fractionPart = String(describing: secondString)
+//                let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
+//                let scriptFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
+//                let stringwithSquare = numericPart.attributedStringWithSuperscript(fractionPart, mainStringFont: mainFont, subStringFont: scriptFont, offSetFromBaseLine: 10)
+//                cell.productPriceLabel.attributedText = stringwithSquare
+//            }
+//            else
+//            {
+//                cell.productPriceLabel.text = price
+//            }
+//        }
         if let priceObject = self.shopObject?.itemArray?[indexPath.row].objectPrice
         {
             var price = priceObject.replacingOccurrences(of: ".", with: ",", options: .literal, range: nil)
             price = "€" + price
-            let splittedStringsArray = price.split(separator: ",", maxSplits: 1, omittingEmptySubsequences: true)
-            if let firstString = splittedStringsArray.first, let secondString = splittedStringsArray.last
-            {
-                let numericPart = String(describing: firstString)
-                let fractionPart = String(describing: secondString)
-                let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
-                let scriptFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
-                let stringwithSquare = numericPart.attributedStringWithSuperscript(fractionPart, mainStringFont: mainFont, subStringFont: scriptFont, offSetFromBaseLine: 10)
-                cell.productPriceLabel.attributedText = stringwithSquare
+            if price.characters.contains(",") {
+                let splittedStringsArray = price.split(separator: ",", maxSplits: 1, omittingEmptySubsequences: true)
+                if let firstString = splittedStringsArray.first, let secondString = splittedStringsArray.last
+                {
+                    let numericPart = String(describing: firstString)
+                    let fractionPart = String(describing: secondString)
+                    let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
+                    let scriptFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
+                    let stringwithSquare = numericPart.attributedStringWithSuperscript(fractionPart, mainStringFont: mainFont, subStringFont: scriptFont, offSetFromBaseLine: 10)
+                    cell.productPriceLabel.attributedText = stringwithSquare
+                }
+                else
+                {
+                    let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
+                    cell.productPriceLabel.text = price
+                    cell.productPriceLabel.font = mainFont
+                    
+                }
             }
-            else
-            {
+            else {
+                let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
                 cell.productPriceLabel.text = price
+                cell.productPriceLabel.font = mainFont
             }
         }
         else
@@ -178,7 +207,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng/" + objectId, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
-            .responseObject { (response: DataResponse<ShopObject>) in
+            .responseArray { (response: DataResponse<[ShopObject]>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
                 switch response.result {
@@ -187,10 +216,10 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
                     {
                         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                         let nextScene = storyBoard.instantiateViewController(withIdentifier: "taxfreeShopDetails") as! TaxfreeDetailsViewController
-                        nextScene.productName = response.result.value?.name
-                        nextScene.productPrice = response.result.value?.objectPrice
-                        nextScene.productImageUrl = response.result.value?.imageUrl
-                        nextScene.productDetails = response.result.value?.objectHeader
+                        nextScene.productName = response.result.value?[0].name
+                        nextScene.productPrice = response.result.value?[0].objectPrice
+                        nextScene.productImageUrl = response.result.value?[0].imageUrl
+                        nextScene.productDetails = response.result.value?[0].objectHeader
                         self.navigationController?.pushViewController(nextScene, animated: true)
                     }
                 case .failure(let error):
@@ -198,18 +227,18 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
                 }
         }
     }
-    
+
     func CallTaxfreeShopAPI() {
         self.activityIndicatorView.startAnimating()
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
-            .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
+            .responseArray { (response: DataResponse<[TaxFreeShopInfo]>) in
                 self.activityIndicatorView.stopAnimating()
                 switch response.result
                 {
                 case .success:
                     if response.response?.statusCode == 200
                     {
-                        self.shopObject = response.result.value
+                        self.shopObject = response.result.value?[0]
                         if let imageUrlStr = self.shopObject?.shopImageUrlStr
                         {
                             self.myHeaderView.headerImageView.sd_setShowActivityIndicatorView(true)
