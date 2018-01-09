@@ -79,7 +79,7 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
             vc.destinationName = self.destinaionArray?[(indexPath?.section)!].name
         }
     }
-    //.responseArray { (response: DataResponse<[DestinationInfo]>) in
+    
     func CallDestinationAPI() {
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
