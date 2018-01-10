@@ -39,8 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate {
             // Enable or disable features based on authorization.
         }
         ReachabilityManager.shared.startMonitoring()
-        //IQKeyboardManager.sharedManager().enable = true
-        //IQKeyboardManager.sharedManager().keyboardDistanceFromTextField = 0.0
+        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().keyboardDistanceFromTextField = 0.0
         //IQKeyboardManager.sharedManager().enableAutoToolbar = false
         let onyxBeacon = OnyxBeacon.sharedInstance()
         onyxBeacon?.requestAlwaysAuthorization()

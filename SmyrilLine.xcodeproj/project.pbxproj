@@ -50,6 +50,7 @@
 		8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */; };
 		8447D1691F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447D1681F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift */; };
 		8447D16B1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447D16A1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift */; };
+		845CE892200624530058CBEC /* BookingLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845CE891200624530058CBEC /* BookingLogInViewController.swift */; };
 		845F33681FECC6BB0068A655 /* IncomingMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F33671FECC6BB0068A655 /* IncomingMessageTableViewCell.swift */; };
 		845F336A1FECC6DF0068A655 /* OutgoingMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F33691FECC6DF0068A655 /* OutgoingMessageTableViewCell.swift */; };
 		845F336C1FECCF4D0068A655 /* ChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F336B1FECCF4D0068A655 /* ChatMessageModel.swift */; };
@@ -166,6 +167,7 @@
 		8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipInfoViewController.swift; sourceTree = "<group>"; };
 		8447D1681F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCategoryDetailsViewController.swift; sourceTree = "<group>"; };
 		8447D16A1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCategoryDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		845CE891200624530058CBEC /* BookingLogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingLogInViewController.swift; sourceTree = "<group>"; };
 		845F33671FECC6BB0068A655 /* IncomingMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessageTableViewCell.swift; sourceTree = "<group>"; };
 		845F33691FECC6DF0068A655 /* OutgoingMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessageTableViewCell.swift; sourceTree = "<group>"; };
 		845F336B1FECCF4D0068A655 /* ChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageModel.swift; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 		840DA9F21F4C60FF001B3382 /* Stories */ = {
 			isa = PBXGroup;
 			children = (
+				845CE890200624170058CBEC /* Booking */,
 				84AA0E4B1F692A7E00E4354A /* Inbox */,
 				840A47851F4FE93D0038DAE6 /* Tax free shop */,
 				BB45F2D01F4F2EC6003B77CA /* Destinations */,
@@ -421,6 +424,14 @@
 				8409ED2D1F83602E0005F3AA /* ShipInfoDetailsViewController.swift */,
 			);
 			name = "Ship Info";
+			sourceTree = "<group>";
+		};
+		845CE890200624170058CBEC /* Booking */ = {
+			isa = PBXGroup;
+			children = (
+				845CE891200624530058CBEC /* BookingLogInViewController.swift */,
+			);
+			name = Booking;
 			sourceTree = "<group>";
 		};
 		846643311F8F551200146A68 /* Help */ = {
@@ -869,6 +880,7 @@
 				84F481631FAAEECE0065A915 /* RestaurantDetailsInfoTableViewCell.swift in Sources */,
 				842ED41E1F4E9B23000366BF /* SmyrilLineUrl.swift in Sources */,
 				840FCFA11FAC359E002A2067 /* MealHeaderTableViewCell.swift in Sources */,
+				845CE892200624530058CBEC /* BookingLogInViewController.swift in Sources */,
 				84F481671FAB44CD0065A915 /* MealTypeHeaderTableViewCell.swift in Sources */,
 				84635BD41FB0882E00B92F61 /* RestaurantDetailsHeader.swift in Sources */,
 				842ED4251F4EFB65000366BF /* RestaurantTableViewCell.swift in Sources */,
