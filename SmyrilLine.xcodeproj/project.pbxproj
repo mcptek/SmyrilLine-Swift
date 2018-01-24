@@ -37,6 +37,12 @@
 		842308471F57CB15004A4166 /* DestinationCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842308461F57CB15004A4166 /* DestinationCategoryViewController.swift */; };
 		8423084D1F57E0B5004A4166 /* DestinationCategoryHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8423084C1F57E0B5004A4166 /* DestinationCategoryHeader.xib */; };
 		8429F53F1FB47C9A001C2740 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8429F53E1FB47C9A001C2740 /* SettingViewController.swift */; };
+		842C486B20075C6400D3470E /* MySmyrilLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C486A20075C6400D3470E /* MySmyrilLineViewController.swift */; };
+		842C486D200764C500D3470E /* BasicInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C486C200764C500D3470E /* BasicInfoTableViewCell.swift */; };
+		842C486F2007796300D3470E /* ProfileInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C486E2007796300D3470E /* ProfileInfoTableViewCell.swift */; };
+		842C487120077C3D00D3470E /* TravelersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C487020077C3D00D3470E /* TravelersTableViewCell.swift */; };
+		842C487320077D1000D3470E /* RouteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C487220077D1000D3470E /* RouteTableViewCell.swift */; };
+		842C48752007838D00D3470E /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C48742007838D00D3470E /* ProfileCollectionViewCell.swift */; };
 		842EB2331FA9892300652F68 /* RestaurantDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842EB2321FA9892300652F68 /* RestaurantDetailsViewController.swift */; };
 		842ED4181F4E8E8C000366BF /* ShiptrackerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4171F4E8E8C000366BF /* ShiptrackerViewController.swift */; };
 		842ED41C1F4E9A76000366BF /* ShipTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED41B1F4E9A76000366BF /* ShipTracker.swift */; };
@@ -46,6 +52,8 @@
 		842ED4251F4EFB65000366BF /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4241F4EFB65000366BF /* RestaurantTableViewCell.swift */; };
 		842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4261F4F06F5000366BF /* Restaurants.swift */; };
 		842FE9621FEB72FB00D40FF7 /* ChatContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FE9611FEB72FB00D40FF7 /* ChatContainerViewController.swift */; };
+		843E4E41200E257C0072FE41 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E4E40200E257C0072FE41 /* MealTableViewCell.swift */; };
+		843E4E43200E3EF50072FE41 /* RouteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E4E42200E3EF50072FE41 /* RouteCollectionViewCell.swift */; };
 		8445F1581F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445F1571F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift */; };
 		8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */; };
 		8447D1691F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8447D1681F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift */; };
@@ -154,6 +162,12 @@
 		842308461F57CB15004A4166 /* DestinationCategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryViewController.swift; sourceTree = "<group>"; };
 		8423084C1F57E0B5004A4166 /* DestinationCategoryHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DestinationCategoryHeader.xib; sourceTree = "<group>"; };
 		8429F53E1FB47C9A001C2740 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		842C486A20075C6400D3470E /* MySmyrilLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySmyrilLineViewController.swift; sourceTree = "<group>"; };
+		842C486C200764C500D3470E /* BasicInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoTableViewCell.swift; sourceTree = "<group>"; };
+		842C486E2007796300D3470E /* ProfileInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoTableViewCell.swift; sourceTree = "<group>"; };
+		842C487020077C3D00D3470E /* TravelersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelersTableViewCell.swift; sourceTree = "<group>"; };
+		842C487220077D1000D3470E /* RouteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTableViewCell.swift; sourceTree = "<group>"; };
+		842C48742007838D00D3470E /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		842EB2321FA9892300652F68 /* RestaurantDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsViewController.swift; sourceTree = "<group>"; };
 		842ED4171F4E8E8C000366BF /* ShiptrackerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShiptrackerViewController.swift; sourceTree = "<group>"; };
 		842ED41B1F4E9A76000366BF /* ShipTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipTracker.swift; sourceTree = "<group>"; };
@@ -163,6 +177,8 @@
 		842ED4241F4EFB65000366BF /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
 		842ED4261F4F06F5000366BF /* Restaurants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurants.swift; sourceTree = "<group>"; };
 		842FE9611FEB72FB00D40FF7 /* ChatContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatContainerViewController.swift; sourceTree = "<group>"; };
+		843E4E40200E257C0072FE41 /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
+		843E4E42200E3EF50072FE41 /* RouteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCollectionViewCell.swift; sourceTree = "<group>"; };
 		8445F1571F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		8445F15A1F66BDF8004F8B67 /* ShipInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShipInfoViewController.swift; sourceTree = "<group>"; };
 		8447D1681F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCategoryDetailsViewController.swift; sourceTree = "<group>"; };
@@ -430,6 +446,14 @@
 			isa = PBXGroup;
 			children = (
 				845CE891200624530058CBEC /* BookingLogInViewController.swift */,
+				842C486A20075C6400D3470E /* MySmyrilLineViewController.swift */,
+				842C486C200764C500D3470E /* BasicInfoTableViewCell.swift */,
+				842C486E2007796300D3470E /* ProfileInfoTableViewCell.swift */,
+				842C48742007838D00D3470E /* ProfileCollectionViewCell.swift */,
+				842C487020077C3D00D3470E /* TravelersTableViewCell.swift */,
+				842C487220077D1000D3470E /* RouteTableViewCell.swift */,
+				843E4E42200E3EF50072FE41 /* RouteCollectionViewCell.swift */,
+				843E4E40200E257C0072FE41 /* MealTableViewCell.swift */,
 			);
 			name = Booking;
 			sourceTree = "<group>";
@@ -849,6 +873,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				84745EDB1FC6A487005E2E99 /* UserListCollectionViewCell.swift in Sources */,
+				843E4E41200E257C0072FE41 /* MealTableViewCell.swift in Sources */,
+				842C487320077D1000D3470E /* RouteTableViewCell.swift in Sources */,
 				848060071FF51561005AC8DA /* AFOAuth2Manager.m in Sources */,
 				849BC7AD1FA04A85003BCEB1 /* MoreViewController.swift in Sources */,
 				842FE9621FEB72FB00D40FF7 /* ChatContainerViewController.swift in Sources */,
@@ -867,6 +893,7 @@
 				8447D16B1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift in Sources */,
 				840DA9F41F4C6139001B3382 /* MainMenuViewController.swift in Sources */,
 				84F481691FAB50E20065A915 /* MealTypeDescriptionTableViewCell.swift in Sources */,
+				842C486F2007796300D3470E /* ProfileInfoTableViewCell.swift in Sources */,
 				842308451F56FB06004A4166 /* TaxfreeCollectionViewCell.swift in Sources */,
 				849D4BA31FB572BA00863F81 /* SettingsHeaderTableViewCell.swift in Sources */,
 				84DFCBD31FBAF78300BCEF8D /* MessageFilterTableViewCell.swift in Sources */,
@@ -888,8 +915,10 @@
 				842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */,
 				842ED4201F4E9B7B000366BF /* ViewControllerExtension.swift in Sources */,
 				840DA9D61F4C5C7F001B3382 /* SmyrilLine.xcdatamodeld in Sources */,
+				842C486D200764C500D3470E /* BasicInfoTableViewCell.swift in Sources */,
 				845F336A1FECC6DF0068A655 /* OutgoingMessageTableViewCell.swift in Sources */,
 				84623FF41F9F117300B0DE50 /* SmyrilLineBridgeHeader.m in Sources */,
+				842C487120077C3D00D3470E /* TravelersTableViewCell.swift in Sources */,
 				840DA9D01F4C5C7F001B3382 /* ViewController.swift in Sources */,
 				8487F22E1FD9566000D5DDEA /* EditProfileViewController.swift in Sources */,
 				84F481611FAAE8A20065A915 /* RestaurantOpenCloseTimeTableViewCell.swift in Sources */,
@@ -897,14 +926,17 @@
 				842EB2331FA9892300652F68 /* RestaurantDetailsViewController.swift in Sources */,
 				84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */,
 				84745EDD1FC6C568005E2E99 /* Messaging.swift in Sources */,
+				842C486B20075C6400D3470E /* MySmyrilLineViewController.swift in Sources */,
 				841F13181F84DD35009CBAD9 /* TaxfreeHeaderDetailsHeader.swift in Sources */,
 				842ED4181F4E8E8C000366BF /* ShiptrackerViewController.swift in Sources */,
 				848060081FF51561005AC8DA /* AFOAuthCredential.m in Sources */,
 				840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */,
+				842C48752007838D00D3470E /* ProfileCollectionViewCell.swift in Sources */,
 				841F13101F8488D7009CBAD9 /* TaxfreeHeader.swift in Sources */,
 				84745ED51FC69587005E2E99 /* WebSocketManager.swift in Sources */,
 				84F311311FD01BDC00BF37E8 /* UserDetailsInfoTableViewCell.swift in Sources */,
 				84DFCBD71FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift in Sources */,
+				843E4E43200E3EF50072FE41 /* RouteCollectionViewCell.swift in Sources */,
 				840FCFA51FAC6754002A2067 /* MealCollectionViewCell.swift in Sources */,
 				840DA9F61F4C615C001B3382 /* MainMenuCollectionViewCell.swift in Sources */,
 				8447D1691F7CB337003BC34D /* DestinationCategoryDetailsViewController.swift in Sources */,

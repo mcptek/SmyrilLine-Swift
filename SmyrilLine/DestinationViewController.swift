@@ -83,7 +83,7 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
     func CallDestinationAPI() {
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng/1", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<DestinationInfo>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true

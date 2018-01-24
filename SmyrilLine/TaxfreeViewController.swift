@@ -206,7 +206,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     func CallTaxfreeShopDetailsAPIwithObjectId(objectId: String) {
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng/" + objectId, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng/1/" + objectId, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseArray { (response: DataResponse<[ShopObject]>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
@@ -230,7 +230,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
 
     func CallTaxfreeShopAPI() {
         self.activityIndicatorView.startAnimating()
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng/1", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseArray { (response: DataResponse<[TaxFreeShopInfo]>) in
                 self.activityIndicatorView.stopAnimating()
                 switch response.result

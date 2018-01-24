@@ -89,7 +89,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
     func CallShipInfoDetailsAPI() {
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + "/Eng/" + self.shipInfoCategoryId!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + "/Eng/1/" + self.shipInfoCategoryId!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
@@ -110,7 +110,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
     
     func CallShipInfoAPI() {
         self.activityIndicatorView.startAnimating()
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + "/Eng", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + "/Eng/1", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
                 self.activityIndicatorView.stopAnimating()
                 switch response.result

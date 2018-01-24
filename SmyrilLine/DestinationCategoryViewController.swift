@@ -86,7 +86,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     func CallDestinationCategoryDetailsAPI() {
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng/" + self.destinationCategoryId!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng/1/" + self.destinationCategoryId!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
