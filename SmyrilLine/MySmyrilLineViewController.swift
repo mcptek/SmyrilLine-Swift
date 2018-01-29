@@ -185,7 +185,7 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
              return CGSize(width: 315, height: 150)
         }
         else {
-             return CGSize(width: 310, height: 143)
+             return CGSize(width: 315, height: 143)
         }
     }
     
