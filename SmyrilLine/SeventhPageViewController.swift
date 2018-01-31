@@ -200,6 +200,7 @@ class SeventhPageViewController: UIViewController,UITableViewDataSource,UITableV
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "shipCell", for: indexPath) as! ShipCollectionViewCell
             if let imageUrlStr = self.shipArray![indexPath.row].shipImageUrlStr
             {
+                print(imageUrlStr)
                 cell.shipImageView.sd_setShowActivityIndicatorView(true)
                 cell.shipImageView.sd_setIndicatorStyle(.gray)
                 cell.shipImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
