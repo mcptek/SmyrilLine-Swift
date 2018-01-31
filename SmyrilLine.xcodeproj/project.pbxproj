@@ -63,6 +63,11 @@
 		845F336A1FECC6DF0068A655 /* OutgoingMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F33691FECC6DF0068A655 /* OutgoingMessageTableViewCell.swift */; };
 		845F336C1FECCF4D0068A655 /* ChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F336B1FECCF4D0068A655 /* ChatMessageModel.swift */; };
 		84623FF41F9F117300B0DE50 /* SmyrilLineBridgeHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 84623FF31F9F117300B0DE50 /* SmyrilLineBridgeHeader.m */; };
+		84624C95202034E00096B8A2 /* LanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84624C94202034E00096B8A2 /* LanguageTableViewCell.swift */; };
+		84624C97202034F60096B8A2 /* ShipTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84624C96202034F60096B8A2 /* ShipTableViewCell.swift */; };
+		84624C99202035090096B8A2 /* LanguageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84624C98202035090096B8A2 /* LanguageCollectionViewCell.swift */; };
+		84624C9B202035170096B8A2 /* ShipCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84624C9A202035170096B8A2 /* ShipCollectionViewCell.swift */; };
+		84624C9D20209D060096B8A2 /* ShipObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84624C9C20209D060096B8A2 /* ShipObjectMapper.swift */; };
 		84635BD41FB0882E00B92F61 /* RestaurantDetailsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84635BD31FB0882E00B92F61 /* RestaurantDetailsHeader.swift */; };
 		84635BD61FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84635BD51FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib */; };
 		846643331F8F554600146A68 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846643321F8F554600146A68 /* HelpViewController.swift */; };
@@ -93,6 +98,14 @@
 		84DFCBD31FBAF78300BCEF8D /* MessageFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFCBD21FBAF78300BCEF8D /* MessageFilterTableViewCell.swift */; };
 		84DFCBD51FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFCBD41FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift */; };
 		84DFCBD71FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFCBD61FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift */; };
+		84E034EE201F123C00B91844 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E034ED201F123C00B91844 /* PageViewController.swift */; };
+		84E034F0201F2BFB00B91844 /* FirstPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E034EF201F2BFA00B91844 /* FirstPageViewController.swift */; };
+		84E034F2201F2F5F00B91844 /* SecondPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E034F1201F2F5F00B91844 /* SecondPageViewController.swift */; };
+		84E034F4201F2F7000B91844 /* ThirdPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E034F3201F2F7000B91844 /* ThirdPageViewController.swift */; };
+		84E034F6201F2F8500B91844 /* FourthPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E034F5201F2F8500B91844 /* FourthPageViewController.swift */; };
+		84E034F8201F2F9D00B91844 /* FifthPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E034F7201F2F9D00B91844 /* FifthPageViewController.swift */; };
+		84E034FA201F2FB000B91844 /* SixthPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E034F9201F2FB000B91844 /* SixthPageViewController.swift */; };
+		84E034FC201F3AA300B91844 /* SeventhPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E034FB201F3AA300B91844 /* SeventhPageViewController.swift */; };
 		84EE5E241F6A601A001B4CA4 /* MessageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE5E231F6A601A001B4CA4 /* MessageObject.swift */; };
 		84F311291FCFDC4900BF37E8 /* ProfileStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F311281FCFDC4900BF37E8 /* ProfileStatusViewController.swift */; };
 		84F3112B1FCFE3F300BF37E8 /* ProfileVisibilityStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F3112A1FCFE3F300BF37E8 /* ProfileVisibilityStatusTableViewCell.swift */; };
@@ -189,6 +202,11 @@
 		845F336B1FECCF4D0068A655 /* ChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageModel.swift; sourceTree = "<group>"; };
 		84623FF21F9F117200B0DE50 /* SmyrilLine-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SmyrilLine-Bridging-Header.h"; sourceTree = "<group>"; };
 		84623FF31F9F117300B0DE50 /* SmyrilLineBridgeHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmyrilLineBridgeHeader.m; sourceTree = "<group>"; };
+		84624C94202034E00096B8A2 /* LanguageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTableViewCell.swift; sourceTree = "<group>"; };
+		84624C96202034F60096B8A2 /* ShipTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipTableViewCell.swift; sourceTree = "<group>"; };
+		84624C98202035090096B8A2 /* LanguageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCollectionViewCell.swift; sourceTree = "<group>"; };
+		84624C9A202035170096B8A2 /* ShipCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipCollectionViewCell.swift; sourceTree = "<group>"; };
+		84624C9C20209D060096B8A2 /* ShipObjectMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipObjectMapper.swift; sourceTree = "<group>"; };
 		84635BD31FB0882E00B92F61 /* RestaurantDetailsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsHeader.swift; sourceTree = "<group>"; };
 		84635BD51FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestaurantDetailsParallaxHeader.xib; sourceTree = "<group>"; };
 		846643321F8F554600146A68 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
@@ -223,6 +241,14 @@
 		84DFCBD21FBAF78300BCEF8D /* MessageFilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFilterTableViewCell.swift; sourceTree = "<group>"; };
 		84DFCBD41FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgegroupCollectionViewCell.swift; sourceTree = "<group>"; };
 		84DFCBD61FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderGroupCollectionViewCell.swift; sourceTree = "<group>"; };
+		84E034ED201F123C00B91844 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		84E034EF201F2BFA00B91844 /* FirstPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageViewController.swift; sourceTree = "<group>"; };
+		84E034F1201F2F5F00B91844 /* SecondPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPageViewController.swift; sourceTree = "<group>"; };
+		84E034F3201F2F7000B91844 /* ThirdPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPageViewController.swift; sourceTree = "<group>"; };
+		84E034F5201F2F8500B91844 /* FourthPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthPageViewController.swift; sourceTree = "<group>"; };
+		84E034F7201F2F9D00B91844 /* FifthPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FifthPageViewController.swift; sourceTree = "<group>"; };
+		84E034F9201F2FB000B91844 /* SixthPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixthPageViewController.swift; sourceTree = "<group>"; };
+		84E034FB201F3AA300B91844 /* SeventhPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeventhPageViewController.swift; sourceTree = "<group>"; };
 		84EE5E231F6A601A001B4CA4 /* MessageObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageObject.swift; sourceTree = "<group>"; };
 		84F311281FCFDC4900BF37E8 /* ProfileStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusViewController.swift; sourceTree = "<group>"; };
 		84F3112A1FCFE3F300BF37E8 /* ProfileVisibilityStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVisibilityStatusTableViewCell.swift; sourceTree = "<group>"; };
@@ -352,6 +378,7 @@
 		840DA9F21F4C60FF001B3382 /* Stories */ = {
 			isa = PBXGroup;
 			children = (
+				84E034EC201F11C400B91844 /* GuideScreens */,
 				845CE890200624170058CBEC /* Booking */,
 				84AA0E4B1F692A7E00E4354A /* Inbox */,
 				840A47851F4FE93D0038DAE6 /* Tax free shop */,
@@ -397,6 +424,7 @@
 				84BAA3591FC545D700431A9E /* userList.swift */,
 				845F336B1FECCF4D0068A655 /* ChatMessageModel.swift */,
 				849F93D81FDA63E500D2FE2C /* Userprofile.swift */,
+				84624C9C20209D060096B8A2 /* ShipObjectMapper.swift */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -565,6 +593,25 @@
 				84BAA35E1FC54D5100431A9E /* JsonSerializerSwift.h */,
 			);
 			path = JsonSerializerSwift;
+			sourceTree = "<group>";
+		};
+		84E034EC201F11C400B91844 /* GuideScreens */ = {
+			isa = PBXGroup;
+			children = (
+				84E034ED201F123C00B91844 /* PageViewController.swift */,
+				84E034EF201F2BFA00B91844 /* FirstPageViewController.swift */,
+				84E034F1201F2F5F00B91844 /* SecondPageViewController.swift */,
+				84E034F3201F2F7000B91844 /* ThirdPageViewController.swift */,
+				84E034F5201F2F8500B91844 /* FourthPageViewController.swift */,
+				84E034F7201F2F9D00B91844 /* FifthPageViewController.swift */,
+				84E034F9201F2FB000B91844 /* SixthPageViewController.swift */,
+				84E034FB201F3AA300B91844 /* SeventhPageViewController.swift */,
+				84624C94202034E00096B8A2 /* LanguageTableViewCell.swift */,
+				84624C96202034F60096B8A2 /* ShipTableViewCell.swift */,
+				84624C98202035090096B8A2 /* LanguageCollectionViewCell.swift */,
+				84624C9A202035170096B8A2 /* ShipCollectionViewCell.swift */,
+			);
+			name = GuideScreens;
 			sourceTree = "<group>";
 		};
 		BB45F2D01F4F2EC6003B77CA /* Destinations */ = {
@@ -880,6 +927,7 @@
 				842FE9621FEB72FB00D40FF7 /* ChatContainerViewController.swift in Sources */,
 				842114081F70F066004459A9 /* ReachabilityManager.swift in Sources */,
 				84A8E51C1F6A842C00B5E569 /* InboxDetailsViewController.swift in Sources */,
+				84624C99202035090096B8A2 /* LanguageCollectionViewCell.swift in Sources */,
 				845F336C1FECCF4D0068A655 /* ChatMessageModel.swift in Sources */,
 				849F93D91FDA63E600D2FE2C /* Userprofile.swift in Sources */,
 				8445F1581F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift in Sources */,
@@ -888,6 +936,7 @@
 				84FBCB491FBC639100B74707 /* LanguageGroupCollectionViewCell.swift in Sources */,
 				846643331F8F554600146A68 /* HelpViewController.swift in Sources */,
 				BB45F2DA1F4F30A5003B77CA /* Destinations.swift in Sources */,
+				84E034F0201F2BFB00B91844 /* FirstPageViewController.swift in Sources */,
 				84F3112D1FCFE8E200BF37E8 /* UserVisibilityStatus.swift in Sources */,
 				845F33681FECC6BB0068A655 /* IncomingMessageTableViewCell.swift in Sources */,
 				8447D16B1F7CC5CF003BC34D /* DestinationCategoryDetailsTableViewCell.swift in Sources */,
@@ -895,8 +944,10 @@
 				84F481691FAB50E20065A915 /* MealTypeDescriptionTableViewCell.swift in Sources */,
 				842C486F2007796300D3470E /* ProfileInfoTableViewCell.swift in Sources */,
 				842308451F56FB06004A4166 /* TaxfreeCollectionViewCell.swift in Sources */,
+				84E034F2201F2F5F00B91844 /* SecondPageViewController.swift in Sources */,
 				849D4BA31FB572BA00863F81 /* SettingsHeaderTableViewCell.swift in Sources */,
 				84DFCBD31FBAF78300BCEF8D /* MessageFilterTableViewCell.swift in Sources */,
+				84624C9B202035170096B8A2 /* ShipCollectionViewCell.swift in Sources */,
 				84138C8C1F625B1600D3F06C /* UINavigationBar+Alpha.swift in Sources */,
 				842ED4231F4EFA78000366BF /* RestaurantViewController.swift in Sources */,
 				842308431F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift in Sources */,
@@ -907,7 +958,9 @@
 				84F481631FAAEECE0065A915 /* RestaurantDetailsInfoTableViewCell.swift in Sources */,
 				842ED41E1F4E9B23000366BF /* SmyrilLineUrl.swift in Sources */,
 				840FCFA11FAC359E002A2067 /* MealHeaderTableViewCell.swift in Sources */,
+				84E034F8201F2F9D00B91844 /* FifthPageViewController.swift in Sources */,
 				845CE892200624530058CBEC /* BookingLogInViewController.swift in Sources */,
+				84E034EE201F123C00B91844 /* PageViewController.swift in Sources */,
 				84F481671FAB44CD0065A915 /* MealTypeHeaderTableViewCell.swift in Sources */,
 				84635BD41FB0882E00B92F61 /* RestaurantDetailsHeader.swift in Sources */,
 				842ED4251F4EFB65000366BF /* RestaurantTableViewCell.swift in Sources */,
@@ -919,15 +972,18 @@
 				845F336A1FECC6DF0068A655 /* OutgoingMessageTableViewCell.swift in Sources */,
 				84623FF41F9F117300B0DE50 /* SmyrilLineBridgeHeader.m in Sources */,
 				842C487120077C3D00D3470E /* TravelersTableViewCell.swift in Sources */,
+				84624C9D20209D060096B8A2 /* ShipObjectMapper.swift in Sources */,
 				840DA9D01F4C5C7F001B3382 /* ViewController.swift in Sources */,
 				8487F22E1FD9566000D5DDEA /* EditProfileViewController.swift in Sources */,
 				84F481611FAAE8A20065A915 /* RestaurantOpenCloseTimeTableViewCell.swift in Sources */,
 				84BAA35A1FC545D700431A9E /* userList.swift in Sources */,
 				842EB2331FA9892300652F68 /* RestaurantDetailsViewController.swift in Sources */,
+				84E034FA201F2FB000B91844 /* SixthPageViewController.swift in Sources */,
 				84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */,
 				84745EDD1FC6C568005E2E99 /* Messaging.swift in Sources */,
 				842C486B20075C6400D3470E /* MySmyrilLineViewController.swift in Sources */,
 				841F13181F84DD35009CBAD9 /* TaxfreeHeaderDetailsHeader.swift in Sources */,
+				84E034FC201F3AA300B91844 /* SeventhPageViewController.swift in Sources */,
 				842ED4181F4E8E8C000366BF /* ShiptrackerViewController.swift in Sources */,
 				848060081FF51561005AC8DA /* AFOAuthCredential.m in Sources */,
 				840DA9CE1F4C5C7F001B3382 /* AppDelegate.swift in Sources */,
@@ -947,21 +1003,25 @@
 				84BAA3601FC54D5100431A9E /* JsonSerializer.swift in Sources */,
 				842308471F57CB15004A4166 /* DestinationCategoryViewController.swift in Sources */,
 				8429F53F1FB47C9A001C2740 /* SettingViewController.swift in Sources */,
+				84624C97202034F60096B8A2 /* ShipTableViewCell.swift in Sources */,
 				84F311291FCFDC4900BF37E8 /* ProfileStatusViewController.swift in Sources */,
 				84745ED91FC6A465005E2E99 /* ChatTableViewCell.swift in Sources */,
 				84A8E51A1F6A75CA00B5E569 /* InboxTableViewCell.swift in Sources */,
+				84624C95202034E00096B8A2 /* LanguageTableViewCell.swift in Sources */,
 				84FBCB471FBC636A00B74707 /* LanguageFilterTableViewCell.swift in Sources */,
 				848060061FF51561005AC8DA /* AFHTTPRequestSerializer+OAuth2.m in Sources */,
 				84DFCBD51FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift in Sources */,
 				84BAA3621FC550B500431A9E /* MessageType.swift in Sources */,
 				BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */,
 				84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */,
+				84E034F6201F2F8500B91844 /* FourthPageViewController.swift in Sources */,
 				841F13141F84A16B009CBAD9 /* TaxfreeDetailsViewController.swift in Sources */,
 				849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */,
 				84F3112B1FCFE3F300BF37E8 /* ProfileVisibilityStatusTableViewCell.swift in Sources */,
 				8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */,
 				840A47891F4FF2B40038DAE6 /* TaxFreeShop.swift in Sources */,
 				84F311331FD01D2C00BF37E8 /* ProfileDetailsViewController.swift in Sources */,
+				84E034F4201F2F7000B91844 /* ThirdPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
