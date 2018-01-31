@@ -7,20 +7,32 @@
 //
 
 import UIKit
+import AlamofireObjectMapper
+import Alamofire
+import SDWebImage
 
 class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
     let ageGroupArray = ["Adult from 15 year","Child 12 - 15 year","Child 3 - 11 year","All"]
     let genderArray = ["Male","Female","Both"]
     var settingDic = [String:Bool]()
-    var expandCollapseArrau = [false,false]
+    var expandCollapseArrau = [false,false,false]
     var currentSelectedLanguage = 0
+    var shipArray: [ShipObjectInfo]?
+    var activityIndicatorView: UIActivityIndicatorView!
+    var currentSelectedShipId: String?
     
     @IBOutlet weak var settingsTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        myActivityIndicator.center = view.center
+        self.activityIndicatorView = myActivityIndicator
+        view.addSubview(self.activityIndicatorView)
+        
         self.settingsTableView.estimatedRowHeight = 120
         self.settingsTableView.rowHeight = UITableViewAutomaticDimension
         self.loadSettingsdata()
@@ -111,8 +123,39 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.currentSelectedLanguage = defaults.value(forKey: "CurrentSelectedLanguage") as! Int
         }
         
+        if defaults.value(forKey: "CurrentSelectedShipdId") == nil
+        {
+            defaults.set("1", forKey: "CurrentSelectedShipdId")
+            self.currentSelectedShipId = "1"
+        }
+        else
+        {
+            self.currentSelectedShipId = defaults.value(forKey: "CurrentSelectedShipdId") as? String
+        }
+        
         self.settingsTableView.reloadData()
+        self.CallShipIdFromAPI()
     }
+    
+    func CallShipIdFromAPI() {
+        self.activityIndicatorView.startAnimating()
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipChoosingParentPath + "/Eng/1", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+            .responseArray { (response: DataResponse<[ShipObjectInfo]>) in
+                self.activityIndicatorView.stopAnimating()
+                switch response.result
+                {
+                case .success:
+                    if response.response?.statusCode == 200
+                    {
+                        self.shipArray = response.result.value
+                        self.settingsTableView.reloadData()
+                    }
+                case .failure:
+                    self.showAlert(title: "Error", message: (response.result.error?.localizedDescription)!)
+                }
+        }
+    }
+    
     
     @IBAction func settingsSaveAction(_ sender: Any) {
         let defaults = UserDefaults.standard
@@ -230,7 +273,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -258,8 +301,11 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
             if indexPath.section == 0 {
                 cell.headerTitleLabel.text = "Message filters"
             }
-            else {
+            else if indexPath.section == 1 {
                 cell.headerTitleLabel.text = "Language"
+            }
+            else {
+                cell.headerTitleLabel.text = "Ship"
             }
             
             if self.expandCollapseArrau[indexPath.section] {
@@ -302,9 +348,21 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
                     return cell
                 }
             }
-            else {
+            else if indexPath.section == 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "languageFilterCell", for: indexPath) as! LanguageFilterTableViewCell
                 cell.languageCollectionView.tag = 1030
+                cell.languageCollectionView.reloadData()
+                cell.languageCollectionViewHeight.constant = cell.languageCollectionView.collectionViewLayout.collectionViewContentSize.height
+                cell.languageCollectionView.layoutIfNeeded()
+                cell.layoutIfNeeded()
+                self.settingsTableView.layoutIfNeeded()
+                cell.selectionStyle = .none
+                //cell.backgroundColor = UIColor.white.withAlphaComponent(0.8)
+                return cell
+            }
+            else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "shipFilterCell", for: indexPath) as! LanguageFilterTableViewCell
+                cell.languageCollectionView.tag = 1040
                 cell.languageCollectionView.reloadData()
                 cell.languageCollectionViewHeight.constant = cell.languageCollectionView.collectionViewLayout.collectionViewContentSize.height
                 cell.languageCollectionView.layoutIfNeeded()
@@ -367,6 +425,10 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
             return 4
         case 1020:
             return 3
+        case 1030:
+            return 3
+        case 1040:
+            return self.shipArray?.count ?? 0
         default:
             return 4
         }
@@ -433,7 +495,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
             cell.backgroundColor = UIColor.white
             return cell
         }
-        else {
+        else if collectionView.tag == 1030 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "languageCollectionCell", for: indexPath) as! LanguageGroupCollectionViewCell
             switch indexPath.row {
             case 0:
@@ -460,6 +522,40 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 cell.selectionImageView.isHidden = true
                 let color = UIColor(red: 255.0/255, green: 255.0/255, blue: 255.0/255, alpha: 1.0)
                 cell.layer.borderColor = color.cgColor
+            }
+            cell.backgroundColor = UIColor.white
+            return cell
+        }
+        else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShipCollectionCell", for: indexPath) as! LanguageGroupCollectionViewCell
+            if let imageUrlStr = self.shipArray![indexPath.row].shipImageUrlStr
+            {
+                cell.languageImageView.sd_setShowActivityIndicatorView(true)
+                cell.languageImageView.sd_setIndicatorStyle(.gray)
+                cell.languageImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+//                cell.languageImageView.layer.cornerRadius = cell.languageImageView.frame.size.height / 2
+//                cell.languageImageView.layer.masksToBounds = true
+                
+            }
+            
+            if let name = self.shipArray![indexPath.row].name
+            {
+                cell.languageName.text = name
+            }
+            
+            
+            if let shipId = self.shipArray![indexPath.row].shipId
+            {
+                if shipId == self.currentSelectedShipId {
+                    cell.selectionImageView.isHidden = false
+                    let color = UIColor(red: 159.0/255, green: 206.0/255, blue: 255.0/255, alpha: 1.0)
+                    cell.layer.borderColor = color.cgColor
+                }
+                else {
+                    cell.selectionImageView.isHidden = true
+                    let color = UIColor(red: 255.0/255, green: 255.0/255, blue: 255.0/255, alpha: 1.0)
+                    cell.layer.borderColor = color.cgColor
+                }
             }
             cell.backgroundColor = UIColor.white
             return cell
@@ -508,6 +604,10 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         else if collectionView.tag == 1030
         {
             self.currentSelectedLanguage = indexPath.row
+        }
+        else if collectionView.tag == 1040 {
+            self.currentSelectedShipId = self.shipArray![indexPath.row].shipId
+            UserDefaults.standard.set(self.currentSelectedShipId, forKey: "CurrentSelectedShipdId")
         }
         else
         {

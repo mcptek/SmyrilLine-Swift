@@ -47,6 +47,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate {
         onyxBeacon?.startService(withClientID: SA_CLIENTID, secret:SA_SECRET)
         onyxBeacon?.delegate = self
         
+//        if (UserDefaults.standard.value(forKey: "GuideScreen") != nil) {
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//
+//            let initialViewController = storyboard.instantiateViewController(withIdentifier: "tabContainerView")
+//
+//            self.window?.rootViewController = initialViewController
+//            self.window?.makeKeyAndVisible()
+//
+//
+//        }
+//        else {
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//
+//            let initialViewController = storyboard.instantiateViewController(withIdentifier: "pageContainerView")
+//
+//            self.window?.rootViewController = initialViewController
+//            self.window?.makeKeyAndVisible()
+//
+//        }
+        
+        
         return true
     }
     
