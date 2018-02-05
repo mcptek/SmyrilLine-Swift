@@ -43,9 +43,10 @@ class ShipInfoDetailsViewController: UIViewController,UITableViewDataSource, UIT
         super.viewWillAppear(true)
         if let imageUrlStr = self.shipInfoCategoryDetailsArray?.shopImageUrlStr
         {
+            let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
             self.myHeaderView.taxFreeHeaderImageView.sd_setShowActivityIndicatorView(true)
             self.myHeaderView.taxFreeHeaderImageView.sd_setIndicatorStyle(.gray)
-            self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+            self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
         }
     }
 

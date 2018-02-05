@@ -257,6 +257,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         defaults.set(self.settingDic["Female"], forKey: "Female")
         defaults.set(self.settingDic["Both"], forKey: "Both")
         defaults.set(self.currentSelectedLanguage, forKey: "CurrentSelectedLanguage")
+        UserDefaults.standard.set(self.currentSelectedShipId, forKey: "CurrentSelectedShipdId")
         self.displayToast(alertMsg: "Settings saved.")
     }
     
@@ -530,9 +531,10 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShipCollectionCell", for: indexPath) as! LanguageGroupCollectionViewCell
             if let imageUrlStr = self.shipArray![indexPath.row].shipImageUrlStr
             {
+                let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
                 cell.languageImageView.sd_setShowActivityIndicatorView(true)
                 cell.languageImageView.sd_setIndicatorStyle(.gray)
-                cell.languageImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                cell.languageImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
 //                cell.languageImageView.layer.cornerRadius = cell.languageImageView.frame.size.height / 2
 //                cell.languageImageView.layer.masksToBounds = true
                 
@@ -607,7 +609,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         }
         else if collectionView.tag == 1040 {
             self.currentSelectedShipId = self.shipArray![indexPath.row].shipId
-            UserDefaults.standard.set(self.currentSelectedShipId, forKey: "CurrentSelectedShipdId")
+//            UserDefaults.standard.set(self.currentSelectedShipId, forKey: "CurrentSelectedShipdId")
         }
         else
         {

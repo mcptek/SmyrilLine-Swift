@@ -45,9 +45,10 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
         super.viewWillAppear(true)
         if let imageUrlStr = self.productImageUrl
         {
+            let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
             self.myHeaderView.productImageView.sd_setShowActivityIndicatorView(true)
             self.myHeaderView.productImageView.sd_setIndicatorStyle(.gray)
-            self.myHeaderView.productImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+            self.myHeaderView.productImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
         }
         
         if let productName = self.productName

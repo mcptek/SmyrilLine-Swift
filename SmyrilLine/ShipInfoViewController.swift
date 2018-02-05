@@ -89,7 +89,8 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
     func CallShipInfoDetailsAPI() {
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + "/Eng/1/" + self.shipInfoCategoryId!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        let shipId = UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") as! String
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + "/Eng/\(shipId)/\(self.shipInfoCategoryId!)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
@@ -110,7 +111,8 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
     
     func CallShipInfoAPI() {
         self.activityIndicatorView.startAnimating()
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + "/Eng/1", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        let shipId = UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") as! String
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + "/Eng/\(shipId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
                 self.activityIndicatorView.stopAnimating()
                 switch response.result
@@ -121,9 +123,10 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
                         self.shipInfoObject = response.result.value
                         if let imageUrlStr = self.shipInfoObject?.shopImageUrlStr
                         {
+                            let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
                             self.myHeaderView.taxFreeHeaderImageView.sd_setShowActivityIndicatorView(true)
                             self.myHeaderView.taxFreeHeaderImageView.sd_setIndicatorStyle(.gray)
-                            self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                            self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
                         }
                         self.shipInfotableView.reloadData()
                     }
@@ -162,9 +165,10 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
             self.cellIndex = (indexPath.row - 1) * 2
             if let imageUrlStr = self.shipInfoObject?.itemArray?[self.cellIndex].imageUrl
             {
+                let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
                 cell.leftCategoryImageView.sd_setShowActivityIndicatorView(true)
                 cell.leftCategoryImageView.sd_setIndicatorStyle(.gray)
-                cell.leftCategoryImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                cell.leftCategoryImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
                 
             }
             if let categoryname = self.shipInfoObject?.itemArray?[self.cellIndex].name
@@ -182,9 +186,10 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
             {
                 if let imageUrlStr = self.shipInfoObject?.itemArray?[self.cellIndex].imageUrl
                 {
+                    let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
                     cell.rightCategotyImageView.sd_setShowActivityIndicatorView(true)
                     cell.rightCategotyImageView.sd_setIndicatorStyle(.gray)
-                    cell.rightCategotyImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                    cell.rightCategotyImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
                     
                 }
                 if let categoryname = self.shipInfoObject?.itemArray?[self.cellIndex].name

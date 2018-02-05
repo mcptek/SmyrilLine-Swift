@@ -60,9 +60,10 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
         super.viewWillAppear(true)
         if let imageUrlStr = self.destinationCategoryDetailsArray?.shopImageUrlStr
         {
+            let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
             self.myHeaderView.taxFreeHeaderImageView.sd_setShowActivityIndicatorView(true)
             self.myHeaderView.taxFreeHeaderImageView.sd_setIndicatorStyle(.gray)
-            self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+            self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
         }
     }
     
@@ -119,9 +120,10 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
             let cell = tableView.dequeueReusableCell(withIdentifier: "destinationCategoryDetailsCell", for: indexPath) as! DestinationCategoryDetailsTableViewCell
             if let imageUrlStr = self.destinationCategoryDetailsArray?.itemArray?[indexPath.section - 1].imageUrl
             {
+                let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
                 cell.categoryImageView.sd_setShowActivityIndicatorView(true)
                 cell.categoryImageView.sd_setIndicatorStyle(.gray)
-                cell.categoryImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                cell.categoryImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
             }
             else
             {
