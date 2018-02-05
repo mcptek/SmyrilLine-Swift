@@ -113,7 +113,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         if let priceObject = self.shopObject?.itemArray?[indexPath.row].objectPrice
         {
             var price = priceObject.replacingOccurrences(of: ".", with: ",", options: .literal, range: nil)
-            price = "€" + price
+            //price = "€" + price
             if price.characters.contains(",") {
                 let splittedStringsArray = price.split(separator: ",", maxSplits: 1, omittingEmptySubsequences: true)
                 if let firstString = splittedStringsArray.first, let secondString = splittedStringsArray.last
@@ -247,7 +247,6 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
                 case .success:
                     if response.response?.statusCode == 200
                     {
-
                         if response.result.value?.isEmpty == false {
                             self.shopObject = response.result.value?[0]
                             if let imageUrlStr = self.shopObject?.shopImageUrlStr
@@ -267,8 +266,14 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
                             {
                                 self.myHeaderView.headerLocationLabel.text = location
                             }
-                            self.myTaxfreeCollectionView.reloadData()
                         }
+                        else {
+                            self.myHeaderView.headerImageView.image = nil
+                            self.myHeaderView.headerTimeLabel.text = nil
+                            self.myHeaderView.headerLocationLabel.text = nil
+                            self.shopObject?.itemArray = nil
+                        }
+                        self.myTaxfreeCollectionView.reloadData()
                     }
                 case .failure:
                     self.showAlert(title: "Error", message: (response.result.error?.localizedDescription)!)

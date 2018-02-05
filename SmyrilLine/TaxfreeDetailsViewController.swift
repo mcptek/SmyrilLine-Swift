@@ -60,7 +60,7 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
         if let priceObject = self.productPrice
         {
             var price = priceObject.replacingOccurrences(of: ".", with: ",", options: .literal, range: nil)
-            price = "€" + price
+            //price = "€" + price
             if price.characters.contains(",") {
                 let splittedStringsArray = price.split(separator: ",", maxSplits: 1, omittingEmptySubsequences: true)
                 if let firstString = splittedStringsArray.first, let secondString = splittedStringsArray.last

@@ -75,7 +75,10 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         self.mapView.attributionButton.isHidden = true
         self.mapView.logoView.isHidden = true
         self.mapView.isRotateEnabled = false
-        view.addSubview(self.mapView)
+        if self.mapView.isDescendant(of: self.view) {
+            self.mapView.removeFromSuperview()
+        }
+        self.view.addSubview(self.mapView)
         self.view.bringSubview(toFront: self.shipInfoContainerView)
         self.view.bringSubview(toFront: self.shipDetailsButton)
         
@@ -203,9 +206,10 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
     
     func createAPICallForShipTrajectory()  {
         self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
         request(UrlMCP.shipTrackerTrajectoryPath, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseJSON { response in
-                
+                self.view.isUserInteractionEnabled = true
                 switch response.result {
                 case .success:
                     if let json = response.data {
@@ -325,7 +329,7 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         }
     }
     @IBAction func shipTrackerRefreshAction(_ sender: Any) {
-        self.mapView.removeFromSuperview()
+        //self.mapView.removeFromSuperview()
         self.createAPICallForShipTrajectory()
     }
 

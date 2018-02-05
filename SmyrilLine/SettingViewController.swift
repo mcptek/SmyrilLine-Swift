@@ -427,7 +427,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         case 1020:
             return 3
         case 1030:
-            return 3
+            return 4
         case 1040:
             return self.shipArray?.count ?? 0
         default:

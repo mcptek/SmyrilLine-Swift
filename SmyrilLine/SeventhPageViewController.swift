@@ -38,15 +38,16 @@ class SeventhPageViewController: UIViewController,UITableViewDataSource,UITableV
             self.currentSelectedLanguage = defaults.value(forKey: "CurrentSelectedLanguage") as! Int
         }
         
-        if defaults.value(forKey: "CurrentSelectedShipdId") == nil
+        if defaults.value(forKey: "CurrentSelectedShipdId") != nil
         {
-            defaults.set("1", forKey: "CurrentSelectedShipdId")
-            self.currentSelectedShipId = "1"
+            self.currentSelectedShipId = (defaults.value(forKey: "CurrentSelectedShipdId") as! String)
+//            defaults.set("1", forKey: "CurrentSelectedShipdId")
+//            self.currentSelectedShipId = "1"
         }
-        else
-        {
-            self.currentSelectedShipId = defaults.value(forKey: "CurrentSelectedShipdId") as? String
-        }
+//        else
+//        {
+//            self.currentSelectedShipId = (defaults.value(forKey: "CurrentSelectedShipdId") as! String)
+//        }
         
         self.CallShipIdFromAPI()
     }
@@ -82,8 +83,11 @@ class SeventhPageViewController: UIViewController,UITableViewDataSource,UITableV
                     {
                         self.shipArray = response.result.value
                         if self.shipArray?.isEmpty == false {
-                            self.currentSelectedShipId = self.shipArray![0].shipId
-                            UserDefaults.standard.set(self.currentSelectedShipId, forKey: "CurrentSelectedShipdId")
+                            if UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") == nil
+                            {
+                                self.currentSelectedShipId = self.shipArray![0].shipId
+                                UserDefaults.standard.set(self.currentSelectedShipId, forKey: "CurrentSelectedShipdId")
+                            }
                         }
                         self.settingTableView.reloadData()
                     }
