@@ -41,9 +41,10 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
         super.viewWillAppear(true)
         if let imageUrlStr = self.restaurantDetailsObject?.imageUrl
         {
+            let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
             self.myHeaderView.restaurantDetailsHeaderImageView.sd_setShowActivityIndicatorView(true)
             self.myHeaderView.restaurantDetailsHeaderImageView.sd_setIndicatorStyle(.gray)
-            self.myHeaderView.restaurantDetailsHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+            self.myHeaderView.restaurantDetailsHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
         }
     }
     override func didReceiveMemoryWarning() {
@@ -415,9 +416,10 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
         
         if let imageUrlStr = self.menuType![indexPath.row].imageUrl
         {
+            let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
             cell.mealImageView.sd_setShowActivityIndicatorView(true)
             cell.mealImageView.sd_setIndicatorStyle(.gray)
-            cell.mealImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+            cell.mealImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
             
         }
         if let productPrice = self.menuType![indexPath.row].price
@@ -466,7 +468,6 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
     {
         return 8.0
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize

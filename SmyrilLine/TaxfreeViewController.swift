@@ -61,6 +61,11 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
+        if (self.shopObject?.itemArray?.isEmpty == true) {
+            self.myTaxfreeCollectionView.setEmptyMessage("There is no item available now.")
+        } else {
+            self.myTaxfreeCollectionView.restore()
+        }
         return self.shopObject?.itemArray?.count ?? 0
     }
     
@@ -141,9 +146,10 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         
         if let imageUrlStr = self.shopObject?.itemArray?[indexPath.row].imageUrl
         {
+            let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
             cell.productImageView.sd_setShowActivityIndicatorView(true)
             cell.productImageView.sd_setIndicatorStyle(.gray)
-            cell.productImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+            cell.productImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
             
         }
         
@@ -206,7 +212,9 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     func CallTaxfreeShopDetailsAPIwithObjectId(objectId: String) {
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng/1/" + objectId, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        let shipId = UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") as! String
+        
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng/\(String(describing: shipId))/\(objectId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseArray { (response: DataResponse<[ShopObject]>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
@@ -230,7 +238,8 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
 
     func CallTaxfreeShopAPI() {
         self.activityIndicatorView.startAnimating()
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng/1", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        let shipId = UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") as! String
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng/\(String(describing: shipId))", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseArray { (response: DataResponse<[TaxFreeShopInfo]>) in
                 self.activityIndicatorView.stopAnimating()
                 switch response.result
@@ -238,24 +247,28 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
                 case .success:
                     if response.response?.statusCode == 200
                     {
-                        self.shopObject = response.result.value?[0]
-                        if let imageUrlStr = self.shopObject?.shopImageUrlStr
-                        {
-                            self.myHeaderView.headerImageView.sd_setShowActivityIndicatorView(true)
-                            self.myHeaderView.headerImageView.sd_setIndicatorStyle(.gray)
-                            self.myHeaderView.headerImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+
+                        if response.result.value?.isEmpty == false {
+                            self.shopObject = response.result.value?[0]
+                            if let imageUrlStr = self.shopObject?.shopImageUrlStr
+                            {
+                                let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
+                                self.myHeaderView.headerImageView.sd_setShowActivityIndicatorView(true)
+                                self.myHeaderView.headerImageView.sd_setIndicatorStyle(.gray)
+                                self.myHeaderView.headerImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
+                            }
+                            
+                            if let time = self.shopObject?.shopOpeningClosingTime
+                            {
+                                self.myHeaderView.headerTimeLabel.text = time
+                            }
+                            
+                            if let location = self.shopObject?.shopLocation
+                            {
+                                self.myHeaderView.headerLocationLabel.text = location
+                            }
+                            self.myTaxfreeCollectionView.reloadData()
                         }
-                        
-                        if let time = self.shopObject?.shopOpeningClosingTime
-                        {
-                            self.myHeaderView.headerTimeLabel.text = time
-                        }
-                        
-                        if let location = self.shopObject?.shopLocation
-                        {
-                             self.myHeaderView.headerLocationLabel.text = location
-                        }
-                        self.myTaxfreeCollectionView.reloadData()
                     }
                 case .failure:
                     self.showAlert(title: "Error", message: (response.result.error?.localizedDescription)!)

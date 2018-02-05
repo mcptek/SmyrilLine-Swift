@@ -72,7 +72,8 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
     func CallRestaurantDetailsAPI(restaurantId: String) {
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.restaurantParentPath + "/Eng" + "/1/" + restaurantId , method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        let shipId = UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") as! String
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.restaurantParentPath + "/Eng/\(shipId)/\(restaurantId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<RestaurantDetailsInfo>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
@@ -93,7 +94,8 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
     func CallRestaurantAPI() {
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.restaurantParentPath + "/Eng/1", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        let shipId = UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") as! String
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.restaurantParentPath + "/Eng/\(shipId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<RestaurantInfo>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
@@ -125,9 +127,10 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
         cell.restaurantNameLabel.text = self.restaurantsArray?[indexPath.section].name
         if let imageUrlStr = self.restaurantsArray?[indexPath.section].imageUrl
         {
+            let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
             cell.restaurantImageView.sd_setShowActivityIndicatorView(true)
             cell.restaurantImageView.sd_setIndicatorStyle(.gray)
-            cell.restaurantImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+            cell.restaurantImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
 
         }
         cell.selectionStyle = .none

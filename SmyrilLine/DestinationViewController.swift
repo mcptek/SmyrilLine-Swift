@@ -83,7 +83,8 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
     func CallDestinationAPI() {
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng/1", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        let shipId = UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") as! String
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng/\(String(describing: shipId))", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<DestinationInfo>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
@@ -114,9 +115,10 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
         cell.destinationName.text = self.destinaionArray?[indexPath.section].name
         if let imageUrlStr = self.destinaionArray?[indexPath.section].imageUrl
         {
+            let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
             cell.destinationImageView.sd_setShowActivityIndicatorView(true)
             cell.destinationImageView.sd_setIndicatorStyle(.gray)
-            cell.destinationImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+            cell.destinationImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
             
         }
         cell.selectionStyle = .none

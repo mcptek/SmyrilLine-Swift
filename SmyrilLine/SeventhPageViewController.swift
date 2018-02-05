@@ -81,6 +81,10 @@ class SeventhPageViewController: UIViewController,UITableViewDataSource,UITableV
                     if response.response?.statusCode == 200
                     {
                         self.shipArray = response.result.value
+                        if self.shipArray?.isEmpty == false {
+                            self.currentSelectedShipId = self.shipArray![0].shipId
+                            UserDefaults.standard.set(self.currentSelectedShipId, forKey: "CurrentSelectedShipdId")
+                        }
                         self.settingTableView.reloadData()
                     }
                 case .failure:
@@ -200,14 +204,15 @@ class SeventhPageViewController: UIViewController,UITableViewDataSource,UITableV
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "shipCell", for: indexPath) as! ShipCollectionViewCell
             if let imageUrlStr = self.shipArray![indexPath.row].shipImageUrlStr
             {
-                print(imageUrlStr)
+                let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
+                
                 cell.shipImageView.sd_setShowActivityIndicatorView(true)
                 cell.shipImageView.sd_setIndicatorStyle(.gray)
-                cell.shipImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                cell.shipImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
                 cell.shipImageView.layer.cornerRadius = cell.shipImageView.frame.size.height / 2
                 cell.shipImageView.layer.masksToBounds = true
-                
             }
+            
             if let name = self.shipArray![indexPath.row].name
             {
                 cell.shipTitleLabel.text = name

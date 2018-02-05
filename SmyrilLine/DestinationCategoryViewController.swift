@@ -86,7 +86,8 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     func CallDestinationCategoryDetailsAPI() {
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng/1/" + self.destinationCategoryId!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        let shipId = UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") as! String
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng/\(shipId)/\(self.destinationId!)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
@@ -119,9 +120,10 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
                         self.destinationCategoryArray = response.result.value
                         if let imageUrlStr = self.destinationCategoryArray?.shopImageUrlStr
                         {
+                            let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
                             self.myHeaderView.taxFreeHeaderImageView.sd_setShowActivityIndicatorView(true)
                             self.myHeaderView.taxFreeHeaderImageView.sd_setIndicatorStyle(.gray)
-                            self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                            self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
                         }
                         self.categoryTableview.reloadData()
                     }
@@ -182,9 +184,10 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
             self.cellIndex = (indexPath.row - 1) * 2
             if let imageUrlStr = self.destinationCategoryArray?.itemArray?[self.cellIndex].imageUrl
             {
+                let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
                 cell.leftCategoryImageView.sd_setShowActivityIndicatorView(true)
                 cell.leftCategoryImageView.sd_setIndicatorStyle(.gray)
-                cell.leftCategoryImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                cell.leftCategoryImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
                 
             }
             if let categoryname = self.destinationCategoryArray?.itemArray?[self.cellIndex].name
@@ -201,10 +204,11 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
             {
                 if let imageUrlStr = self.destinationCategoryArray?.itemArray?[self.cellIndex].imageUrl
                 {
+                    let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
                     cell.rightContainerView.isHidden = false
                     cell.rightCategotyImageView.sd_setShowActivityIndicatorView(true)
                     cell.rightCategotyImageView.sd_setIndicatorStyle(.gray)
-                    cell.rightCategotyImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                    cell.rightCategotyImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
                     
                 }
                 if let categoryname = self.destinationCategoryArray?.itemArray?[self.cellIndex].name
