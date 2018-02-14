@@ -19,6 +19,8 @@ class MealTypeDescriptionTableViewCell: UITableViewCell {
     @IBOutlet weak var prebookPriceLabel: UILabel!
     @IBOutlet weak var timeNoteLabel: UILabel!
     @IBOutlet weak var timeHeaderNameLabel: UILabel!
+    @IBOutlet weak var SeeMoreButton: UIButton!
+    @IBOutlet weak var seeMoreButtonHeightConstraint: NSLayoutConstraint!
     
     
     override func awakeFromNib() {

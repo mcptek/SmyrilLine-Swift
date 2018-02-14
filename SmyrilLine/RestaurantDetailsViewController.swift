@@ -22,7 +22,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     var childMealType: [ChildMealType]?
     var menuType: [ObjectSample]?
     var headerDetailsCurrentlyExpanded = false
-    
+    var MealDetailsCurrentlyExpanded = false
     
     
     override func viewDidLoad() {
@@ -342,6 +342,29 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                         cell.containerView.layer.masksToBounds = true
                     }
                 }
+                
+                let LineLengthOfLabel = self.countLabelLines(label: cell.mealNameDetailsLabel) - 1
+                if LineLengthOfLabel <= 2
+                {
+                    cell.SeeMoreButton.isHidden = true
+                    cell.seeMoreButtonHeightConstraint.constant = 0
+                }
+                else
+                {
+                    cell.SeeMoreButton.isHidden = false
+                    cell.seeMoreButtonHeightConstraint.constant = 30
+                    if self.MealDetailsCurrentlyExpanded
+                    {
+                        cell.mealNameDetailsLabel.numberOfLines = 0
+                        cell.SeeMoreButton.setTitle("See Less", for: .normal)
+                    }
+                    else
+                    {
+                        cell.mealNameDetailsLabel.numberOfLines = 2
+                        cell.SeeMoreButton.setTitle("See More", for: .normal)
+                    }
+                    cell.SeeMoreButton.addTarget(self, action: #selector(mealTypeSeeMoreOrLesssButtonAction(_:)), for: .touchUpInside)
+                }
                 cell.selectionStyle = .none
                 return cell
             }
@@ -605,6 +628,17 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
         }
         else {
             self.headerDetailsCurrentlyExpanded = true
+        }
+        self.restaurantDetailasTableview.reloadData()
+        
+    }
+    
+    func mealTypeSeeMoreOrLesssButtonAction(_ sender : UIButton)  {
+        if self.MealDetailsCurrentlyExpanded {
+            self.MealDetailsCurrentlyExpanded = false
+        }
+        else {
+            self.MealDetailsCurrentlyExpanded = true
         }
         self.restaurantDetailasTableview.reloadData()
         
