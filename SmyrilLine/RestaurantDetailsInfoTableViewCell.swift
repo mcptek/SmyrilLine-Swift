@@ -12,6 +12,8 @@ class RestaurantDetailsInfoTableViewCell: UITableViewCell {
 
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var detailsInfoLabel: UILabel!
+    @IBOutlet weak var restaurantDeialSeeMoreButton: UIButton!
+    @IBOutlet weak var seemoreButtonHeightContraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -4088,29 +4088,42 @@
                                             <outlet property="parentContainerView" destination="cEf-dE-fpu" id="rlV-yG-niU"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RestaurantDetailsInfoCell" rowHeight="50" id="6NT-ju-F4C" customClass="RestaurantDetailsInfoTableViewCell" customModule="SmyrilLine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="245.5" width="375" height="50"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RestaurantDetailsInfoCell" rowHeight="100" id="6NT-ju-F4C" customClass="RestaurantDetailsInfoTableViewCell" customModule="SmyrilLine" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="245.5" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6NT-ju-F4C" id="R0T-sg-4KY">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jD5-Ak-o0C">
-                                                    <rect key="frame" x="8" y="3" width="359" height="44"/>
+                                                    <rect key="frame" x="8" y="3" width="359" height="94"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TfV-SN-zai">
-                                                            <rect key="frame" x="8" y="8" width="343" height="28"/>
+                                                            <rect key="frame" x="8" y="8" width="343" height="40"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <color key="textColor" red="0.58431372549019611" green="0.58431372549019611" blue="0.58431372549019611" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5rW-ec-Cfc">
+                                                            <rect key="frame" x="285" y="56" width="66" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="GaP-Tt-oQ0"/>
+                                                                <constraint firstAttribute="width" constant="66" id="a7V-k1-2wX"/>
+                                                            </constraints>
+                                                            <state key="normal" title="See More">
+                                                                <color key="titleColor" red="0.2274509804" green="0.58431372550000005" blue="0.85098039219999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </state>
+                                                        </button>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="TfV-SN-zai" firstAttribute="top" secondItem="jD5-Ak-o0C" secondAttribute="top" constant="8" id="0bl-7C-cgH"/>
-                                                        <constraint firstAttribute="bottom" secondItem="TfV-SN-zai" secondAttribute="bottom" constant="8" id="4cT-jH-zqj"/>
-                                                        <constraint firstAttribute="trailing" secondItem="TfV-SN-zai" secondAttribute="trailing" constant="8" id="4i7-He-MeN"/>
-                                                        <constraint firstItem="TfV-SN-zai" firstAttribute="leading" secondItem="jD5-Ak-o0C" secondAttribute="leading" constant="8" id="WpJ-t3-gjo"/>
+                                                        <constraint firstItem="TfV-SN-zai" firstAttribute="top" secondItem="jD5-Ak-o0C" secondAttribute="top" constant="8" id="4XZ-ES-vWt"/>
+                                                        <constraint firstItem="TfV-SN-zai" firstAttribute="leading" secondItem="jD5-Ak-o0C" secondAttribute="leading" constant="8" id="6RC-Qq-qRw"/>
+                                                        <constraint firstAttribute="bottom" secondItem="5rW-ec-Cfc" secondAttribute="bottom" constant="8" id="9f2-YV-Yfr"/>
+                                                        <constraint firstAttribute="trailing" secondItem="5rW-ec-Cfc" secondAttribute="trailing" constant="8" id="Cxd-Bi-SJh"/>
+                                                        <constraint firstItem="5rW-ec-Cfc" firstAttribute="top" secondItem="TfV-SN-zai" secondAttribute="bottom" constant="8" id="Sts-K3-8GD"/>
+                                                        <constraint firstAttribute="trailing" secondItem="TfV-SN-zai" secondAttribute="trailing" constant="8" id="oAn-gX-dr5"/>
+                                                        <constraint firstItem="5rW-ec-Cfc" firstAttribute="top" secondItem="TfV-SN-zai" secondAttribute="bottom" constant="8" id="oik-1B-dbP"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -4126,10 +4139,12 @@
                                         <connections>
                                             <outlet property="containerView" destination="jD5-Ak-o0C" id="BRg-Rk-UHa"/>
                                             <outlet property="detailsInfoLabel" destination="TfV-SN-zai" id="fBF-6f-Qux"/>
+                                            <outlet property="restaurantDeialSeeMoreButton" destination="5rW-ec-Cfc" id="Yp9-qJ-2uM"/>
+                                            <outlet property="seemoreButtonHeightContraint" destination="GaP-Tt-oQ0" id="Tc1-62-hSa"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="mealTypeCell" rowHeight="60" id="me5-yr-mEP" customClass="MealTypeHeaderTableViewCell" customModule="SmyrilLine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="295.5" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="345.5" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="me5-yr-mEP" id="yh7-02-lTD">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
@@ -4244,7 +4259,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="mealTYpeDetails" rowHeight="120" id="Axp-Wt-AmA" customClass="MealTypeDescriptionTableViewCell" customModule="SmyrilLine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="355.5" width="375" height="120"/>
+                                        <rect key="frame" x="0.0" y="405.5" width="375" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Axp-Wt-AmA" id="K2h-6g-aL8">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
@@ -4353,7 +4368,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="mealHeader" rowHeight="70" id="pbL-eI-DwO" customClass="MealHeaderTableViewCell" customModule="SmyrilLine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="475.5" width="375" height="70"/>
+                                        <rect key="frame" x="0.0" y="525.5" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pbL-eI-DwO" id="Sya-I6-ccj">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
@@ -4405,7 +4420,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="mealDetailsCell" rowHeight="180" id="waQ-oh-VXo" customClass="MealDetailsTableViewCell" customModule="SmyrilLine" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="545.5" width="375" height="180"/>
+                                        <rect key="frame" x="0.0" y="595.5" width="375" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="waQ-oh-VXo" id="Qd5-go-hF6">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>

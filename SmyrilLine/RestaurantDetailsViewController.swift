@@ -21,6 +21,8 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     var adultMealType: [AdultMealType]?
     var childMealType: [ChildMealType]?
     var menuType: [ObjectSample]?
+    var headerDetailsCurrentlyExpanded = false
+    
     
     
     override func viewDidLoad() {
@@ -153,6 +155,29 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
             if let detailsInfo = self.restaurantDetailsObject?.restaurantDescription {
                 cell.detailsInfoLabel.text = detailsInfo
             }
+            let LineLengthOfLabel = self.countLabelLines(label: cell.detailsInfoLabel) - 1
+            if LineLengthOfLabel <= 2
+            {
+                cell.restaurantDeialSeeMoreButton.isHidden = true
+                cell.seemoreButtonHeightContraint.constant = 0
+            }
+            else
+            {
+                cell.restaurantDeialSeeMoreButton.isHidden = false
+                cell.seemoreButtonHeightContraint.constant = 30
+                if self.headerDetailsCurrentlyExpanded
+                {
+                    cell.detailsInfoLabel.numberOfLines = 0
+                    cell.restaurantDeialSeeMoreButton.setTitle("See Less", for: .normal)
+                }
+                else
+                {
+                    cell.detailsInfoLabel.numberOfLines = 2
+                    cell.restaurantDeialSeeMoreButton.setTitle("See More", for: .normal)
+                }
+                cell.restaurantDeialSeeMoreButton.addTarget(self, action: #selector(headerSeeMoreOrLesssButtonAction(_:)), for: .touchUpInside)
+            }
+            
             cell.selectionStyle = .default
             return cell
         case 2:
@@ -572,6 +597,17 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
 //        default:
 //            return CGSize(width: 100, height: 150)
 //        }
+    }
+    
+    func headerSeeMoreOrLesssButtonAction(_ sender : UIButton)  {
+        if self.headerDetailsCurrentlyExpanded {
+            self.headerDetailsCurrentlyExpanded = false
+        }
+        else {
+            self.headerDetailsCurrentlyExpanded = true
+        }
+        self.restaurantDetailasTableview.reloadData()
+        
     }
 
 }
