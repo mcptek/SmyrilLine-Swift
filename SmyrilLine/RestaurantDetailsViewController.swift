@@ -18,7 +18,8 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     var myHeaderView: RestaurantDetailsHeader!
     var scrollView: MXScrollView!
     var currentLyAdultMealSelected = true
-    var MealType: [MealType]?
+    var adultMealType: [AdultMealType]?
+    var childMealType: [ChildMealType]?
     var menuType: [ObjectSample]?
     
     
@@ -179,77 +180,142 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
             else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "mealTYpeDetails", for: indexPath) as! MealTypeDescriptionTableViewCell
                 if currentLyAdultMealSelected {
-                    self.MealType = self.restaurantDetailsObject?.adultMeals
-                }
-                else {
-                    self.MealType = self.restaurantDetailsObject?.childrenMeals
-                }
-                
-                if let mealName = self.MealType![indexPath.row - 1].name {
-                    cell.maelNameLabel.text = mealName
-                }
-                else {
-                    cell.maelNameLabel.text = nil
-                }
-                
-                if let mealNote = self.MealType![indexPath.row - 1].description {
-                    cell.mealNameDetailsLabel.text = mealNote
-                }
-                else {
-                    cell.mealNameDetailsLabel.text = nil
-                }
-                
-                if let prebookPrice = self.MealType![indexPath.row - 1].prebookPrice {
-                    let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "Prebook: " + prebookPrice)
-                    attributedString.setColorForStr(textToFind: "Prebook: ", color: UIColor(red: 0.3294, green: 0.3294, blue: 0.3294, alpha: 1.0))
-                    attributedString.setColorForStr(textToFind: prebookPrice, color: UIColor(red: 0.4039, green: 0.6470, blue: 0.9911, alpha: 1.0))
-                    cell.prebookPriceLabel.attributedText = attributedString
-                }
-                else {
-                    cell.prebookPriceLabel.attributedText = nil
-                }
-                
-                if let onboardPrce = self.MealType![indexPath.row - 1].onboardPrice {
-                    cell.onboardPriceLabel.text = "Onboard price: " + onboardPrce
-                }
-                else {
-                    cell.onboardPriceLabel.text = nil
-                }
-                
-                if let priceSave = self.MealType![indexPath.row - 1].save {
-                    cell.priceSaveLabel.text = "Save: " + priceSave
-                }
-                else {
-                    cell.priceSaveLabel.text = nil
-                }
-                
-                if let time = self.MealType![indexPath.row - 1].time {
-                    cell.timeHeaderNameLabel.text = "Time"
-                    cell.timeLabel.text = time
-                }
-                else {
-                    if let seatingTime = self.MealType![indexPath.row - 1].seatingTime {
-                        cell.timeHeaderNameLabel.text = "Seatings: " + seatingTime
+                    self.adultMealType = self.restaurantDetailsObject?.adultMeals
+                    if let mealName = self.adultMealType![indexPath.row - 1].name {
+                        cell.maelNameLabel.text = mealName
                     }
-                    cell.timeLabel.text = nil
-                }
-                
-                if let timeNote = self.MealType![indexPath.row - 1].timeNote {
-                    cell.timeNoteLabel.text = timeNote
+                    else {
+                        cell.maelNameLabel.text = nil
+                    }
+                    
+                    if let mealNote = self.adultMealType![indexPath.row - 1].description {
+                        cell.mealNameDetailsLabel.text = mealNote
+                    }
+                    else {
+                        cell.mealNameDetailsLabel.text = nil
+                    }
+                    
+                    if let prebookPrice = self.adultMealType![indexPath.row - 1].prebookPrice {
+                        let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "Prebook: " + prebookPrice)
+                        attributedString.setColorForStr(textToFind: "Prebook: ", color: UIColor(red: 0.3294, green: 0.3294, blue: 0.3294, alpha: 1.0))
+                        attributedString.setColorForStr(textToFind: prebookPrice, color: UIColor(red: 0.4039, green: 0.6470, blue: 0.9911, alpha: 1.0))
+                        cell.prebookPriceLabel.attributedText = attributedString
+                    }
+                    else {
+                        cell.prebookPriceLabel.attributedText = nil
+                    }
+                    
+                    if let onboardPrce = self.adultMealType![indexPath.row - 1].onboardPrice {
+                        cell.onboardPriceLabel.text = "Onboard price: " + onboardPrce
+                    }
+                    else {
+                        cell.onboardPriceLabel.text = nil
+                    }
+                    
+                    if let priceSave = self.adultMealType![indexPath.row - 1].save {
+                        cell.priceSaveLabel.text = "Save: " + priceSave
+                    }
+                    else {
+                        cell.priceSaveLabel.text = nil
+                    }
+                    
+                    if let time = self.adultMealType![indexPath.row - 1].time {
+                        cell.timeHeaderNameLabel.text = "Time"
+                        cell.timeLabel.text = time
+                    }
+                    else {
+                        if let seatingTime = self.adultMealType![indexPath.row - 1].seatingTime {
+                            cell.timeHeaderNameLabel.text = "Seatings: " + seatingTime
+                        }
+                        cell.timeLabel.text = nil
+                    }
+                    
+                    if let timeNote = self.adultMealType![indexPath.row - 1].timeNote {
+                        cell.timeNoteLabel.text = timeNote
+                    }
+                    else {
+                        cell.timeNoteLabel.text = nil
+                    }
+                    //                cell.containerView.borders(for: [.left, .bottom], width: 1, color: .lightGray)
+                    if (self.adultMealType?.count)! - 1 == indexPath.row {
+                        // cell.containerView.borders(for: [.left, .bottom], width: 1, color: .lightGray)
+                        
+                        cell.containerView.layer.cornerRadius = 1
+                        cell.containerView.layer.masksToBounds = true
+                    }
+                    else {
+                        cell.containerView.layer.cornerRadius = 3
+                        cell.containerView.layer.masksToBounds = true
+                    }
                 }
                 else {
-                    cell.timeNoteLabel.text = nil
-                }
-//                cell.containerView.borders(for: [.left, .bottom], width: 1, color: .lightGray)
-                if (self.MealType?.count)! - 1 == indexPath.row {
-                  // cell.containerView.borders(for: [.left, .bottom], width: 1, color: .lightGray)
-
-                    cell.containerView.layer.cornerRadius = 1
-                    cell.containerView.layer.masksToBounds = true
-                }
-                else {
-                    cell.containerView.layer.cornerRadius = 3
-                    cell.containerView.layer.masksToBounds = true
+                    self.childMealType = self.restaurantDetailsObject?.childrenMeals
+                    if let mealName = self.childMealType![indexPath.row - 1].name {
+                        cell.maelNameLabel.text = mealName
+                    }
+                    else {
+                        cell.maelNameLabel.text = nil
+                    }
+                    
+                    if let mealNote = self.childMealType![indexPath.row - 1].description {
+                        cell.mealNameDetailsLabel.text = mealNote
+                    }
+                    else {
+                        cell.mealNameDetailsLabel.text = nil
+                    }
+                    
+                    if let prebookPrice = self.childMealType![indexPath.row - 1].prebookPrice {
+                        let attributedString: NSMutableAttributedString = NSMutableAttributedString(string: "Prebook: " + prebookPrice)
+                        attributedString.setColorForStr(textToFind: "Prebook: ", color: UIColor(red: 0.3294, green: 0.3294, blue: 0.3294, alpha: 1.0))
+                        attributedString.setColorForStr(textToFind: prebookPrice, color: UIColor(red: 0.4039, green: 0.6470, blue: 0.9911, alpha: 1.0))
+                        cell.prebookPriceLabel.attributedText = attributedString
+                    }
+                    else {
+                        cell.prebookPriceLabel.attributedText = nil
+                    }
+                    
+                    if let onboardPrce = self.childMealType![indexPath.row - 1].onboardPrice {
+                        cell.onboardPriceLabel.text = "Onboard price: " + onboardPrce
+                    }
+                    else {
+                        cell.onboardPriceLabel.text = nil
+                    }
+                    
+                    if let priceSave = self.childMealType![indexPath.row - 1].save {
+                        cell.priceSaveLabel.text = "Save: " + priceSave
+                    }
+                    else {
+                        cell.priceSaveLabel.text = nil
+                    }
+                    
+                    if let time = self.childMealType![indexPath.row - 1].time {
+                        cell.timeHeaderNameLabel.text = "Time"
+                        cell.timeLabel.text = time
+                    }
+                    else {
+                        if let seatingTime = self.childMealType![indexPath.row - 1].seatingTime {
+                            cell.timeHeaderNameLabel.text = "Seatings: " + seatingTime
+                        }
+                        cell.timeLabel.text = nil
+                    }
+                    
+                    if let timeNote = self.childMealType![indexPath.row - 1].timeNote {
+                        cell.timeNoteLabel.text = timeNote
+                    }
+                    else {
+                        cell.timeNoteLabel.text = nil
+                    }
+                    //                cell.containerView.borders(for: [.left, .bottom], width: 1, color: .lightGray)
+                    if (self.childMealType?.count)! - 1 == indexPath.row {
+                        // cell.containerView.borders(for: [.left, .bottom], width: 1, color: .lightGray)
+                        
+                        cell.containerView.layer.cornerRadius = 1
+                        cell.containerView.layer.masksToBounds = true
+                    }
+                    else {
+                        cell.containerView.layer.cornerRadius = 3
+                        cell.containerView.layer.masksToBounds = true
+                    }
                 }
                 cell.selectionStyle = .none
                 return cell

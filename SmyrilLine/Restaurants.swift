@@ -26,8 +26,8 @@ class RestaurantDetailsInfo: Mappable{
      var lunchTime : String?
      var dinnerTime : String?
      var restaurantDescription : String?
-     var adultMeals : [MealType]?
-     var childrenMeals : [MealType]?
+     var adultMeals : [AdultMealType]?
+     var childrenMeals : [ChildMealType]?
      var breakfastItems : [ObjectSample]?
      var lunchItems : [ObjectSample]?
      var dinnerItems : [ObjectSample]?
@@ -44,12 +44,12 @@ class RestaurantDetailsInfo: Mappable{
         breakfastItems <- map["breakfastItems"]
         lunchItems <- map["lunchItems"]
         dinnerItems <- map["dinnerItems"]
-        adultMeals <- map["adultMeals"]
-        childrenMeals <- map["childrenMeals"]
+        adultMeals <- map["meals"]
+        childrenMeals <- map["meals"]
     }
 }
 
-class MealType: Mappable{
+class AdultMealType: Mappable{
     var name : String?
     var prebookPrice : String?
     var onboardPrice : String?
@@ -63,10 +63,34 @@ class MealType: Mappable{
     
     func mapping(map: Map) {
         name <- map["name"]
-        prebookPrice <- map["prebookPrice"]
-        onboardPrice <- map["onboardPrice"]
-        description <- map["tag"]
-        save <- map["save"]
+        prebookPrice <- map["adultPrebookPrice"]
+        onboardPrice <- map["adultOnboardPrice"]
+        description <- map["description"]
+        save <- map["adultSave"]
+        time <- map["time"]
+        seatingTime <- map["seatingTime"]
+        timeNote <- map["seatingText"]
+    }
+}
+
+class ChildMealType: Mappable{
+    var name : String?
+    var prebookPrice : String?
+    var onboardPrice : String?
+    var description : String?
+    var save : String?
+    var time : String?
+    var seatingTime : String?
+    var timeNote : String?
+    required init?(map: Map){
+    }
+    
+    func mapping(map: Map) {
+        name <- map["name"]
+        prebookPrice <- map["childPrebookPrice"]
+        onboardPrice <- map["childOnboardPrice"]
+        description <- map["description"]
+        save <- map["childSave"]
         time <- map["time"]
         seatingTime <- map["seatingTime"]
         timeNote <- map["seatingText"]
