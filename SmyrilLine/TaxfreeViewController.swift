@@ -11,11 +11,18 @@ import AlamofireObjectMapper
 import Alamofire
 import SDWebImage
 import MXParallaxHeader
+import ReachabilitySwift
 
-class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, URLSessionDownloadDelegate, UIDocumentInteractionControllerDelegate {
 
+    @IBOutlet weak var downloadButton: UIBarButtonItem!
     @IBOutlet weak var myTaxfreeCollectionView: UICollectionView!
+    @IBOutlet weak var downloadProgressView: UIProgressView!
+    @IBOutlet weak var downloadBgView: UIView!
+    @IBOutlet weak var downloadProgressContainerView: UIView!
     
+    var downloadTask: URLSessionDownloadTask!
+    var backgroundSession: URLSession!
     var myHeaderView: TaxfreeHeader!
     var scrollView: MXScrollView!
     var productInfoCategoryId: String?
@@ -29,6 +36,10 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
         self.title = "Tax Free"
+        
+        let backgroundSessionConfiguration = URLSessionConfiguration.background(withIdentifier: "backgroundSession")
+        backgroundSession = Foundation.URLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: OperationQueue.main)
+        self.downloadProgressView.setProgress(0.0, animated: false)
         
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
@@ -44,14 +55,52 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         //self.myTaxfreeCollectionView.backgroundColor = UIColor.white.withAlphaComponent(0.8)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.downloadButton.isEnabled = false
+        self.downloadButton.tintColor = .clear
+        
+        self.downloadBgView.isHidden = true
+        self.downloadProgressContainerView.isHidden = true
+        
+        self.downloadProgressContainerView.layer.cornerRadius = 3
+        self.downloadProgressContainerView.layer.masksToBounds = true
+    }
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         self.CallTaxfreeShopAPI()
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: nil)
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        if downloadTask != nil{
+            downloadTask.cancel()
+            self.downloadBgView.isHidden = true
+            self.downloadProgressContainerView.isHidden = true
+        }
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reachabilityChanged"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    func reachabilityChanged() {
+        
+        if ReachabilityManager.shared.reachabilityStatus == .notReachable {
+            if downloadTask != nil{
+                downloadTask.cancel()
+                self.downloadBgView.isHidden = true
+                self.downloadProgressContainerView.isHidden = true
+                self.showAlert(title: "Error", message: "There is no internet connection now. Please try again later")
+            }
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int
@@ -61,8 +110,8 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        if (self.shopObject?.itemArray?.isEmpty == true) {
-            self.myTaxfreeCollectionView.setEmptyMessage("There is no item available now.")
+        if (self.shopObject?.itemArray?.count == 0 || self.shopObject == nil) {
+            self.myTaxfreeCollectionView.setEmptyMessage("No Tax Free item is available")
         } else {
             self.myTaxfreeCollectionView.restore()
         }
@@ -209,12 +258,55 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     }
     */
 
+    @IBAction func downloadCancelButtonAction(_ sender: Any) {
+        if downloadTask != nil{
+            downloadTask.cancel()
+            self.downloadBgView.isHidden = true
+            self.downloadProgressContainerView.isHidden = true
+        }
+    }
+    
+    @IBAction func CatalogueDownLoadButtonAction(_ sender: Any) {
+        
+        let reachibility = Reachability()!
+        if reachibility.isReachable {
+            if var urlPath = self.shopObject?.attatchFileUrl {
+                if self.downloadBgView.isHidden == true {
+                    urlPath = urlPath.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
+                    let url = URL(string: UrlMCP.server_base_url + urlPath)!
+                    downloadTask = backgroundSession.downloadTask(with: url)
+                    downloadTask.resume()
+                    self.downloadBgView.isHidden = false
+                    self.downloadProgressContainerView.isHidden = false
+                }
+            }
+        }
+        else {
+            self.showAlert(title: "Error", message: "There is no internet connection now. Please try again later")
+        }
+    }
+    
+    
     func CallTaxfreeShopDetailsAPIwithObjectId(objectId: String) {
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
         let shipId = UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") as! String
-        
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng/\(String(describing: shipId))/\(objectId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        var language = "en"
+        if UserDefaults.standard.value(forKey: "CurrentSelectedLanguage") != nil {
+            let settingsLanguage = UserDefaults.standard.value(forKey: "CurrentSelectedLanguage")  as! Int
+            switch settingsLanguage {
+            case 0:
+                language = "/en/"
+            case 1:
+                language = "/de/"
+            case 2:
+                language = "/fo/"
+            default:
+                language = "/da/"
+            }
+        }
+
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + language  + "\(String(describing: shipId))/\(objectId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseArray { (response: DataResponse<[ShopObject]>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
@@ -239,7 +331,21 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     func CallTaxfreeShopAPI() {
         self.activityIndicatorView.startAnimating()
         let shipId = UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") as! String
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + "/Eng/\(String(describing: shipId))", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        var language = "en"
+        if UserDefaults.standard.value(forKey: "CurrentSelectedLanguage") != nil {
+            let settingsLanguage = UserDefaults.standard.value(forKey: "CurrentSelectedLanguage")  as! Int
+            switch settingsLanguage {
+            case 0:
+                language = "/en/"
+            case 1:
+                language = "/de/"
+            case 2:
+                language = "/fo/"
+            default:
+                language = "/da/"
+            }
+        }
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + language + "\(String(describing: shipId))", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseArray { (response: DataResponse<[TaxFreeShopInfo]>) in
                 self.activityIndicatorView.stopAnimating()
                 switch response.result
@@ -266,6 +372,16 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
                             {
                                 self.myHeaderView.headerLocationLabel.text = location
                             }
+                            
+                            if (self.shopObject?.attatchFileUrl) != nil
+                            {
+                                self.downloadButton.isEnabled = true
+                                self.downloadButton.tintColor = .white
+                            }
+                            else {
+                                self.downloadButton.isEnabled = false
+                                self.downloadButton.tintColor = .clear
+                            }
                         }
                         else {
                             self.myHeaderView.headerImageView.image = nil
@@ -279,6 +395,82 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
                     self.showAlert(title: "Error", message: (response.result.error?.localizedDescription)!)
                 }
         }
+    }
+    
+    func showFileWithPath(path: String){
+        let isFileFound:Bool? = FileManager.default.fileExists(atPath: path)
+        if isFileFound == true{
+            let viewer = UIDocumentInteractionController(url: URL(fileURLWithPath: path))
+            viewer.delegate = self
+            viewer.presentPreview(animated: true)
+        }
+    }
+    
+    //MARK: URLSessionDownloadDelegate
+    // 1
+    func urlSession(_ session: URLSession,
+                    downloadTask: URLSessionDownloadTask,
+                    didFinishDownloadingTo location: URL){
+        
+        let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+        let documentDirectoryPath:String = path[0]
+        let fileManager = FileManager()
+        var fileName = ""
+        if let name = self.shopObject?.attatchFileName {
+            fileName = "/" + name
+        }
+        else {
+            fileName = "/file.pdf"
+        }
+        
+        //let name = "/" + self.shopObject?.attatchFileName
+//        if name.range(of:".pdf") == nil {
+//            name = name + ".pdf"
+//        }
+        let destinationURLForFile = URL(fileURLWithPath: documentDirectoryPath.appendingFormat(fileName))
+        self.downloadBgView.isHidden = true
+        self.downloadProgressContainerView.isHidden = true
+        if fileManager.fileExists(atPath: destinationURLForFile.path){
+            showFileWithPath(path: destinationURLForFile.path)
+        }
+        else{
+            do {
+                try fileManager.moveItem(at: location, to: destinationURLForFile)
+                // show file
+                showFileWithPath(path: destinationURLForFile.path)
+            }catch{
+                print("An error occurred while moving file to destination url")
+            }
+        }
+    }
+    // 2
+    func urlSession(_ session: URLSession,
+                    downloadTask: URLSessionDownloadTask,
+                    didWriteData bytesWritten: Int64,
+                    totalBytesWritten: Int64,
+                    totalBytesExpectedToWrite: Int64){
+        self.downloadProgressView.setProgress(Float(totalBytesWritten)/Float(totalBytesExpectedToWrite), animated: true)
+    }
+    
+    //MARK: URLSessionTaskDelegate
+    func urlSession(_ session: URLSession,
+                    task: URLSessionTask,
+                    didCompleteWithError error: Error?){
+        downloadTask = nil
+        self.downloadProgressView.setProgress(0.0, animated: true)
+        if (error != nil) {
+            print(error!.localizedDescription)
+        }else{
+            print("The task finished transferring data successfully")
+        }
+        self.downloadBgView.isHidden = true
+        self.downloadProgressContainerView.isHidden = true
+    }
+    
+    //MARK: UIDocumentInteractionControllerDelegate
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController
+    {
+        return self
     }
 
 }

@@ -90,7 +90,21 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
         let shipId = UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") as! String
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + "/Eng/\(shipId)/\(self.shipInfoCategoryId!)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        var language = "en"
+        if UserDefaults.standard.value(forKey: "CurrentSelectedLanguage") != nil {
+            let settingsLanguage = UserDefaults.standard.value(forKey: "CurrentSelectedLanguage")  as! Int
+            switch settingsLanguage {
+            case 0:
+                language = "/en/"
+            case 1:
+                language = "/de/"
+            case 2:
+                language = "/fo/"
+            default:
+                language = "/da/"
+            }
+        }
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + language + "\(shipId)/\(self.shipInfoCategoryId!)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
@@ -112,7 +126,21 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
     func CallShipInfoAPI() {
         self.activityIndicatorView.startAnimating()
         let shipId = UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") as! String
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + "/Eng/\(shipId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        var language = "en"
+        if UserDefaults.standard.value(forKey: "CurrentSelectedLanguage") != nil {
+            let settingsLanguage = UserDefaults.standard.value(forKey: "CurrentSelectedLanguage")  as! Int
+            switch settingsLanguage {
+            case 0:
+                language = "/en/"
+            case 1:
+                language = "/de/"
+            case 2:
+                language = "/fo/"
+            default:
+                language = "/da/"
+            }
+        }
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + language + "\(shipId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
                 self.activityIndicatorView.stopAnimating()
                 switch response.result

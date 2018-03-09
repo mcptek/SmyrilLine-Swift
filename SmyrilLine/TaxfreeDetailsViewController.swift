@@ -50,42 +50,6 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
             self.myHeaderView.productImageView.sd_setIndicatorStyle(.gray)
             self.myHeaderView.productImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
         }
-        
-        if let productName = self.productName
-        {
-            self.myHeaderView.productNameLabel.text = productName
-        }
-        
-        self.productPrice = self.productPrice?.replacingOccurrences(of: "€", with: "", options: .literal, range: nil)
-        if let priceObject = self.productPrice
-        {
-            var price = priceObject.replacingOccurrences(of: ".", with: ",", options: .literal, range: nil)
-            //price = "€" + price
-            if price.characters.contains(",") {
-                let splittedStringsArray = price.split(separator: ",", maxSplits: 1, omittingEmptySubsequences: true)
-                if let firstString = splittedStringsArray.first, let secondString = splittedStringsArray.last
-                {
-                    let numericPart = String(describing: firstString)
-                    let fractionPart = String(describing: secondString)
-                    let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
-                    let scriptFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
-                    let stringwithSquare = numericPart.attributedStringWithSuperscript(fractionPart, mainStringFont: mainFont, subStringFont: scriptFont, offSetFromBaseLine: 10)
-                    self.myHeaderView.productPriceLabel.attributedText = stringwithSquare
-                }
-                else
-                {
-                    let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
-                    self.myHeaderView.productPriceLabel.text = price
-                    self.myHeaderView.productPriceLabel.font = mainFont
-                    
-                }
-            }
-            else {
-                let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
-                self.myHeaderView.productPriceLabel.text = price
-                self.myHeaderView.productPriceLabel.font = mainFont
-            }
-        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -105,7 +69,7 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -113,8 +77,48 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if indexPath.section == 0
+        {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "priceCell", for: indexPath) as! TaxfreeDetailsPriceTableViewCell
+            if let productName = self.productName
+            {
+                cell.productNameLabel.text = productName
+            }
+            
+            self.productPrice = self.productPrice?.replacingOccurrences(of: "€", with: "", options: .literal, range: nil)
+            if let priceObject = self.productPrice
+            {
+                var price = priceObject.replacingOccurrences(of: ".", with: ",", options: .literal, range: nil)
+                //price = "€" + price
+                if price.characters.contains(",") {
+                    let splittedStringsArray = price.split(separator: ",", maxSplits: 1, omittingEmptySubsequences: true)
+                    if let firstString = splittedStringsArray.first, let secondString = splittedStringsArray.last
+                    {
+                        let numericPart = String(describing: firstString)
+                        let fractionPart = String(describing: secondString)
+                        let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
+                        let scriptFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
+                        let stringwithSquare = numericPart.attributedStringWithSuperscript(fractionPart, mainStringFont: mainFont, subStringFont: scriptFont, offSetFromBaseLine: 10)
+                        cell.productPriceLabel.attributedText = stringwithSquare
+                    }
+                    else
+                    {
+                        let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
+                        cell.productPriceLabel.text = price
+                        cell.productPriceLabel.font = mainFont
+                        
+                    }
+                }
+                else {
+                    let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
+                    cell.productPriceLabel.text = price
+                    cell.productPriceLabel.font = mainFont
+                }
+            }
+            cell.selectionStyle = .none
+            return cell
+        }
+        else if indexPath.section == 1
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "productDetailsCell", for: indexPath) as! TaxfreeProductDetailsTableViewCell
             if let productDetails = self.productDetails

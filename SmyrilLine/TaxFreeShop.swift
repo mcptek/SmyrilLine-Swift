@@ -15,6 +15,9 @@ class TaxFreeShopInfo: Mappable{
     var shopOpeningClosingTime: String?
     var shopLocation: String?
     var itemArray : [ShopObject]?
+    var attatchFileName: String?
+    var attatchFileUrl: String?
+    
     required init?(map: Map){
     }
     
@@ -24,6 +27,8 @@ class TaxFreeShopInfo: Mappable{
         shopOpeningClosingTime <- map["openingHours"]
         shopLocation <- map["subheader"]
         itemArray <- map["children"]
+        attatchFileName <- map["attachedFileName"]
+        attatchFileUrl <- map["attachedFileUrl"]
     }
 }
 

@@ -16,8 +16,6 @@ import ReachabilitySwift
 import Device_swift
 import IQKeyboardManagerSwift
 
-
-
 @available(iOS 10.0, *)
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate {
@@ -208,7 +206,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate {
     
     func createSocketConnection()  {
         StreamingConnection.sharedInstance.connection.started = {
-            print("Connected")
             var language = "en"
             if UserDefaults.standard.value(forKey: "CurrentSelectedLanguage") != nil {
                 let settingsLanguage = UserDefaults.standard.value(forKey: "CurrentSelectedLanguage")  as! Int

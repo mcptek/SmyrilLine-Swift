@@ -29,18 +29,21 @@ class ReachabilityManager: NSObject {
         case .notReachable:
             debugPrint("Network became unreachable")
             StreamingConnection.sharedInstance.connection.stop()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: reachability)
         case .reachableViaWiFi:
             debugPrint("Network reachable through WiFi")
             if StreamingConnection.sharedInstance.connection.state == .disconnected
             {
                 StreamingConnection.sharedInstance.connection.start()
             }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: reachability)
         case .reachableViaWWAN:
             debugPrint("Network reachable through Cellular Data")
             if StreamingConnection.sharedInstance.connection.state == .disconnected
             {
                 StreamingConnection.sharedInstance.connection.start()
             }
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: reachability)
         }
     }
     

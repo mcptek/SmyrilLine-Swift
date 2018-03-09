@@ -84,7 +84,21 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
         let shipId = UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") as! String
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + "/Eng/\(String(describing: shipId))", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        var language = "en"
+        if UserDefaults.standard.value(forKey: "CurrentSelectedLanguage") != nil {
+            let settingsLanguage = UserDefaults.standard.value(forKey: "CurrentSelectedLanguage")  as! Int
+            switch settingsLanguage {
+            case 0:
+                language = "/en/"
+            case 1:
+                language = "/de/"
+            case 2:
+                language = "/fo/"
+            default:
+                language = "/da/"
+            }
+        }
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + language + "\(String(describing: shipId))", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<DestinationInfo>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
