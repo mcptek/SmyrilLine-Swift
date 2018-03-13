@@ -17,7 +17,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
     @IBOutlet weak var shipInfotableView: UITableView!
     
     var cellIndex = 1
-    var shipInfoObject: TaxFreeShopInfo?
+    var shipInfoObject: GeneralCategory?
     var myHeaderView: MyTaxfreeScrollViewHeader!
     var scrollView: MXScrollView!
     var shipInfoCategoryId: String?
@@ -105,7 +105,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
             }
         }
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + language + "\(shipId)/\(self.shipInfoCategoryId!)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
-            .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
+            .responseObject { (response: DataResponse<GeneralCategory>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
                 switch response.result {
@@ -114,7 +114,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
                     {
                         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                         let nextScene = storyBoard.instantiateViewController(withIdentifier: "shipInfoDetails") as! ShipInfoDetailsViewController
-                        nextScene.shipInfoCategoryDetailsArray = response.result.value
+                        nextScene.shipInfoCategoryObject = response.result.value
                         self.navigationController?.pushViewController(nextScene, animated: true)
                     }
                 case .failure(let error):
@@ -141,7 +141,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
             }
         }
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.ShipInfoParentPath + language + "\(shipId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
-            .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
+            .responseObject { (response: DataResponse<GeneralCategory>) in
                 self.activityIndicatorView.stopAnimating()
                 switch response.result
                 {
@@ -149,7 +149,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
                     if response.response?.statusCode == 200
                     {
                         self.shipInfoObject = response.result.value
-                        if let imageUrlStr = self.shipInfoObject?.shopImageUrlStr
+                        if let imageUrlStr = self.shipInfoObject?.imageUrl
                         {
                             let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
                             self.myHeaderView.taxFreeHeaderImageView.sd_setShowActivityIndicatorView(true)
@@ -184,7 +184,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
         
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryHeaderCelll", for: indexPath) as! CategoryHeaderTableViewCell
-            cell.headerTitleLabel.text = self.shipInfoObject?.shopOpeningClosingTime
+            cell.headerTitleLabel.text = self.shipInfoObject?.detailsDescription
             cell.selectionStyle = .none
             return cell
         }
@@ -203,7 +203,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
             {
                 cell.leftCategoryNameLabel.text = categoryname
             }
-            if let categoryId = self.shipInfoObject?.itemArray?[self.cellIndex].objectId
+            if let categoryId = self.shipInfoObject?.itemArray?[self.cellIndex].childrenId
             {
                 cell.leftContainerButton.tag = 1000 + Int(categoryId)!
                 cell.leftContainerButton.addTarget(self, action: #selector(shipInfoCategoryDetailsButton(_:)), for: .touchUpInside)
@@ -225,7 +225,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
                     cell.rightCategoryNameLabel.text = categoryname
                 }
                 
-                if let categoryId = self.shipInfoObject?.itemArray?[self.cellIndex].objectId
+                if let categoryId = self.shipInfoObject?.itemArray?[self.cellIndex].childrenId
                 {
                     cell.rightContainerButton.tag = 1000 + Int(categoryId)!
                     cell.rightContainerButton.addTarget(self, action: #selector(shipInfoCategoryDetailsButton(_:)), for: .touchUpInside)

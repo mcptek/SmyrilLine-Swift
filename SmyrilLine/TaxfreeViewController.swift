@@ -67,7 +67,6 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         self.downloadProgressContainerView.layer.masksToBounds = true
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         self.CallTaxfreeShopAPI()

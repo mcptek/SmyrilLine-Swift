@@ -16,7 +16,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
 
     @IBOutlet weak var categoryTableview: UITableView!
     var cellIndex = 1
-    var destinationCategoryArray: TaxFreeShopInfo?
+    var destinationCategoryObject: GeneralCategory?
     var myHeaderView: MyTaxfreeScrollViewHeader!
     var scrollView: MXScrollView!
     var destinationId:String?
@@ -101,7 +101,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
                 language = "/da/"
             }
         }
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + language + "\(shipId)/\(self.destinationId!)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + language + "\(shipId)/\(self.destinationCategoryId!)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
@@ -123,6 +123,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     func CallDestinationCategoryAPI() {
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
+        let shipId = UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") as! String
         var language = "en"
         if UserDefaults.standard.value(forKey: "CurrentSelectedLanguage") != nil {
             let settingsLanguage = UserDefaults.standard.value(forKey: "CurrentSelectedLanguage")  as! Int
@@ -137,16 +138,16 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
                 language = "/da/"
             }
         }
-        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + language + self.destinationId!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
-            .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
+        Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + language + "\(shipId)/\(self.destinationId!)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+            .responseObject { (response: DataResponse<GeneralCategory>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
                 switch response.result {
                 case .success:
                     if response.response?.statusCode == 200
                     {
-                        self.destinationCategoryArray = response.result.value
-                        if let imageUrlStr = self.destinationCategoryArray?.shopImageUrlStr
+                        self.destinationCategoryObject = response.result.value
+                        if let imageUrlStr = self.destinationCategoryObject?.imageUrl
                         {
                             let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
                             self.myHeaderView.taxFreeHeaderImageView.sd_setShowActivityIndicatorView(true)
@@ -169,7 +170,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         var totalCount = 1
-        if let count = self.destinationCategoryArray?.itemArray?.count
+        if let count = self.destinationCategoryObject?.itemArray?.count
         {
             totalCount += (count / 2 ) + (count % 2)
         }
@@ -181,7 +182,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
         
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryHeaderCell", for: indexPath) as! CategoryHeaderTableViewCell
-            cell.headerTitleLabel.text = self.destinationCategoryArray?.shopOpeningClosingTime
+            cell.headerTitleLabel.text = self.destinationCategoryObject?.detailsDescription
             let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel) - 1
             if LineLengthOfLabel <= 2
             {
@@ -210,7 +211,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "destinationCategoryCell", for: indexPath) as! DestinationCategoryTableViewCell
             self.cellIndex = (indexPath.row - 1) * 2
-            if let imageUrlStr = self.destinationCategoryArray?.itemArray?[self.cellIndex].imageUrl
+            if let imageUrlStr = self.destinationCategoryObject?.itemArray?[self.cellIndex].imageUrl
             {
                 let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
                 cell.leftCategoryImageView.sd_setShowActivityIndicatorView(true)
@@ -218,19 +219,19 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
                 cell.leftCategoryImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
                 
             }
-            if let categoryname = self.destinationCategoryArray?.itemArray?[self.cellIndex].name
+            if let categoryname = self.destinationCategoryObject?.itemArray?[self.cellIndex].name
             {
                 cell.leftCategoryNameLabel.text = categoryname
             }
-            if let categoryId = self.destinationCategoryArray?.itemArray?[self.cellIndex].objectId
+            if let categoryId = self.destinationCategoryObject?.itemArray?[self.cellIndex].childrenId
             {
                 cell.leftContainerButton.tag = 1000 + Int(categoryId)!
                 cell.leftContainerButton.addTarget(self, action: #selector(categoryDetailsButton(_:)), for: .touchUpInside)
             }
             self.cellIndex += 1
-            if self.cellIndex < (self.destinationCategoryArray?.itemArray?.count)!
+            if self.cellIndex < (self.destinationCategoryObject?.itemArray?.count)!
             {
-                if let imageUrlStr = self.destinationCategoryArray?.itemArray?[self.cellIndex].imageUrl
+                if let imageUrlStr = self.destinationCategoryObject?.itemArray?[self.cellIndex].imageUrl
                 {
                     let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
                     cell.rightContainerView.isHidden = false
@@ -239,11 +240,11 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
                     cell.rightCategotyImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
                     
                 }
-                if let categoryname = self.destinationCategoryArray?.itemArray?[self.cellIndex].name
+                if let categoryname = self.destinationCategoryObject?.itemArray?[self.cellIndex].name
                 {
                     cell.rightCategoryNameLabel.text = categoryname
                 }
-                if let categoryId = self.destinationCategoryArray?.itemArray?[self.cellIndex].objectId
+                if let categoryId = self.destinationCategoryObject?.itemArray?[self.cellIndex].childrenId
                 {
                     cell.rightContainerButton.tag = 1000 + Int(categoryId)!
                     cell.rightContainerButton.addTarget(self, action: #selector(categoryDetailsButton(_:)), for: .touchUpInside)

@@ -12,7 +12,7 @@ import MXParallaxHeader
 
 class ShipInfoDetailsViewController: UIViewController,UITableViewDataSource, UITableViewDelegate {
 
-    var shipInfoCategoryDetailsArray: TaxFreeShopInfo?
+    var shipInfoCategoryObject: GeneralCategory?
     var myHeaderView: MyTaxfreeScrollViewHeader!
     var scrollView: MXScrollView!
     
@@ -22,7 +22,7 @@ class ShipInfoDetailsViewController: UIViewController,UITableViewDataSource, UIT
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.title = self.shipInfoCategoryDetailsArray?.shopName
+        self.title = self.shipInfoCategoryObject?.name
         
         self.shipInfoCategoryTableview.estimatedRowHeight = 140
         self.shipInfoCategoryTableview.rowHeight = UITableViewAutomaticDimension
@@ -41,7 +41,7 @@ class ShipInfoDetailsViewController: UIViewController,UITableViewDataSource, UIT
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        if let imageUrlStr = self.shipInfoCategoryDetailsArray?.shopImageUrlStr
+        if let imageUrlStr = self.shipInfoCategoryObject?.imageUrl
         {
             let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
             self.myHeaderView.taxFreeHeaderImageView.sd_setShowActivityIndicatorView(true)
@@ -71,7 +71,7 @@ class ShipInfoDetailsViewController: UIViewController,UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "shipIngoCategoryDetails", for: indexPath) as! CategoryHeaderTableViewCell
-        cell.headerTitleLabel.text = self.shipInfoCategoryDetailsArray?.shopOpeningClosingTime
+        cell.headerTitleLabel.text = self.shipInfoCategoryObject?.detailsDescription
         cell.selectionStyle = .none
         return cell
         

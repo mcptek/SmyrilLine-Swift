@@ -14,7 +14,7 @@ import SDWebImage
 class DestinationViewController: UIViewController,UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var destinationTableview: UITableView!
-    var destinaionArray:[ObjectSample]?
+    var destinaionArray:[DestinationChildren]?
     
     var activityIndicatorView: UIActivityIndicatorView!
     override func viewDidLoad() {
@@ -62,8 +62,6 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
         // Dispose of any resources that can be recreated.
     }
     
-
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -75,7 +73,7 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
         {
             let vc = segue.destination as! DestinationCategoryViewController
             let indexPath = self.destinationTableview.indexPathForSelectedRow
-            vc.destinationId = self.destinaionArray?[(indexPath?.section)!].objectId
+            vc.destinationId = self.destinaionArray?[(indexPath?.section)!].childrenId
             vc.destinationName = self.destinaionArray?[(indexPath?.section)!].name
         }
     }
@@ -106,7 +104,7 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
                 case .success:
                     if response.response?.statusCode == 200
                     {
-                        self.destinaionArray = response.result.value?.name
+                        self.destinaionArray = response.result.value?.itemArray
                         self.destinationTableview.reloadData()
                     }
                 case .failure(let error):
