@@ -1,0 +1,191 @@
+/* 
+  Localizable.strings
+  SmyrilLine
+
+  Created by Rafay Hasan on 14/3/18.
+  Copyright © 2018 Rafay Hasan. All rights reserved.
+*/
+
+
+"Show this coupon to the staff" = "Weisen sie diesen Gutschein der Besatzung vor";
+
+"Duty free shopping aboard the MS Norröna" = "Duty free Einkauf an Bord der MS Norröna";
+
+"On deck 5 you will find our tax free shop - Explorer Shop" = "Auf Deck 5 befindet sich der tax free shop";
+
+"Nothing to show" = "Keine Information vorhanden";
+
+
+"Home" = "Zuhause";
+
+"Ship tracker" = "Standort";
+
+"Coupons" = "Gutscheine";
+
+"About" = "Um";
+
+"Restaurants & Bars" = "Restaurants und Bars";
+
+"Tax Free" = "Tax Free";
+
+"Ship Info" = "Schiffsinformationen";
+
+"Destinations" = "Reiseziele";
+
+"Use coupon" = "Gutschein einlösen";
+
+"Offer ends" = "Gültigkeit";
+
+"Ends" = "Endet";
+
+"NEXT PORT" = "Nächster Hafen";
+
+"PREVIOUS PORT" = "Vorheriger Hafen";
+
+"SPEED" = "Geschwindigkeit";
+
+"Search" = "Suche";
+
+"Notification" = "Nachricht";
+
+"My Smyril Line" = "Mein Smiril Line";
+
+"Welcome to Smyril Line" = "Willkommen";
+
+"Download Catalogue" = "Download Auswahl";
+
+"No records" = "Keine Information vorhanden";
+
+"No results" = "Kein Resultat";
+
+"Dismiss" = "Abbruch";
+
+"My Ticket" = "Mein Ticket";
+
+"Help" = "Hilfe";
+
+"Last name" = "Familienname";
+
+"Booking No" = "Buchungsnummer";
+
+"Routes" = "Strecken";
+
+"DEPARTURE" = "Abfahrt";
+
+"ARRIVAL" = "Ankunft";
+
+"TRAVELLERS" = "Reisende";
+
+"Language" = "Sprache";
+
+"Adults" = "Erwachsener";
+
+"Children" = "Kind";
+
+"Infants" = "Kleinkind";
+
+"CABIN" = "Kabine";
+
+"New" = "Neu";
+
+"USE" = "Gebrauch";
+
+"USED" = "Gebraucht";
+
+"Expired" = "Abgelaufen";
+
+"FROM" = "Ab";
+
+"TO" = "Bis";
+
+"View Booking" = "Buchungsansicht";
+
+"Change Booking" = "Buchungsänderung";
+
+"Meals" = "Mahlzeiten";
+
+"NAME" = "Name";
+
+"NATIONALITY" = "Nationalität";
+
+"Tax Free" = "Zollfrei";
+
+"Inbox" = "Posteingang";
+
+"Ship Info" =  "Schiffsinformation";
+
+"OK" = "OK";
+
+"Cancel" = "Abbruch";
+
+"SEX" = "Geschlecht";
+
+"Tax Free item" = "Zollfreier Artikel";
+
+"CAR" = "Fahrzeug";
+
+"DOB" = "Geburtsdatum";
+
+"Refresh" = "Auffrischen";
+
+"Stay Connected" = "Verbindung halten.";
+
+"Please turn on bluetooth & connect to 'Smyril Line App' WiFi (free for our app)" = "Bitte zu Bluetooth wechseln und mit unserem Wi-Fi verbinden.";
+
+"Track Yourself" = "Verfolgen Sie sich selbst.";
+
+"Use Ship Tracker to track where you are" = "Schiffsfinder zur Standortbestimmung nutzen.";
+
+"Get Offers" = "Angebote erhalten.";
+
+"Browse coupons and enjoy various offers" = "Nach Gutscheinen suchen und Angebote genießen";
+
+"Know the Voyage" = "Die Reise kennen";
+
+"Learn more about your cruise and destinations" = "Informationen zur Reise und den Destinationen";
+
+"Meet, Eat" = "Meet & Eat";
+
+"Wine, Dine and Hangout at the coolest restaurants" = "Wein & Dinieren in coolen Restaurants und Bars.";
+
+"Enjoy Tax Free" = "Tax Free Shopping";
+
+"See the list of Tax Free items ready to be picked up" = "Tax Free Artikel in unserem Shop";
+
+"More" = "Mehr";
+
+"Settings" = "Einstellungen";
+
+"Message filters" = "Nachrichtenfilter";
+
+"Please choose your desired message category(s)." = "Bitte wählen Sie die gewünschte Nachrichtenkategorie (n).";
+
+"Age group" = "Altersgruppe";
+
+"Gender" = "Geschlecht";
+
+"Adult (from 15 yr)" = "Erwachsene (von 15 Jahre)";
+
+"Child 12 - 15 yr" = "Kind 12 - 15 Jahre";
+
+"Child 3 - 11 yr" = "Kind 3 - 11 Jahre";
+
+"All" = "Alle";
+
+"Male" = "Männlich";
+
+"Female" = "Weiblich";
+
+"Both" = "Beide";
+
+"Do you want to save?" = "Möchten Sie sparen?";
+
+"Please select age and gender." = "Bitte wählen Alter und Geschlecht";
+
+"Please select an age group." = "Bitte wählen Sie eine Altersgruppe";
+
+"Please select a gender group." = "Bitte wählen Sie eine Geschlechtsgruppe";
+
+"App version:" = "App-Version";
+
+"Client ID:" = "Client-ID";

@@ -479,7 +479,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
             
             let fullString = self.genderArray[indexPath.row]
             let splittedStringsArray = fullString.split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true)
-            cell.genderNameTitleLabel.text = String(describing: splittedStringsArray.first!)
+            cell.genderNameTitleLabel.text = NSLocalizedString(String(describing: splittedStringsArray.first!), comment: "") //String(describing: splittedStringsArray.first!)
             cell.genderImageView.image = UIImage.init(named: self.genderArray[indexPath.row])
             if self.settingDic[self.genderArray[indexPath.row]]!
             {

@@ -1,0 +1,190 @@
+/* 
+  Localizable.strings
+  SmyrilLine
+
+  Created by Rafay Hasan on 14/3/18.
+  Copyright © 2018 Rafay Hasan. All rights reserved.
+*/
+
+"Show this coupon to the staff" = "Vís starvsfólkinum hesi boð";
+
+"Duty free shopping aboard the MS Norröna" = "Tollfrí søla umborð á Norrönu";
+
+"On deck 5 you will find our tax free shop - Explorer Shop" = "Tollfría handilin finna tit á dekk 5 – Explorer Shop";
+
+"Nothing to show" = "Onki at visa";
+
+
+"Home" = "Heim";
+
+"Ship tracker" = "Hvar er Norröna?";
+
+"Coupons" = "Virðisseðlar";
+
+"About" = "Um";
+
+"Restaurants & Bars" = "Matstovur og barrir";
+
+"Tax Free" = "Tax Free";
+
+"Ship Info" = "Ship Info";
+
+"Destinations" = "Ferðamál";
+
+"Use coupon" = "Brúka tilboðið";
+
+"Offer ends" = "Galdandi til";
+
+"Ends" = "Endar";
+
+"NEXT PORT" = "NÆSTA HAVN";
+
+"PREVIOUS PORT" = "FRÁFARINGAR HAVN";
+
+"SPEED" = "FERÐ";
+
+"Search" = "Leita";
+
+"Notification" = "Fráboðan";
+
+"My Smyril Line" = "Mit Smyril Line";
+
+"Welcome to Smyril Line" = "Vælkomin til Smyril Line";
+
+"Download Catalogue" = "Heinta faldara";
+
+"No records" = "Onki at visa";
+
+"No results" = "Onki úrslit";
+
+"Dismiss" = "Angra";
+
+"My Ticket" = "Mín bóking";
+
+"Help" = "Hjálp";
+
+"Last name" = "Eftirnavn";
+
+"Booking No" = "Bókingarnummar";
+
+"Routes" = "Leiðir";
+
+"DEPARTURE" = "Fráferð";
+
+"ARRIVAL" = "Koma";
+
+"TRAVELLERS" = "Ferðandi";
+
+"Language" = "Mál";
+
+"Adults" = "Vaksin";
+
+"Children" = "Barn";
+
+"Infants" = "Pinkubarn";
+
+"CABIN" = "Kamar";
+
+"New" = "Nýtt";
+
+"USE" = "Nýt";
+
+"USED" = "Brúkt";
+
+"Expired" = "Útgingið";
+
+"FROM" = "Frá";
+
+"TO" = "Til";
+
+"View Booking" = "Sí bóking";
+
+"Change Booking" = "Skift bóking";
+
+"Meals" = "Máltíðir";
+
+"NAME" = "Navn";
+
+"NATIONALITY" = "Tjóðskapur";
+
+"Tax Free" = "Tax Free";
+
+"Inbox" = "Innbakki";
+
+"Ship Info" =  "Um skipið";
+
+"OK" = "í lagi";
+
+"Cancel" = "Angra";
+
+"SEX" = "Kyn";
+
+"Tax Free item" = "Tax Free vøra";
+
+"CAR" = "Bilur";
+
+"DOB" = "føðidato";
+
+"Refresh" = "Dagfør";
+
+"Stay Connected" = "Verð verandi íbundin";
+
+"Please turn on bluetooth & connect to 'Smyril Line App' WiFi (free for our app)" = "Vinarliga tendra fyri bluetooth og knýt til okkara ókeypis Wi-Fi";
+
+"Track Yourself" = "Halt eyga við tær sjálvum";
+
+"Use Ship Tracker to track where you are" = "Nýt Ship Tracker og síggj, hvar Norröna er stødd júst nú";
+
+"Get Offers" = "Fá tilboð";
+
+"Browse coupons and enjoy various offers" = "Sí tínar tilgóðaseðlar og innloys ymisk tilboð";
+
+"Know the Voyage" = "Eitt sindur um ferðina";
+
+"Learn more about your cruise and destinations" = "Les meira um tína ferð og ferðamál";
+
+"Meet, Eat" = "Meet, Eat";
+
+"Wine, Dine and Hangout at the coolest restaurants" = "Wine, Dine - og tak tær av løttum í okkara caféum og barrum";
+
+"Enjoy Tax Free" = "Tax Free Shopping";
+
+"See the list of Tax Free items ready to be picked up" = "Síggj hvørjar tollfríar vørur tú kanst keypa tær í handlinum umborð";
+
+"More" = "Meir";
+
+"Settings" = "Innstillingar";
+
+"Message filters" = "Boðfiltur";
+
+"Please choose your desired message category(s)." = "Vinarliga vel teir bólkar tú ynskir at móttaka boð um";
+
+"Age group" = "Aldursbólkur";
+
+"Gender" = "Kyn";
+
+"Adult (from 15 yr)" = "Vaksin (frá 15 ár)";
+
+"Child 12 - 15 yr" = "Barn 12-15 ár";
+
+"Child 3 - 11 yr" = "Barn 3-11 ár";
+
+"All" = "Øll";
+
+"Male" = "Maður";
+
+"Female" = "Kvinna";
+
+"Both" = "Bæði";
+
+"Do you want to save?" = "Do you want to save?";
+
+"Please select age and gender." = "Vinarliga vel aldur og kyn";
+
+"Please select an age group." = "Vinarliga vel aldursbólk";
+
+"Please select a gender group." = "Venligst vælg køn";
+
+"App version:" = "Útgáva";
+
+"Client ID:" = "Brúkari";

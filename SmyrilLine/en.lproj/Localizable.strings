@@ -1,0 +1,189 @@
+/* 
+  Localizable.strings
+  SmyrilLine
+
+  Created by Rafay Hasan on 14/3/18.
+  Copyright © 2018 Rafay Hasan. All rights reserved.
+*/
+"Show this coupon to the staff" = "Show this coupon to the staff";
+
+"Duty free shopping aboard the MS Norröna" = "Duty free shopping aboard the MS Norröna";
+
+"On deck 5 you will find our tax free shop - Explorer Shop" = "On deck 5 you will find our tax free shop - Explorer Shop";
+
+"Nothing to show" = "Nothing to show";
+
+
+"Home" = "Home";
+
+"Ship tracker" = "Ship tracker";
+
+"Coupons" = "Coupons";
+
+"About" = "About";
+
+"Restaurants & Bars" = "Restaurants & Bars";
+
+"Tax Free" = "Tax Free";
+
+"Ship Info" = "Ship Info";
+
+"Destinations" = "Destinations";
+
+"Use coupon" = "Use coupon";
+
+"Offer ends:" = "Offer ends:";
+
+"Ends:" = "Ends:";
+
+"NEXT PORT" = "NEXT PORT";
+
+"PREVIOUS PORT" = "PREVIOUS PORT";
+
+"SPEED" = "SPEED";
+
+"Search" = "Search";
+
+"Notification" = "Notification";
+
+"My Smyril Line" = "My Smyril Line";
+
+"Welcome to Smyril Line" = "Welcome to Smyril Line";
+
+"Download Catalogue" = "Download Catalogue";
+
+"No records" = "No records";
+
+"No results" = "No results";
+
+"Dismiss" = "Dismiss";
+
+"My Ticket" = "My Ticket";
+
+"Help" = "Help";
+
+"Last name" = "Last name";
+
+"Booking No" = "Booking No";
+
+"Routes" = "Routes";
+
+"DEPARTURE" = "DEPARTURE";
+
+"ARRIVAL" = "ARRIVAL";
+
+"TRAVELLERS" = "TRAVELLERS";
+
+"Language" = "Language";
+
+"Adults" = "Adults";
+
+"Children" = "Children";
+
+"Infants" = "Infants";
+
+"CABIN" = "CABIN";
+
+"New" = "New";
+
+"USE" = "USE";
+
+"USED" = "USED";
+
+"Expired" = "Expired";
+
+"FROM" = "FROM";
+
+"TO" = "TO";
+
+"View Booking" = "View Booking";
+
+"Change Booking" = "Change Booking";
+
+"Meals" = "Meals";
+
+"NAME" = "NAME";
+
+"NATIONALITY" = "NATIONALITY";
+
+"Tax Free" = "Tax Free";
+
+"Inbox" = "Inbox";
+
+"Ship Info" =  "Ship Info";
+
+"OK" = "OK";
+
+"Cancel" = "Cancel";
+
+"SEX" = "SEX";
+
+"Tax Free item" = "Tax Free item";
+
+"CAR" = "CAR";
+
+"DOB" = "DOB";
+
+"Refresh" = "Refresh";
+
+"Stay Connected" = "Stay Connected";
+
+"Please turn on bluetooth & connect to 'Smyril Line App' WiFi (free for our app)" = "Please turn on bluetooth & connect to 'Smyril Line App' WiFi (free for our app)";
+
+"Track Yourself" = "Track Yourself";
+
+"Use Ship Tracker to track where you are" = "Use Ship Tracker to track where you are";
+
+"Get Offers" = "Get Offers";
+
+"Browse coupons and enjoy various offers" = "Browse coupons and enjoy various offers";
+
+"Know the Voyage" = "Know the Voyage";
+
+"Learn more about your cruise and destinations" = "Learn more about your cruise and destinations";
+
+"Meet, Eat" = "Meet, Eat";
+
+"Wine, Dine and Hangout at the coolest restaurants" = "Wine, Dine and Hangout at the coolest restaurants";
+
+"Enjoy Tax Free" = "Enjoy Tax Free";
+
+"See the list of Tax Free items ready to be picked up" = "See the list of Tax Free items ready to be picked up";
+
+"More" = "More";
+
+"Settings" = "Settings";
+
+"Message filters" = "Message filters";
+
+"Please choose your desired message category(s)." = "Please choose your desired message category(s).";
+
+"Age group" = "Age group";
+
+"Gender" = "Gender";
+
+"Adult (from 15 yr)" = "Adult (from 15 yr)";
+
+"Child 12 - 15 yr" = "Child 12 - 15 yr";
+
+"Child 3 - 11 yr" = "Child 3 - 11 yr";
+
+"All" = "All";
+
+"Male" = "Male";
+
+"Female" = "Female";
+
+"Both" = "Both";
+
+"Do you want to save?" = "Do you want to save?";
+
+"Please select age and gender." = "Please select age and gender.";
+
+"Please select an age group." = "Please select an age group.";
+
+"Please select a gender group." = "Please select a gender group.";
+
+"App version:" = "App version:";
+
+"Client ID:" = "Client ID:";

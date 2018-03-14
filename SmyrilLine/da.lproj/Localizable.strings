@@ -1,0 +1,180 @@
+/* 
+  Localizable.strings
+  SmyrilLine
+
+  Created by Rafay Hasan on 14/3/18.
+  Copyright © 2018 Rafay Hasan. All rights reserved.
+*/
+"Home" = "Hjem";
+
+"Ship tracker" = "Ship Tracker";
+
+"Coupons" = "Kuponer";
+
+"About" = "Om";
+
+"Restaurants & Bars" = "Restaruranter og caféer";
+
+"Tax Free" = "Tax Free";
+
+"Ship Info" = "Info om skibet";
+
+"Destinations" = "Destinationer";
+
+"Use coupon" = "Indløs kupon";
+
+"Offer ends" = "Tilbud udløber";
+
+"Ends" = "Udløber";
+
+"NEXT PORT" = "NÆSTE HAVN";
+
+"PREVIOUS PORT" = "AFREJSEHAVN";
+
+"SPEED" = "FART";
+
+"Search" = "Søg";
+
+"Notification" = "Notifikation";
+
+"My Smyril Line" = "Mit Smyril Line";
+
+"Welcome to Smyril Line" = "Velkommen til Smyril Line";
+
+"Download Catalogue" = "Hent katalog";
+
+"No records" = "Ingen poster";
+
+"No results" = "Ingen resultater";
+
+"Dismiss" = "Fortryd";
+
+"My Ticket" = "Min billet";
+
+"Help" = "Hjælp";
+
+"Last name" = "Efternavn";
+
+"Booking No" = "BOOKING NUMMER";
+
+"Routes" = "Ruter";
+
+"DEPARTURE" = "AFREJSE";
+
+"ARRIVAL" = "ANKOMST";
+
+"TRAVELLERS" = "REJSENDE";
+
+"Language" = "Sprog";
+
+"Adults" = "Voksne";
+
+"Children" = "Børn";
+
+"Infants" = "Spædbørn";
+
+"CABIN" = "KAHYT";
+
+"New" = "Ny";
+
+"USE" = "ANVEND";
+
+"USED" = "BRUGT";
+
+"Expired" = "Udløbet";
+
+"FROM" = "FRA";
+
+"TO" = "TILBUD UDLØBER";
+
+"View Booking" = "Se booking";
+
+"Change Booking" = "Skift booking";
+
+"Meals" = "Måltider";
+
+"NAME" = "NAVN";
+
+"NATIONALITY" = "NATIONALITET";
+
+"Tax Free" = "Tax Free";
+
+"Inbox" = "Indbakke";
+
+"Ship Info" =  "Info om skibet";
+
+"OK" = "OK";
+
+"Cancel" = "Annuler";
+
+"SEX" = "KØN";
+
+"Tax Free item" = "Tax Free vare";
+
+"CAR" = "BIL";
+
+"DOB" = "FØDSELSDATO";
+
+"Refresh" = "Opdater";
+
+"Stay Connected" = "Forbliv tilsluttet";
+
+"Please turn on bluetooth & connect to 'Smyril Line App' WiFi (free for our app)" = "Husk at slå til bluetooth og at oprette forbindelse til vores gratis Wi-Fi.";
+
+"Track Yourself" = "Følg din rejse";
+
+"Use Ship Tracker to track where you are" = "Use Ship Tracker for at se, hvor skibet befinder sig lige nu";
+
+"Get Offers" = "Modtag tilbud";
+
+"Browse coupons and enjoy various offers" = "Gennemse kuponer og få glæde af diverse tilbud";
+
+"Know the Voyage" = "Lidt om din rejse";
+
+"Learn more about your cruise and destinations" = "Læs mere om din rejse samt destinationerne";
+
+"Meet, Eat" = "Meet & Eat";
+
+"Wine, Dine and Hangout at the coolest restaurants" = "Wine & Dine -  nyd livet i een af vores caféer og barer";
+
+"Enjoy Tax Free" = "Tax free shopping";
+
+"See the list of Tax Free items ready to be picked up" = "Se varekataloget til vores Tax Free Shop";
+
+"More" = "Mere";
+
+"Settings" = "Indstillinger";
+
+"Message filters" = "Beskedfilter";
+
+"Please choose your desired message category(s)." = "Venligst vælg beskedkategori(er)";
+
+"Age group" = "Aldersgruppe";
+
+"Gender" = "Køn";
+
+"Adult (from 15 yr)" = "Voksen (fra 15  år)";
+
+"Child 12 - 15 yr" = "Barn 12-15 år";
+
+"Child 3 - 11 yr" = "Barn 3-11 år";
+
+"All" = "Alle";
+
+"Male" = "Mand";
+
+"Female" = "Kvinde";
+
+"Both" = "Begge";
+
+"Do you want to save?" = "Har du lyst til at spare?";
+
+"Please select age and gender." = "Venligst vælg alder og køn";
+
+"Please select an age group." = "Venligst vælg aldersgruppe";
+
+"Please select a gender group." = "Vinarliga vel kyn";
+
+"App version:" = "App version";
+
+"Client ID:" = "Bruger id";
