@@ -21,6 +21,8 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
     var shipArray: [ShipObjectInfo]?
     var activityIndicatorView: UIActivityIndicatorView!
     var currentSelectedShipId: String?
+    var languageChanged = false
+    
     
     @IBOutlet weak var settingsTableView: UITableView!
     
@@ -248,6 +250,26 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
     }
     
     func saveMessageSettings()  {
+        
+        if languageChanged {
+            let alertController = UIAlertController(title: "Message", message: "Please restart the app for the language change to take effect.", preferredStyle: .alert)
+            // Create the actions
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+                UIAlertAction in
+                self.saveMessage()
+            }
+            // Add the actions
+            alertController.addAction(okAction)
+            
+            // Present the controller
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else {
+            self.saveMessage()
+        }
+    }
+    
+    func saveMessage()  {
         let defaults = UserDefaults.standard
         defaults.set(self.settingDic["Adult from 15 year"], forKey: "Adult from 15 year")
         defaults.set(self.settingDic["Child 12 - 15 year"], forKey: "Child 12 - 15 year")
@@ -441,7 +463,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ageCollectionCell", for: indexPath) as! AgegroupCollectionViewCell
             let fullString = self.ageGroupArray[indexPath.row]
             let splittedStringsArray = fullString.split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true)
-            cell.ageTitleLabel.text = String(describing: splittedStringsArray.first!)
+            cell.ageTitleLabel.text = NSLocalizedString(String(describing: splittedStringsArray.first!), comment: "")
             
             if splittedStringsArray.count > 1
             {
@@ -605,6 +627,9 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         }
         else if collectionView.tag == 1030
         {
+            if self.currentSelectedLanguage != indexPath.row {
+                languageChanged = true
+            }
             self.currentSelectedLanguage = indexPath.row
         }
         else if collectionView.tag == 1040 {

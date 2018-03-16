@@ -49,7 +49,7 @@ class MoreViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "moreTableCell", for: indexPath)
-        cell.textLabel?.text = self.itemArray[indexPath.row]
+        cell.textLabel?.text = NSLocalizedString(self.itemArray[indexPath.row], comment: "")
         cell.imageView?.image = UIImage.init(named: self.itemArray[indexPath.row])
         cell.selectionStyle = .default
         cell.accessoryType = .disclosureIndicator

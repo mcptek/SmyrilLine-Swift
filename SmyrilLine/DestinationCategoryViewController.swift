@@ -102,7 +102,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
             }
         }
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.destinationParentPath + language + "\(shipId)/\(self.destinationCategoryId!)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
-            .responseObject { (response: DataResponse<TaxFreeShopInfo>) in
+            .responseObject { (response: DataResponse<GeneralCategory>) in
                 self.activityIndicatorView.stopAnimating()
                 self.view.isUserInteractionEnabled = true
                 switch response.result {
@@ -111,7 +111,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
                     {
                         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                         let nextScene = storyBoard.instantiateViewController(withIdentifier: "destinationCategoryDetails") as! DestinationCategoryDetailsViewController
-                        nextScene.destinationCategoryDetailsArray = response.result.value
+                        nextScene.destinationCategoryDetailsObject = response.result.value
                         self.navigationController?.pushViewController(nextScene, animated: true)
                     }
                 case .failure(let error):

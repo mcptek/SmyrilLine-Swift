@@ -30,7 +30,7 @@
 "4mY-vh-3Gn.text" = "This is a meal test description This is a meal test description This is a meal test description";
 
 /* Class = "UINavigationItem"; title = "View Booking"; ObjectID = "5dU-gk-PnA"; */
-"5dU-gk-PnA.title" = "Sí bóking";
+"5dU-gk-PnA.title" = "Buchungsansicht";
 
 /* Class = "UIButton"; normalTitle = "See More"; ObjectID = "5rW-ec-Cfc"; */
 "5rW-ec-Cfc.normalTitle" = "See More";
@@ -93,7 +93,7 @@
 "EkM-6O-YuD.text" = "Select your language.";
 
 /* Class = "UILabel"; text = "Browse coupons and enjoy various offers"; ObjectID = "Enl-I5-tqE"; */
-"Enl-I5-tqE.text" = "Sí tínar tilgóðaseðlar og innloys ymisk tilboð";
+"Enl-I5-tqE.text" = "Nach Gutscheinen suchen und Angebote genießen";
 
 /* Class = "UIButton"; normalTitle = "See more"; ObjectID = "EsV-By-ON2"; */
 "EsV-By-ON2.normalTitle" = "See more";
@@ -132,10 +132,10 @@
 "IWH-st-oTk.text" = "Label";
 
 /* Class = "UILabel"; text = "Wine, Dine and Hangout at the coolest restaurants"; ObjectID = "IcA-uW-zPY"; */
-"IcA-uW-zPY.text" = "Wine, Dine - og tak tær av løttum í okkara caféum og barrum";
+"IcA-uW-zPY.text" = "Wein & Dinieren in coolen Restaurants und Bars";
 
 /* Class = "UILabel"; text = "Learn more about your cruise and destinations"; ObjectID = "Jlj-uZ-olQ"; */
-"Jlj-uZ-olQ.text" = "Les meira um tína ferð og ferðamál";
+"Jlj-uZ-olQ.text" = "Informationen zur Reise und den Destinationen";
 
 /* Class = "UISearchBar"; placeholder = "search"; ObjectID = "K0m-69-9fH"; */
 "K0m-69-9fH.placeholder" = "search";
@@ -162,7 +162,7 @@
 "OVE-gd-Eft.text" = "Label";
 
 /* Class = "UILabel"; text = "Get Offers"; ObjectID = "P4N-3l-ETK"; */
-"P4N-3l-ETK.text" = "Fá tilboð";
+"P4N-3l-ETK.text" = "Angebote erhalten";
 
 /* Class = "UISegmentedControl"; PpV-1i-COb.segmentTitles[0] = "Chat"; ObjectID = "PpV-1i-COb"; */
 "PpV-1i-COb.segmentTitles[0]" = "Chat";
@@ -183,7 +183,7 @@
 "Qc9-I6-e1g.text" = "Label";
 
 /* Class = "UILabel"; text = "Choose Language"; ObjectID = "RJs-lz-qV8"; */
-"RJs-lz-qV8.text" = "Choose Language";
+"RJs-lz-qV8.text" = "Sprache wählen";
 
 /* Class = "UIViewController"; title = "Settings"; ObjectID = "Sc1-WR-L7R"; */
 "Sc1-WR-L7R.title" = "Settings";
@@ -219,7 +219,7 @@
 "VHm-zm-EEE.title" = "Restaurants";
 
 /* Class = "UILabel"; text = "Meet, Eat"; ObjectID = "W0Y-zc-a1q"; */
-"W0Y-zc-a1q.text" = "Meet, Eat";
+"W0Y-zc-a1q.text" = "Meet & Eat";
 
 /* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "WUB-s4-2N3"; */
 "WUB-s4-2N3.normalTitle" = "Cancel";
@@ -246,7 +246,7 @@
 "ZUI-Vq-alP.normalTitle" = "See More";
 
 /* Class = "UILabel"; text = "See the list of Tax Free items ready to be picked up"; ObjectID = "Zrj-kZ-oRt"; */
-"Zrj-kZ-oRt.text" = "Síggj hvørjar tollfríar vørur tú kanst keypa tær í handlinum umborð";
+"Zrj-kZ-oRt.text" = "Tax Free Artikel in unserem Shop";
 
 /* Class = "UIBarButtonItem"; title = "Save"; ObjectID = "a7q-7p-sOL"; */
 "a7q-7p-sOL.title" = "Save";
@@ -267,7 +267,7 @@
 "bHj-2C-sE4.title" = "Save";
 
 /* Class = "UITextField"; placeholder = "Last name"; ObjectID = "bWt-NI-bnj"; */
-"bWt-NI-bnj.placeholder" = "Eftirnavn";
+"bWt-NI-bnj.placeholder" = "Familienname";
 
 /* Class = "UILabel"; text = "Lunch:"; ObjectID = "bY5-D6-YJD"; */
 "bY5-D6-YJD.text" = "Lunch:";
@@ -276,10 +276,10 @@
 "bwt-8D-PQO.title" = "More";
 
 /* Class = "UINavigationItem"; title = "Tax Free"; ObjectID = "cBN-ud-Mpi"; */
-"cBN-ud-Mpi.title" = "Tax Free";
+"cBN-ud-Mpi.title" = "Zollfrei";
 
 /* Class = "UITabBarItem"; title = "Tax Free"; ObjectID = "cNd-95-AB4"; */
-"cNd-95-AB4.title" = "Tax Free";
+"cNd-95-AB4.title" = "Zollfrei";
 
 /* Class = "UILabel"; text = "details"; ObjectID = "caD-AX-H7n"; */
 "caD-AX-H7n.text" = "details";
@@ -288,7 +288,7 @@
 "d9O-1q-nWi.text" = "Label";
 
 /* Class = "UIButton"; normalTitle = "START"; ObjectID = "ddQ-hA-9hK"; */
-"ddQ-hA-9hK.normalTitle" = "START";
+"ddQ-hA-9hK.normalTitle" = "Anfang";
 
 /* Class = "UILabel"; text = "PREVIOUS PORT"; ObjectID = "djU-vU-dSs"; */
 "djU-vU-dSs.text" = "PREVIOUS PORT";
@@ -297,7 +297,7 @@
 "dpv-fc-He7.text" = "Label";
 
 /* Class = "UIButton"; normalTitle = "Log In"; ObjectID = "eZB-V4-gdx"; */
-"eZB-V4-gdx.normalTitle" = "Sí bóking";
+"eZB-V4-gdx.normalTitle" = "Buchungsansicht";
 
 /* Class = "UILabel"; text = "Mr Test name"; ObjectID = "efn-xE-up1"; */
 "efn-xE-up1.text" = "Mr Test name";
@@ -345,7 +345,7 @@
 "mS5-r0-dxh.text" = "Travellers";
 
 /* Class = "UILabel"; text = "Know the Voyage"; ObjectID = "meh-nP-zkO"; */
-"meh-nP-zkO.text" = "Eitt sindur um ferðina";
+"meh-nP-zkO.text" = "Die Reise kennen";
 
 /* Class = "UILabel"; text = "Breakfast:"; ObjectID = "n29-d6-V5I"; */
 "n29-d6-V5I.text" = "Breakfast:";
@@ -363,7 +363,7 @@
 "oBU-rT-VUO.title" = "Ship Tracker";
 
 /* Class = "UILabel"; text = "Stay Connected"; ObjectID = "oDY-68-vyV"; */
-"oDY-68-vyV.text" = "Verð verandi íbundin";
+"oDY-68-vyV.text" = "Verbindung halten";
 
 /* Class = "UILabel"; text = "speed"; ObjectID = "oGH-43-8cu"; */
 "oGH-43-8cu.text" = "speed";
@@ -375,7 +375,7 @@
 "oe4-NJ-8K0.text" = "DOB";
 
 /* Class = "UILabel"; text = "Use Ship Tracker to track where you are"; ObjectID = "okS-aC-hrV"; */
-"okS-aC-hrV.text" = "Nýt Ship Tracker og síggj, hvar Norröna er stødd júst nú";
+"okS-aC-hrV.text" = "Schiffsfinder zur Standortbestimmung nutzen";
 
 /* Class = "UILabel"; text = "this  isiisis  sisisis"; ObjectID = "omN-Sw-VXF"; */
 "omN-Sw-VXF.text" = "this  isiisis  sisisis";
@@ -402,16 +402,16 @@
 "t1g-BP-wSC.text" = "Client Id:";
 
 /* Class = "UILabel"; text = "Choose Ship"; ObjectID = "tUw-0Q-skg"; */
-"tUw-0Q-skg.text" = "Choose Ship";
+"tUw-0Q-skg.text" = "Wählen Sie Schiff";
 
 /* Class = "UILabel"; text = "Please turn on bluetooth & connect to 'Smyril Line App' WiFi (free for our app)"; ObjectID = "uhX-rg-gEU"; */
-"uhX-rg-gEU.text" = "Vinarliga tendra fyri bluetooth og knýt til 'Smyril Line APP' WiFi (ókeypis til appina)";
+"uhX-rg-gEU.text" = "Bitte zu Bluetooth wechseln und mit 'Smyril Line App' WiFi verbinden";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "v6E-6Q-XdE"; */
 "v6E-6Q-XdE.text" = "Label";
 
 /* Class = "UITextField"; placeholder = "Booking No"; ObjectID = "vK1-YQ-btZ"; */
-"vK1-YQ-btZ.placeholder" = "BÓKINGARNUMMAR";
+"vK1-YQ-btZ.placeholder" = "BUCHUNGSNUMMER";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "vNS-KR-a21"; */
 "vNS-KR-a21.text" = "Label";
@@ -420,7 +420,7 @@
 "vPu-Vf-zQk.text" = "Jan 01";
 
 /* Class = "UILabel"; text = "Track Yourself"; ObjectID = "vin-kq-Ixf"; */
-"vin-kq-Ixf.text" = "Halt eyga við tær sjálvum";
+"vin-kq-Ixf.text" = "Verfolgen Sie sich selbst";
 
 /* Class = "UILabel"; text = "Demo test place"; ObjectID = "w1t-JT-mXG"; */
 "w1t-JT-mXG.text" = "Demo test place";

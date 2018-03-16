@@ -17,7 +17,7 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
     var activityIndicatorView: UIActivityIndicatorView!
     var myHeaderView: MyTaxfreeScrollViewHeader!
     var scrollView: MXScrollView!
-    var destinationCategoryDetailsArray: TaxFreeShopInfo?
+    var destinationCategoryDetailsObject: GeneralCategory?
     var headerCurrentStatus = 2
     var isExpanded = [Bool]()
     
@@ -25,7 +25,7 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.title = self.destinationCategoryDetailsArray?.shopName
+        self.title = self.destinationCategoryDetailsObject?.name
         
         self.categoryDetailsTableview.estimatedRowHeight = 140
         self.categoryDetailsTableview.rowHeight = UITableViewAutomaticDimension
@@ -41,9 +41,9 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
         self.categoryDetailsTableview.parallaxHeader.mode = MXParallaxHeaderMode.fill
         self.categoryDetailsTableview.parallaxHeader.minimumHeight = 50
         
-        if self.destinationCategoryDetailsArray?.itemArray?.isEmpty == false
+        if self.destinationCategoryDetailsObject?.itemArray?.isEmpty == false
         {
-            for _ in (self.destinationCategoryDetailsArray?.itemArray)!
+            for _ in (self.destinationCategoryDetailsObject?.itemArray)!
             {
                 self.isExpanded.append(false)
             }
@@ -58,7 +58,7 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        if let imageUrlStr = self.destinationCategoryDetailsArray?.shopImageUrlStr
+        if let imageUrlStr = self.destinationCategoryDetailsObject?.imageUrl
         {
             let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
             self.myHeaderView.taxFreeHeaderImageView.sd_setShowActivityIndicatorView(true)
@@ -79,7 +79,7 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
     */
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return (self.destinationCategoryDetailsArray?.itemArray?.count)! + 1
+        return (self.destinationCategoryDetailsObject?.itemArray?.count)! + 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,35 +90,42 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
         
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "categoryDetailsHeaderCell", for: indexPath) as! CategoryHeaderTableViewCell
-            cell.headerTitleLabel.text = self.destinationCategoryDetailsArray?.shopOpeningClosingTime
-            let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel) - 1
-            if LineLengthOfLabel <= 2
-            {
+            cell.headerTitleLabel.text = self.destinationCategoryDetailsObject?.detailsDescription
+            if (self.destinationCategoryDetailsObject?.itemArray?.isEmpty)! {
                 cell.seeMoreButton.isHidden = true
                 cell.seeMoreButtonHeightConstraint.constant = 0
+                cell.headerTitleLabel.numberOfLines = 0
             }
-            else
-            {
-                cell.seeMoreButton.isHidden = false
-                cell.seeMoreButtonHeightConstraint.constant = 30
-                if self.headerCurrentStatus == 2
+            else {
+                let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel) - 1
+                if LineLengthOfLabel <= 2
                 {
-                    cell.headerTitleLabel.numberOfLines = 0
-                    cell.seeMoreButton.setTitle("See Less", for: .normal)
+                    cell.seeMoreButton.isHidden = true
+                    cell.seeMoreButtonHeightConstraint.constant = 0
                 }
                 else
                 {
-                    cell.headerTitleLabel.numberOfLines = 2
-                    cell.seeMoreButton.setTitle("See More", for: .normal)
+                    cell.seeMoreButton.isHidden = false
+                    cell.seeMoreButtonHeightConstraint.constant = 30
+                    if self.headerCurrentStatus == 2
+                    {
+                        cell.headerTitleLabel.numberOfLines = 0
+                        cell.seeMoreButton.setTitle("See Less", for: .normal)
+                    }
+                    else
+                    {
+                        cell.headerTitleLabel.numberOfLines = 2
+                        cell.seeMoreButton.setTitle("See More", for: .normal)
+                    }
+                    cell.seeMoreButton.addTarget(self, action: #selector(headerSeeMoreOrLesssButtonAction(_:)), for: .touchUpInside)
                 }
-                cell.seeMoreButton.addTarget(self, action: #selector(headerSeeMoreOrLesssButtonAction(_:)), for: .touchUpInside)
             }
             cell.selectionStyle = .none
             return cell
         }
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "destinationCategoryDetailsCell", for: indexPath) as! DestinationCategoryDetailsTableViewCell
-            if let imageUrlStr = self.destinationCategoryDetailsArray?.itemArray?[indexPath.section - 1].imageUrl
+            if let imageUrlStr = self.destinationCategoryDetailsObject?.itemArray?[indexPath.section - 1].imageUrl
             {
                 let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
                 cell.categoryImageView.sd_setShowActivityIndicatorView(true)
@@ -130,7 +137,7 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
                 cell.categoryImageView.image = nil
             }
             
-            if let categoryname = self.destinationCategoryDetailsArray?.itemArray?[indexPath.section - 1].name
+            if let categoryname = self.destinationCategoryDetailsObject?.itemArray?[indexPath.section - 1].name
             {
                 cell.nameTitleLabel.text = categoryname
             }
@@ -139,7 +146,7 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
                 cell.nameTitleLabel.text = nil
             }
             
-            if let headerName = self.destinationCategoryDetailsArray?.itemArray?[indexPath.section - 1].objectHeader
+            if let headerName = self.destinationCategoryDetailsObject?.itemArray?[indexPath.section - 1].destinationDescription
             {
                 cell.headerTitleLabel.text = headerName
             }

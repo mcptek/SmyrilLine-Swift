@@ -69,6 +69,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        self.shopObject?.itemArray = nil
         self.CallTaxfreeShopAPI()
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: nil)
 
@@ -109,10 +110,16 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        if (self.shopObject?.itemArray?.count == 0 || self.shopObject == nil) {
+        if let count = self.shopObject?.itemArray?.count {
+            if count == 0 {
+                self.myTaxfreeCollectionView.setEmptyMessage("No Tax Free item is available")
+            }
+            else {
+                self.myTaxfreeCollectionView.restore()
+            }
+        }
+        else {
             self.myTaxfreeCollectionView.setEmptyMessage("No Tax Free item is available")
-        } else {
-            self.myTaxfreeCollectionView.restore()
         }
         return self.shopObject?.itemArray?.count ?? 0
     }
@@ -138,26 +145,6 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
             cell.productHeaderLabel.text = nil
         }
         
-        
-//        if let priceObject = self.shopObject?.itemArray?[indexPath.row].objectPrice
-//        {
-//            var price = priceObject.replacingOccurrences(of: ".", with: ",", options: .literal, range: nil)
-//            price = "€" + price
-//            let splittedStringsArray = price.split(separator: ",", maxSplits: 1, omittingEmptySubsequences: true)
-//            if let firstString = splittedStringsArray.first, let secondString = splittedStringsArray.last
-//            {
-//                let numericPart = String(describing: firstString)
-//                let fractionPart = String(describing: secondString)
-//                let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
-//                let scriptFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
-//                let stringwithSquare = numericPart.attributedStringWithSuperscript(fractionPart, mainStringFont: mainFont, subStringFont: scriptFont, offSetFromBaseLine: 10)
-//                cell.productPriceLabel.attributedText = stringwithSquare
-//            }
-//            else
-//            {
-//                cell.productPriceLabel.text = price
-//            }
-//        }
         if let priceObject = self.shopObject?.itemArray?[indexPath.row].objectPrice
         {
             var price = priceObject.replacingOccurrences(of: ".", with: ",", options: .literal, range: nil)

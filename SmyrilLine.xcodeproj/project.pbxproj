@@ -248,6 +248,9 @@
 		84CF4C1C2059160500C87102 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		84CF4C1D2059160700C87102 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		84CF4C1E2059160900C87102 /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fo; path = fo.lproj/Localizable.strings; sourceTree = "<group>"; };
+		84CF4C20205919DA00C87102 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		84CF4C22205919E800C87102 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Main.strings; sourceTree = "<group>"; };
+		84CF4C24205919F000C87102 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		84D68EF32052BB620087DF2A /* TaxfreeDetailsPriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxfreeDetailsPriceTableViewCell.swift; sourceTree = "<group>"; };
 		84DFCBD21FBAF78300BCEF8D /* MessageFilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFilterTableViewCell.swift; sourceTree = "<group>"; };
 		84DFCBD41FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgegroupCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1067,6 +1070,9 @@
 			children = (
 				840DA9D21F4C5C7F001B3382 /* Base */,
 				84CF4C15205915A100C87102 /* fo */,
+				84CF4C20205919DA00C87102 /* en */,
+				84CF4C22205919E800C87102 /* da */,
+				84CF4C24205919F000C87102 /* de */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

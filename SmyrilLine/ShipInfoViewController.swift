@@ -21,7 +21,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
     var myHeaderView: MyTaxfreeScrollViewHeader!
     var scrollView: MXScrollView!
     var shipInfoCategoryId: String?
-    
+    var headerCurrentStatus = 0
     var activityIndicatorView: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -155,6 +155,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
                             self.myHeaderView.taxFreeHeaderImageView.sd_setShowActivityIndicatorView(true)
                             self.myHeaderView.taxFreeHeaderImageView.sd_setIndicatorStyle(.gray)
                             self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
+                            //self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: "http://stage-smy-wp.mcp.com:82/uploads/7b55bfd1-8ea9-4108-969c-959a63241881_MS_Norr%C3%B6na.01.jpg"), placeholderImage: UIImage.init(named: "placeholder"))
                         }
                         self.shipInfotableView.reloadData()
                     }
@@ -185,6 +186,29 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryHeaderCelll", for: indexPath) as! CategoryHeaderTableViewCell
             cell.headerTitleLabel.text = self.shipInfoObject?.detailsDescription
+            let LineLengthOfLabel = self.countLabelLines(label: cell.headerTitleLabel) - 1
+            if LineLengthOfLabel <= 2
+            {
+                cell.seeMoreButton.isHidden = true
+                cell.seeMoreButtonHeightConstraint.constant = 0
+            }
+            else
+            {
+                cell.seeMoreButton.isHidden = false
+                cell.seeMoreButtonHeightConstraint.constant = 30
+                if self.headerCurrentStatus == 2
+                {
+                    cell.headerTitleLabel.numberOfLines = 0
+                    cell.seeMoreButton.setTitle("See Less", for: .normal)
+                }
+                else
+                {
+                    cell.headerTitleLabel.numberOfLines = 2
+                    cell.seeMoreButton.setTitle("See More", for: .normal)
+                }
+                cell.seeMoreButton.addTarget(self, action: #selector(headerSeeMoreOrLesssButtonAction(_:)), for: .touchUpInside)
+            
+            }
             cell.selectionStyle = .none
             return cell
         }
@@ -241,7 +265,6 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
             return cell
             
         }
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -278,6 +301,17 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
         self.CallShipInfoDetailsAPI()
     }
     
-    
+    func headerSeeMoreOrLesssButtonAction(_ sender : UIButton)  {
+        if self.headerCurrentStatus == 2
+        {
+            self.headerCurrentStatus = 0
+        }
+        else
+        {
+            self.headerCurrentStatus = 2
+        }
+        self.shipInfotableView.reloadData()
+        
+    }
 
 }
