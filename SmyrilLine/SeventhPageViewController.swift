@@ -69,6 +69,7 @@ class SeventhPageViewController: UIViewController,UITableViewDataSource,UITableV
     */
     @IBAction func StartButtonAction(_ sender: Any) {
         UserDefaults.standard.set(true, forKey: "GuideScreen")
+        self.dismiss(animated: true, completion: nil)
     }
     
     func CallShipIdFromAPI() {

@@ -24,6 +24,15 @@ class BookingLogInViewController: UIViewController,UITextFieldDelegate {
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        print(UserDefaults.standard.bool(forKey: "GuideScreen"))
+        if UserDefaults.standard.bool(forKey: "GuideScreen") == false {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "pageContainerView")
+            self.present(vc!, animated: true, completion: nil)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

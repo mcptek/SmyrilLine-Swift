@@ -13,7 +13,7 @@ import SDWebImage
 import MXParallaxHeader
 import ReachabilitySwift
 
-class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, URLSessionDownloadDelegate, UIDocumentInteractionControllerDelegate {
+class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, URLSessionDownloadDelegate,UIDocumentInteractionControllerDelegate {
 
     @IBOutlet weak var downloadButton: UIBarButtonItem!
     @IBOutlet weak var myTaxfreeCollectionView: UICollectionView!
@@ -37,10 +37,6 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
         self.title = "Tax Free"
         
-        let backgroundSessionConfiguration = URLSessionConfiguration.background(withIdentifier: "backgroundSession")
-        backgroundSession = Foundation.URLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: OperationQueue.main)
-        self.downloadProgressView.setProgress(0.0, animated: false)
-        
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
@@ -57,6 +53,11 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        let backgroundSessionConfiguration = URLSessionConfiguration.background(withIdentifier: "backgroundSession")
+        backgroundSession = Foundation.URLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: OperationQueue.main)
+        self.downloadProgressView.setProgress(0.0, animated: false)
+        
         self.downloadButton.isEnabled = false
         self.downloadButton.tintColor = .clear
         
@@ -83,6 +84,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
             self.downloadProgressContainerView.isHidden = true
         }
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reachabilityChanged"), object: nil)
+        backgroundSession.invalidateAndCancel()
     }
     
     override func didReceiveMemoryWarning() {
@@ -253,7 +255,6 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     }
     
     @IBAction func CatalogueDownLoadButtonAction(_ sender: Any) {
-        
         let reachibility = Reachability()!
         if reachibility.isReachable {
             if var urlPath = self.shopObject?.attatchFileUrl {
@@ -306,6 +307,8 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
                         nextScene.productPrice = response.result.value?[0].objectPrice
                         nextScene.productImageUrl = response.result.value?[0].imageUrl
                         nextScene.productDetails = response.result.value?[0].objectHeader
+                        nextScene.productattatchFileUrlPath = response.result.value?[0].attatchFileUrl
+                        nextScene.productAttatchFilName = response.result.value?[0].attatchFileName
                         self.navigationController?.pushViewController(nextScene, animated: true)
                     }
                 case .failure(let error):
@@ -359,7 +362,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
                                 self.myHeaderView.headerLocationLabel.text = location
                             }
                             
-                            if (self.shopObject?.attatchFileUrl) != nil
+                            if (self.shopObject?.attatchFileUrl) != nil && self.shopObject?.attatchFileUrl?.count != 0
                             {
                                 self.downloadButton.isEnabled = true
                                 self.downloadButton.tintColor = .white

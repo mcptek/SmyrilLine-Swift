@@ -38,6 +38,8 @@ class ShopObject: Mappable{
     var objectId : String?
     var objectHeader : String?
     var objectPrice : String?
+    var attatchFileUrl: String?
+    var attatchFileName: String?
     required init?(map: Map){
     }
     
@@ -47,5 +49,7 @@ class ShopObject: Mappable{
         objectId <- map["id"]
         objectHeader <- map["description"]
         objectPrice <- map["price"]
+        attatchFileUrl <- map["attachedFileUrl"]
+        attatchFileName <- map["attachedFileName"]
     }
 }

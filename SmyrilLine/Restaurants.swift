@@ -31,6 +31,8 @@ class RestaurantDetailsInfo: Mappable{
      var breakfastItems : [ObjectSample]?
      var lunchItems : [ObjectSample]?
      var dinnerItems : [ObjectSample]?
+    var attatchFileUrl: String?
+    var attatchFileName: String?
     required init?(map: Map){
     }
     
@@ -46,6 +48,8 @@ class RestaurantDetailsInfo: Mappable{
         dinnerItems <- map["dinnerItems"]
         adultMeals <- map["meals"]
         childrenMeals <- map["meals"]
+        attatchFileUrl <- map["attachedFileUrl"]
+        attatchFileName <- map["attachedFileName"]
     }
 }
 
@@ -103,6 +107,8 @@ class ObjectSample: Mappable{
     var price : String?
     var description : String?
     var objectId : String?
+    var attatchFileUrl: String?
+    var attatchFileName: String?
     required init?(map: Map){
     }
     
@@ -112,5 +118,7 @@ class ObjectSample: Mappable{
         price <- map["price"]
         description <- map["description"]
         objectId <- map["id"]
+        attatchFileUrl <- map["attachedFileUrl"]
+        attatchFileName <- map["attachedFileName"]
     }
 }

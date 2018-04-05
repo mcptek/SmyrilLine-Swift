@@ -9,17 +9,27 @@
 import UIKit
 import SDWebImage
 import MXParallaxHeader
+import ReachabilitySwift
+import Alamofire
 
-class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, URLSessionDownloadDelegate, UIDocumentInteractionControllerDelegate {
     @IBOutlet weak var productDetailsTableview: UITableView!
     
     var productName: String?
     var productPrice: String?
-    var productDetails: String?
     var productImageUrl: String?
+    var productDetails: String?
+    var productattatchFileUrlPath: String?
+    var productAttatchFilName: String?
+    var downloadTask: URLSessionDownloadTask!
+    var backgroundSession: URLSession!
     var myHeaderView: TaxfreeHeaderDetailsHeader!
     var scrollView: MXScrollView!
     var headerCurrentStatus = 0
+    @IBOutlet weak var downloadButton: UIBarButtonItem!
+    @IBOutlet weak var downloadBgView: UIView!
+    @IBOutlet weak var downloadContainerView: UIView!
+    @IBOutlet weak var downloadProgressbar: UIProgressView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +38,6 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
         self.title = "Price and Menu"
-        
         
         self.myHeaderView = Bundle.main.loadNibNamed("TaxfreeHeaderDetailsHeader", owner: self, options: nil)?.first as? UIView as! TaxfreeHeaderDetailsHeader
         self.productDetailsTableview.parallaxHeader.view = self.myHeaderView
@@ -50,13 +59,88 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
             self.myHeaderView.productImageView.sd_setIndicatorStyle(.gray)
             self.myHeaderView.productImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
         }
+        
+        if (self.productattatchFileUrlPath) != nil && self.productattatchFileUrlPath?.count != 0
+        {
+            self.downloadButton.isEnabled = true
+            self.downloadButton.tintColor = .white
+        }
+        else {
+            self.downloadButton.isEnabled = false
+            self.downloadButton.tintColor = .clear
+        }
+        self.downloadBgView.isHidden = true
+        self.downloadContainerView.isHidden = true
+        
+        self.downloadContainerView.layer.cornerRadius = 3
+        self.downloadContainerView.layer.masksToBounds = true
+        
+        let backgroundSessionConfiguration = URLSessionConfiguration.background(withIdentifier: "backgroundSessionDetails")
+        self.backgroundSession = Foundation.URLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: OperationQueue.main)
+        self.downloadProgressbar.setProgress(0.0, animated: false)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: nil)
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        if downloadTask != nil{
+            downloadTask.cancel()
+            self.downloadBgView.isHidden = true
+            self.downloadContainerView.isHidden = true
+        }
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reachabilityChanged"), object: nil)
+        self.backgroundSession.invalidateAndCancel()
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    func reachabilityChanged() {
+        
+        if ReachabilityManager.shared.reachabilityStatus == .notReachable {
+            if self.downloadTask != nil{
+                self.downloadTask.cancel()
+                self.downloadBgView.isHidden = true
+                self.downloadContainerView.isHidden = true
+                self.showAlert(title: "Error", message: "There is no internet connection now. Please try again later")
+            }
+        }
+    }
+    
+    @IBAction func downloadButtonAction(_ sender: Any) {
+        let reachibility = Reachability()!
+        if reachibility.isReachable {
+            if var urlPath = self.productattatchFileUrlPath {
+                if self.downloadBgView.isHidden == true {
+                    urlPath = urlPath.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
+                    let url = URL(string: UrlMCP.server_base_url + urlPath)!
+                    self.downloadTask = self.backgroundSession.downloadTask(with: url)
+                    self.downloadTask.resume()
+                    self.downloadBgView.isHidden = false
+                    self.downloadContainerView.isHidden = false
+                }
+            }
+        }
+        else {
+            self.showAlert(title: "Error", message: "There is no internet connection now. Please try again later")
+        }
+    }
+    
+    @IBAction func downloadCancelButtonAction(_ sender: Any) {
+        if self.downloadTask != nil{
+            self.downloadTask.cancel()
+            self.downloadBgView.isHidden = true
+            self.downloadContainerView.isHidden = true
+        }
+    }
     /*
     // MARK: - Navigation
 
@@ -196,6 +280,82 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
         self.headerCurrentStatus = 2
         self.productDetailsTableview.reloadData()
         
+    }
+    
+    func showFileWithPath(path: String){
+        let isFileFound:Bool? = FileManager.default.fileExists(atPath: path)
+        if isFileFound == true{
+            let viewer = UIDocumentInteractionController(url: URL(fileURLWithPath: path))
+            viewer.delegate = self
+            viewer.presentPreview(animated: true)
+        }
+    }
+    
+    //MARK: URLSessionDownloadDelegate
+    // 1
+    func urlSession(_ session: URLSession,
+                    downloadTask: URLSessionDownloadTask,
+                    didFinishDownloadingTo location: URL){
+        
+        let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+        let documentDirectoryPath:String = path[0]
+        let fileManager = FileManager()
+        var fileName = ""
+        if let name = self.productAttatchFilName {
+            fileName =  "/" + name
+        }
+        else {
+            fileName = "/file.pdf"
+        }
+        
+        //let name = "/" + self.shopObject?.attatchFileName
+        //        if name.range(of:".pdf") == nil {
+        //            name = name + ".pdf"
+        //        }
+        let destinationURLForFile = URL(fileURLWithPath: documentDirectoryPath.appendingFormat(fileName))
+        self.downloadBgView.isHidden = true
+        self.downloadContainerView.isHidden = true
+        if fileManager.fileExists(atPath: destinationURLForFile.path){
+            showFileWithPath(path: destinationURLForFile.path)
+        }
+        else{
+            do {
+                try fileManager.moveItem(at: location, to: destinationURLForFile)
+                // show file
+                showFileWithPath(path: destinationURLForFile.path)
+            }catch{
+                print("An error occurred while moving file to destination url")
+            }
+        }
+    }
+    // 2
+    func urlSession(_ session: URLSession,
+                    downloadTask: URLSessionDownloadTask,
+                    didWriteData bytesWritten: Int64,
+                    totalBytesWritten: Int64,
+                    totalBytesExpectedToWrite: Int64){
+        self.downloadProgressbar.setProgress(Float(totalBytesWritten)/Float(totalBytesExpectedToWrite), animated: true)
+    }
+    
+    //MARK: URLSessionTaskDelegate
+    func urlSession(_ session: URLSession,
+                    task: URLSessionTask,
+                    didCompleteWithError error: Error?){
+        self.downloadTask = nil
+        self.downloadProgressbar.setProgress(0.0, animated: true)
+        if (error != nil) {
+            print(error!.localizedDescription)
+        }else{
+            print("The task finished transferring data successfully in details pge")
+        }
+        self.downloadBgView.isHidden = true
+        self.downloadContainerView.isHidden = true
+    }
+    
+    //MARK: UIDocumentInteractionControllerDelegate
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController
+    {
+        return self
     }
 
 

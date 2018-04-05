@@ -11,12 +11,14 @@ import AlamofireObjectMapper
 import Alamofire
 import SDWebImage
 
-class DestinationViewController: UIViewController,UITableViewDataSource, UITableViewDelegate {
+
+class DestinationViewController: UIViewController,UITableViewDataSource, UITableViewDelegate{
 
     @IBOutlet weak var destinationTableview: UITableView!
-    var destinaionArray:[DestinationChildren]?
     
+    var destinaionArray:[DestinationChildren]?
     var activityIndicatorView: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,15 +43,8 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
-//        let navigationBar = navigationController!.navigationBar
-//        navigationBar.attachToScrollView(self.destinationTableview)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-//        let navigationBar = navigationController!.navigationBar
-//        navigationBar.reset()
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
@@ -75,8 +70,11 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
             let indexPath = self.destinationTableview.indexPathForSelectedRow
             vc.destinationId = self.destinaionArray?[(indexPath?.section)!].childrenId
             vc.destinationName = self.destinaionArray?[(indexPath?.section)!].name
+            //vc.attatchFileName = self.destinaionArray?[(indexPath?.section)!].attatchFileName
+           // vc.attatchFileUrl = self.destinaionArray?[(indexPath?.section)!].attatchFileUrl
         }
     }
+
     
     func CallDestinationAPI() {
         self.activityIndicatorView.startAnimating()
@@ -172,6 +170,4 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
         return vw
     }
     
-
-
 }

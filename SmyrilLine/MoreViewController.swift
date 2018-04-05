@@ -11,7 +11,7 @@ import UIKit
 class MoreViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     @IBOutlet weak var moreTableview: UITableView!
-    let itemArray = ["Ship Tracker", "Destination", "Ship Info", "Help", "Settings", "Coupon","Logout"]
+    let itemArray = ["Ship Tracker", "Destination", "Ship Info", "Help", "Settings"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
