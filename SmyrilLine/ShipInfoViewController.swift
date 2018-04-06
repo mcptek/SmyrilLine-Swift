@@ -11,11 +11,17 @@ import AlamofireObjectMapper
 import Alamofire
 import SDWebImage
 import MXParallaxHeader
+import ReachabilitySwift
 
-class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableViewDelegate {
+class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, URLSessionDownloadDelegate,UIDocumentInteractionControllerDelegate {
 
     @IBOutlet weak var shipInfotableView: UITableView!
-    
+    @IBOutlet weak var downloadBgview: UIView!
+    @IBOutlet weak var downloadContainerview: UIView!
+    @IBOutlet weak var progressview: UIProgressView!
+    @IBOutlet weak var downloadButton: UIBarButtonItem!
+    var downloadTask: URLSessionDownloadTask!
+    var backgroundSession: URLSession!
     var cellIndex = 1
     var shipInfoObject: GeneralCategory?
     var myHeaderView: MyTaxfreeScrollViewHeader!
@@ -53,20 +59,36 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
         super.viewWillAppear(animated)
         //self.title = "Ship Info"
         self.navigationController?.navigationBar.isHidden = false
-//        let navigationBar = navigationController!.navigationBar
-//        navigationBar.attachToScrollView(self.shipInfotableView)
+        let backgroundSessionConfiguration = URLSessionConfiguration.background(withIdentifier: "backgroundSessionShipinfo")
+        self.backgroundSession = Foundation.URLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: OperationQueue.main)
+        self.progressview.setProgress(0.0, animated: false)
+        
+        self.downloadButton.isEnabled = false
+        self.downloadButton.tintColor = .clear
+        
+        self.downloadBgview.isHidden = true
+        self.downloadContainerview.isHidden = true
+        
+        self.downloadContainerview.layer.cornerRadius = 3
+        self.downloadContainerview.layer.masksToBounds = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        let navigationBar = navigationController!.navigationBar
-//        navigationBar.reset()
+        if downloadTask != nil{
+            downloadTask.cancel()
+            self.downloadBgview.isHidden = true
+            self.downloadContainerview.isHidden = true
+        }
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reachabilityChanged"), object: nil)
+        self.backgroundSession.invalidateAndCancel()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
        // self.navigationController?.navigationBar.backItem?.title = ""
         self.CallShipInfoAPI()
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -84,7 +106,17 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
      }
      */
     
-    
+    func reachabilityChanged() {
+        
+        if ReachabilityManager.shared.reachabilityStatus == .notReachable {
+            if downloadTask != nil{
+                downloadTask.cancel()
+                self.downloadBgview.isHidden = true
+                self.downloadContainerview.isHidden = true
+                self.showAlert(title: "Error", message: "There is no internet connection now. Please try again later")
+            }
+        }
+    }
     
     func CallShipInfoDetailsAPI() {
         self.activityIndicatorView.startAnimating()
@@ -157,6 +189,16 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
                             self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
                             //self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: "http://stage-smy-wp.mcp.com:82/uploads/7b55bfd1-8ea9-4108-969c-959a63241881_MS_Norr%C3%B6na.01.jpg"), placeholderImage: UIImage.init(named: "placeholder"))
                         }
+                        if (self.shipInfoObject?.attatchFileUrl) != nil && self.shipInfoObject?.attatchFileUrl?.count != 0
+                        {
+                            self.downloadButton.isEnabled = true
+                            self.downloadButton.tintColor = .white
+                        }
+                        else {
+                            self.downloadButton.isEnabled = false
+                            self.downloadButton.tintColor = .clear
+                        }
+                        
                         self.shipInfotableView.reloadData()
                     }
                 case .failure:
@@ -313,5 +355,109 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
         self.shipInfotableView.reloadData()
         
     }
+    
+    @IBAction func downloadButtonAction(_ sender: Any) {
+        let reachibility = Reachability()!
+        if reachibility.isReachable {
+            if var urlPath = self.shipInfoObject?.attatchFileUrl {
+                if self.downloadBgview.isHidden == true {
+                    urlPath = urlPath.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
+                    let url = URL(string: UrlMCP.server_base_url + urlPath)!
+                    downloadTask = backgroundSession.downloadTask(with: url)
+                    downloadTask.resume()
+                    self.downloadBgview.isHidden = false
+                    self.downloadContainerview.isHidden = false
+                }
+            }
+        }
+        else {
+            self.showAlert(title: "Error", message: "There is no internet connection now. Please try again later")
+        }
+    }
+    
+    @IBAction func downloadCancelbuttonAction(_ sender: Any) {
+        if downloadTask != nil{
+            downloadTask.cancel()
+            self.downloadBgview.isHidden = true
+            self.downloadContainerview.isHidden = true
+        }
+    }
+    
+    func showFileWithPath(path: String){
+        let isFileFound:Bool? = FileManager.default.fileExists(atPath: path)
+        if isFileFound == true{
+            let viewer = UIDocumentInteractionController(url: URL(fileURLWithPath: path))
+            viewer.delegate = self
+            viewer.presentPreview(animated: true)
+        }
+    }
+    
+    //MARK: URLSessionDownloadDelegate
+    // 1
+    func urlSession(_ session: URLSession,
+                    downloadTask: URLSessionDownloadTask,
+                    didFinishDownloadingTo location: URL){
+        
+        let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+        let documentDirectoryPath:String = path[0]
+        let fileManager = FileManager()
+        var fileName = ""
+        if let name = self.shipInfoObject?.attatchFileName {
+            fileName = "/" + name
+        }
+        else {
+            fileName = "/file.pdf"
+        }
+        
+        //let name = "/" + self.shopObject?.attatchFileName
+        //        if name.range(of:".pdf") == nil {
+        //            name = name + ".pdf"
+        //        }
+        let destinationURLForFile = URL(fileURLWithPath: documentDirectoryPath.appendingFormat(fileName))
+        self.downloadBgview.isHidden = true
+        self.downloadContainerview.isHidden = true
+        if fileManager.fileExists(atPath: destinationURLForFile.path){
+            showFileWithPath(path: destinationURLForFile.path)
+        }
+        else{
+            do {
+                try fileManager.moveItem(at: location, to: destinationURLForFile)
+                // show file
+                showFileWithPath(path: destinationURLForFile.path)
+            }catch{
+                print("An error occurred while moving file to destination url")
+            }
+        }
+    }
+    // 2
+    func urlSession(_ session: URLSession,
+                    downloadTask: URLSessionDownloadTask,
+                    didWriteData bytesWritten: Int64,
+                    totalBytesWritten: Int64,
+                    totalBytesExpectedToWrite: Int64){
+        self.progressview.setProgress(Float(totalBytesWritten)/Float(totalBytesExpectedToWrite), animated: true)
+    }
+    
+    //MARK: URLSessionTaskDelegate
+    func urlSession(_ session: URLSession,
+                    task: URLSessionTask,
+                    didCompleteWithError error: Error?){
+        downloadTask = nil
+        self.progressview.setProgress(0.0, animated: true)
+        if (error != nil) {
+            print(error!.localizedDescription)
+        }else{
+            print("The task finished transferring data successfully")
+        }
+        self.downloadBgview.isHidden = true
+        self.downloadContainerview.isHidden = true
+    }
+    
+    //MARK: UIDocumentInteractionControllerDelegate
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController
+    {
+        return self
+    }
 
+    
 }

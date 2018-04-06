@@ -9,8 +9,9 @@
 import UIKit
 import SDWebImage
 import MXParallaxHeader
+import ReachabilitySwift
 
-class DestinationCategoryDetailsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+class DestinationCategoryDetailsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate, URLSessionDownloadDelegate,UIDocumentInteractionControllerDelegate {
 
     @IBOutlet weak var categoryDetailsTableview: UITableView!
     
@@ -20,6 +21,13 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
     var destinationCategoryDetailsObject: GeneralCategory?
     var headerCurrentStatus = 2
     var isExpanded = [Bool]()
+    var downloadTask: URLSessionDownloadTask!
+    var backgroundSession: URLSession!
+    
+    @IBOutlet weak var downloadButton: UIBarButtonItem!
+    @IBOutlet weak var downloadBgView: UIView!
+    @IBOutlet weak var downloadContainerview: UIView!
+    @IBOutlet weak var progressbar: UIProgressView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +56,6 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
                 self.isExpanded.append(false)
             }
         }
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,9 +72,45 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
             self.myHeaderView.taxFreeHeaderImageView.sd_setIndicatorStyle(.gray)
             self.myHeaderView.taxFreeHeaderImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
         }
+        
+        let backgroundSessionConfiguration = URLSessionConfiguration.background(withIdentifier: "backgroundSessionDestinationCategoryDetails")
+        self.backgroundSession = Foundation.URLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: OperationQueue.main)
+        self.progressbar.setProgress(0.0, animated: false)
+        
+        if (self.destinationCategoryDetailsObject?.attatchFileUrl) != nil && self.destinationCategoryDetailsObject?.attatchFileUrl?.count != 0
+        {
+            self.downloadButton.isEnabled = true
+            self.downloadButton.tintColor = .white
+        }
+        else {
+            self.downloadButton.isEnabled = false
+            self.downloadButton.tintColor = .clear
+        }
+        
+        self.downloadBgView.isHidden = true
+        self.downloadContainerview.isHidden = true
+        
+        self.downloadContainerview.layer.cornerRadius = 3
+        self.downloadContainerview.layer.masksToBounds = true
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if downloadTask != nil{
+            downloadTask.cancel()
+            self.downloadBgView.isHidden = true
+            self.downloadContainerview.isHidden = true
+        }
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reachabilityChanged"), object: nil)
+        self.backgroundSession.invalidateAndCancel()
+    }
 
+    
     /*
     // MARK: - Navigation
 
@@ -77,6 +120,19 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func reachabilityChanged() {
+        
+        if ReachabilityManager.shared.reachabilityStatus == .notReachable {
+            if downloadTask != nil{
+                downloadTask.cancel()
+                self.downloadBgView.isHidden = true
+                self.downloadContainerview.isHidden = true
+                self.showAlert(title: "Error", message: "There is no internet connection now. Please try again later")
+            }
+        }
+    }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return (self.destinationCategoryDetailsObject?.itemArray?.count)! + 1
@@ -241,4 +297,108 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
         //self.categoryDetailsTableview.scrollToRow(at: savedIndex!, at: .top, animated: false)
         
     }
+    
+    @IBAction func downloadButtonAction(_ sender: Any) {
+        let reachibility = Reachability()!
+        if reachibility.isReachable {
+            if var urlPath = self.destinationCategoryDetailsObject?.attatchFileUrl {
+                if self.downloadBgView.isHidden == true {
+                    urlPath = urlPath.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
+                    let url = URL(string: UrlMCP.server_base_url + urlPath)!
+                    downloadTask = backgroundSession.downloadTask(with: url)
+                    downloadTask.resume()
+                    self.downloadBgView.isHidden = false
+                    self.downloadContainerview.isHidden = false
+                }
+            }
+        }
+        else {
+            self.showAlert(title: "Error", message: "There is no internet connection now. Please try again later")
+        }
+    }
+    
+    @IBAction func downloadCancelButtonAction(_ sender: Any) {
+        if downloadTask != nil{
+            downloadTask.cancel()
+            self.downloadBgView.isHidden = true
+            self.downloadContainerview.isHidden = true
+        }
+    }
+    
+    func showFileWithPath(path: String){
+        let isFileFound:Bool? = FileManager.default.fileExists(atPath: path)
+        if isFileFound == true{
+            let viewer = UIDocumentInteractionController(url: URL(fileURLWithPath: path))
+            viewer.delegate = self
+            viewer.presentPreview(animated: true)
+        }
+    }
+    
+    //MARK: URLSessionDownloadDelegate
+    // 1
+    func urlSession(_ session: URLSession,
+                    downloadTask: URLSessionDownloadTask,
+                    didFinishDownloadingTo location: URL){
+        
+        let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+        let documentDirectoryPath:String = path[0]
+        let fileManager = FileManager()
+        var fileName = ""
+        if let name = self.destinationCategoryDetailsObject?.attatchFileName {
+            fileName = "/" + name
+        }
+        else {
+            fileName = "/file.pdf"
+        }
+        
+        //let name = "/" + self.shopObject?.attatchFileName
+        //        if name.range(of:".pdf") == nil {
+        //            name = name + ".pdf"
+        //        }
+        let destinationURLForFile = URL(fileURLWithPath: documentDirectoryPath.appendingFormat(fileName))
+        self.downloadBgView.isHidden = true
+        self.downloadContainerview.isHidden = true
+        if fileManager.fileExists(atPath: destinationURLForFile.path){
+            showFileWithPath(path: destinationURLForFile.path)
+        }
+        else{
+            do {
+                try fileManager.moveItem(at: location, to: destinationURLForFile)
+                // show file
+                showFileWithPath(path: destinationURLForFile.path)
+            }catch{
+                print("An error occurred while moving file to destination url")
+            }
+        }
+    }
+    // 2
+    func urlSession(_ session: URLSession,
+                    downloadTask: URLSessionDownloadTask,
+                    didWriteData bytesWritten: Int64,
+                    totalBytesWritten: Int64,
+                    totalBytesExpectedToWrite: Int64){
+        self.progressbar.setProgress(Float(totalBytesWritten)/Float(totalBytesExpectedToWrite), animated: true)
+    }
+    
+    //MARK: URLSessionTaskDelegate
+    func urlSession(_ session: URLSession,
+                    task: URLSessionTask,
+                    didCompleteWithError error: Error?){
+        downloadTask = nil
+        self.progressbar.setProgress(0.0, animated: true)
+        if (error != nil) {
+            print(error!.localizedDescription)
+        }else{
+            print("The task finished transferring data successfully")
+        }
+        self.downloadBgView.isHidden = true
+        self.downloadContainerview.isHidden = true
+    }
+    
+    //MARK: UIDocumentInteractionControllerDelegate
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController
+    {
+        return self
+    }
+    
 }
