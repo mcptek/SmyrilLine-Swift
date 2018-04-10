@@ -24,7 +24,6 @@ class DestinationViewController: UIViewController,UITableViewDataSource, UITable
         
         // Do any additional setup after loading the view.
         self.navigationController?.navigationBar.isHidden = false
-        self.title = "Destinations"
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
 //        let navigationBar = navigationController!.navigationBar
 //        navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)

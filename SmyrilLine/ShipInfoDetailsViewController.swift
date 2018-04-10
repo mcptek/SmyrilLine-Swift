@@ -130,7 +130,6 @@ class ShipInfoDetailsViewController: UIViewController,UITableViewDataSource, UIT
         cell.headerTitleLabel.text = self.shipInfoCategoryObject?.detailsDescription
         cell.selectionStyle = .none
         return cell
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)

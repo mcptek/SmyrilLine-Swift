@@ -10,6 +10,8 @@ import UIKit
 
 class FirstPageViewController: UIViewController {
     
+    @IBOutlet weak var subHeaderLabel: UILabel!
+    @IBOutlet weak var headerLabel: UILabel!
     var colorSets = [[CGColor]]()
     var currentColorSet: Int!
     override func viewDidLoad() {
@@ -17,6 +19,8 @@ class FirstPageViewController: UIViewController {
 
         // Do any additional setup after loading the view.
          //createColorSets()
+        self.headerLabel.text = NSLocalizedString("Stay Connected", comment: "")
+        self.subHeaderLabel.text = NSLocalizedString("Please turn on bluetooth & connect to 'Smyril Line App' WiFi (free for our app)", comment: "")
     }
 
     override func didReceiveMemoryWarning() {

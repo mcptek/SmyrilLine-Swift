@@ -35,7 +35,6 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
-        self.title = "Tax Free"
         
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center

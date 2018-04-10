@@ -363,7 +363,7 @@
 "oBU-rT-VUO.title" = "Ship Tracker";
 
 /* Class = "UILabel"; text = "Stay Connected"; ObjectID = "oDY-68-vyV"; */
-"oDY-68-vyV.text" = "Verbindung halten";
+"oDY-68-vyV.text" = "Stay Connected";
 
 /* Class = "UILabel"; text = "speed"; ObjectID = "oGH-43-8cu"; */
 "oGH-43-8cu.text" = "speed";

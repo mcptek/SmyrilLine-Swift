@@ -279,7 +279,17 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         defaults.set(self.settingDic["Female"], forKey: "Female")
         defaults.set(self.settingDic["Both"], forKey: "Both")
         defaults.set(self.currentSelectedLanguage, forKey: "CurrentSelectedLanguage")
-        UserDefaults.standard.set(self.currentSelectedShipId, forKey: "CurrentSelectedShipdId")
+        switch self.currentSelectedLanguage {
+        case 0:
+            defaults.set(["en", "de", "fo", "da"], forKey: "AppleLanguages")
+        case 1:
+            defaults.set(["de", "en", "fo", "da"], forKey: "AppleLanguages")
+        case 2:
+            defaults.set(["fo", "en", "de", "da"], forKey: "AppleLanguages")
+        default:
+            defaults.set(["da", "en", "fo", "de"], forKey: "AppleLanguages")
+        }
+        defaults.set(self.currentSelectedShipId, forKey: "CurrentSelectedShipdId")
         self.displayToast(alertMsg: "Settings saved.")
     }
     

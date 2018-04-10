@@ -37,7 +37,6 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
         
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
-        self.title = "Price and Menu"
         
         self.myHeaderView = Bundle.main.loadNibNamed("TaxfreeHeaderDetailsHeader", owner: self, options: nil)?.first as? UIView as! TaxfreeHeaderDetailsHeader
         self.productDetailsTableview.parallaxHeader.view = self.myHeaderView

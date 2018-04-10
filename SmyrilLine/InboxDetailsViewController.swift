@@ -19,7 +19,6 @@ class InboxDetailsViewController: UIViewController,UITableViewDataSource, UITabl
         // Do any additional setup after loading the view.
         
         self.navigationController?.navigationBar.isHidden = false
-        self.title = "Inbox"
         //let navigationBar = navigationController!.navigationBar
        // navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
         
