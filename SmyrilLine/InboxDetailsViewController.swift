@@ -19,8 +19,7 @@ class InboxDetailsViewController: UIViewController,UITableViewDataSource, UITabl
         // Do any additional setup after loading the view.
         
         self.navigationController?.navigationBar.isHidden = false
-        //let navigationBar = navigationController!.navigationBar
-       // navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
+        self.navigationItem.title = NSLocalizedString("Notification", comment: "")
         
         self.messageDetailsTableview.estimatedRowHeight = 250
         self.messageDetailsTableview.rowHeight = UITableViewAutomaticDimension

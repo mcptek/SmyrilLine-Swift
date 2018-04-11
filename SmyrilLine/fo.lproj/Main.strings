@@ -48,7 +48,7 @@
 "7we-Yo-Zxn.text" = "Please choose your desired message category(s).";
 
 /* Class = "UILabel"; text = "Gender"; ObjectID = "9Qx-Al-yhT"; */
-"9Qx-Al-yhT.text" = "Gender";
+"9Qx-Al-yhT.text" = "Kyn";
 
 /* Class = "UINavigationItem"; title = "Me"; ObjectID = "9Ul-H8-rGK"; */
 "9Ul-H8-rGK.title" = "Me";
@@ -120,7 +120,7 @@
 "FpK-pP-rvL.text" = "| Chile 1";
 
 /* Class = "UILabel"; text = "Age group"; ObjectID = "GEo-Lg-HMK"; */
-"GEo-Lg-HMK.text" = "Age group";
+"GEo-Lg-HMK.text" = "Aldursbólkur";
 
 /* Class = "UIViewController"; title = "My Smyril Line"; ObjectID = "Giv-et-guy"; */
 "Giv-et-guy.title" = "Mit Smyril Line";
@@ -237,7 +237,7 @@
 "Xdw-lC-zLF.text" = "Dinner:";
 
 /* Class = "UILabel"; text = "App version:"; ObjectID = "Yy8-WK-JrX"; */
-"Yy8-WK-JrX.text" = "App version:";
+"Yy8-WK-JrX.text" = "Útgáva";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "Z6V-Xg-3kb"; */
 "Z6V-Xg-3kb.text" = "Label";
@@ -399,7 +399,7 @@
 "swz-c5-dWj.text" = "Message filters";
 
 /* Class = "UILabel"; text = "Client Id:"; ObjectID = "t1g-BP-wSC"; */
-"t1g-BP-wSC.text" = "Client Id:";
+"t1g-BP-wSC.text" = "Brúkari";
 
 /* Class = "UILabel"; text = "Choose Ship"; ObjectID = "tUw-0Q-skg"; */
 "tUw-0Q-skg.text" = "Choose Ship";

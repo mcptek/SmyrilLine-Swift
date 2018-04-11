@@ -237,7 +237,7 @@
 "Xdw-lC-zLF.text" = "Abendessen:";
 
 /* Class = "UILabel"; text = "App version:"; ObjectID = "Yy8-WK-JrX"; */
-"Yy8-WK-JrX.text" = "App version:";
+"Yy8-WK-JrX.text" = "App-Version";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "Z6V-Xg-3kb"; */
 "Z6V-Xg-3kb.text" = "Label";
@@ -399,7 +399,7 @@
 "swz-c5-dWj.text" = "Message filters";
 
 /* Class = "UILabel"; text = "Client Id:"; ObjectID = "t1g-BP-wSC"; */
-"t1g-BP-wSC.text" = "Client Id:";
+"t1g-BP-wSC.text" = "Client-ID";
 
 /* Class = "UILabel"; text = "Choose Ship"; ObjectID = "tUw-0Q-skg"; */
 "tUw-0Q-skg.text" = "Wählen Sie Schiff";

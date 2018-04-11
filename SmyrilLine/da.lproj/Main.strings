@@ -399,7 +399,7 @@
 "swz-c5-dWj.text" = "Message filters";
 
 /* Class = "UILabel"; text = "Client Id:"; ObjectID = "t1g-BP-wSC"; */
-"t1g-BP-wSC.text" = "Client Id:";
+"t1g-BP-wSC.text" = "Bruger id";
 
 /* Class = "UILabel"; text = "Choose Ship"; ObjectID = "tUw-0Q-skg"; */
 "tUw-0Q-skg.text" = "Vælg skib";

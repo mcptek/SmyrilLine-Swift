@@ -734,38 +734,8 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TextFieldBg" translatesAutoresizingMaskIntoConstraints="NO" id="CnM-gN-MR5">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                                             </imageView>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Booking No" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vK1-YQ-btZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
-                                                <connections>
-                                                    <outlet property="delegate" destination="1DU-YS-2pi" id="8ww-tt-0B2"/>
-                                                </connections>
-                                            </textField>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="vK1-YQ-btZ" secondAttribute="trailing" id="8hU-fP-P3v"/>
-                                            <constraint firstItem="CnM-gN-MR5" firstAttribute="top" secondItem="1zY-Ua-dNy" secondAttribute="top" id="Ma7-od-Pi1"/>
-                                            <constraint firstAttribute="bottom" secondItem="vK1-YQ-btZ" secondAttribute="bottom" id="Te0-e5-4Vj"/>
-                                            <constraint firstItem="vK1-YQ-btZ" firstAttribute="leading" secondItem="1zY-Ua-dNy" secondAttribute="leading" id="UBr-9R-OtR"/>
-                                            <constraint firstItem="CnM-gN-MR5" firstAttribute="leading" secondItem="1zY-Ua-dNy" secondAttribute="leading" id="jdE-Ob-4cR"/>
-                                            <constraint firstAttribute="width" constant="320" id="jg2-Fv-Ryf"/>
-                                            <constraint firstItem="vK1-YQ-btZ" firstAttribute="top" secondItem="1zY-Ua-dNy" secondAttribute="top" id="mbG-ex-T7n"/>
-                                            <constraint firstAttribute="trailing" secondItem="CnM-gN-MR5" secondAttribute="trailing" id="nIE-on-s4V"/>
-                                            <constraint firstAttribute="height" constant="46" id="uVV-Jb-EQJ"/>
-                                            <constraint firstAttribute="bottom" secondItem="CnM-gN-MR5" secondAttribute="bottom" id="yTd-Sr-WC6"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HsW-qk-wnG">
-                                        <rect key="frame" x="0.0" y="62" width="320" height="46"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TextFieldBg" translatesAutoresizingMaskIntoConstraints="NO" id="woU-TX-4k8">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
-                                            </imageView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last name" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bWt-NI-bnj">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
+                                                <rect key="frame" x="-0.5" y="-0.5" width="320" height="46"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -776,28 +746,57 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="bWt-NI-bnj" firstAttribute="leading" secondItem="HsW-qk-wnG" secondAttribute="leading" id="669-BF-fiC"/>
+                                            <constraint firstAttribute="trailing" secondItem="bWt-NI-bnj" secondAttribute="trailing" id="C9C-G6-WWM"/>
+                                            <constraint firstItem="bWt-NI-bnj" firstAttribute="top" secondItem="1zY-Ua-dNy" secondAttribute="top" id="FCA-m1-aAa"/>
+                                            <constraint firstAttribute="bottom" secondItem="bWt-NI-bnj" secondAttribute="bottom" id="J9w-sc-R23"/>
+                                            <constraint firstItem="CnM-gN-MR5" firstAttribute="top" secondItem="1zY-Ua-dNy" secondAttribute="top" id="Ma7-od-Pi1"/>
+                                            <constraint firstItem="CnM-gN-MR5" firstAttribute="leading" secondItem="1zY-Ua-dNy" secondAttribute="leading" id="jdE-Ob-4cR"/>
+                                            <constraint firstAttribute="width" constant="320" id="jg2-Fv-Ryf"/>
+                                            <constraint firstAttribute="trailing" secondItem="CnM-gN-MR5" secondAttribute="trailing" id="nIE-on-s4V"/>
+                                            <constraint firstItem="bWt-NI-bnj" firstAttribute="leading" secondItem="1zY-Ua-dNy" secondAttribute="leading" id="sOU-IR-Sn6"/>
+                                            <constraint firstAttribute="height" constant="46" id="uVV-Jb-EQJ"/>
+                                            <constraint firstAttribute="bottom" secondItem="CnM-gN-MR5" secondAttribute="bottom" id="yTd-Sr-WC6"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HsW-qk-wnG">
+                                        <rect key="frame" x="0.0" y="62" width="320" height="46"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TextFieldBg" translatesAutoresizingMaskIntoConstraints="NO" id="woU-TX-4k8">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
+                                            </imageView>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Booking No" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vK1-YQ-btZ">
+                                                <rect key="frame" x="-0.5" y="-0.5" width="320" height="46"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="1DU-YS-2pi" id="8ww-tt-0B2"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="vK1-YQ-btZ" firstAttribute="top" secondItem="HsW-qk-wnG" secondAttribute="top" id="9ZN-vm-l39"/>
+                                            <constraint firstAttribute="bottom" secondItem="vK1-YQ-btZ" secondAttribute="bottom" id="Fvo-ZC-1Yh"/>
                                             <constraint firstAttribute="bottom" secondItem="woU-TX-4k8" secondAttribute="bottom" id="GIg-F3-Ldt"/>
-                                            <constraint firstAttribute="trailing" secondItem="bWt-NI-bnj" secondAttribute="trailing" id="NdU-93-s8G"/>
-                                            <constraint firstItem="bWt-NI-bnj" firstAttribute="top" secondItem="HsW-qk-wnG" secondAttribute="top" id="OCd-y5-H3j"/>
+                                            <constraint firstItem="vK1-YQ-btZ" firstAttribute="leading" secondItem="HsW-qk-wnG" secondAttribute="leading" id="McC-76-znX"/>
+                                            <constraint firstAttribute="trailing" secondItem="vK1-YQ-btZ" secondAttribute="trailing" id="YSW-D1-PaH"/>
                                             <constraint firstAttribute="width" constant="320" id="gUW-Ia-mJF"/>
                                             <constraint firstAttribute="trailing" secondItem="woU-TX-4k8" secondAttribute="trailing" id="hDY-KL-UQp"/>
                                             <constraint firstItem="woU-TX-4k8" firstAttribute="leading" secondItem="HsW-qk-wnG" secondAttribute="leading" id="hPj-BU-PZH"/>
                                             <constraint firstAttribute="height" constant="46" id="ohe-2O-dIC"/>
                                             <constraint firstItem="woU-TX-4k8" firstAttribute="top" secondItem="HsW-qk-wnG" secondAttribute="top" id="wso-Ch-AQ0"/>
-                                            <constraint firstAttribute="bottom" secondItem="bWt-NI-bnj" secondAttribute="bottom" id="ydT-Vk-UJ0"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZB-V4-gdx">
-                                <rect key="frame" x="117.5" y="345.5" width="140" height="40"/>
+                                <rect key="frame" x="132.5" y="345.5" width="110" height="40"/>
                                 <color key="backgroundColor" red="0.023529411764705882" green="0.65098039215686276" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="140" id="Otm-TL-pjU"/>
                                     <constraint firstAttribute="height" constant="40" id="pCU-nj-Qln"/>
                                 </constraints>
-                                <state key="normal" title="View booking">
+                                <state key="normal" title="View Booking">
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -819,6 +818,7 @@
                     <connections>
                         <outlet property="bookingNoTextField" destination="vK1-YQ-btZ" id="XhQ-g7-BOI"/>
                         <outlet property="lastnameTextField" destination="bWt-NI-bnj" id="oz2-uA-lQt"/>
+                        <outlet property="viewBookingButton" destination="eZB-V4-gdx" id="EyB-91-vuA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Vs-qa-TMq" userLabel="First Responder" sceneMemberID="firstResponder"/>

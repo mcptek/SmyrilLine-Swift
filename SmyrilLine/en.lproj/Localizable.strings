@@ -16,7 +16,7 @@
 
 "Home" = "Home";
 
-"Ship Tracker" = "Ship tracker";
+"Ship Tracker" = "Ship Tracker";
 
 "Coupons" = "Coupons";
 
@@ -44,7 +44,7 @@
 
 "Search" = "Search";
 
-"Notification" = "Notification";
+"Notification" = "Notifications";
 
 "My Smyril Line" = "My Smyril Line";
 
@@ -162,11 +162,11 @@
 
 "Gender" = "Gender";
 
-"Adult (from 15 yr)" = "Adult (from 15 yr)";
+"Adult from 15 year" = "Adult from 15 year";
 
-"Child 12 - 15 yr" = "Child 12 - 15 yr";
+"Child 12 - 15 year" = "Child 12 - 15 year";
 
-"Child 3 - 11 yr" = "Child 3 - 11 yr";
+"Child 3 - 11 year" = "Child 3 - 11 year";
 
 "All" = "All";
 

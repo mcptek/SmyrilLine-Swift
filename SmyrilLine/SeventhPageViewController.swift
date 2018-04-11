@@ -67,6 +67,7 @@ class SeventhPageViewController: UIViewController,UITableViewDataSource,UITableV
         // Pass the selected object to the new view controller.
     }
     */
+    
     @IBAction func StartButtonAction(_ sender: Any) {
         UserDefaults.standard.set(true, forKey: "GuideScreen")
         self.dismiss(animated: true, completion: nil)

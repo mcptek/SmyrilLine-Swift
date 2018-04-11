@@ -1,6 +1,6 @@
 
 /* Class = "UITabBarItem"; title = "Inbox"; ObjectID = "0nJ-Vb-R7u"; */
-"0nJ-Vb-R7u.title" = "Notification";
+"0nJ-Vb-R7u.title" = "Notifications";
 
 /* Class = "UILabel"; text = "NAME"; ObjectID = "11U-mQ-WVC"; */
 "11U-mQ-WVC.text" = "NAME";
@@ -66,7 +66,7 @@
 "BXc-VK-nXc.text" = "Label";
 
 /* Class = "UINavigationItem"; title = "Inbox"; ObjectID = "Bh8-ln-XoP"; */
-"Bh8-ln-XoP.title" = "Notification";
+"Bh8-ln-XoP.title" = "Notifications";
 
 /* Class = "UILabel"; text = "details"; ObjectID = "CX7-Ra-VCA"; */
 "CX7-Ra-VCA.text" = "details";
@@ -297,7 +297,7 @@
 "dpv-fc-He7.text" = "Label";
 
 /* Class = "UIButton"; normalTitle = "Log In"; ObjectID = "eZB-V4-gdx"; */
-"eZB-V4-gdx.normalTitle" = "View booking";
+"eZB-V4-gdx.normalTitle" = "View Booking";
 
 /* Class = "UILabel"; text = "Mr Test name"; ObjectID = "efn-xE-up1"; */
 "efn-xE-up1.text" = "Mr Test name";

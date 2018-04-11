@@ -35,7 +35,6 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
-        
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
@@ -128,7 +127,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "taxfreeCell", for: indexPath) as! TaxfreeCollectionViewCell
-        if let productName = self.shopObject?.itemArray?[indexPath.row].name
+        if let productName = self.shopObject?.itemArray?[indexPath.row].shopTitle
         {
             cell.productNameLabel.text = productName
         }
@@ -137,7 +136,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
             cell.productNameLabel.text = nil
         }
         
-        if let productHeader = self.shopObject?.itemArray?[indexPath.row].objectHeader
+        if let productHeader = self.shopObject?.itemArray?[indexPath.row].name
         {
             cell.productHeaderLabel.text = productHeader
         }
@@ -225,13 +224,19 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         case 568:
             return CGSize(width: 140, height: 219)
         case 667:
-            return CGSize(width: 166, height: 219)
+            return CGSize(width: 166.0, height: 219.0)
         case 736:
-            return CGSize(width: 186, height: 225)
-        case 480:
-            return CGSize(width: 140, height: 219)
+            return CGSize(width: 186.0, height: 225.0)
+        case 1334:
+            return CGSize(width: 166.0, height: 219.0)
+        case 2208:
+            //printf("iPhone 6+/6S+/7+/8+");
+            return CGSize(width: 186.0, height: 225.0)
+        case 2436:
+           // printf("iPhone X");
+            return CGSize(width: 186.0, height: 225.0)
         default:
-            return CGSize(width: 186, height: 219)
+            return CGSize(width: 166.0, height: 219.0)
         }
     }
 

@@ -473,13 +473,13 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
     {
         if collectionView.tag == 1010 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ageCollectionCell", for: indexPath) as! AgegroupCollectionViewCell
-            let fullString = self.ageGroupArray[indexPath.row]
+            let fullString = NSLocalizedString(self.ageGroupArray[indexPath.row], comment: "")
             let splittedStringsArray = fullString.split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true)
-            cell.ageTitleLabel.text = NSLocalizedString(String(describing: splittedStringsArray.first!), comment: "")
+            cell.ageTitleLabel.text = String(describing: splittedStringsArray.first!)
             
             if splittedStringsArray.count > 1
             {
-                cell.ageDescriptionLabel.text =  NSLocalizedString(String(describing: splittedStringsArray.last!), comment: "")//String(describing: splittedStringsArray.last!)
+                cell.ageDescriptionLabel.text =  String(describing: splittedStringsArray.last!)
             }
             else
             {

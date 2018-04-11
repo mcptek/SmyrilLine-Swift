@@ -34,6 +34,7 @@ class TaxFreeShopInfo: Mappable{
 
 class ShopObject: Mappable{
     var name : String?
+    var shopTitle: String?
     var imageUrl : String?
     var objectId : String?
     var objectHeader : String?
@@ -45,6 +46,7 @@ class ShopObject: Mappable{
     
     func mapping(map: Map) {
         name <- map["name"]
+        shopTitle <- map["title"]
         imageUrl <- map["imageUrl"]
         objectId <- map["id"]
         objectHeader <- map["description"]

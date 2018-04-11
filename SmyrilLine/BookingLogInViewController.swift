@@ -12,6 +12,7 @@ class BookingLogInViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var bookingNoTextField: UITextField!
     @IBOutlet weak var lastnameTextField: UITextField!
+    @IBOutlet weak var viewBookingButton: UIButton!
     
     
     override func viewDidLoad() {
@@ -21,6 +22,7 @@ class BookingLogInViewController: UIViewController,UITextFieldDelegate {
         self.hideKeyboardWhenTappedAround()
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
+        self.viewBookingButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     }
 
     override func viewDidAppear(_ animated: Bool) {
