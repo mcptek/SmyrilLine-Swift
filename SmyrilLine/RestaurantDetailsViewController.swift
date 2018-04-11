@@ -36,7 +36,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
         self.title = self.restaurantDetailsObject?.name
         
         self.restaurantDetailasTableview.estimatedRowHeight = 140
@@ -439,7 +439,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "mealHeader", for: indexPath) as! MealHeaderTableViewCell
                 if indexPath.section == 3 {
-                    cell.headernameLabel.text = "Breakfast"
+                    cell.headernameLabel.text = NSLocalizedString("Breakfast", comment: "")
                     if self.expandCollapseArray[indexPath.section] {
                         cell.expandCollapseImageView.image = UIImage(named: "CollapseArrow")
                     }
@@ -448,7 +448,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                     }
                 }
                 else if indexPath.section == 4 {
-                    cell.headernameLabel.text = "Lunch"
+                    cell.headernameLabel.text = NSLocalizedString("Lunch", comment: "")
                     if self.expandCollapseArray[indexPath.section] {
                         cell.expandCollapseImageView.image = UIImage(named: "CollapseArrow")
                     }
@@ -457,7 +457,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                     }
                 }
                 else if indexPath.section == 5 {
-                    cell.headernameLabel.text = "Dinner"
+                    cell.headernameLabel.text = NSLocalizedString("Dinner", comment: "")
                     if self.expandCollapseArray[indexPath.section] {
                         cell.expandCollapseImageView.image = UIImage(named: "CollapseArrow")
                     }

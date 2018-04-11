@@ -60,12 +60,12 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
                 let cell = tableView.dequeueReusableCell(withIdentifier: "basicInfo", for: indexPath) as! BasicInfoTableViewCell
                 if indexPath.section == 0 {
                     cell.infoImageView.image = UIImage.init(named: "bookingIcon")
-                    cell.infoHeaderLabel.text = "Booking No"
+                    cell.infoHeaderLabel.text = NSLocalizedString("Booking No", comment: "")
                     cell.infoDetailsLabel.text = "123456789"
                 }
                 else {
                     cell.infoImageView.image = UIImage.init(named: "carIcon")
-                    cell.infoHeaderLabel.text = "CAR"
+                    cell.infoHeaderLabel.text = NSLocalizedString("CAR", comment: "")
                     cell.infoDetailsLabel.text = "Test car name"
                 }
                 cell.backgroundColor = UIColor.white

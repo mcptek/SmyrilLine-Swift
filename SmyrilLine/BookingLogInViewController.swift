@@ -19,9 +19,8 @@ class BookingLogInViewController: UIViewController,UITextFieldDelegate {
 
         // Do any additional setup after loading the view.
         self.hideKeyboardWhenTappedAround()
-        
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {

@@ -16,7 +16,7 @@
 
 "Home" = "Home";
 
-"Ship tracker" = "Ship tracker";
+"Ship Tracker" = "Ship tracker";
 
 "Coupons" = "Coupons";
 
@@ -28,7 +28,7 @@
 
 "Ship Info" = "Ship Info";
 
-"Destinations" = "Destinations";
+"Destination" = "Destinations";
 
 "Use coupon" = "Use coupon";
 
@@ -187,3 +187,13 @@
 "App version:" = "App version:";
 
 "Client ID:" = "Client ID:";
+
+"Back" = "Back";
+
+"Breakfast" = "Breakfast";
+
+"Lunch" = "Lunch";
+
+"Dinner" = "Dinner";
+
+"Ship" = "Ship";

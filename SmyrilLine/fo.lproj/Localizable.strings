@@ -16,7 +16,7 @@
 
 "Home" = "Heim";
 
-"Ship tracker" = "Hvar er Norröna?";
+"Ship Tracker" = "Hvar er Norröna?";
 
 "Coupons" = "Virðisseðlar";
 
@@ -26,9 +26,7 @@
 
 "Tax Free" = "Tax Free";
 
-"Ship Info" = "Ship Info";
-
-"Destinations" = "Ferðamál";
+"Destination" = "Ferðamál";
 
 "Use coupon" = "Brúka tilboðið";
 
@@ -187,3 +185,13 @@
 "App version:" = "Útgáva";
 
 "Client ID:" = "Brúkari";
+
+"Back" = "Back";
+
+"Breakfast" = "Breakfast";
+
+"Lunch" = "Lunch";
+
+"Dinner" = "Dinner";
+
+"Ship" = "Ship";

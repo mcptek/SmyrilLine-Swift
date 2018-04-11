@@ -18,7 +18,7 @@
 
 "Home" = "Zuhause";
 
-"Ship tracker" = "Standort";
+"Ship Tracker" = "Standort";
 
 "Coupons" = "Gutscheine";
 
@@ -26,9 +26,7 @@
 
 "Restaurants & Bars" = "Restaurants und Bars";
 
-"Ship Info" = "Schiffsinformationen";
-
-"Destinations" = "Reiseziele";
+"Destination" = "Reiseziele";
 
 "Use coupon" = "Gutschein einlösen";
 
@@ -187,3 +185,13 @@
 "App version:" = "App-Version";
 
 "Client ID:" = "Client-ID";
+
+"Back" = "Zurück";
+
+"Breakfast" = "Frühstück";
+
+"Lunch" = "Mittagessen";
+
+"Dinner" = "Abendessen";
+
+"Ship" = "Schiff";

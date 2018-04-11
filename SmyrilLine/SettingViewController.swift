@@ -30,6 +30,8 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        self.navigationItem.title = NSLocalizedString("Settings", comment: "")
+        
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
@@ -332,13 +334,13 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "settingHeaderCell", for: indexPath) as! SettingsHeaderTableViewCell
             if indexPath.section == 0 {
-                cell.headerTitleLabel.text = "Message filters"
+                cell.headerTitleLabel.text = NSLocalizedString("Message filters", comment: "")
             }
             else if indexPath.section == 1 {
-                cell.headerTitleLabel.text = "Language"
+                cell.headerTitleLabel.text = NSLocalizedString("Language", comment: "")
             }
             else {
-                cell.headerTitleLabel.text = "Ship"
+                cell.headerTitleLabel.text = NSLocalizedString("Ship", comment: "")
             }
             
             if self.expandCollapseArrau[indexPath.section] {
@@ -477,7 +479,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
             
             if splittedStringsArray.count > 1
             {
-                cell.ageDescriptionLabel.text = String(describing: splittedStringsArray.last!)
+                cell.ageDescriptionLabel.text =  NSLocalizedString(String(describing: splittedStringsArray.last!), comment: "")//String(describing: splittedStringsArray.last!)
             }
             else
             {

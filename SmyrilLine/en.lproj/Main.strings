@@ -1,6 +1,6 @@
 
 /* Class = "UITabBarItem"; title = "Inbox"; ObjectID = "0nJ-Vb-R7u"; */
-"0nJ-Vb-R7u.title" = "Inbox";
+"0nJ-Vb-R7u.title" = "Notification";
 
 /* Class = "UILabel"; text = "NAME"; ObjectID = "11U-mQ-WVC"; */
 "11U-mQ-WVC.text" = "NAME";
@@ -66,7 +66,7 @@
 "BXc-VK-nXc.text" = "Label";
 
 /* Class = "UINavigationItem"; title = "Inbox"; ObjectID = "Bh8-ln-XoP"; */
-"Bh8-ln-XoP.title" = "Inbox";
+"Bh8-ln-XoP.title" = "Notification";
 
 /* Class = "UILabel"; text = "details"; ObjectID = "CX7-Ra-VCA"; */
 "CX7-Ra-VCA.text" = "details";
@@ -78,13 +78,13 @@
 "Cy5-A1-Cxf.text" = "SPEED";
 
 /* Class = "UILabel"; text = "Downloading file. Please wait.."; ObjectID = "Cz7-Vn-dND"; */
-"Cz7-Vn-dND.text" = "Downloading file. Please wait..";
+"Cz7-Vn-dND.text" = "Downloading file.. Please wait.";
 
 /* Class = "UILabel"; text = "Edit"; ObjectID = "DFE-Nm-F9P"; */
 "DFE-Nm-F9P.text" = "Edit";
 
 /* Class = "UILabel"; text = "Select your Ship."; ObjectID = "E8S-tE-yKC"; */
-"E8S-tE-yKC.text" = "Select your Ship.";
+"E8S-tE-yKC.text" = "Select your ship.";
 
 /* Class = "UILabel"; text = "SEX"; ObjectID = "EBq-Xg-wes"; */
 "EBq-Xg-wes.text" = "SEX";
@@ -210,13 +210,13 @@
 "U3w-s7-qcX.title" = "More";
 
 /* Class = "UILabel"; text = "Children"; ObjectID = "UGx-Yg-g0a"; */
-"UGx-Yg-g0a.text" = "Children";
+"UGx-Yg-g0a.text" = "Child";
 
 /* Class = "UILabel"; text = "last port"; ObjectID = "Uyy-Cn-b4E"; */
 "Uyy-Cn-b4E.text" = "last port";
 
 /* Class = "UINavigationItem"; title = "Restaurants"; ObjectID = "VHm-zm-EEE"; */
-"VHm-zm-EEE.title" = "Restaurants";
+"VHm-zm-EEE.title" = "Restaurants & Bars";
 
 /* Class = "UILabel"; text = "Meet, Eat"; ObjectID = "W0Y-zc-a1q"; */
 "W0Y-zc-a1q.text" = "Meet, Eat";
@@ -258,7 +258,7 @@
 "aar-2P-5tO.text" = "Label";
 
 /* Class = "UITabBarItem"; title = "Restaurants"; ObjectID = "af3-kR-AV1"; */
-"af3-kR-AV1.title" = "Restaurants";
+"af3-kR-AV1.title" = "Restaurants & Bars";
 
 /* Class = "UILabel"; text = "Recent"; ObjectID = "bGH-pu-nV4"; */
 "bGH-pu-nV4.text" = "Recent";
@@ -366,7 +366,7 @@
 "oDY-68-vyV.text" = "Stay Connected";
 
 /* Class = "UILabel"; text = "speed"; ObjectID = "oGH-43-8cu"; */
-"oGH-43-8cu.text" = "speed";
+"oGH-43-8cu.text" = "SPEED";
 
 /* Class = "UINavigationItem"; title = "Edit Profile"; ObjectID = "oI3-gH-x6K"; */
 "oI3-gH-x6K.title" = "Edit Profile";
@@ -393,7 +393,7 @@
 "rZb-A2-fug.text" = "NATIONALITY";
 
 /* Class = "UITabBarItem"; title = "Booking"; ObjectID = "saA-LC-nJ2"; */
-"saA-LC-nJ2.title" = "Booking";
+"saA-LC-nJ2.title" = "Home";
 
 /* Class = "UILabel"; text = "Message filters"; ObjectID = "swz-c5-dWj"; */
 "swz-c5-dWj.text" = "Message filters";

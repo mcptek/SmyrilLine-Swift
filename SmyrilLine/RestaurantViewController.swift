@@ -23,7 +23,7 @@ class RestaurantViewController: UIViewController,UITableViewDelegate, UITableVie
 
         // Do any additional setup after loading the view.
         self.navigationController?.navigationBar.isHidden = false
-       self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
+       self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
         
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center

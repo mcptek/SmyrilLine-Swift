@@ -27,20 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //Added swift file
-        var langStr = Locale.current.languageCode
-        var pre = Locale.preferredLanguages[0]
-
-        print(langStr!)
-        print(pre)
+        
         if UserDefaults.standard.value(forKey: "CurrentSelectedLanguage") == nil
         {
-            UserDefaults.standard.set(["en",  "fo", "da"], forKey: "AppleLanguages")
+            UserDefaults.standard.set(["en", "de", "fo", "da"], forKey: "AppleLanguages")
         }
-        langStr = Locale.current.languageCode
-        pre = Locale.preferredLanguages[0]
-        
-        print(langStr!)
-        print(pre)
         
         NewRelic.start(withApplicationToken:"AAc3ed7fc1d51b98bee31eafc0d5aa389bd9979495")
         self.createSocketConnection()

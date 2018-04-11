@@ -7,7 +7,7 @@
 */
 "Home" = "Hjem";
 
-"Ship tracker" = "Ship Tracker";
+"Ship Tracker" = "Følg skibet";
 
 "Coupons" = "Kuponer";
 
@@ -19,7 +19,7 @@
 
 "Ship Info" = "Info om skibet";
 
-"Destinations" = "Destinationer";
+"Destination" = "Destinationer";
 
 "Use coupon" = "Indløs kupon";
 
@@ -101,8 +101,6 @@
 
 "Inbox" = "Indbakke";
 
-"Ship Info" =  "Info om skibet";
-
 "OK" = "OK";
 
 "Cancel" = "Annuler";
@@ -178,3 +176,15 @@
 "App version:" = "App version";
 
 "Client ID:" = "Bruger id";
+
+"Back" = "Tilbage";
+
+"Breakfast" = "Morgenmad";
+
+"Lunch" = "Frokost";
+
+"Dinner" = "Aftensmad";
+
+"Ship" = "Skib";
+
+

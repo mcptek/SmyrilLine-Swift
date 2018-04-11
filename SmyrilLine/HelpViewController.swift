@@ -31,8 +31,8 @@ class HelpViewController: UIViewController,UIWebViewDelegate {
         
         //self.view.backgroundColor = UIColor.white.withAlphaComponent(0.8)
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
-        self.title = "Help"
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
+        self.navigationItem.title = NSLocalizedString("Help", comment: "")
     }
     
     override func viewDidAppear(_ animated: Bool) {

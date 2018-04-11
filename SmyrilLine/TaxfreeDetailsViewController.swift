@@ -36,7 +36,9 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
         // Do any additional setup after loading the view.
         
         self.navigationController?.navigationBar.isHidden = false
-        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: "Back", style: .plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
+        
+        self.navigationItem.title = self.productName
         
         self.myHeaderView = Bundle.main.loadNibNamed("TaxfreeHeaderDetailsHeader", owner: self, options: nil)?.first as? UIView as! TaxfreeHeaderDetailsHeader
         self.productDetailsTableview.parallaxHeader.view = self.myHeaderView
@@ -152,7 +154,7 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
