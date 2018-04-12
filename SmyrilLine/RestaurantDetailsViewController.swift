@@ -603,9 +603,44 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
             cell.mealImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
             
         }
+        /*
         if let productPrice = self.menuType![indexPath.row].price
         {
             cell.mealPriceLabel.text = productPrice
+        }
+        else
+        {
+            cell.mealPriceLabel.text = nil
+        }
+ */
+        if let priceObject = self.menuType![indexPath.row].price
+        {
+            var price = priceObject.replacingOccurrences(of: ".", with: ",", options: .literal, range: nil)
+            //price = "€" + price
+            if price.characters.contains(",") {
+                let splittedStringsArray = price.split(separator: ",", maxSplits: 1, omittingEmptySubsequences: true)
+                if let firstString = splittedStringsArray.first, let secondString = splittedStringsArray.last
+                {
+                    let numericPart = String(describing: firstString)
+                    let fractionPart = String(describing: secondString)
+                    let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
+                    let scriptFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.caption1)
+                    let stringwithSquare = numericPart.attributedStringWithSuperscript(fractionPart, mainStringFont: mainFont, subStringFont: scriptFont, offSetFromBaseLine: 10)
+                    cell.mealPriceLabel.attributedText = stringwithSquare
+                }
+                else
+                {
+                    let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
+                    cell.mealPriceLabel.text = price
+                    cell.mealPriceLabel.font = mainFont
+                    
+                }
+            }
+            else {
+                let mainFont:UIFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)
+                cell.mealPriceLabel.text = price
+                cell.mealPriceLabel.font = mainFont
+            }
         }
         else
         {

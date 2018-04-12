@@ -16,24 +16,12 @@
 	<string>Smyril Line</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) camera use</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Smyril Line would like to access your photo library.</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>OnyxBeaconAPIDomain</key>
-	<string>http://connect.onyxbeacon.com/</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Smyril Line requires location services to detect beacons around you</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Smyril Line requires location services to detect beacons around you</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Smyril Line requires location services to detect beacons around you</string>
 	<key>MGLMapboxAccessToken</key>
 	<string>pk.eyJ1IjoicmFmYXkiLCJhIjoiY2o5OGNkOWYyMG02dzJ3dTR6ajJhZHg2aCJ9._ozTGlSrfvMcGN5I9XAr7g</string>
 	<key>MGLMapboxMetricsEnabledSettingShownInApp</key>
@@ -43,6 +31,18 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) camera use</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Smyril Line requires location services to detect beacons around you</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Smyril Line requires location services to detect beacons around you</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Smyril Line requires location services to detect beacons around you</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Smyril Line would like to access your photo library.</string>
+	<key>OnyxBeaconAPIDomain</key>
+	<string>http://connect.onyxbeacon.com/</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

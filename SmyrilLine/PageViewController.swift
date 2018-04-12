@@ -17,7 +17,6 @@ class PageViewController: UIPageViewController,UIPageViewControllerDelegate, UIP
                 self.newVc(viewController: "page3"),
                 self.newVc(viewController: "page4"),
                 self.newVc(viewController: "page5"),
-                self.newVc(viewController: "page6"),
                 self.newVc(viewController: "page7")]
     }()
     

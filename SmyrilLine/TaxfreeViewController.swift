@@ -127,7 +127,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "taxfreeCell", for: indexPath) as! TaxfreeCollectionViewCell
-        if let productName = self.shopObject?.itemArray?[indexPath.row].shopTitle
+        if let productName = self.shopObject?.itemArray?[indexPath.row].name
         {
             cell.productNameLabel.text = productName
         }
@@ -136,7 +136,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
             cell.productNameLabel.text = nil
         }
         
-        if let productHeader = self.shopObject?.itemArray?[indexPath.row].name
+        if let productHeader = self.shopObject?.itemArray?[indexPath.row].shopTitle
         {
             cell.productHeaderLabel.text = productHeader
         }
