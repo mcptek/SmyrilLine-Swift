@@ -170,7 +170,7 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
                 cell.productNameLabel.text = productName
             }
             
-            self.productPrice = self.productPrice?.replacingOccurrences(of: "€", with: "", options: .literal, range: nil)
+            //self.productPrice = self.productPrice?.replacingOccurrences(of: "€", with: "", options: .literal, range: nil)
             if let priceObject = self.productPrice
             {
                 var price = priceObject.replacingOccurrences(of: ".", with: ",", options: .literal, range: nil)

@@ -405,7 +405,7 @@
 "tUw-0Q-skg.text" = "Choose Ship";
 
 /* Class = "UILabel"; text = "Please turn on bluetooth & connect to 'Smyril Line App' WiFi (free for our app)"; ObjectID = "uhX-rg-gEU"; */
-"uhX-rg-gEU.text" = "Please turn on bluetooth & connect to 'Smyril Line App' WiFi (free for our app)";
+"uhX-rg-gEU.text" = "Connect to 'Smyril Line App' WiFi (free for our app)";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "v6E-6Q-XdE"; */
 "v6E-6Q-XdE.text" = "Label";
