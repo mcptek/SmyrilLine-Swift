@@ -42,7 +42,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         
         self.inboxTableview.estimatedRowHeight = 150
         self.inboxTableview.rowHeight = UITableViewAutomaticDimension
-        //self.configureSearchBar()
+        self.configureSearchBar()
         self.hideKeyboardWhenTappedAround()
 
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
@@ -56,13 +56,13 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         super.viewDidAppear(true)
         //self.configureSearchBar()
         //self.navigationController?.navigationBar.backItem?.title = ""
-//        WebSocketSharedManager.sharedInstance.socket?.delegate = self
-//        if WebSocketSharedManager.sharedInstance.socket?.isConnected == false {
-//            WebSocketSharedManager.sharedInstance.socket?.connect()
-//        }
-//        else {
-//            self.RetrieveCurrentUserList()
-//        }
+        WebSocketSharedManager.sharedInstance.socket?.delegate = self
+        if WebSocketSharedManager.sharedInstance.socket?.isConnected == false {
+            WebSocketSharedManager.sharedInstance.socket?.connect()
+        }
+        else {
+            self.RetrieveCurrentUserList()
+        }
         
     }
     
@@ -194,7 +194,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         self.filteredRecentUserListArray.removeAll()
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
-        let url = UrlMCP.server_base_url + UrlMCP.WebSocketGetUserList//"http://stage-smy-wp.mcp.com:82/chat/api/v2/profileupdate"
+        let url = UrlMCP.WebSocketStageurl + UrlMCP.WebSocketGetUserList//"http://stage-smy-wp.mcp.com:82/chat/api/v2/profileupdate"
         
         Alamofire.request(url, method: .post, parameters: self.retrieveUserProfileDetailsInfo(), encoding: JSONEncoding.default, headers: nil)
             .responseArray { (response: DataResponse<[User]>) in
@@ -212,7 +212,6 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             case .failure(let error):
                 self.showErrorAlert(error: error as NSError)
             }
-
         }
         
         
@@ -343,20 +342,19 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-//        switch self.inboxSegmentControl.selectedSegmentIndex {
-//        case 0:
-//            var totalSection = 0
-//            if self.filteredRecentUserListArray.count > 0 {
-//                totalSection += 1
-//            }
-//            if self.filteredOnlineUserListArray.count > 0 {
-//                totalSection += 1
-//            }
-//            return totalSection
-//        default:
-//            return self.messageArray?.count ?? 0
-//        }
-         return self.messageArray?.count ?? 0
+        switch self.inboxSegmentControl.selectedSegmentIndex {
+        case 0:
+            var totalSection = 0
+            if self.filteredRecentUserListArray.count > 0 {
+                totalSection += 1
+            }
+            if self.filteredOnlineUserListArray.count > 0 {
+                totalSection += 1
+            }
+            return totalSection
+        default:
+            return self.messageArray?.count ?? 0
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -364,76 +362,54 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        switch self.inboxSegmentControl.selectedSegmentIndex {
-//        case 0:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "recentCell", for: indexPath) as! ChatTableViewCell
-//            if indexPath.section == 0 && self.filteredRecentUserListArray.count > 0 {
-//                cell.statusHeaderLabel.text = "Recent"
-//                cell.userCollectionView.tag = 1010
-//            }
-//            else {
-//                cell.statusHeaderLabel.text = "Online"
-//                cell.userCollectionView.tag = 1011
-//            }
-//            cell.userCollectionView.reloadData()
-//            cell.userCollectionView.layoutIfNeeded()
-//            cell.selectionStyle = .none
-//            return cell
-//        default:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "inboxCell", for: indexPath) as! InboxTableViewCell
-//            messageObject = self.messageArray?[indexPath.section]
-//            cell.messageTitleLabel.text = messageObject?.messageTitle
-//            cell.messageDetailsLabel.text = messageObject?.messageDetails
-//            if messageObject?.messageStatus == NSNumber(value: false)
-//            {
-//
-//                cell.messageReadUnreadStatusLabel.textColor = UIColor(red: 52.0/255, green: 152.0/255, blue: 219.0/255, alpha: 1.0)
-//            }
-//            else
-//            {
-//                cell.messageReadUnreadStatusLabel.textColor = UIColor.clear
-//            }
-//
-//            let date = NSDate(timeIntervalSince1970: TimeInterval((messageObject?.messageTime)!))
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateFormat = "MMM d"
-//
-//            cell.messageDateLabel.text = dateFormatter.string(from: date as Date)
-//            cell.selectionStyle = .none
-//            return cell
-//        }
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "inboxCell", for: indexPath) as! InboxTableViewCell
-        messageObject = self.messageArray?[indexPath.section]
-        cell.messageTitleLabel.text = messageObject?.messageTitle
-        cell.messageDetailsLabel.text = messageObject?.messageDetails
-        if messageObject?.messageStatus == NSNumber(value: false)
-        {
-            
-            cell.messageReadUnreadStatusLabel.textColor = UIColor(red: 52.0/255, green: 152.0/255, blue: 219.0/255, alpha: 1.0)
-        }
-        else
-        {
-            cell.messageReadUnreadStatusLabel.textColor = UIColor.clear
+        switch self.inboxSegmentControl.selectedSegmentIndex {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "recentCell", for: indexPath) as! ChatTableViewCell
+            if indexPath.section == 0 && self.filteredRecentUserListArray.count > 0 {
+                cell.statusHeaderLabel.text = "Recent"
+                cell.userCollectionView.tag = 1010
+            }
+            else {
+                cell.statusHeaderLabel.text = "Online"
+                cell.userCollectionView.tag = 1011
+            }
+            cell.userCollectionView.reloadData()
+            cell.userCollectionView.layoutIfNeeded()
+            cell.selectionStyle = .none
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "inboxCell", for: indexPath) as! InboxTableViewCell
+            messageObject = self.messageArray?[indexPath.section]
+            cell.messageTitleLabel.text = messageObject?.messageTitle
+            cell.messageDetailsLabel.text = messageObject?.messageDetails
+            if messageObject?.messageStatus == NSNumber(value: false)
+            {
+
+                cell.messageReadUnreadStatusLabel.textColor = UIColor(red: 52.0/255, green: 152.0/255, blue: 219.0/255, alpha: 1.0)
+            }
+            else
+            {
+                cell.messageReadUnreadStatusLabel.textColor = UIColor.clear
+            }
+
+            let date = NSDate(timeIntervalSince1970: TimeInterval((messageObject?.messageTime)!))
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM d"
+
+            cell.messageDateLabel.text = dateFormatter.string(from: date as Date)
+            cell.selectionStyle = .none
+            return cell
         }
         
-        let date = NSDate(timeIntervalSince1970: TimeInterval((messageObject?.messageTime)!))
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d"
-        
-        cell.messageDateLabel.text = dateFormatter.string(from: date as Date)
-        cell.selectionStyle = .none
-        return cell
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-//        if self.inboxSegmentControl.selectedSegmentIndex == 2 {
-//            return true
-//        }
-//        else {
-//            return false
-//        }
-        return true
+        if self.inboxSegmentControl.selectedSegmentIndex == 2 {
+            return true
+        }
+        else {
+            return false
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -463,13 +439,12 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let vw = UIView()
-//        if self.chatSearchBar.selectedScopeButtonIndex == 0 {
-//            vw.backgroundColor = UIColor.clear
-//        }
-//        else {
-//            vw.backgroundColor = UIColor.white
-//        }
-        vw.backgroundColor = UIColor.clear
+        if self.chatSearchBar.selectedScopeButtonIndex == 0 {
+            vw.backgroundColor = UIColor.clear
+        }
+        else {
+            vw.backgroundColor = UIColor.white
+        }
         return vw
     }
     

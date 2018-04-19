@@ -1215,7 +1215,7 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="destinationPathIcon" translatesAutoresizingMaskIntoConstraints="NO" id="HIG-8w-JjD">
-                                                                        <rect key="frame" x="157.5" y="62" width="29" height="18"/>
+                                                                        <rect key="frame" x="120.5" y="62" width="29" height="18"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="29" id="IrH-qp-Ohd"/>
                                                                             <constraint firstAttribute="height" constant="18" id="o1j-ep-l1N"/>
@@ -1260,7 +1260,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LUq-Uc-5qD">
-                                                                        <rect key="frame" x="8" y="8" width="157.5" height="127"/>
+                                                                        <rect key="frame" x="0.0" y="8" width="157.5" height="127"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="p3E-FT-RIX">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="157.5" height="127"/>
@@ -2720,7 +2720,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="510"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="TpN-06-j0k">
-                                <rect key="frame" x="0.0" y="8" width="375" height="494"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="382"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -2894,7 +2894,7 @@
                                     <outlet property="delegate" destination="erD-jc-MZz" id="E1G-T7-CCo"/>
                                 </connections>
                             </tableView>
-                            <segmentedControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PpV-1i-COb">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PpV-1i-COb">
                                 <rect key="frame" x="57.5" y="76" width="260" height="29"/>
                                 <color key="backgroundColor" red="0.047058823529411764" green="0.54117647058823526" blue="0.84705882352941175" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -2911,7 +2911,7 @@
                                     <action selector="segmentButtonAction:" destination="erD-jc-MZz" eventType="valueChanged" id="152-Bs-P6a"/>
                                 </connections>
                             </segmentedControl>
-                            <searchBar hidden="YES" contentMode="redraw" searchBarStyle="prominent" placeholder="search" translatesAutoresizingMaskIntoConstraints="NO" id="K0m-69-9fH">
+                            <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="search" translatesAutoresizingMaskIntoConstraints="NO" id="K0m-69-9fH">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2922,22 +2922,28 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="K0m-69-9fH" firstAttribute="leading" secondItem="Do7-HE-vys" secondAttribute="leading" id="03O-f8-9qJ"/>
-                            <constraint firstAttribute="trailing" secondItem="TpN-06-j0k" secondAttribute="trailing" id="1oB-tn-yXC"/>
                             <constraint firstItem="PpV-1i-COb" firstAttribute="top" secondItem="K0m-69-9fH" secondAttribute="bottom" constant="20" id="3F4-4n-a0G"/>
-                            <constraint firstItem="TpN-06-j0k" firstAttribute="leading" secondItem="Do7-HE-vys" secondAttribute="leading" id="7Dp-eO-Rch"/>
-                            <constraint firstItem="TpN-06-j0k" firstAttribute="top" secondItem="CYi-BE-Psv" secondAttribute="bottom" constant="8" id="F5L-Ge-MkX"/>
+                            <constraint firstItem="TpN-06-j0k" firstAttribute="leading" secondItem="Do7-HE-vys" secondAttribute="leading" id="9S5-qF-51L"/>
                             <constraint firstAttribute="trailing" secondItem="OLe-Ug-d5R" secondAttribute="trailing" id="FhC-1h-Scv"/>
                             <constraint firstItem="uzD-gy-0mm" firstAttribute="top" secondItem="OLe-Ug-d5R" secondAttribute="bottom" id="GsA-t0-aF9"/>
                             <constraint firstItem="PpV-1i-COb" firstAttribute="centerX" secondItem="Do7-HE-vys" secondAttribute="centerX" id="JO7-1R-Mtv"/>
-                            <constraint firstItem="uzD-gy-0mm" firstAttribute="top" secondItem="TpN-06-j0k" secondAttribute="bottom" constant="8" id="Pb5-Gu-Kzx"/>
                             <constraint firstAttribute="trailing" secondItem="K0m-69-9fH" secondAttribute="trailing" id="Q8S-Aj-SLb"/>
+                            <constraint firstItem="TpN-06-j0k" firstAttribute="top" secondItem="PpV-1i-COb" secondAttribute="bottom" constant="16" id="Tn5-Tf-MjF"/>
+                            <constraint firstAttribute="trailing" secondItem="TpN-06-j0k" secondAttribute="trailing" id="VeC-ST-v97"/>
                             <constraint firstItem="OLe-Ug-d5R" firstAttribute="top" secondItem="CYi-BE-Psv" secondAttribute="bottom" id="hUi-Pe-Hq4"/>
                             <constraint firstItem="OLe-Ug-d5R" firstAttribute="leading" secondItem="Do7-HE-vys" secondAttribute="leading" id="hls-3W-6OC"/>
                             <constraint firstItem="K0m-69-9fH" firstAttribute="top" secondItem="CYi-BE-Psv" secondAttribute="bottom" id="kRI-hv-ox6"/>
+                            <constraint firstItem="uzD-gy-0mm" firstAttribute="top" secondItem="TpN-06-j0k" secondAttribute="bottom" constant="8" id="sZJ-CS-P6X"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Inbox" id="Bh8-ln-XoP"/>
+                    <navigationItem key="navigationItem" title="Inbox" id="Bh8-ln-XoP">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="menu-1" id="IkE-Di-O4h">
+                            <connections>
+                                <segue destination="8Nh-0M-jW5" kind="show" id="V38-Ad-YDB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="chatSearchBar" destination="K0m-69-9fH" id="LcF-wa-mSP"/>
@@ -5310,10 +5316,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background-image" translatesAutoresizingMaskIntoConstraints="NO" id="vHL-Yv-ZHU">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                             </imageView>
                             <tableView clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1sS-Sy-g3B">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.80000000000000004" green="0.86274509803921573" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -5837,6 +5843,7 @@
         <image name="destinationPathIcon" width="28" height="18"/>
         <image name="download" width="20" height="25"/>
         <image name="inbox" width="30" height="30"/>
+        <image name="menu-1" width="6" height="24"/>
         <image name="more" width="30" height="30"/>
         <image name="online" width="13" height="13"/>
         <image name="product-container" width="186" height="219"/>
