@@ -338,6 +338,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
                 language = "/da/"
             }
         }
+        
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + language + "\(String(describing: shipId))", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseArray { (response: DataResponse<[TaxFreeShopInfo]>) in
                 self.activityIndicatorView.stopAnimating()
@@ -348,6 +349,12 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
                     {
                         if response.result.value?.isEmpty == false {
                             self.shopObject = response.result.value?[0]
+                            if let _ = self.shopObject?.shopName {
+                                
+                            } // Trigers a warning
+//                            if case .some(let _) = self {} // Triggers a warning
+//                            if foo() { let _ = bar() } // Not triggers a warning
+//                            if foo() { _ = bar() } // Not triggers a warning
                             if let imageUrlStr = self.shopObject?.shopImageUrlStr
                             {
                                 let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")

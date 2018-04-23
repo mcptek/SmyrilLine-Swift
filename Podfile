@@ -20,6 +20,7 @@ target 'SmyrilLine' do
   pod 'IQKeyboardManagerSwift'
   pod 'NextGrowingTextView'
   pod 'AFNetworking', '~> 3.0'
+  pod 'SwiftLint'
   #pod 'WDImagePicker'
   #pod 'TOSearchBar'
   # pod 'HandyUIKit', '~> 1.6'
