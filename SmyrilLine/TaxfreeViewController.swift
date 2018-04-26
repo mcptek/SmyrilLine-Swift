@@ -49,6 +49,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         self.taxfreeTableview.parallaxHeader.minimumHeight = 50
         
         //self.myTaxfreeCollectionView.backgroundColor = UIColor.white.withAlphaComponent(0.8)
+        self.taxfreeTableview.tableFooterView = UIView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,13 +107,45 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
+        if let count = self.shopObject?.itemArray?.count {
+            if count == 0 {
+                let noDataLabel: UILabel     = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+                noDataLabel.text          = "No data available"
+                noDataLabel.textColor     = UIColor.black
+                noDataLabel.textAlignment = .center
+                tableView.backgroundView  = noDataLabel
+                tableView.separatorStyle  = .none
+            }
+            else {
+                tableView.separatorStyle = .singleLine
+                tableView.backgroundView = nil
+            }
+        }
+        else {
+            let noDataLabel: UILabel     = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            noDataLabel.text          = "No Tax free item available"
+            noDataLabel.textColor     = UIColor.darkGray
+            noDataLabel.textAlignment = .center
+            tableView.backgroundView  = noDataLabel
+            tableView.separatorStyle  = .none
+            
+        }
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 2
+        if let count = self.shopObject?.itemArray?.count {
+            if count == 0 {
+                return 0
+            }
+            else {
+                return 2
+            }
+        }
+        else {
+            return 0
+            
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -149,8 +182,10 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "taxFreeItemCell", for: indexPath) as! TaxfreeItemsTableViewCell
             cell.TaxfreeItemCollectionview.reloadData()
-            cell.TaxfreeItemCollectionview.setNeedsLayout()
+            //cell.TaxfreeItemCollectionview.setNeedsLayout()
             cell.collectionviewHeight.constant = cell.TaxfreeItemCollectionview.collectionViewLayout.collectionViewContentSize.height
+            cell.TaxfreeItemCollectionview.setNeedsLayout()
+            cell.TaxfreeItemCollectionview.reloadData()
             cell.selectionStyle = .none
             return cell
             
