@@ -13,13 +13,14 @@ import SDWebImage
 import MXParallaxHeader
 import ReachabilitySwift
 
-class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, URLSessionDownloadDelegate,UIDocumentInteractionControllerDelegate {
+class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout, URLSessionDownloadDelegate,UIDocumentInteractionControllerDelegate,UITableViewDelegate,UITableViewDataSource {
 
     @IBOutlet weak var downloadButton: UIBarButtonItem!
     @IBOutlet weak var myTaxfreeCollectionView: UICollectionView!
     @IBOutlet weak var downloadProgressView: UIProgressView!
     @IBOutlet weak var downloadBgView: UIView!
     @IBOutlet weak var downloadProgressContainerView: UIView!
+    @IBOutlet weak var taxfreeTableview: UITableView!
     
     var downloadTask: URLSessionDownloadTask!
     var backgroundSession: URLSession!
@@ -28,6 +29,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     var productInfoCategoryId: String?
     var activityIndicatorView: UIActivityIndicatorView!
     var shopObject: TaxFreeShopInfo?
+    var headerCurrentStatus = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,10 +43,10 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         view.addSubview(self.activityIndicatorView)
         
         self.myHeaderView = Bundle.main.loadNibNamed("TaxfreeHeader", owner: self, options: nil)?.first as? UIView as! TaxfreeHeader
-        self.myTaxfreeCollectionView.parallaxHeader.view = self.myHeaderView
-        self.myTaxfreeCollectionView.parallaxHeader.height = 250
-        self.myTaxfreeCollectionView.parallaxHeader.mode = MXParallaxHeaderMode.fill
-        self.myTaxfreeCollectionView.parallaxHeader.minimumHeight = 50
+        self.taxfreeTableview.parallaxHeader.view = self.myHeaderView
+        self.taxfreeTableview.parallaxHeader.height = 250
+        self.taxfreeTableview.parallaxHeader.mode = MXParallaxHeaderMode.fill
+        self.taxfreeTableview.parallaxHeader.minimumHeight = 50
         
         //self.myTaxfreeCollectionView.backgroundColor = UIColor.white.withAlphaComponent(0.8)
     }
@@ -103,6 +105,86 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         }
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "taxfreeDetailsCell", for: indexPath) as! TaxfreeHeaderTableViewCell
+            cell.shopDescriptionLabel.text = self.shopObject?.shopDescription
+            let LineLengthOfLabel = self.countLabelLines(label: cell.shopDescriptionLabel) - 1
+            if LineLengthOfLabel <= 2
+            {
+                cell.seeMoreButton.isHidden = true
+                cell.seeMoreButtonHeight.constant = 0
+            }
+            else
+            {
+                cell.seeMoreButton.isHidden = false
+                cell.seeMoreButtonHeight.constant = 30
+                if self.headerCurrentStatus == 2
+                {
+                    cell.shopDescriptionLabel.numberOfLines = 0
+                    cell.seeMoreButton.setTitle("See Less", for: .normal)
+                }
+                else
+                {
+                    cell.shopDescriptionLabel.numberOfLines = 2
+                    cell.seeMoreButton.setTitle("See More", for: .normal)
+                }
+                cell.seeMoreButton.addTarget(self, action: #selector(headerSeeMoreOrLesssButtonAction(_:)), for: .touchUpInside)
+                
+            }
+            cell.selectionStyle = .none
+            return cell
+        }
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "taxFreeItemCell", for: indexPath) as! TaxfreeItemsTableViewCell
+            cell.TaxfreeItemCollectionview.reloadData()
+            cell.TaxfreeItemCollectionview.setNeedsLayout()
+            cell.collectionviewHeight.constant = cell.TaxfreeItemCollectionview.collectionViewLayout.collectionViewContentSize.height
+            cell.selectionStyle = .none
+            return cell
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
+        return 1.0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
+    {
+        return 1.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let vw = UIView()
+        vw.backgroundColor = UIColor.clear
+        return vw
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
+    {
+        let vw = UIView()
+        vw.backgroundColor = UIColor.clear
+        return vw
+    }
+    
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int
     {
         return 1
@@ -110,17 +192,17 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        if let count = self.shopObject?.itemArray?.count {
-            if count == 0 {
-                self.myTaxfreeCollectionView.setEmptyMessage("No Tax Free item is available")
-            }
-            else {
-                self.myTaxfreeCollectionView.restore()
-            }
-        }
-        else {
-            self.myTaxfreeCollectionView.setEmptyMessage("No Tax Free item is available")
-        }
+//        if let count = self.shopObject?.itemArray?.count {
+//            if count == 0 {
+//                self.myTaxfreeCollectionView.setEmptyMessage("No Tax Free item is available")
+//            }
+//            else {
+//                self.myTaxfreeCollectionView.restore()
+//            }
+//        }
+//        else {
+//            self.myTaxfreeCollectionView.setEmptyMessage("No Tax Free item is available")
+//        }
         return self.shopObject?.itemArray?.count ?? 0
     }
     
@@ -250,6 +332,19 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     }
     */
 
+    func headerSeeMoreOrLesssButtonAction(_ sender : UIButton)  {
+        if self.headerCurrentStatus == 2
+        {
+            self.headerCurrentStatus = 0
+        }
+        else
+        {
+            self.headerCurrentStatus = 2
+        }
+        self.taxfreeTableview.reloadData()
+        
+    }
+    
     @IBAction func downloadCancelButtonAction(_ sender: Any) {
         if downloadTask != nil{
             downloadTask.cancel()
@@ -382,7 +477,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
                             self.myHeaderView.headerLocationLabel.text = nil
                             self.shopObject?.itemArray = nil
                         }
-                        self.myTaxfreeCollectionView.reloadData()
+                        self.taxfreeTableview.reloadData()
                     }
                 case .failure:
                     self.showAlert(title: "Error", message: (response.result.error?.localizedDescription)!)

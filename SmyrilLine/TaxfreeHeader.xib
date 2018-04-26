@@ -90,7 +90,7 @@
                 <outlet property="headerLocationLabel" destination="mSx-WD-MOq" id="g19-Bp-J6Z"/>
                 <outlet property="headerTimeLabel" destination="fWe-vj-6wh" id="klw-3V-9JW"/>
             </connections>
-            <point key="canvasLocation" x="50" y="91"/>
+            <point key="canvasLocation" x="-56" y="78"/>
         </view>
     </objects>
     <resources>

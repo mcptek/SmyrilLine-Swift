@@ -83,6 +83,8 @@
 		848060071FF51561005AC8DA /* AFOAuth2Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 848060031FF51561005AC8DA /* AFOAuth2Manager.m */; };
 		848060081FF51561005AC8DA /* AFOAuthCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 848060051FF51561005AC8DA /* AFOAuthCredential.m */; };
 		8487F22E1FD9566000D5DDEA /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8487F22D1FD9566000D5DDEA /* EditProfileViewController.swift */; };
+		848C79B8208DB1C600DB2603 /* TaxfreeHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C79B7208DB1C600DB2603 /* TaxfreeHeaderTableViewCell.swift */; };
+		848C79BA208DB1F900DB2603 /* TaxfreeItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C79B9208DB1F900DB2603 /* TaxfreeItemsTableViewCell.swift */; };
 		849BC7AD1FA04A85003BCEB1 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849BC7AC1FA04A85003BCEB1 /* MoreViewController.swift */; };
 		849D4BA31FB572BA00863F81 /* SettingsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D4BA21FB572BA00863F81 /* SettingsHeaderTableViewCell.swift */; };
 		849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */; };
@@ -228,6 +230,8 @@
 		848060041FF51561005AC8DA /* AFOAuthCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFOAuthCredential.h; sourceTree = "<group>"; };
 		848060051FF51561005AC8DA /* AFOAuthCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFOAuthCredential.m; sourceTree = "<group>"; };
 		8487F22D1FD9566000D5DDEA /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		848C79B7208DB1C600DB2603 /* TaxfreeHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxfreeHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		848C79B9208DB1F900DB2603 /* TaxfreeItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxfreeItemsTableViewCell.swift; sourceTree = "<group>"; };
 		849BC7AC1FA04A85003BCEB1 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		849D4BA21FB572BA00863F81 /* SettingsHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -323,6 +327,8 @@
 			isa = PBXGroup;
 			children = (
 				840A47831F4FE9360038DAE6 /* TaxfreeViewController.swift */,
+				848C79B7208DB1C600DB2603 /* TaxfreeHeaderTableViewCell.swift */,
+				848C79B9208DB1F900DB2603 /* TaxfreeItemsTableViewCell.swift */,
 				842308441F56FB06004A4166 /* TaxfreeCollectionViewCell.swift */,
 				841F130F1F8488D7009CBAD9 /* TaxfreeHeader.swift */,
 				842308421F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift */,
@@ -1020,6 +1026,7 @@
 				842ED41C1F4E9A76000366BF /* ShipTracker.swift in Sources */,
 				840FCFA31FAC6692002A2067 /* MealDetailsTableViewCell.swift in Sources */,
 				84BAA3601FC54D5100431A9E /* JsonSerializer.swift in Sources */,
+				848C79B8208DB1C600DB2603 /* TaxfreeHeaderTableViewCell.swift in Sources */,
 				842308471F57CB15004A4166 /* DestinationCategoryViewController.swift in Sources */,
 				8429F53F1FB47C9A001C2740 /* SettingViewController.swift in Sources */,
 				84624C97202034F60096B8A2 /* ShipTableViewCell.swift in Sources */,
@@ -1041,6 +1048,7 @@
 				84F3112B1FCFE3F300BF37E8 /* ProfileVisibilityStatusTableViewCell.swift in Sources */,
 				8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */,
 				840A47891F4FF2B40038DAE6 /* TaxFreeShop.swift in Sources */,
+				848C79BA208DB1F900DB2603 /* TaxfreeItemsTableViewCell.swift in Sources */,
 				84F311331FD01D2C00BF37E8 /* ProfileDetailsViewController.swift in Sources */,
 				84E034F4201F2F7000B91844 /* ThirdPageViewController.swift in Sources */,
 			);

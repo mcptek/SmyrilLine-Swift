@@ -11,6 +11,7 @@ import ObjectMapper
 
 class TaxFreeShopInfo: Mappable{
     var shopName: String?
+    var shopDescription: String?
     var shopImageUrlStr: String?
     var shopOpeningClosingTime: String?
     var shopLocation: String?
@@ -23,6 +24,7 @@ class TaxFreeShopInfo: Mappable{
     
     func mapping(map: Map) {
         shopName <- map["name"]
+        shopDescription <- map["description"]
         shopImageUrlStr <- map["imageUrl"]
         shopOpeningClosingTime <- map["openingHours"]
         shopLocation <- map["subheader"]
