@@ -140,20 +140,26 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 if self.restaurantDetailsObject?.adultMeals?.isEmpty == false {
                     return (self.restaurantDetailsObject?.adultMeals?.count)! + 1
                 }
-                return 1
+                else {
+                    return 1
+                }
             }
             else {
                 if self.restaurantDetailsObject?.childrenMeals?.isEmpty == false {
                     return (self.restaurantDetailsObject?.childrenMeals?.count)! + 1
                 }
-                return 1
+                else {
+                    return 1
+                }
             }
         case 3:
             if self.expandCollapseArray[section] {
                 if self.restaurantDetailsObject?.breakfastItems?.isEmpty == false {
                     return 2
                 }
-                return 1
+                else {
+                    return 1
+                }
             }
             else {
                 return 1
@@ -163,7 +169,9 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 if self.restaurantDetailsObject?.lunchItems?.isEmpty == false {
                     return 2
                 }
-                return 1
+                else {
+                    return 1
+                }
             }
             else {
                 return 1
@@ -173,7 +181,9 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 if self.restaurantDetailsObject?.dinnerItems?.isEmpty == false {
                     return 2
                 }
-                return 1
+                else {
+                    return 1
+                }
             }
             else {
                 return 1
@@ -245,7 +255,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 cell.restaurantDeialSeeMoreButton.addTarget(self, action: #selector(headerSeeMoreOrLesssButtonAction(_:)), for: .touchUpInside)
             }
             
-            cell.selectionStyle = .default
+            cell.selectionStyle = .none
             return cell
         case 2:
             if indexPath.row == 0 {
@@ -467,7 +477,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
                 }
                 cell.expandCollapseImageView.image = cell.expandCollapseImageView.image!.withRenderingMode(.alwaysTemplate)
                 cell.expandCollapseImageView.tintColor = UIColor.lightGray
-                cell.selectionStyle = .default
+                cell.selectionStyle = .none
                 return cell
             }
             else {
@@ -485,18 +495,23 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        switch indexPath.section {
+//        if self.expandCollapseArray[section] {
+//            if self.restaurantDetailsObject?.breakfastItems?.isEmpty == false {
+        
+        switch indexPath.section {  
         case 0,3,4,5:
-            if self.expandCollapseArray[indexPath.section] {
-                self.expandCollapseArray[indexPath.section] = false
+            if (indexPath.section == 3 && self.restaurantDetailsObject?.breakfastItems?.isEmpty == false) || (indexPath.section == 4 && self.restaurantDetailsObject?.lunchItems?.isEmpty == false) || (indexPath.section == 5 &&  self.restaurantDetailsObject?.dinnerItems?.isEmpty == false) || (indexPath.section == 0){
+                if self.expandCollapseArray[indexPath.section] {
+                    self.expandCollapseArray[indexPath.section] = false
+                }
+                else {
+                    self.expandCollapseArray[indexPath.section] = true
+                }
+                self.restaurantDetailasTableview.reloadData()
+                let indexPath = IndexPath.init(row: 0, section: indexPath.section)
+                tableView.scrollToRow(at: indexPath as IndexPath, at: .middle, animated: true)
             }
-            else {
-                self.expandCollapseArray[indexPath.section] = true
-            }
-            self.restaurantDetailasTableview.reloadData()
             //tableView.scrollToNearestSelectedRow(at: .middle, animated: true)
-            let indexPath = IndexPath.init(row: 0, section: indexPath.section)
-            tableView.scrollToRow(at: indexPath as IndexPath, at: .middle, animated: true)
         case 2:
             if indexPath.row == 0 {
                 if self.currentLyAdultMealSelected {
