@@ -11,7 +11,7 @@ import UIKit
 class MoreViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     @IBOutlet weak var moreTableview: UITableView!
-    let itemArray = ["Ship Tracker", "Destination", "Ship Info", "Help", "Settings"]
+    let itemArray = ["Notifications","Ship Tracker", "Destination", "Ship Info", "Help", "Settings"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,16 +62,18 @@ class MoreViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.row {
         case 0:
-            self.performSegue(withIdentifier: "shipTracker", sender: self)
+            self.performSegue(withIdentifier: "notifications", sender: self)
         case 1:
-            self.performSegue(withIdentifier: "destination", sender: self)
+            self.performSegue(withIdentifier: "shipTracker", sender: self)
         case 2:
-            self.performSegue(withIdentifier: "shipInfo", sender: self)
+            self.performSegue(withIdentifier: "destination", sender: self)
         case 3:
-            self.performSegue(withIdentifier: "help", sender: self)
+            self.performSegue(withIdentifier: "shipInfo", sender: self)
         case 4:
-            self.performSegue(withIdentifier: "setting", sender: self)
+            self.performSegue(withIdentifier: "help", sender: self)
         case 5:
+            self.performSegue(withIdentifier: "setting", sender: self)
+        case 6:
             self.performSegue(withIdentifier: "coupon", sender: self)
         default:
             print("LogOut Action")
