@@ -18,8 +18,6 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var chatSearchBar: UISearchBar!
     var activityIndicatorView: UIActivityIndicatorView!
-    var messageArray:[Message]?
-    var messageObject: Message?
     var OnlineUserListArray = [User]()
     var filteredOnlineUserListArray = [User]()
     var RecentUserListArray = [User]()
@@ -69,9 +67,9 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.chatSearchBar.resignFirstResponder()
-        self.newMessageReceived()
-        let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(newMessageReceived), name: Notification.Name("InboxNotification"), object: nil)
+//        self.newMessageReceived()
+//        let nc = NotificationCenter.default
+//        nc.addObserver(self, selector: #selector(newMessageReceived), name: Notification.Name("InboxNotification"), object: nil)
         self.navigationController?.navigationBar.isHidden = false
        // let navigationBar = navigationController!.navigationBar
        // navigationBar.attachToScrollView(self.inboxTableview)
@@ -82,8 +80,8 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        let nc = NotificationCenter.default
-        nc.removeObserver(self, name: Notification.Name("InboxNotification"), object: nil)
+        //let nc = NotificationCenter.default
+       // nc.removeObserver(self, name: Notification.Name("InboxNotification"), object: nil)
        // let navigationBar = navigationController!.navigationBar
        // navigationBar.reset()
     }
@@ -282,18 +280,6 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         }
         self.inboxTableview.reloadData()
     }
-    
-    
-    func newMessageReceived()  {
-        if #available(iOS 10.0, *) {
-            let appDelegate = UIApplication.shared.delegate as? AppDelegate
-            self.messageArray = appDelegate?.retrieveAllInboxMessages()
-            self.inboxTableview.reloadData()
-        } else {
-            // Fallback on earlier versions
-        }
-
-    }
 
     @IBAction func segmentButtonAction(_ sender: Any) {
 
@@ -306,12 +292,6 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "inboxDetails"
-        {
-            let vc = segue.destination as! InboxDetailsViewController
-            let indexPath = self.inboxTableview.indexPathForSelectedRow
-            vc.messageObject = self.messageArray?[(indexPath?.section)!]
-        }
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -342,19 +322,14 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        switch self.inboxSegmentControl.selectedSegmentIndex {
-        case 0:
-            var totalSection = 0
-            if self.filteredRecentUserListArray.count > 0 {
-                totalSection += 1
-            }
-            if self.filteredOnlineUserListArray.count > 0 {
-                totalSection += 1
-            }
-            return totalSection
-        default:
-            return self.messageArray?.count ?? 0
+        var totalSection = 0
+        if self.filteredRecentUserListArray.count > 0 {
+            totalSection += 1
         }
+        if self.filteredOnlineUserListArray.count > 0 {
+            totalSection += 1
+        }
+        return totalSection
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -362,69 +337,20 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch self.inboxSegmentControl.selectedSegmentIndex {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "recentCell", for: indexPath) as! ChatTableViewCell
-            if indexPath.section == 0 && self.filteredRecentUserListArray.count > 0 {
-                cell.statusHeaderLabel.text = "Recent"
-                cell.userCollectionView.tag = 1010
-            }
-            else {
-                cell.statusHeaderLabel.text = "Online"
-                cell.userCollectionView.tag = 1011
-            }
-            cell.userCollectionView.reloadData()
-            cell.userCollectionView.layoutIfNeeded()
-            cell.selectionStyle = .none
-            return cell
-        default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "inboxCell", for: indexPath) as! InboxTableViewCell
-            messageObject = self.messageArray?[indexPath.section]
-            cell.messageTitleLabel.text = messageObject?.messageTitle
-            cell.messageDetailsLabel.text = messageObject?.messageDetails
-            if messageObject?.messageStatus == NSNumber(value: false)
-            {
-
-                cell.messageReadUnreadStatusLabel.textColor = UIColor(red: 52.0/255, green: 152.0/255, blue: 219.0/255, alpha: 1.0)
-            }
-            else
-            {
-                cell.messageReadUnreadStatusLabel.textColor = UIColor.clear
-            }
-
-            let date = NSDate(timeIntervalSince1970: TimeInterval((messageObject?.messageTime)!))
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMM d"
-
-            cell.messageDateLabel.text = dateFormatter.string(from: date as Date)
-            cell.selectionStyle = .none
-            return cell
-        }
-        
-    }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if self.inboxSegmentControl.selectedSegmentIndex == 2 {
-            return true
+        let cell = tableView.dequeueReusableCell(withIdentifier: "recentCell", for: indexPath) as! ChatTableViewCell
+        if indexPath.section == 0 && self.filteredRecentUserListArray.count > 0 {
+            cell.statusHeaderLabel.text = "Recent"
+            cell.userCollectionView.tag = 1010
         }
         else {
-            return false
+            cell.statusHeaderLabel.text = "Online"
+            cell.userCollectionView.tag = 1011
         }
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            if #available(iOS 10.0, *) {
-                let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                messageObject = self.messageArray?[indexPath.section]
-                appDelegate?.deleteMessageforMessageId(messageId: (messageObject?.messageId)!)
-                self.messageArray?.removeAll()
-                self.messageArray = appDelegate?.retrieveAllInboxMessages()
-                self.inboxTableview.reloadData()
-            } else {
-                // Fallback on earlier versions
-            }
-        }
+        cell.userCollectionView.reloadData()
+        cell.userCollectionView.layoutIfNeeded()
+        cell.selectionStyle = .none
+        return cell
+        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
@@ -439,12 +365,8 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let vw = UIView()
-        if self.chatSearchBar.selectedScopeButtonIndex == 0 {
-            vw.backgroundColor = UIColor.clear
-        }
-        else {
-            vw.backgroundColor = UIColor.white
-        }
+        vw.backgroundColor = UIColor.clear
+        
         return vw
     }
     
