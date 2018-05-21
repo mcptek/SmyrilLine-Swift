@@ -1427,6 +1427,24 @@
             </objects>
             <point key="canvasLocation" x="-628" y="1111"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="oSW-de-YNE">
+            <objects>
+                <viewController id="phH-wy-fbH" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tv9-nX-IBJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="s77-8W-q3L"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Aii-ko-36K">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xHo-gl-2ae" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="790" y="6"/>
+        </scene>
         <!--Restaurants-->
         <scene sceneID="niF-Ke-J1f">
             <objects>
@@ -2630,7 +2648,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TqU-8h-qC1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="812" y="160.56971514242881"/>
+            <point key="canvasLocation" x="812" y="777"/>
         </scene>
         <!--Ship Info View Controller-->
         <scene sceneID="yV7-iI-Byb">
@@ -4337,7 +4355,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LMU-22-kdG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="812" y="1702"/>
+            <point key="canvasLocation" x="790" y="1691"/>
         </scene>
         <!--Ship Info Details View Controller-->
         <scene sceneID="H1N-Fb-kNv">
