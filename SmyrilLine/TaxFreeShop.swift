@@ -9,6 +9,7 @@
 import Foundation
 import ObjectMapper
 
+
 class TaxFreeShopInfo: Mappable{
     var shopName: String?
     var shopDescription: String?

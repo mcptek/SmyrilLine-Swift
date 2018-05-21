@@ -50,6 +50,8 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         
         //self.myTaxfreeCollectionView.backgroundColor = UIColor.white.withAlphaComponent(0.8)
         self.taxfreeTableview.tableFooterView = UIView()
+        self.loadShopDetails()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,8 +73,8 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        self.shopObject?.itemArray = nil
-        self.CallTaxfreeShopAPI()
+        //self.shopObject?.itemArray = nil
+        //self.CallTaxfreeShopAPI()
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: nil)
 
     }
@@ -93,6 +95,35 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
         // Dispose of any resources that can be recreated.
     }
     
+    func loadShopDetails()  {
+        if let imageUrlStr = self.shopObject?.shopImageUrlStr
+        {
+            let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
+            self.myHeaderView.headerImageView.sd_setShowActivityIndicatorView(true)
+            self.myHeaderView.headerImageView.sd_setIndicatorStyle(.gray)
+            self.myHeaderView.headerImageView.sd_setImage(with: URL(string: UrlMCP.server_base_url + replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
+        }
+        
+        if let time = self.shopObject?.shopOpeningClosingTime
+        {
+            self.myHeaderView.headerTimeLabel.text = time
+        }
+        
+        if let location = self.shopObject?.shopLocation
+        {
+            self.myHeaderView.headerLocationLabel.text = location
+        }
+        
+        if (self.shopObject?.attatchFileUrl) != nil && self.shopObject?.attatchFileUrl?.count != 0
+        {
+            self.downloadButton.isEnabled = true
+            self.downloadButton.tintColor = .white
+        }
+        else {
+            self.downloadButton.isEnabled = false
+            self.downloadButton.tintColor = .clear
+        }
+    }
     
     func reachabilityChanged() {
         

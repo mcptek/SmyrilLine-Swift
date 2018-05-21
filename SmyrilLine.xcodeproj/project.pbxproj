@@ -99,6 +99,7 @@
 		84BAA35F1FC54D5100431A9E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84BAA35C1FC54D5100431A9E /* Info.plist */; };
 		84BAA3601FC54D5100431A9E /* JsonSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAA35D1FC54D5100431A9E /* JsonSerializer.swift */; };
 		84BAA3621FC550B500431A9E /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAA3611FC550B500431A9E /* MessageType.swift */; };
+		84BF649D20B28DF300FD1E9A /* TaxfreeShopsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF649C20B28DF300FD1E9A /* TaxfreeShopsViewController.swift */; };
 		84CF4C19205915FE00C87102 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84CF4C1B205915FE00C87102 /* Localizable.strings */; };
 		84D68EF42052BB620087DF2A /* TaxfreeDetailsPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D68EF32052BB620087DF2A /* TaxfreeDetailsPriceTableViewCell.swift */; };
 		84DFCBD31FBAF78300BCEF8D /* MessageFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DFCBD21FBAF78300BCEF8D /* MessageFilterTableViewCell.swift */; };
@@ -248,6 +249,7 @@
 		84BAA35D1FC54D5100431A9E /* JsonSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonSerializer.swift; sourceTree = "<group>"; };
 		84BAA35E1FC54D5100431A9E /* JsonSerializerSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonSerializerSwift.h; sourceTree = "<group>"; };
 		84BAA3611FC550B500431A9E /* MessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageType.swift; sourceTree = "<group>"; };
+		84BF649C20B28DF300FD1E9A /* TaxfreeShopsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxfreeShopsViewController.swift; sourceTree = "<group>"; };
 		84CF4C15205915A100C87102 /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fo; path = fo.lproj/Main.strings; sourceTree = "<group>"; };
 		84CF4C16205915A200C87102 /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fo; path = fo.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		84CF4C1A205915FE00C87102 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 		840A47851F4FE93D0038DAE6 /* Tax free shop */ = {
 			isa = PBXGroup;
 			children = (
+				84BF649C20B28DF300FD1E9A /* TaxfreeShopsViewController.swift */,
 				840A47831F4FE9360038DAE6 /* TaxfreeViewController.swift */,
 				848C79B7208DB1C600DB2603 /* TaxfreeHeaderTableViewCell.swift */,
 				848C79B9208DB1F900DB2603 /* TaxfreeItemsTableViewCell.swift */,
@@ -994,6 +997,7 @@
 				84F481631FAAEECE0065A915 /* RestaurantDetailsInfoTableViewCell.swift in Sources */,
 				842ED41E1F4E9B23000366BF /* SmyrilLineUrl.swift in Sources */,
 				840FCFA11FAC359E002A2067 /* MealHeaderTableViewCell.swift in Sources */,
+				84BF649D20B28DF300FD1E9A /* TaxfreeShopsViewController.swift in Sources */,
 				84E034F8201F2F9D00B91844 /* FifthPageViewController.swift in Sources */,
 				845CE892200624530058CBEC /* BookingLogInViewController.swift in Sources */,
 				84E034EE201F123C00B91844 /* PageViewController.swift in Sources */,
