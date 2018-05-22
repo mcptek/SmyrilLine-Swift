@@ -271,13 +271,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate {
 
         if UIApplication.shared.applicationState == .active
         {
-            let alert = UIAlertController(title: "Notification", message:title, preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Notification", message:title.decodeChatString(), preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.window?.rootViewController?.present(alert, animated: true, completion: nil)
         }
         
         let notification = UILocalNotification()
-        notification.alertBody = title
+        notification.alertBody = title.decodeChatString()
         notification.soundName = UILocalNotificationDefaultSoundName
         UIApplication.shared.scheduleLocalNotification(notification)
     }
@@ -477,10 +477,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate {
         let message = NSManagedObject(entity: entity,
                                      insertInto: managedContext)
         
+        let emojiEnabledMessageTitle = messageTitle.decodeChatString()
+        let emojiEnabledMessageDetails = messageDetails.decodeChatString()
+        
+        
         // 3
         message.setValue(messageId, forKeyPath: "messageId")
-        message.setValue(messageTitle, forKeyPath: "title")
-        message.setValue(messageDetails, forKeyPath: "details")
+        message.setValue(emojiEnabledMessageTitle, forKeyPath: "title")
+        message.setValue(emojiEnabledMessageDetails, forKeyPath: "details")
         message.setValue(imageUrlStr, forKeyPath: "imageUrlStr")
         message.setValue(UnixTime, forKeyPath: "time")
         message.setValue(NSNumber(value: false), forKeyPath: "status")

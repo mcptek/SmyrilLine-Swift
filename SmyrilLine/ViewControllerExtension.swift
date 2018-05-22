@@ -260,6 +260,25 @@ public extension NSMutableAttributedString {
 }
 public extension String{
     
+    func encodeChatString() -> String? {
+        if let encodedTextData = self.data(using: .nonLossyASCII) {
+            return String(data: encodedTextData, encoding: .utf8)
+        }
+        
+        return nil
+    }
+    
+    
+    func decodeChatString() -> String? {
+        let trimmedString = self.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let stringData = trimmedString.data(using: .utf8) {
+            let messageString = String(data: stringData, encoding: .nonLossyASCII)
+            return messageString
+        }
+        
+        return nil
+    }
+    
     func attributedStringWithSubscript(_ subString: String, mainStringFont: UIFont, subStringFont: UIFont) -> NSMutableAttributedString {
         
         let fullString = self+subString
