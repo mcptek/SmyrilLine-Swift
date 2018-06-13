@@ -20,6 +20,7 @@ PODS:
     - ObjectMapper (~> 2.0)
   - Device.swift (1.0)
   - IQKeyboardManagerSwift (5.0.3)
+  - KMPlaceholderTextView (1.3.0)
   - Mapbox-iOS-SDK (3.6.4)
   - MXParallaxHeader (0.6.1)
   - NewRelicAgent (5.14.2)
@@ -43,6 +44,7 @@ DEPENDENCIES:
   - AlamofireObjectMapper (~> 4.0)
   - Device.swift
   - IQKeyboardManagerSwift
+  - KMPlaceholderTextView (~> 1.3.0)
   - Mapbox-iOS-SDK (~> 3.6)
   - MXParallaxHeader
   - NewRelicAgent
@@ -59,6 +61,7 @@ SPEC CHECKSUMS:
   AlamofireObjectMapper: 435adc82f5b367679bd9e71c4974a54efd0b2521
   Device.swift: edb7ee47de78dbfeb42730dacc7075abaa5c2fde
   IQKeyboardManagerSwift: e257e513744cf32123eca7061272acea0246fc83
+  KMPlaceholderTextView: 2bbcd19a273648a80a61e1e48f9743a24d8930e3
   Mapbox-iOS-SDK: 47847dd44285477e0dfffd0130f65c8a52823ada
   MXParallaxHeader: 858c403532ed933b381556a81ce333d7065ad182
   NewRelicAgent: 28645401ac7531eeeabde64410c9d5efd49e083f
@@ -71,6 +74,6 @@ SPEC CHECKSUMS:
   SwiftWebSocket: 1ef8a0efb023544643bdf480c1ec4a62b204f293
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 282850028ad44e650897c0731ae6abf6bd593bd1
+PODFILE CHECKSUM: d44e634dffc73d6c80bba2623fe340b913141786
 
 COCOAPODS: 1.3.1

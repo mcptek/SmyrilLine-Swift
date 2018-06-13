@@ -6,41 +6,56 @@
 //  Copyright © 2017 Rafay Hasan. All rights reserved.
 //
 
+//import UIKit
+//import KMPlaceholderTextView
+//import AlamofireObjectMapper
+//import Alamofire
+//import SwiftyJSON
+//import SDWebImage
+//import ObjectMapper
 import UIKit
-import NextGrowingTextView
+import Starscream
+import AlamofireObjectMapper
+import Alamofire
+import SwiftyJSON
+import SDWebImage
+import ObjectMapper
+import KMPlaceholderTextView
 
-class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-    @IBOutlet weak var inputContainerviewBottomHeight: NSLayoutConstraint!
-    @IBOutlet weak var growingTextView: NextGrowingTextView!
+class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, WebSocketDelegate {
     @IBOutlet weak var chatTableView: UITableView!
-    private var isVisibleKeyboard = true
-    var messageArray =  [ChatMessageMOdel]()
-    var messageObject:  ChatMessageMOdel?
+    var senderDeviceId: String?
+    var receiverDeviceId: String?
+    var activityIndicatorView: UIActivityIndicatorView!
+    
+    @IBOutlet weak var messageTextView: KMPlaceholderTextView!
+    
+    
+    var myMessageArray = [UserChatMessage]()
     
     override func viewDidLoad() { 
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.chatTableView.estimatedRowHeight = 44
+        self.chatTableView.rowHeight = UITableViewAutomaticDimension
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-                self.growingTextView.layer.cornerRadius = 4
-        self.growingTextView.backgroundColor = UIColor(white: 0.9, alpha: 1)
-        self.growingTextView.textView.textContainerInset = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
-        self.growingTextView.placeholderAttributedText = NSAttributedString(string: "Please enter your message here",
-                                                                            attributes: [NSFontAttributeName: self.growingTextView.textView.font!,
-                                                                                         NSForegroundColorAttributeName: UIColor.gray
-            ]
-        )
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        myActivityIndicator.center = view.center
+        self.activityIndicatorView = myActivityIndicator
+        view.addSubview(self.activityIndicatorView)
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        let messageObject = ChatMessageMOdel.init(message: "Hello iOS device..", messageType: 0, time: "", status: 1)
-        self.messageArray.append(messageObject)
-        self.chatTableView.reloadData()
-        print(self.messageArray )
+        super.viewDidAppear(true)
+        WebSocketSharedManager.sharedInstance.socket?.delegate = self
+        if WebSocketSharedManager.sharedInstance.socket?.isConnected == false {
+            WebSocketSharedManager.sharedInstance.socket?.connect()
+        }
+        else {
+            self.LoadChatHisrory()
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,25 +72,57 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     }
     */
     
-    @objc func keyboardWillHide(_ sender: Notification) {
-        if let userInfo = (sender as NSNotification).userInfo {
-            if let _ = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
-                //key point 0,
-                self.inputContainerviewBottomHeight.constant =  0
-                //textViewBottomConstraint.constant = keyboardHeight
-                UIView.animate(withDuration: 0.25, animations: { () -> Void in self.view.layoutIfNeeded() })
-            }
+    func LoadChatHisrory() {
+        let params: Parameters = [
+            "senderId": self.senderDeviceId!,
+            "receiverId": self.receiverDeviceId!,
+            "pageNo": self.myMessageArray.count
+            ]
+        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
+        self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        let urlStr = UrlMCP.server_base_url + UrlMCP.LoadAllFromSender
+        
+        Alamofire.request(urlStr, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers)
+            .responseArray { (response: DataResponse<[UserChatMessage]>) in
+                self.activityIndicatorView.stopAnimating()
+                self.view.isUserInteractionEnabled = true
+
+                switch response.result {
+                case .success:
+                    if response.response?.statusCode == 200
+                    {
+                        if let array = response.result.value {
+                            self.myMessageArray = array
+                            if self.myMessageArray.count > 0 {
+                                print(self.myMessageArray[0].message ?? "default")
+                            }
+                        }
+                    }
+                case .failure(let error):
+                    self.showAlert(title: "Error", message: error.localizedDescription)
+                }
         }
     }
-    @objc func keyboardWillShow(_ sender: Notification) {
-        if let userInfo = (sender as NSNotification).userInfo {
-            if let keyboardHeight = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.size.height {
-                self.inputContainerviewBottomHeight.constant = keyboardHeight - 45
-                UIView.animate(withDuration: 0.25, animations: { () -> Void in
-                    self.view.layoutIfNeeded()
-                })
-            }
-        }
+    
+    func websocketDidConnect(socket: WebSocketClient) {
+        print("websocket is connected")
+        self.LoadChatHisrory()
+    }
+    
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        print("websocket is disconnected: \(String(describing: error?.localizedDescription))")
+    }
+    
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        print(text)
+        let jsonData = text.data(using: .utf8)
+        let dictionary = try? JSONSerialization.jsonObject(with: jsonData!, options: .mutableLeaves)
+        print(dictionary!)
+    }
+    
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+        print("got some data: \(data.count)")
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -85,32 +132,36 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.messageArray.count
+        return self.myMessageArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "outGoingMessagingCell", for: indexPath) as! OutgoingMessageTableViewCell
+        cell.messageLabel.text = self.myMessageArray[indexPath.row].message
+        cell.setNeedsLayout()
+        return cell
         
-        self.messageObject = self.messageArray[indexPath.row]
-        if self.messageObject?.messageType == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "incomingMessageCell", for: indexPath) as! IncomingMessageTableViewCell
-            cell.bubbleImageView.image = UIImage(named: "chat_bubble_received")?
-                .resizableImage(withCapInsets:
-                    UIEdgeInsetsMake(17, 21, 17, 21),
-                                resizingMode: .stretch)
-                .withRenderingMode(.alwaysTemplate)
-            cell.selectionStyle = .none
-            return cell
-        }
-        else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "outGoingMessagingCell", for: indexPath) as! OutgoingMessageTableViewCell
-            cell.bubbleImageView.image = UIImage(named: "chat_bubble_sent")?
-                .resizableImage(withCapInsets:
-                    UIEdgeInsetsMake(17, 21, 17, 21),
-                                resizingMode: .stretch)
-                .withRenderingMode(.alwaysTemplate)
-            cell.selectionStyle = .none
-            return cell
-        }
+//        self.messageObject = self.messageArray[indexPath.row]
+//        if self.messageObject?.messageType == 0 {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "incomingMessageCell", for: indexPath) as! IncomingMessageTableViewCell
+//            cell.bubbleImageView.image = UIImage(named: "chat_bubble_received")?
+//                .resizableImage(withCapInsets:
+//                    UIEdgeInsetsMake(17, 21, 17, 21),
+//                                resizingMode: .stretch)
+//                .withRenderingMode(.alwaysTemplate)
+//            cell.selectionStyle = .none
+//            return cell
+//        }
+//        else {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "outGoingMessagingCell", for: indexPath) as! OutgoingMessageTableViewCell
+//            cell.bubbleImageView.image = UIImage(named: "chat_bubble_sent")?
+//                .resizableImage(withCapInsets:
+//                    UIEdgeInsetsMake(17, 21, 17, 21),
+//                                resizingMode: .stretch)
+//                .withRenderingMode(.alwaysTemplate)
+//            cell.selectionStyle = .none
+//            return cell
+//        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -134,12 +185,6 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         return vw
     }
     
-    @IBAction func sendLocalMessageButtonAction(_ sender: Any) {
-        let messageObject = ChatMessageMOdel.init(message: self.growingTextView.textView.text, messageType: 1, time: "", status: 1)
-        self.messageArray.append(messageObject)
-        self.growingTextView.textView.text = nil
-        self.chatTableView.reloadData()
-    }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
     {
         let vw = UIView()
@@ -147,4 +192,32 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         
         return vw
     }
+    
+    @IBAction func messageSendButtonAction(_ sender: Any) {
+        //NSUUID().uuidString.lowercased()
+        let params: Parameters = [
+            "senderDeviceId": self.senderDeviceId!,
+            "receiverDeviceId": self.receiverDeviceId!,
+            "messageBase64": self.messageTextView.text.base64Encoded() ?? "",
+            "messageId": NSUUID().uuidString.lowercased(),
+            ]
+        print(params)
+        let url = UrlMCP.server_base_url + UrlMCP.SendMessageToServer
+        Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseJSON { (response:DataResponse<Any>) in
+            print(response.response?.statusCode ?? "no status code")
+            if response.response?.statusCode != 200 {
+                self.showAlert(title: "Message", message: "Message sending failed. Please try again later")
+            }
+            
+        }
+        
+        
+//        Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil)
+//            .responseJSON { response in
+//                print(response.request as Any)  // original URL request
+//                print(response.response as Any) // URL response
+//                print(response.result.value as Any)   // result of response serialization
+//        }
+    }
+    
 }

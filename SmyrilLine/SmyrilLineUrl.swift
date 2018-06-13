@@ -10,10 +10,7 @@ import Foundation
 
 struct UrlMCP {
     static let server_base_url = "http://stage-smy-wp.mcp.com:82"
-    static let WebSocketStageurl = "ws://192.168.1.157:5000/ws/"
-    static let WebSocketLocalurl = "ws://192.168.1.47:5000/ws/"
-    static let WebSocketProfilePicImageUpload = "/chat/api/v2/profileupdate"
-    static let WebSocketGetUserList = "chat/api/v2/GetCurrentUserList"
+    static let Local_base_url = "http://192.168.1.208:5000"
     static let quedBulletinPath = "/api/Schedule/FindQueuedBulletin"
     static let shipServerPath = "http://smy-wp.mcp.com"
     static let shiptrackerInfo = "http://console.mcp.com/mtracking.php?ship=22"
@@ -24,4 +21,11 @@ struct UrlMCP {
     static let taxFreeShopParentPath = "/api/smyrilline/taxfreeshop"
     static let ShipInfoParentPath = "/api/smyrilline/shipinfo"
     static let ShipChoosingParentPath = "/api/smyrilline/ships"
+    
+    static let SendMessageToServer = "/chat/api/v2/onChatMessageToServer"
+    static let LoadAllFromSender = "/chat/api/v2/LoadMoreFromSender"
+    static let WebSocketConnectionStageurl = "ws://stage-smy-wp.mcp.com:8080/ws/"
+    static let WebSocketLocalurl = "ws://192.168.1.47:5000/ws/"
+    static let WebSocketProfilePicImageUpload = "/chat/api/v2/profileupdate"
+    static let WebSocketGetUserList = "/chat/api/v2/GetCurrentUserList"
 }

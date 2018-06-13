@@ -22,6 +22,10 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     var filteredOnlineUserListArray = [User]()
     var RecentUserListArray = [User]()
     var filteredRecentUserListArray = [User]()
+    var senderDeviceId: String?
+    var receiverDeviceId: String?
+    
+    
     
     @IBOutlet weak var inboxSegmentControl: UISegmentedControl!
     
@@ -54,6 +58,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         super.viewDidAppear(true)
         //self.configureSearchBar()
         //self.navigationController?.navigationBar.backItem?.title = ""
+        //print(UrlMCP.WebSocketStageurl + "?deviceId=" + (UIDevice.current.identifierForVendor?.uuidString)
         WebSocketSharedManager.sharedInstance.socket?.delegate = self
         if WebSocketSharedManager.sharedInstance.socket?.isConnected == false {
             WebSocketSharedManager.sharedInstance.socket?.connect()
@@ -192,7 +197,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         self.filteredRecentUserListArray.removeAll()
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
-        let url = UrlMCP.WebSocketStageurl + UrlMCP.WebSocketGetUserList//"http://stage-smy-wp.mcp.com:82/chat/api/v2/profileupdate"
+        let url = UrlMCP.server_base_url + UrlMCP.WebSocketGetUserList  //"http://stage-smy-wp.mcp.com:82/chat/api/v2/profileupdate"
         
         Alamofire.request(url, method: .post, parameters: self.retrieveUserProfileDetailsInfo(), encoding: JSONEncoding.default, headers: nil)
             .responseArray { (response: DataResponse<[User]>) in
@@ -200,6 +205,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             self.view.isUserInteractionEnabled = true
             switch response.result {
             case .success:
+                print(response.result.value!)
                 let forecastArray = response.result.value
                 if let UserList = forecastArray {
                     self.filterChatUserList(UserList: UserList)
@@ -255,6 +261,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         for object in UserList {
             if let deviviceId = object.deviceId {
                 if deviviceId == (UIDevice.current.identifierForVendor?.uuidString)! {
+                    self.senderDeviceId = deviviceId
                     if let imageUrl = object.imageUrl {
                         UserDefaults.standard.set(imageUrl, forKey: "userProfileImageUrl")
                     }
@@ -292,7 +299,17 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "chatMessageCell" {
+            let vc = segue.destination as! ChatContainerViewController
+            if let senderId = self.senderDeviceId {
+                vc.senderDeviceId = senderId
+            }
+            if let receiverId = self.receiverDeviceId {
+                vc.receiverDeviceId = receiverId
+            }
+        }
     }
+    
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
@@ -300,11 +317,11 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         self.filteredOnlineUserListArray.removeAll()
         
         self.filteredRecentUserListArray = self.RecentUserListArray.filter({ (object: User) -> Bool in
-            return (object.name?.lowercased().range(of: searchText.lowercased()) != nil)
+            return (object.name?.base64Decoded()?.lowercased().range(of: searchText.lowercased()) != nil)
         })
         
         self.filteredOnlineUserListArray = self.OnlineUserListArray.filter({ (object: User) -> Bool in
-            return (object.name?.lowercased().range(of: searchText.lowercased()) != nil)
+            return (object.name?.base64Decoded()?.lowercased().range(of: searchText.lowercased()) != nil)
         })
         
         if searchText == "" {
@@ -465,11 +482,16 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        self.performSegue(withIdentifier: "chatMessageCell", sender: nil)
-//        if let objectId = self.shopObject?.itemArray?[indexPath.row].objectId
-//        {
-//            self.CallTaxfreeShopDetailsAPIwithObjectId(objectId: objectId)
-//        }
+        if collectionView.tag == 1010 {
+            self.receiverDeviceId = self.filteredRecentUserListArray[indexPath.row].deviceId
+        }
+        else {
+            self.receiverDeviceId = self.filteredOnlineUserListArray[indexPath.row].deviceId
+        }
+        if let _ = self.senderDeviceId, let _ = self.receiverDeviceId {
+            self.performSegue(withIdentifier: "chatMessageCell", sender: nil)
+        }
+
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets

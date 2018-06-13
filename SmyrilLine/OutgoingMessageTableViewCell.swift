@@ -10,12 +10,16 @@ import UIKit
 
 class OutgoingMessageTableViewCell: UITableViewCell {
 
-    
-    @IBOutlet weak var bubbleImageView: UIImageView!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var messageLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        // corner radius
+        self.containerView.layer.masksToBounds = true
+        self.containerView.layer.cornerRadius = 15
+        //self.containerView.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
