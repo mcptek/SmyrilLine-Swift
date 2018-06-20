@@ -84,6 +84,7 @@
 		848060061FF51561005AC8DA /* AFHTTPRequestSerializer+OAuth2.m in Sources */ = {isa = PBXBuildFile; fileRef = 848060011FF51561005AC8DA /* AFHTTPRequestSerializer+OAuth2.m */; };
 		848060071FF51561005AC8DA /* AFOAuth2Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 848060031FF51561005AC8DA /* AFOAuth2Manager.m */; };
 		848060081FF51561005AC8DA /* AFOAuthCredential.m in Sources */ = {isa = PBXBuildFile; fileRef = 848060051FF51561005AC8DA /* AFOAuthCredential.m */; };
+		84806DDC20DA166700105EA7 /* UserChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84806DDB20DA166700105EA7 /* UserChat.swift */; };
 		8487F22E1FD9566000D5DDEA /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8487F22D1FD9566000D5DDEA /* EditProfileViewController.swift */; };
 		848C79B8208DB1C600DB2603 /* TaxfreeHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C79B7208DB1C600DB2603 /* TaxfreeHeaderTableViewCell.swift */; };
 		848C79BA208DB1F900DB2603 /* TaxfreeItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C79B9208DB1F900DB2603 /* TaxfreeItemsTableViewCell.swift */; };
@@ -234,6 +235,7 @@
 		848060031FF51561005AC8DA /* AFOAuth2Manager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFOAuth2Manager.m; sourceTree = "<group>"; };
 		848060041FF51561005AC8DA /* AFOAuthCredential.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFOAuthCredential.h; sourceTree = "<group>"; };
 		848060051FF51561005AC8DA /* AFOAuthCredential.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFOAuthCredential.m; sourceTree = "<group>"; };
+		84806DDB20DA166700105EA7 /* UserChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChat.swift; sourceTree = "<group>"; };
 		8487F22D1FD9566000D5DDEA /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		848C79B7208DB1C600DB2603 /* TaxfreeHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxfreeHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		848C79B9208DB1F900DB2603 /* TaxfreeItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxfreeItemsTableViewCell.swift; sourceTree = "<group>"; };
@@ -540,6 +542,7 @@
 			isa = PBXGroup;
 			children = (
 				842FE9611FEB72FB00D40FF7 /* ChatContainerViewController.swift */,
+				84806DDB20DA166700105EA7 /* UserChat.swift */,
 				845F33671FECC6BB0068A655 /* IncomingMessageTableViewCell.swift */,
 				845F33691FECC6DF0068A655 /* OutgoingMessageTableViewCell.swift */,
 				8476C32A20BE7B9B0090042C /* ChatBubbleData.swift */,
@@ -1061,6 +1064,7 @@
 				848060061FF51561005AC8DA /* AFHTTPRequestSerializer+OAuth2.m in Sources */,
 				84DFCBD51FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift in Sources */,
 				84BAA3621FC550B500431A9E /* MessageType.swift in Sources */,
+				84806DDC20DA166700105EA7 /* UserChat.swift in Sources */,
 				BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */,
 				84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */,
 				84E034F6201F2F8500B91844 /* FourthPageViewController.swift in Sources */,

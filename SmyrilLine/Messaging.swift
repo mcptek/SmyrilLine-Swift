@@ -12,12 +12,14 @@ import ObjectMapper
 class Messaging: Mappable{
     var MessageType : Int?
     var userList : [User]?
+    var Message : [String: Any]?
     required init?(map: Map){
     }
     
     func mapping(map: Map) {
         userList <- map["ParamList"]
         MessageType <- map["MessageType"]
+        Message <- map["Param"]
     }
 }
 
@@ -26,6 +28,7 @@ class UserChatMessage: Mappable{
     var messageUrlString : String?
     var fromLocalClient : Bool?
     var sendTime : Double?
+    var messageSendingStatus : Int?
     required init?(map: Map){
     }
     
@@ -34,6 +37,7 @@ class UserChatMessage: Mappable{
         messageUrlString <- map["senderImageUrl"]
         fromLocalClient <- map["fromLocalClient"]
         sendTime <- map["sendTime"]
+        messageSendingStatus <- map["messageSendingStatus"]
     }
 }
 

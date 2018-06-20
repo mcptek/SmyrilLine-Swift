@@ -235,19 +235,21 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     }
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        self.OnlineUserListArray.removeAll()
-        self.filteredOnlineUserListArray.removeAll()
-        self.RecentUserListArray.removeAll()
-        self.filteredRecentUserListArray.removeAll()
         if let arr: Array<Messaging> = Mapper<Messaging>().mapArray(JSONString: text) {
+            //print(arr[0].Message)
             if let userType = arr[0].MessageType {
-                if userType == 5 {
+                switch(userType) {
+                case 5:
                     if let UserList = arr[0].userList {
-                       self.filterChatUserList(UserList: UserList)
+                        self.filterChatUserList(UserList: UserList)
                     }
                     else {
                         self.showAlert(title: "Message", message: "No user list found")
                     }
+                case 8:
+                    print(arr[0].Message?["messageId"] ?? "default value")
+                default:
+                    print("Default")
                 }
             }
         }
@@ -258,6 +260,12 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     }
     
     func filterChatUserList(UserList: [User] )  {
+        
+        self.OnlineUserListArray.removeAll()
+        self.filteredOnlineUserListArray.removeAll()
+        self.RecentUserListArray.removeAll()
+        self.filteredRecentUserListArray.removeAll()
+        
         for object in UserList {
             if let deviviceId = object.deviceId {
                 if deviviceId == (UIDevice.current.identifierForVendor?.uuidString)! {

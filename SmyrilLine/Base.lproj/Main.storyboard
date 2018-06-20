@@ -1151,7 +1151,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Mgm-vD-qQs">
-                                                            <rect key="frame" x="0.0" y="33" width="229" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="33" width="222.5" height="20.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adult 3" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncf-lk-v5R">
                                                                     <rect key="frame" x="0.0" y="0.0" width="71.5" height="20.5"/>
@@ -5388,6 +5388,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="WBv-iv-f4F">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="422"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="outGoingMessagingCell" rowHeight="50" id="YfN-E1-aDN" customClass="OutgoingMessageTableViewCell" customModule="SmyrilLine" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1" width="375" height="50"/>
@@ -5450,13 +5451,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVj-We-KUi">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="19q-To-g95">
-                                                            <rect key="frame" x="64" y="8" width="51.5" height="34"/>
+                                                            <rect key="frame" x="64" y="8" width="51.5" height="33.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi " textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Dg-S3-J3a">
-                                                                    <rect key="frame" x="16" y="8" width="19.5" height="18"/>
+                                                                    <rect key="frame" x="16" y="8" width="19.5" height="17.5"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                                     <color key="textColor" red="0.23137254901960785" green="0.23137254901960785" blue="0.23137254901960785" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -5500,8 +5501,9 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="containerView" destination="19q-To-g95" id="RkF-yD-Nai"/>
-                                            <outlet property="messageLabel" destination="5Dg-S3-J3a" id="xok-93-j5k"/>
+                                            <outlet property="containerView" destination="19q-To-g95" id="I13-WV-Lpt"/>
+                                            <outlet property="messagelabel" destination="5Dg-S3-J3a" id="QEf-wu-bxL"/>
+                                            <outlet property="userImageView" destination="0m0-3K-lzq" id="JpM-kF-FE0"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -5580,6 +5582,7 @@
                     </view>
                     <connections>
                         <outlet property="chatTableView" destination="WBv-iv-f4F" id="FVQ-HB-EtV"/>
+                        <outlet property="keyboardBottomHeight" destination="BSA-Bx-gSy" id="aHN-NQ-BeD"/>
                         <outlet property="messageTextView" destination="U4F-Jf-rdn" id="LhV-zY-QSE"/>
                     </connections>
                 </viewController>

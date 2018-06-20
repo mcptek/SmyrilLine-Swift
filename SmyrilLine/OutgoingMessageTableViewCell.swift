@@ -20,6 +20,7 @@ class OutgoingMessageTableViewCell: UITableViewCell {
         self.containerView.layer.masksToBounds = true
         self.containerView.layer.cornerRadius = 15
         //self.containerView.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -22,8 +22,9 @@ struct UrlMCP {
     static let ShipInfoParentPath = "/api/smyrilline/shipinfo"
     static let ShipChoosingParentPath = "/api/smyrilline/ships"
     
+    static let AcknowledgeMessage = "/chat/api/v2/onClientAcknowledgeMessage"
     static let SendMessageToServer = "/chat/api/v2/onChatMessageToServer"
-    static let LoadAllFromSender = "/chat/api/v2/LoadMoreFromSender"
+    static let LoadMoreFromSender = "/chat/api/v2/LoadMoreFromSender"
     static let WebSocketConnectionStageurl = "ws://stage-smy-wp.mcp.com:8080/ws/"
     static let WebSocketLocalurl = "ws://192.168.1.47:5000/ws/"
     static let WebSocketProfilePicImageUpload = "/chat/api/v2/profileupdate"
