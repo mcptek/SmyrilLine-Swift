@@ -29,6 +29,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     var receiverDeviceId: String?
     var activityIndicatorView: UIActivityIndicatorView!
     
+    @IBOutlet weak var keyboardBackgroundBottomHeight: NSLayoutConstraint!
     @IBOutlet weak var keyboardBottomHeight: NSLayoutConstraint!
     @IBOutlet weak var messageTextView: KMPlaceholderTextView!
     
@@ -87,7 +88,12 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
             let keyboardHeight : Int = Int(keyboardSize.height)
             print("keyboardHeight",keyboardHeight)
             self.keyboardBottomHeight.constant = CGFloat(keyboardHeight)
+            self.keyboardBackgroundBottomHeight.constant = CGFloat(keyboardHeight)
             self.view.setNeedsLayout()
+            if self.messagesArray.count > 0 {
+                let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
+                self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+            }
         }
         
     }
@@ -95,7 +101,12 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     func keyboardWillHide(notification: NSNotification) {
         
         self.keyboardBottomHeight.constant = 0
+        self.keyboardBackgroundBottomHeight.constant = 0
         self.view.setNeedsLayout()
+        if self.messagesArray.count > 0 {
+            let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
+            self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+        }
         
     }
     
@@ -125,6 +136,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                                 var message = ""
                                 var imageUrlStr = ""
                                 var time = 0.0
+                                var timeStr = ""
                                 var messageStatus = 100
                                 var fromLocal = true
                                 
@@ -138,6 +150,12 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                                 
                                 if let tm = member.sendTime {
                                     time = tm
+                                    let date = Date(timeIntervalSince1970: (time / 1000.0))
+                                    let dateFormatter = DateFormatter()
+                                    dateFormatter.timeZone = TimeZone.current //Set timezone that you want
+                                    dateFormatter.locale = NSLocale.current
+                                    dateFormatter.dateFormat = "hh:mm a" //Specify your format that you want
+                                    timeStr = dateFormatter.string(from: date)
                                 }
                                 
                                 if let local = member.fromLocalClient {
@@ -149,7 +167,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                                 }
                                 
                                 
-                                self.messagesArray.append(Chat(message: message, messageid: "", time: time, imageString: imageUrlStr, fromLocalClient: fromLocal, messageStatus: Chat.MessageSendingStatus(rawValue: messageStatus)!))
+                                self.messagesArray.append(Chat(message: message, messageid: "", time: timeStr, imageString: imageUrlStr, fromLocalClient: fromLocal, messageStatus: Chat.MessageSendingStatus(rawValue: messageStatus)!))
                             }
                             self.chatTableView.reloadData()
                             if self.messagesArray.count > 0 {
@@ -189,7 +207,17 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                     }
                     print(imagestr)
                     self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String)
-                    self.messagesArray.append(Chat(message: arr[0].Message?["messageBase64"] as! String, messageid: arr[0].Message?["messageId"] as! String, time: arr[0].Message?["sendTime"] as! Double, imageString: imagestr, fromLocalClient: false, messageStatus: Chat.MessageSendingStatus.seen))
+                    var timeStr = ""
+                    
+                    if let tm = arr[0].Message?["sendTime"] as? Double {
+                        let date = Date(timeIntervalSince1970: (tm / 1000.0))
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.timeZone = TimeZone.current //Set timezone that you want
+                        dateFormatter.locale = NSLocale.current
+                        dateFormatter.dateFormat = "hh:mm a" //Specify your format that you want
+                        timeStr = dateFormatter.string(from: date)
+                    }
+                    self.messagesArray.append(Chat(message: arr[0].Message?["messageBase64"] as! String, messageid: arr[0].Message?["messageId"] as! String, time: timeStr, imageString: imagestr, fromLocalClient: false, messageStatus: Chat.MessageSendingStatus.seen))
                     self.chatTableView.reloadData()
                     if self.messagesArray.count > 0 {
                         let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
@@ -264,12 +292,15 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         if self.messagesArray[indexPath.row].fromLocalClient {
             let cell = tableView.dequeueReusableCell(withIdentifier: "outGoingMessagingCell", for: indexPath) as! OutgoingMessageTableViewCell
             cell.messageLabel.text = self.messagesArray[indexPath.row].message.base64Decoded()
+            cell.timeLabel.text = self.messagesArray[indexPath.row].sendTime
             cell.setNeedsLayout()
+            cell.selectionStyle = .none
             return cell
         }
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "IncomingMessagingCell", for: indexPath) as! IncomingMessageTableViewCell
             cell.messagelabel.text = self.messagesArray[indexPath.row].message.base64Decoded()
+            cell.timeLabel.text = self.messagesArray[indexPath.row].sendTime
             if self.messagesArray[indexPath.row].userImageUrlString.count > 0
             {
                 let replaceStr = self.messagesArray[indexPath.row].userImageUrlString.replacingOccurrences(of: " ", with: "%20")
@@ -282,13 +313,14 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                 cell.userImageView.image = nil
             }
             cell.setNeedsLayout()
+            cell.selectionStyle = .none
             return cell
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+//    {
+//    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
@@ -323,8 +355,16 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
             "messageBase64": self.messageTextView.text.base64Encoded() ?? "",
             "messageId": messageId,
             ]
+        var timeStr = ""
         
-        self.messagesArray.append(Chat(message: self.messageTextView.text.base64Encoded() ?? "", messageid: messageId, time: 0.0, imageString: "", fromLocalClient: true, messageStatus: Chat.MessageSendingStatus.none))
+        let timestamp = NSDate().timeIntervalSince1970
+        let date = Date(timeIntervalSince1970: timestamp)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone.current //Set timezone that you want
+        dateFormatter.locale = NSLocale.current
+        dateFormatter.dateFormat = "hh:mm a" //Specify your format that you want
+        timeStr = dateFormatter.string(from: date)
+        self.messagesArray.append(Chat(message: self.messageTextView.text.base64Encoded() ?? "", messageid: messageId, time:timeStr, imageString: "", fromLocalClient: true, messageStatus: Chat.MessageSendingStatus.none))
         
         let headers = ["Content-Type": "application/x-www-form-urlencoded"]
         let url = UrlMCP.server_base_url + UrlMCP.SendMessageToServer

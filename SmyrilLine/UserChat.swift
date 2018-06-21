@@ -12,7 +12,7 @@ import Foundation
 class Chat {
     var message : String
     var messageId : String
-    var sendTime : Double
+    var sendTime :  String//Double
     var userImageUrlString : String
     var type: MessageSendingStatus
     var fromLocalClient : Bool
@@ -27,7 +27,7 @@ class Chat {
     }
 
     
-    init(message : String, messageid : String, time: Double, imageString: String, fromLocalClient: Bool, messageStatus: MessageSendingStatus) {
+    init(message : String, messageid : String, time: String, imageString: String, fromLocalClient: Bool, messageStatus: MessageSendingStatus) {
         self.message = message
         self.sendTime = time
         self.userImageUrlString = imageString

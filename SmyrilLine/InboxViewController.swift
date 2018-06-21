@@ -248,6 +248,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                     }
                 case 8:
                     print(arr[0].Message?["messageId"] ?? "default value")
+                    self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String)
                 default:
                     print("Default")
                 }
@@ -257,6 +258,22 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
         print("got some data: \(data.count)")
+    }
+    
+    func callAcknowledgeMessageWebserviceForMessageId(messageId: String) {
+        let messageSendingStatus = 2
+        let params: Parameters = [
+            "messageId": messageId,
+            "messageSendingStatus": messageSendingStatus,
+            ]
+        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
+        let url = UrlMCP.server_base_url + UrlMCP.AcknowledgeMessage
+        Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            print(response.response?.statusCode ?? "no status code")
+            if response.response?.statusCode == 200 {
+                print("Sent")
+            }
+        }
     }
     
     func filterChatUserList(UserList: [User] )  {

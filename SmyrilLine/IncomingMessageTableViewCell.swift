@@ -13,6 +13,7 @@ class IncomingMessageTableViewCell: UITableViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var messagelabel: UILabel!
     @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var timeLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
