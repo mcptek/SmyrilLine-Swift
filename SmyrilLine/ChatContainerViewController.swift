@@ -194,18 +194,24 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         
         if let arr: Array<Messaging> = Mapper<Messaging>().mapArray(JSONString: text) {
-            //print(arr[0].Message)
+            print(arr[0].Message ?? "Default value")
             if let userType = arr[0].MessageType {
                 switch(userType) {
+                case 3:
+                    let status = arr[0].Message?["MessageSendingStatus"] as! Int
+                    self.messagesArray.filter{ $0.messageId == arr[0].Message?["MessageId"] as! String }.first?.type = Chat.MessageSendingStatus(rawValue: Chat.MessageSendingStatus.RawValue(status))!
+                    self.chatTableView.reloadData()
+                    if self.messagesArray.count > 0 {
+                        let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
+                        self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+                    }
                 case 8:
-                    print(arr[0].Message ?? "default value")
                     var imagestr = ""
                     if let dic = arr[0].Message?["senderChatUserServerModel"] as? [String: Any] {
                         if let img = dic["imageUrl"] as? String  {
                             imagestr = img
                         }
                     }
-                    print(imagestr)
                     self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String)
                     var timeStr = ""
                     
@@ -228,33 +234,6 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                 }
             }
         }
-        
-        
-        
-        //print(text)
-//        let jsonData = text.data(using: .utf8)
-//        let dictionary = try? JSONSerialization.jsonObject(with: jsonData!, options: .mutableLeaves) as? [String : Any]
-//        if let dic = dictionary {
-//            print(dic ?? "default")
-//            if dic!["MessageType"] as? Int == 8 {
-//                if let ParamDic = dic!["Param"] as? [String : Any] {
-//                    var imageUrlStr = ""
-//                    if let ImageDic = ParamDic["senderChatUserServerModel"] as? [String : Any] {
-//                        if let image = ImageDic["imageUrl"] {
-//                            imageUrlStr = image as! String
-//                        }
-//                    }
-//                    self.callAcknowledgeMessageWebserviceForMessageId(messageId: ParamDic["messageId"] as! String)
-//                    self.messagesArray.append(Chat(message: ParamDic["messageBase64"] as! String, time: ParamDic["sendTime"] as! Double, imageString: imageUrlStr, fromLocalClient: false ))
-//                    self.chatTableView.reloadData()
-//                }
-//            }
-//        }
-       // print(dictionary ?? "Default value")
-//        if dictionary[]
-//
-//        }
-        
     }
     
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
@@ -288,7 +267,6 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(self.messagesArray[indexPath.row].message.base64Decoded() ?? "default",self.messagesArray[indexPath.row].type, self.messagesArray[indexPath.row].fromLocalClient)
         if self.messagesArray[indexPath.row].fromLocalClient {
             let cell = tableView.dequeueReusableCell(withIdentifier: "outGoingMessagingCell", for: indexPath) as! OutgoingMessageTableViewCell
             cell.messageLabel.text = self.messagesArray[indexPath.row].message.base64Decoded()
@@ -378,8 +356,8 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         dateFormatter.locale = NSLocale.current
         dateFormatter.dateFormat = "hh:mm a" //Specify your format that you want
         timeStr = dateFormatter.string(from: date)
-        self.messagesArray.append(Chat(message: self.messageTextView.text.base64Encoded() ?? "", messageid: messageId, time:timeStr, imageString: "", fromLocalClient: true, messageStatus: Chat.MessageSendingStatus.none))
-        
+        self.messagesArray.append(Chat(message: self.messageTextView.text.base64Encoded() ?? "", messageid: messageId, time:timeStr, imageString: "", fromLocalClient: true, messageStatus: Chat.MessageSendingStatus.sending))
+        self.chatTableView.reloadData()
         let headers = ["Content-Type": "application/x-www-form-urlencoded"]
         let url = UrlMCP.server_base_url + UrlMCP.SendMessageToServer
         Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers).responseJSON { (response:DataResponse<Any>) in
