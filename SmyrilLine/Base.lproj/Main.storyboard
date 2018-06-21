@@ -5429,14 +5429,23 @@
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="jw9-Px-mmv"/>
                                                             </constraints>
                                                         </view>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="seenIcon" translatesAutoresizingMaskIntoConstraints="NO" id="W5X-q8-OnK">
+                                                            <rect key="frame" x="249.5" y="50.5" width="11" height="11"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="11" id="0Ds-TQ-JXI"/>
+                                                                <constraint firstAttribute="width" constant="11" id="HcK-hC-rpx"/>
+                                                            </constraints>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="x4k-0r-X68" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cOH-yB-wof" secondAttribute="leading" constant="8" id="2Av-It-OcA"/>
                                                         <constraint firstAttribute="trailing" secondItem="x4k-0r-X68" secondAttribute="trailing" constant="16" id="4GD-fY-ggs"/>
                                                         <constraint firstItem="x4k-0r-X68" firstAttribute="top" secondItem="cOH-yB-wof" secondAttribute="top" constant="8" id="9oP-TT-SFE"/>
                                                         <constraint firstAttribute="width" constant="375" id="CMx-cD-LE1"/>
+                                                        <constraint firstItem="x4k-0r-X68" firstAttribute="leading" secondItem="W5X-q8-OnK" secondAttribute="trailing" constant="4" id="Jnw-mC-7ds"/>
+                                                        <constraint firstItem="W5X-q8-OnK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cOH-yB-wof" secondAttribute="leading" constant="8" id="R90-kJ-ktD"/>
                                                         <constraint firstAttribute="bottom" secondItem="x4k-0r-X68" secondAttribute="bottom" constant="8" id="aTy-au-SGQ"/>
+                                                        <constraint firstAttribute="bottom" secondItem="W5X-q8-OnK" secondAttribute="bottom" constant="8" id="hvD-RN-pyg"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -5451,6 +5460,7 @@
                                         <connections>
                                             <outlet property="containerView" destination="x4k-0r-X68" id="DRH-Fd-8ka"/>
                                             <outlet property="messageLabel" destination="vQv-S6-htV" id="Dag-9w-1TO"/>
+                                            <outlet property="messageStatusIcon" destination="W5X-q8-OnK" id="whh-Gv-NDJ"/>
                                             <outlet property="timeLabel" destination="Gzf-is-2u4" id="NqM-nn-uAN"/>
                                         </connections>
                                     </tableViewCell>
@@ -6188,6 +6198,7 @@
         <image name="product-container" width="186" height="219"/>
         <image name="profileIcon" width="21" height="26"/>
         <image name="sampleMealIcon" width="109" height="66"/>
+        <image name="seenIcon" width="11" height="11"/>
         <image name="settingSelect" width="13" height="13"/>
         <image name="sexIcon" width="21" height="20"/>
         <image name="smile" width="36" height="36"/>

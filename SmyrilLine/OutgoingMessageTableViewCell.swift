@@ -13,6 +13,7 @@ class OutgoingMessageTableViewCell: UITableViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var messageStatusIcon: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

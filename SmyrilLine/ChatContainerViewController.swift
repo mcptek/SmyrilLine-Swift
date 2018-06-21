@@ -293,6 +293,20 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
             let cell = tableView.dequeueReusableCell(withIdentifier: "outGoingMessagingCell", for: indexPath) as! OutgoingMessageTableViewCell
             cell.messageLabel.text = self.messagesArray[indexPath.row].message.base64Decoded()
             cell.timeLabel.text = self.messagesArray[indexPath.row].sendTime
+            switch(self.messagesArray[indexPath.row].type) {
+            case .sending:
+                cell.messageStatusIcon.image = UIImage.init(named: "sendingIcon")
+            case .sent:
+                cell.messageStatusIcon.image = UIImage.init(named: "sentIcon")
+            case .delevered:
+                cell.messageStatusIcon.image = UIImage.init(named: "deleveredIcon")
+            case .seen:
+                cell.messageStatusIcon.image = UIImage.init(named: "seenIcon")
+            case .failed:
+                cell.messageStatusIcon.image = UIImage.init(named: "failedIcon")
+            default:
+                cell.messageStatusIcon.image = nil
+            }
             cell.setNeedsLayout()
             cell.selectionStyle = .none
             return cell
