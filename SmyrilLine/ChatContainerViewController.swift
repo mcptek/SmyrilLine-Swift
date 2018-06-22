@@ -253,6 +253,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
             if let userType = arr[0].MessageType {
                 switch(userType) {
                 case 3:
+                    // Receive message acknowledgement status
                     let status = arr[0].Message?["MessageSendingStatus"] as! Int
                     self.messagesArray.filter{ $0.messageId == arr[0].Message?["MessageId"] as! String }.first?.type = Chat.MessageSendingStatus(rawValue: Chat.MessageSendingStatus.RawValue(status))!
                     if let index = self.messagesArray.index(where: { $0.messageId == arr[0].Message?["MessageId"] as! String }) {
@@ -266,6 +267,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
 //                        self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
 //                    }
                 case 8:
+                    // Receive Message
                     var imagestr = ""
                     if let dic = arr[0].Message?["senderChatUserServerModel"] as? [String: Any] {
                         if let img = dic["imageUrl"] as? String  {
@@ -273,8 +275,8 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                         }
                     }
                     self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String)
-                    var timeStr = ""
                     
+                    var timeStr = ""
                     if let tm = arr[0].Message?["sendTime"] as? Double {
                         let date = Date(timeIntervalSince1970: (tm / 1000.0))
                         let dateFormatter = DateFormatter()
