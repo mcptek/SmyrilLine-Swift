@@ -21,6 +21,7 @@ target 'SmyrilLine' do
   pod 'NextGrowingTextView'
   pod 'AFNetworking', '~> 3.0'
   pod 'KMPlaceholderTextView', '~> 1.3.0'
+  pod 'ISEmojiView'
   #pod 'WDImagePicker'
   #pod 'TOSearchBar'
   # pod 'HandyUIKit', '~> 1.6'

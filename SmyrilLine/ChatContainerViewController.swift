@@ -22,16 +22,22 @@ import SDWebImage
 import ObjectMapper
 import KMPlaceholderTextView
 import IQKeyboardManagerSwift
+import ISEmojiView
 
-class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, WebSocketDelegate {
+class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, WebSocketDelegate,ISEmojiViewDelegate {
     @IBOutlet weak var chatTableView: UITableView!
     var senderDeviceId: String?
     var receiverDeviceId: String?
     var activityIndicatorView: UIActivityIndicatorView!
+    var profileName: String?
+    var pageCount = 0
+    var heightOfKeyboard = 0
+    
     
     @IBOutlet weak var keyboardBackgroundBottomHeight: NSLayoutConstraint!
     @IBOutlet weak var keyboardBottomHeight: NSLayoutConstraint!
     @IBOutlet weak var messageTextView: KMPlaceholderTextView!
+    @IBOutlet weak var emojiButton: UIButton!
     
     var messagesArray:[Chat] = []
     var myMessageArray = [UserChatMessage]()
@@ -43,7 +49,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         self.chatTableView.estimatedRowHeight = 44
         self.chatTableView.rowHeight = UITableViewAutomaticDimension
         
-        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
         view.addSubview(self.activityIndicatorView)
@@ -52,6 +58,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
         
         IQKeyboardManager.sharedManager().enable = false
+        self.title = self.profileName
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -63,7 +70,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
             WebSocketSharedManager.sharedInstance.socket?.connect()
         }
         else {
-            self.LoadChatHisroryWithMessageCount(messageCount: 0)
+            self.LoadChatHisroryWithMessageCount(messageCount: self.pageCount)
         }
         
     }
@@ -87,8 +94,15 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             let keyboardHeight : Int = Int(keyboardSize.height)
             print("keyboardHeight",keyboardHeight)
-            self.keyboardBottomHeight.constant = CGFloat(keyboardHeight)
-            self.keyboardBackgroundBottomHeight.constant = CGFloat(keyboardHeight)
+            if self.heightOfKeyboard == 0 {
+                self.heightOfKeyboard = keyboardHeight
+            }
+            if keyboardHeight < self.heightOfKeyboard {
+                self.heightOfKeyboard = keyboardHeight
+            }
+            
+            self.keyboardBottomHeight.constant = CGFloat(self.heightOfKeyboard)
+            self.keyboardBackgroundBottomHeight.constant = CGFloat(self.heightOfKeyboard)
             self.view.setNeedsLayout()
             if self.messagesArray.count > 0 {
                 let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
@@ -108,6 +122,35 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
             self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
         }
         
+    }
+    @IBAction func emojiKeyboardButtonAction(_ sender: Any) {
+        if self.emojiButton.image(for: .normal) == UIImage.init(named: "smile") {
+            let emojiView = ISEmojiView()
+            emojiView.delegate = self
+            //self.messageTextView.resignFirstResponder()
+            self.messageTextView.inputView = emojiView
+            self.messageTextView.inputView?.autoresizingMask = .flexibleHeight
+            self.messageTextView.reloadInputViews()
+            //self.messageTextView.becomeFirstResponder()
+            self.emojiButton.setImage(UIImage.init(named: "keyboard"), for: .normal)
+        }
+        else {
+            //self.messageTextView.resignFirstResponder()
+            self.messageTextView.inputView = nil
+            self.messageTextView.inputView?.autoresizingMask = .flexibleHeight
+            self.messageTextView.reloadInputViews()
+            //self.messageTextView.becomeFirstResponder()
+            self.emojiButton.setImage(UIImage.init(named: "smile"), for: .normal)
+        }
+    }
+    
+    func emojiViewDidSelectEmoji(emojiView: ISEmojiView, emoji: String) {
+        self.messageTextView.insertText(emoji)
+    }
+    
+    // callback when tap delete button on keyboard
+    func emojiViewDidPressDeleteButton(emojiView: ISEmojiView) {
+        self.messageTextView.deleteBackward()
     }
     
     func LoadChatHisroryWithMessageCount(messageCount: Int) {
@@ -132,6 +175,9 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                     {
                         if let array = response.result.value {
                             self.myMessageArray = array
+                            if self.pageCount > 0 {
+                                self.myMessageArray = Array(self.myMessageArray.reversed())
+                            }
                             for member in self.myMessageArray {
                                 var message = ""
                                 var imageUrlStr = ""
@@ -166,14 +212,23 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                                     messageStatus = status
                                 }
                                 
-                                
-                                self.messagesArray.append(Chat(message: message, messageid: "", time: timeStr, imageString: imageUrlStr, fromLocalClient: fromLocal, messageStatus: Chat.MessageSendingStatus(rawValue: messageStatus)!))
+                                if self.pageCount == 0 {
+                                    self.messagesArray.append(Chat(message: message, messageid: "", time: timeStr, imageString: imageUrlStr, fromLocalClient: fromLocal, messageStatus: Chat.MessageSendingStatus(rawValue: messageStatus)!))
+                                }
+                                else {
+                                    self.messagesArray.insert(Chat(message: message, messageid: "", time: timeStr, imageString: imageUrlStr, fromLocalClient: fromLocal, messageStatus: Chat.MessageSendingStatus(rawValue: messageStatus)!), at: 0)
+                                }
                             }
                             self.chatTableView.reloadData()
-                            if self.messagesArray.count > 0 {
+                            if self.messagesArray.count > 0 && self.pageCount == 0 {
                                 let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
                                 self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
                             }
+                            
+                            if self.messagesArray.count > 0 {
+                                self.pageCount += 1
+                            }
+                            
                         }
                     }
                 case .failure(let error):
@@ -184,7 +239,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     
     func websocketDidConnect(socket: WebSocketClient) {
         print("websocket is connected")
-        self.LoadChatHisroryWithMessageCount(messageCount: 0)
+        self.LoadChatHisroryWithMessageCount(messageCount: self.pageCount)
     }
     
     func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
@@ -200,11 +255,16 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                 case 3:
                     let status = arr[0].Message?["MessageSendingStatus"] as! Int
                     self.messagesArray.filter{ $0.messageId == arr[0].Message?["MessageId"] as! String }.first?.type = Chat.MessageSendingStatus(rawValue: Chat.MessageSendingStatus.RawValue(status))!
-                    self.chatTableView.reloadData()
-                    if self.messagesArray.count > 0 {
-                        let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
-                        self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+                    if let index = self.messagesArray.index(where: { $0.messageId == arr[0].Message?["MessageId"] as! String }) {
+                        let indexPath = IndexPath(item: index, section: 0)
+                        self.chatTableView.reloadRows(at: [indexPath], with: .none)
                     }
+
+                    //self.chatTableView.reloadData()
+//                    if self.messagesArray.count > 0 {
+//                        let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
+//                        self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+//                    }
                 case 8:
                     var imagestr = ""
                     if let dic = arr[0].Message?["senderChatUserServerModel"] as? [String: Any] {
@@ -299,7 +359,6 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                 cell.userImageView.sd_setShowActivityIndicatorView(true)
                 cell.userImageView.sd_setIndicatorStyle(.gray)
                 cell.userImageView.sd_setImage(with: URL(string: replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
-                
             }
             else {
                 cell.userImageView.image = nil
@@ -339,6 +398,13 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         return vw
     }
     
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView,
+                                  willDecelerate decelerate: Bool) {
+        if scrollView.contentOffset.y < 0 {
+            self.LoadChatHisroryWithMessageCount(messageCount: self.pageCount)
+        }
+    }
+    
     @IBAction func messageSendButtonAction(_ sender: Any) {
         let messageId = NSUUID().uuidString.lowercased()
         let params: Parameters = [
@@ -364,7 +430,10 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
             print(response.response?.statusCode ?? "no status code")
             if response.response?.statusCode == 200 {
                 self.messagesArray.filter{ $0.messageId == messageId }.first?.type = Chat.MessageSendingStatus.sent
-                self.chatTableView.reloadData()
+                if let index = self.messagesArray.index(where: { $0.messageId == messageId }) {
+                    let indexPath = IndexPath(item: index, section: 0)
+                    self.chatTableView.reloadRows(at: [indexPath], with: .none)
+                }
                 if self.messagesArray.count > 0 {
                     let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
                     self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
@@ -374,7 +443,10 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
             else {
                 self.showAlert(title: "Message", message: "Message sending failed. Please try again later")
                 self.messagesArray.filter{ $0.messageId == messageId }.first?.type = Chat.MessageSendingStatus.failed
-                self.chatTableView.reloadData()
+                if let index = self.messagesArray.index(where: { $0.messageId == messageId }) {
+                    let indexPath = IndexPath(item: index, section: 0)
+                    self.chatTableView.reloadRows(at: [indexPath], with: .none)
+                }
                 if self.messagesArray.count > 0 {
                     let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
                     self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)

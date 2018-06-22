@@ -24,10 +24,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     var filteredRecentUserListArray = [User]()
     var senderDeviceId: String?
     var receiverDeviceId: String?
-    
-    
-    
-    @IBOutlet weak var inboxSegmentControl: UISegmentedControl!
+    var receiverProfileName: String?
     
     @IBOutlet weak var inboxTableview: UITableView!
     
@@ -47,7 +44,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         self.configureSearchBar()
         self.hideKeyboardWhenTappedAround()
 
-        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
         view.addSubview(self.activityIndicatorView)
@@ -312,11 +309,6 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         }
         self.inboxTableview.reloadData()
     }
-
-    @IBAction func segmentButtonAction(_ sender: Any) {
-
-        self.inboxTableview.reloadData()
-    }
     
     // MARK: - Navigation
 
@@ -331,6 +323,10 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             }
             if let receiverId = self.receiverDeviceId {
                 vc.receiverDeviceId = receiverId
+            }
+            
+            if let name = self.receiverProfileName {
+                vc.profileName = name.base64Decoded()
             }
         }
     }
@@ -509,9 +505,11 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     {
         if collectionView.tag == 1010 {
             self.receiverDeviceId = self.filteredRecentUserListArray[indexPath.row].deviceId
+            self.receiverProfileName = self.filteredRecentUserListArray[indexPath.row].name
         }
         else {
             self.receiverDeviceId = self.filteredOnlineUserListArray[indexPath.row].deviceId
+            self.receiverProfileName = self.filteredOnlineUserListArray[indexPath.row].name
         }
         if let _ = self.senderDeviceId, let _ = self.receiverDeviceId {
             self.performSegue(withIdentifier: "chatMessageCell", sender: nil)
