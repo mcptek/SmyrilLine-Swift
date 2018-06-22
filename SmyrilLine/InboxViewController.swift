@@ -244,8 +244,11 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                         self.showAlert(title: "Message", message: "No user list found")
                     }
                 case 8:
-                    print(arr[0].Message?["messageId"] ?? "default value")
+                    print(arr[0].Message ?? "default value")
                     self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String)
+                    if let dic = arr[0].Message?["senderChatUserServerModel"] as? [String: Any] {
+                        self.updateMessageCounterListforDeviceId(deviceId: (dic["deviceId"] as? String)!)
+                    }
                 default:
                     print("Default")
                 }
@@ -256,6 +259,33 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
         print("got some data: \(data.count)")
     }
+    
+    func updateMessageCounterListforDeviceId(deviceId: String)  {
+        if self.filteredRecentUserListArray.contains(where: { $0.deviceId == deviceId }) {
+            if let index = self.filteredRecentUserListArray.index(where: { $0.deviceId == deviceId }) {
+                if let count = self.filteredRecentUserListArray[index].newMessageCount {
+                    self.filteredRecentUserListArray[index].newMessageCount = count + 1
+                }
+                else {
+                    self.filteredRecentUserListArray[index].newMessageCount = 1
+                }
+            }
+        }
+        else if self.filteredOnlineUserListArray.contains(where: { $0.deviceId == deviceId }) {
+            if let index = self.filteredOnlineUserListArray.index(where: { $0.deviceId == deviceId }) {
+                if let count = self.filteredOnlineUserListArray[index].newMessageCount {
+                    self.filteredOnlineUserListArray[index].newMessageCount = count + 1
+                }
+                else {
+                    self.filteredOnlineUserListArray[index].newMessageCount = 1
+                }
+            }
+        }
+        
+        self.inboxTableview.reloadData()
+    }
+    
+    
     
     func callAcknowledgeMessageWebserviceForMessageId(messageId: String) {
         let messageSendingStatus = 2
@@ -467,6 +497,20 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             else {
                 cell.userImageView.image = UIImage.init(named: "UserPlaceholder")
             }
+            
+            if let messageCount = self.filteredRecentUserListArray[indexPath.row].newMessageCount {
+                if messageCount > 0 {
+                    cell.unreadMessageLabel.isHidden = false
+                    cell.unreadMessageLabel.text = String(messageCount)
+                }
+                else {
+                    cell.unreadMessageLabel.isHidden = true
+                }
+            }
+            else {
+                cell.unreadMessageLabel.isHidden = true
+            }
+            
         }
         else {
             cell.userNameLabel.backgroundColor = UIColor(red: 255.0/255, green: 255.0/255, blue: 255.0/255, alpha: 1.0)
@@ -496,6 +540,19 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             }
             else {
                 cell.userImageView.image = UIImage.init(named: "UserPlaceholder")
+            }
+            
+            if let messageCount = self.filteredOnlineUserListArray[indexPath.row].newMessageCount {
+                if messageCount > 0 {
+                    cell.unreadMessageLabel.isHidden = false
+                    cell.unreadMessageLabel.text = String(messageCount)
+                }
+                else {
+                    cell.unreadMessageLabel.isHidden = true
+                }
+            }
+            else {
+                cell.unreadMessageLabel.isHidden = true
             }
         }
         return cell

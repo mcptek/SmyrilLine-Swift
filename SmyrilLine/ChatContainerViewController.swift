@@ -59,6 +59,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         
         IQKeyboardManager.sharedManager().enable = false
         self.title = self.profileName
+        self.emojiButton.setImage(UIImage.init(named: "smile"), for: .normal)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -72,7 +73,6 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         else {
             self.LoadChatHisroryWithMessageCount(messageCount: self.pageCount)
         }
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -361,7 +361,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                 cell.userImageView.sd_setImage(with: URL(string: replaceStr), placeholderImage: UIImage.init(named: "placeholder"))
             }
             else {
-                cell.userImageView.image = nil
+                cell.userImageView.image = UIImage.init(named: "UserPlaceholder")
             }
             cell.setNeedsLayout()
             cell.selectionStyle = .none
@@ -406,54 +406,56 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     }
     
     @IBAction func messageSendButtonAction(_ sender: Any) {
-        let messageId = NSUUID().uuidString.lowercased()
-        let params: Parameters = [
-            "senderDeviceId": self.senderDeviceId!,
-            "receiverDeviceId": self.receiverDeviceId!,
-            "messageBase64": self.messageTextView.text.base64Encoded() ?? "",
-            "messageId": messageId,
-            ]
-        var timeStr = ""
-        
-        let timestamp = NSDate().timeIntervalSince1970
-        let date = Date(timeIntervalSince1970: timestamp)
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone.current //Set timezone that you want
-        dateFormatter.locale = NSLocale.current
-        dateFormatter.dateFormat = "hh:mm a" //Specify your format that you want
-        timeStr = dateFormatter.string(from: date)
-        self.messagesArray.append(Chat(message: self.messageTextView.text.base64Encoded() ?? "", messageid: messageId, time:timeStr, imageString: "", fromLocalClient: true, messageStatus: Chat.MessageSendingStatus.sending))
-        self.chatTableView.reloadData()
-        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
-        let url = UrlMCP.server_base_url + UrlMCP.SendMessageToServer
-        Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers).responseJSON { (response:DataResponse<Any>) in
-            print(response.response?.statusCode ?? "no status code")
-            if response.response?.statusCode == 200 {
-                self.messagesArray.filter{ $0.messageId == messageId }.first?.type = Chat.MessageSendingStatus.sent
-                if let index = self.messagesArray.index(where: { $0.messageId == messageId }) {
-                    let indexPath = IndexPath(item: index, section: 0)
-                    self.chatTableView.reloadRows(at: [indexPath], with: .none)
-                }
-                if self.messagesArray.count > 0 {
-                    let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
-                    self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
-                }
-                self.messageTextView.text = nil
-            }
-            else {
-                self.showAlert(title: "Message", message: "Message sending failed. Please try again later")
-                self.messagesArray.filter{ $0.messageId == messageId }.first?.type = Chat.MessageSendingStatus.failed
-                if let index = self.messagesArray.index(where: { $0.messageId == messageId }) {
-                    let indexPath = IndexPath(item: index, section: 0)
-                    self.chatTableView.reloadRows(at: [indexPath], with: .none)
-                }
-                if self.messagesArray.count > 0 {
-                    let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
-                    self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
-                }
-                self.messageTextView.text = nil
-            }
+        if self.messageTextView.text.count > 0 {
+            let messageId = NSUUID().uuidString.lowercased()
+            let params: Parameters = [
+                "senderDeviceId": self.senderDeviceId!,
+                "receiverDeviceId": self.receiverDeviceId!,
+                "messageBase64": self.messageTextView.text.base64Encoded() ?? "",
+                "messageId": messageId,
+                ]
+            var timeStr = ""
             
+            let timestamp = NSDate().timeIntervalSince1970
+            let date = Date(timeIntervalSince1970: timestamp)
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeZone = TimeZone.current //Set timezone that you want
+            dateFormatter.locale = NSLocale.current
+            dateFormatter.dateFormat = "hh:mm a" //Specify your format that you want
+            timeStr = dateFormatter.string(from: date)
+            self.messagesArray.append(Chat(message: self.messageTextView.text.base64Encoded() ?? "", messageid: messageId, time:timeStr, imageString: "", fromLocalClient: true, messageStatus: Chat.MessageSendingStatus.sending))
+            self.chatTableView.reloadData()
+            let headers = ["Content-Type": "application/x-www-form-urlencoded"]
+            let url = UrlMCP.server_base_url + UrlMCP.SendMessageToServer
+            Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers).responseJSON { (response:DataResponse<Any>) in
+                print(response.response?.statusCode ?? "no status code")
+                if response.response?.statusCode == 200 {
+                    self.messagesArray.filter{ $0.messageId == messageId }.first?.type = Chat.MessageSendingStatus.sent
+                    if let index = self.messagesArray.index(where: { $0.messageId == messageId }) {
+                        let indexPath = IndexPath(item: index, section: 0)
+                        self.chatTableView.reloadRows(at: [indexPath], with: .none)
+                    }
+                    if self.messagesArray.count > 0 {
+                        let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
+                        self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+                    }
+                    self.messageTextView.text = nil
+                }
+                else {
+                    self.showAlert(title: "Message", message: "Message sending failed. Please try again later")
+                    self.messagesArray.filter{ $0.messageId == messageId }.first?.type = Chat.MessageSendingStatus.failed
+                    if let index = self.messagesArray.index(where: { $0.messageId == messageId }) {
+                        let indexPath = IndexPath(item: index, section: 0)
+                        self.chatTableView.reloadRows(at: [indexPath], with: .none)
+                    }
+                    if self.messagesArray.count > 0 {
+                        let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
+                        self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+                    }
+                    self.messageTextView.text = nil
+                }
+                
+            }
         }
     }
     
