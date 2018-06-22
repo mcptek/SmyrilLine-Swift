@@ -236,7 +236,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             //print(arr[0].Message)
             if let userType = arr[0].MessageType {
                 switch(userType) {
-                case 5:
+                case 5,2:
                     if let UserList = arr[0].userList {
                         self.filterChatUserList(UserList: UserList)
                     }
@@ -247,7 +247,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                     print(arr[0].Message ?? "default value")
                     self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String)
                     if let dic = arr[0].Message?["senderChatUserServerModel"] as? [String: Any] {
-                        self.updateMessageCounterListforDeviceId(deviceId: (dic["deviceId"] as? String)!)
+                        self.updateMessageCounterListforDeviceId(deviceId: (dic["deviceId"] as? String)!, lastCommunicationTime: (dic["lastCommunication"] as? Int64)!, lastSeenTime: (dic["lastSeen"] as? Int64)!)
                     }
                 default:
                     print("Default")
@@ -260,9 +260,11 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         print("got some data: \(data.count)")
     }
     
-    func updateMessageCounterListforDeviceId(deviceId: String)  {
+    func updateMessageCounterListforDeviceId(deviceId: String, lastCommunicationTime:Int64, lastSeenTime:Int64)  {
         if self.filteredRecentUserListArray.contains(where: { $0.deviceId == deviceId }) {
             if let index = self.filteredRecentUserListArray.index(where: { $0.deviceId == deviceId }) {
+                self.filteredRecentUserListArray[index].lastCommunication = lastCommunicationTime
+                self.filteredRecentUserListArray[index].lastSeen = lastSeenTime
                 if let count = self.filteredRecentUserListArray[index].newMessageCount {
                     self.filteredRecentUserListArray[index].newMessageCount = count + 1
                 }
@@ -273,6 +275,8 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         }
         else if self.filteredOnlineUserListArray.contains(where: { $0.deviceId == deviceId }) {
             if let index = self.filteredOnlineUserListArray.index(where: { $0.deviceId == deviceId }) {
+                self.filteredOnlineUserListArray[index].lastCommunication = lastCommunicationTime
+                self.filteredOnlineUserListArray[index].lastSeen = lastSeenTime
                 if let count = self.filteredOnlineUserListArray[index].newMessageCount {
                     self.filteredOnlineUserListArray[index].newMessageCount = count + 1
                 }
@@ -281,7 +285,8 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 }
             }
         }
-        
+        self.filteredRecentUserListArray = self.filteredRecentUserListArray.sorted(by: { $0.lastCommunication! > $1.lastCommunication! })
+        self.filteredOnlineUserListArray = self.filteredOnlineUserListArray.sorted(by: { $0.lastCommunication! > $1.lastCommunication! })
         self.inboxTableview.reloadData()
     }
     
@@ -326,17 +331,22 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                     continue
                 }
             }
-            if object.lastCommunication! > 0 {
-                self.RecentUserListArray.append(object)
-                self.filteredRecentUserListArray.append(object)
-            }
-            else {
-                if object.status == 1 {
-                    self.OnlineUserListArray.append(object)
-                    self.filteredOnlineUserListArray.append(object)
+            
+            if (object.visibility == 1 && object.bookingNo == 123456) || object.visibility == 2 {
+                if object.lastCommunication! > 0 {
+                    self.RecentUserListArray.append(object)
+                    self.filteredRecentUserListArray.append(object)
+                }
+                else {
+                    if object.status == 1 {
+                        self.OnlineUserListArray.append(object)
+                        self.filteredOnlineUserListArray.append(object)
+                    }
                 }
             }
         }
+        self.filteredRecentUserListArray = self.filteredRecentUserListArray.sorted(by: { $0.lastCommunication! > $1.lastCommunication! })
+        self.filteredOnlineUserListArray = self.filteredOnlineUserListArray.sorted(by: { $0.lastCommunication! > $1.lastCommunication! })
         self.inboxTableview.reloadData()
     }
     

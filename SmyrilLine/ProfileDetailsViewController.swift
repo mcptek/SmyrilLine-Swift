@@ -231,10 +231,6 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
                     message = "Profile updated successfully."
                 }
                 message = "Profile updated successfully."
-                    
-//                else {
-//                    message = "Profile update failed. Please try again later."
-//                }
                 let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
                     UIAlertAction in

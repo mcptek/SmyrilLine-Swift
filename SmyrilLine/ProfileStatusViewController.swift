@@ -7,15 +7,23 @@
 //
 
 import UIKit
+import AlamofireObjectMapper
+import Alamofire
 
 class ProfileStatusViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     let profileStatusArray = ["My profile", "Visible to booking", "Public", "Invisible"]
     var currentProfileStatus: String?
+    var activityIndicatorView: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        myActivityIndicator.center = view.center
+        self.activityIndicatorView = myActivityIndicator
+        view.addSubview(self.activityIndicatorView)
+        
         if let status = UserDefaults.standard.value(forKey: "userVisibilityStatus") as? String {
             self.currentProfileStatus = status
         }
@@ -37,7 +45,91 @@ class ProfileStatusViewController: UIViewController, UITableViewDataSource, UITa
     
     @IBAction func doneButtonAction(_ sender: Any) {
         UserDefaults.standard.set(self.currentProfileStatus, forKey: "userVisibilityStatus")
-        self.dismiss(animated: true, completion: nil)
+        self.uploadProfileVisibility()
+    }
+    
+    
+    func uploadProfileVisibility()  {
+        self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        let url = UrlMCP.server_base_url + UrlMCP.WebSocketProfilePicImageUpload
+        
+        Alamofire.request(url, method:.post, parameters:self.retrieveUserProfileDetails(), headers:nil).responseObject { (response: DataResponse<UserProfile>) in
+            self.activityIndicatorView.stopAnimating()
+            self.view.isUserInteractionEnabled = true
+            
+            switch response.result {
+            case .success:
+                if let url = response.result.value?.imageUrl {
+                    UserDefaults.standard.set(url, forKey: "userProfileImageUrl")
+                }
+                self.dismiss(animated: true, completion: nil)
+            case .failure(let error):
+                let alertController = UIAlertController(title: nil, message: error.localizedDescription, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+                    UIAlertAction in
+                    self.dismiss(animated: true, completion: nil)
+                }
+                alertController.addAction(okAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func retrieveUserProfileDetails() -> [String: Any] {
+        
+        var imageUrl = String()
+        if let url = UserDefaults.standard.value(forKey: "userProfileImageUrl") as? String {
+            imageUrl = url
+        }
+        else {
+            imageUrl = ""
+        }
+        
+        var userName = ""
+        if let profileUserName = UserDefaults.standard.value(forKey: "userName") as? String {
+            userName = profileUserName
+        }
+        else {
+            userName = ""
+        }
+        
+        var introInfo = ""
+        if let profileUserIntroInfo = UserDefaults.standard.value(forKey: "introInfo") as? String {
+            introInfo = profileUserIntroInfo
+        }
+        else {
+            introInfo = ""
+        }
+        
+        var visibilityStatus = 2
+        if let status = UserDefaults.standard.value(forKey: "userVisibilityStatus") as? String {
+            if status == "Visible to booking" {
+                visibilityStatus = 1
+            }
+            else if status == "Invisible" {
+                visibilityStatus = 3
+            }
+        }
+        
+        let bookingNumber = 123456
+        let status = 1
+        
+        
+        let params: Parameters = [
+            "bookingNo": bookingNumber,
+            "Name": userName,
+            "description": introInfo,
+            "imageUrl": imageUrl,
+            "country": "Bangladesh",
+            "deviceId": (UIDevice.current.identifierForVendor?.uuidString)!,
+            "gender": "Male",
+            "status": status,
+            "visibility": visibilityStatus,
+            "imageBase64": "",
+            "phoneType": "iOS",
+            ]
+        return params
     }
     
 
