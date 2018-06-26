@@ -7,14 +7,13 @@
 //
 
 import UIKit
-import Starscream
 import AlamofireObjectMapper
 import Alamofire
 import SwiftyJSON
 import SDWebImage
 import ObjectMapper
 
-class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WebSocketDelegate,UISearchBarDelegate {
+class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UISearchBarDelegate {
     
     @IBOutlet weak var chatSearchBar: UISearchBar!
     var activityIndicatorView: UIActivityIndicatorView!
@@ -53,13 +52,9 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChangedInMessaging), name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: nil)
-        WebSocketSharedManager.sharedInstance.socket?.delegate = self
-        if WebSocketSharedManager.sharedInstance.socket?.isConnected == false {
-            WebSocketSharedManager.sharedInstance.socket?.connect()
-        }
-        else {
-            self.RetrieveCurrentUserList()
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(updateChatUserList), name: NSNotification.Name(rawValue: "UpdateChatUserList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateMessageCounter), name: NSNotification.Name(rawValue: "UpdateMessageCountList"), object: nil)
+        self.RetrieveCurrentUserList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -202,6 +197,22 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         }
     }
     
+    func updateChatUserList(_ notification: Notification) {
+        if let myDict = notification.userInfo as? [String: [User]] {
+            if let userList = myDict["UserList"] {
+                self.filterChatUserList(UserList: userList)
+            }
+        }
+    }
+    
+    func updateMessageCounter(_ notification: Notification) {
+        if let dic = notification.userInfo as? [String: Any] {
+            if let senderChatUserServerModel = dic["senderChatUserServerModel"] as? [String: Any] {
+                self.updateMessageCounterListforDeviceId(deviceId: (senderChatUserServerModel["deviceId"] as? String)!, lastCommunicationTime: (senderChatUserServerModel["lastCommunication"] as? Int64)!, lastSeenTime: (senderChatUserServerModel["lastSeen"] as? Int64)!)
+            }
+        }
+    }
+    /*
     func websocketDidConnect(socket: WebSocketClient) {
         print("websocket is connected")
         self.RetrieveCurrentUserList()
@@ -239,7 +250,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
         print("got some data: \(data.count)")
     }
-    
+    */
     func updateMessageCounterListforDeviceId(deviceId: String, lastCommunicationTime:Int64, lastSeenTime:Int64)  {
         if self.filteredRecentUserListArray.contains(where: { $0.deviceId == deviceId }) {
             if let index = self.filteredRecentUserListArray.index(where: { $0.deviceId == deviceId }) {

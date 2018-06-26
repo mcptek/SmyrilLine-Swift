@@ -14,7 +14,6 @@
 //import SDWebImage
 //import ObjectMapper
 import UIKit
-import Starscream
 import AlamofireObjectMapper
 import Alamofire
 import SwiftyJSON
@@ -24,7 +23,7 @@ import KMPlaceholderTextView
 import IQKeyboardManagerSwift
 import ISEmojiView
 
-class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, WebSocketDelegate,ISEmojiViewDelegate {
+class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,ISEmojiViewDelegate {
     @IBOutlet weak var chatTableView: UITableView!
     var senderDeviceId: String?
     var receiverDeviceId: String?
@@ -56,6 +55,8 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateMessageStatus), name: NSNotification.Name(rawValue: "UpdateSentMessageAcknowledgementStatus"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(InsertMessage), name: NSNotification.Name(rawValue: "InsertNewMessage"), object: nil)
         
         IQKeyboardManager.sharedManager().enable = false
         self.title = self.profileName
@@ -65,13 +66,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         self.messagesArray.removeAll()
-        WebSocketSharedManager.sharedInstance.socket?.delegate = self
-        if WebSocketSharedManager.sharedInstance.socket?.isConnected == false {
-            WebSocketSharedManager.sharedInstance.socket?.connect()
-        }
-        else {
-            self.LoadChatHisroryWithMessageCount(messageCount: self.pageCount)
-        }
+        self.LoadChatHisroryWithMessageCount(messageCount: self.pageCount)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -132,6 +127,50 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
 //        }
         
     }
+    
+    func updateMessageStatus(_ notification: Notification) {
+        if let myDict = notification.userInfo as? [String: [String: Any]] {
+            if let dic = myDict["Acknowledgement"] {
+                let status = dic["MessageSendingStatus"] as! Int
+                self.messagesArray.filter{ $0.messageId == dic["MessageId"] as! String }.first?.type = Chat.MessageSendingStatus(rawValue: Chat.MessageSendingStatus.RawValue(status))!
+                if let index = self.messagesArray.index(where: { $0.messageId == dic["MessageId"] as! String }) {
+                    let indexPath = IndexPath(item: index, section: 0)
+                    self.chatTableView.reloadRows(at: [indexPath], with: .none)
+                }
+            }
+        }
+    }
+    
+    func InsertMessage(_ notification: Notification) {
+        if let dic = notification.userInfo as? [String: Any] {
+            if let myDic = dic["newMessage"] as? [String: Any] {
+                var imagestr = ""
+                if let userServerModel = myDic["senderChatUserServerModel"] as? [String: Any] {
+                    if let img = userServerModel["imageUrl"] as? String  {
+                        imagestr = img
+                    }
+                }
+                
+                var timeStr = ""
+                if let tm = myDic["sendTime"] as? Double {
+                    let date = Date(timeIntervalSince1970: (tm / 1000.0))
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.timeZone = TimeZone.current //Set timezone that you want
+                    dateFormatter.locale = NSLocale.current
+                    dateFormatter.dateFormat = "hh:mm a" //Specify your format that you want
+                    timeStr = dateFormatter.string(from: date)
+                }
+                self.messagesArray.append(Chat(message: myDic["messageBase64"] as! String, messageid: myDic["messageId"] as! String, time: timeStr, imageString: imagestr, fromLocalClient: false, messageStatus: Chat.MessageSendingStatus.seen))
+                self.chatTableView.reloadData()
+                if self.messagesArray.count > 0 {
+                    let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
+                    self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+                }
+            }
+        }
+    }
+    
+    
     @IBAction func emojiKeyboardButtonAction(_ sender: Any) {
         if self.emojiButton.image(for: .normal) == UIImage.init(named: "smile") {
             let emojiView = ISEmojiView()
@@ -247,6 +286,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         }
     }
     
+    /*
     func websocketDidConnect(socket: WebSocketClient) {
         print("websocket is connected")
         self.LoadChatHisroryWithMessageCount(messageCount: self.pageCount)
@@ -311,6 +351,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
         print("got some data: \(data.count)")
     }
+    */
     
     func callAcknowledgeMessageWebserviceForMessageId(messageId: String) {
         let messageSendingStatus = 3

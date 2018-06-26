@@ -5364,10 +5364,10 @@
             </objects>
             <point key="canvasLocation" x="8175" y="-1586"/>
         </scene>
-        <!--Chat Container View Controller-->
+        <!--chatInbox-->
         <scene sceneID="YcT-RM-byB">
             <objects>
-                <viewController storyboardIdentifier="chatContainer" automaticallyAdjustsScrollViewInsets="NO" id="Rfn-KR-NJG" customClass="ChatContainerViewController" customModule="SmyrilLine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chatContainer" title="chatInbox" automaticallyAdjustsScrollViewInsets="NO" id="Rfn-KR-NJG" customClass="ChatContainerViewController" customModule="SmyrilLine" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8W6-Bg-KX4"/>
                         <viewControllerLayoutGuide type="bottom" id="sFh-w2-ynE"/>

@@ -10,15 +10,17 @@ import UIKit
 import CoreData
 import SignalRSwift
 import Alamofire
+import ObjectMapper
 import SwiftyJSON
 import UserNotifications
 import ReachabilitySwift
 import Device_swift
 import IQKeyboardManagerSwift
+import Starscream
 
 @available(iOS 10.0, *)
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSocketDelegate {
     
     var window: UIWindow?
     let SA_CLIENTID = "1f4654d91e78d061a0e00e6962e7de6bb5957276"
@@ -32,15 +34,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate {
         {
             UserDefaults.standard.set(["en", "de", "fo", "da"], forKey: "AppleLanguages")
         }
-        
+        WebSocketSharedManager.sharedInstance.socket?.delegate = self
+        WebSocketSharedManager.sharedInstance.socket?.connect()
         NewRelic.start(withApplicationToken:"AAc3ed7fc1d51b98bee31eafc0d5aa389bd9979495")
         self.createSocketConnection()
         self.setMessageLastTimeIfNotSet()
         self.checkIfThereIsAnyPendingNotificatio()
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-            // Enable or disable features based on authorization.
+        center.requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
+            if granted {
+                DispatchQueue.main.async(execute: {
+                    UIApplication.shared.registerForRemoteNotifications()
+                })
+            }
         }
         ReachabilityManager.shared.startMonitoring()
         IQKeyboardManager.sharedManager().enable = true
@@ -257,6 +264,109 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate {
         StreamingConnection.sharedInstance.connection.start()
         
     }
+    
+    func websocketDidConnect(socket: WebSocketClient) {
+        print("websocket is connected")
+    }
+    
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        print("websocket is disconnected: \(String(describing: error?.localizedDescription))")
+    }
+    
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+        
+        if let wd = UIApplication.shared.delegate?.window {
+            if let tabbarController = wd?.rootViewController as? UITabBarController {
+                if let navigationCntlr = tabbarController.selectedViewController as? UINavigationController {
+                    if navigationCntlr.topViewController is ChatContainerViewController {
+                        print("Inside")
+                    }
+                    else {
+                        print("Outside")
+                    }
+                }
+            }
+            
+        }
+        
+        
+        if let arr: Array<Messaging> = Mapper<Messaging>().mapArray(JSONString: text) {
+            print(arr[0].userList ?? "no user found")
+            if let userType = arr[0].MessageType {
+                switch(userType) {
+                case 5,2:  // retrieve chat user list
+                    if let UserList = arr[0].userList {
+                        NotificationCenter.default.post(name: NSNotification.Name("UpdateChatUserList"), object: self, userInfo: ["UserList": UserList])
+                    }
+                case 3: //retrieve sent message acknowledgement status and update it in tableview
+                    if let acknowledgementStatusDic = arr[0].Message {
+                        NotificationCenter.default.post(name: NSNotification.Name("UpdateSentMessageAcknowledgementStatus"), object: self, userInfo: ["Acknowledgement": acknowledgementStatusDic])
+                    }
+                case 8: // receive message and take proper action
+                    // send acknowledgement based on seen or delivered
+                    if let wd = UIApplication.shared.delegate?.window {
+                        if let tabbarController = wd?.rootViewController as? UITabBarController {
+                            if let navigationCntlr = tabbarController.selectedViewController as? UINavigationController {
+                                if navigationCntlr.topViewController is ChatContainerViewController { // inside chat, so status will be seen
+                                    self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String, withMessageStatus: 3)
+                                    if let dic = arr[0].Message {
+                                        NotificationCenter.default.post(name: NSNotification.Name("InsertNewMessage"), object: self, userInfo: ["newMessage": dic])
+                                    }
+                                }
+                                else { // outside chat, so status will be delivered
+                                    self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String, withMessageStatus: 2)
+                                    if let dic = arr[0].Message?["senderChatUserServerModel"] as? [String: Any] {
+                                        NotificationCenter.default.post(name: NSNotification.Name("UpdateMessageCountList"), object: self, userInfo: ["senderChatUserServerModel": dic])
+                                    }
+                                    
+                                    if let title = arr[0].Message?["messageBase64"] as? String {
+                                        let notification = UILocalNotification()
+                                        notification.alertBody = title.base64Decoded()
+                                        notification.soundName = UILocalNotificationDefaultSoundName
+                                        UIApplication.shared.scheduleLocalNotification(notification)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    
+                    
+                    
+                    
+                    print(arr[0].Message ?? "default value")
+                    //self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String)
+//                    if let dic = arr[0].Message?["senderChatUserServerModel"] as? [String: Any] {
+//                        self.updateMessageCounterListforDeviceId(deviceId: (dic["deviceId"] as? String)!, lastCommunicationTime: (dic["lastCommunication"] as? Int64)!, lastSeenTime: (dic["lastSeen"] as? Int64)!)
+//                    }
+                default:
+                    print("Default")
+                }
+            }
+        }
+    }
+    
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+        print("got some data: \(data.count)")
+    }
+    
+    func callAcknowledgeMessageWebserviceForMessageId(messageId: String, withMessageStatus status:Int) {
+        //let messageSendingStatus = 3
+        let params: Parameters = [
+            "messageId": messageId,
+            "messageSendingStatus": status,
+            ]
+        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
+        let url = UrlMCP.server_base_url + UrlMCP.AcknowledgeMessage
+        Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            print(response.response?.statusCode ?? "no status code")
+            if response.response?.statusCode == 200 {
+                print("Sent")
+            }
+        }
+    }
+    
+    
     
     func saveBulletin(title: String, message: String, imageUrlStr: String) {
         self.saveMeesageWith(messageId: self.retrieveMessageId(), messageTitle: title, messageDetails: message, imageUrlStr: imageUrlStr, UnixTime: NSDate().timeIntervalSince1970)
