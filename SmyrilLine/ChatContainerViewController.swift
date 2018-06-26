@@ -64,7 +64,6 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
         self.messagesArray.removeAll()
         WebSocketSharedManager.sharedInstance.socket?.delegate = self
         if WebSocketSharedManager.sharedInstance.socket?.isConnected == false {
@@ -73,6 +72,11 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         else {
             self.LoadChatHisroryWithMessageCount(messageCount: self.pageCount)
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+         NotificationCenter.default.removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -101,26 +105,31 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                 self.heightOfKeyboard = keyboardHeight
             }
             
-            self.keyboardBottomHeight.constant = CGFloat(self.heightOfKeyboard)
-            self.keyboardBackgroundBottomHeight.constant = CGFloat(self.heightOfKeyboard)
-            self.view.setNeedsLayout()
-            if self.messagesArray.count > 0 {
-                let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
-                self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+            
+            if self.keyboardBottomHeight.constant != CGFloat(self.heightOfKeyboard) {
+                self.keyboardBottomHeight.constant = CGFloat(self.heightOfKeyboard)
+                self.keyboardBackgroundBottomHeight.constant = CGFloat(self.heightOfKeyboard)
+                self.view.setNeedsLayout()
             }
+//            if self.messagesArray.count > 0 {
+//                let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
+//                self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+//            }
         }
         
     }
     
     func keyboardWillHide(notification: NSNotification) {
         
-        self.keyboardBottomHeight.constant = 0
-        self.keyboardBackgroundBottomHeight.constant = 0
-        self.view.setNeedsLayout()
-        if self.messagesArray.count > 0 {
-            let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
-            self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+        if self.keyboardBottomHeight.constant != 0.0 {
+            self.keyboardBottomHeight.constant = 0
+            self.keyboardBackgroundBottomHeight.constant = 0
+            self.view.setNeedsLayout()
         }
+//        if self.messagesArray.count > 0 {
+//            let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
+//            self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+//        }
         
     }
     @IBAction func emojiKeyboardButtonAction(_ sender: Any) {
@@ -219,16 +228,17 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                                     self.messagesArray.insert(Chat(message: message, messageid: "", time: timeStr, imageString: imageUrlStr, fromLocalClient: fromLocal, messageStatus: Chat.MessageSendingStatus(rawValue: messageStatus)!), at: 0)
                                 }
                             }
-                            self.chatTableView.reloadData()
-                            if self.messagesArray.count > 0 && self.pageCount == 0 {
-                                let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
-                                self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+                            if array.count > 0 {
+                                self.chatTableView.reloadData()
+                                if self.messagesArray.count > 0 && self.pageCount == 0 {
+                                    let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
+                                    self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+                                }
+                                
+                                if self.messagesArray.count > 0 {
+                                    self.pageCount += 1
+                                }
                             }
-                            
-                            if self.messagesArray.count > 0 {
-                                self.pageCount += 1
-                            }
-                            
                         }
                     }
                 case .failure(let error):
@@ -400,8 +410,14 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         return vw
     }
     
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView)  {
+       // NotificationCenter.default.removeObserver(self)
+    }
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView,
                                   willDecelerate decelerate: Bool) {
+        //NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
         if scrollView.contentOffset.y < 0 {
             self.LoadChatHisroryWithMessageCount(messageCount: self.pageCount)
         }

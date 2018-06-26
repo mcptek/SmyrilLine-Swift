@@ -22,7 +22,6 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     var filteredOnlineUserListArray = [User]()
     var RecentUserListArray = [User]()
     var filteredRecentUserListArray = [User]()
-    var senderDeviceId: String?
     var receiverDeviceId: String?
     var receiverProfileName: String?
     
@@ -34,7 +33,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         // Do any additional setup after loading the view.
         
         self.navigationController?.navigationBar.isHidden = false
-        //self.title = "Inbox"
+        self.title = "Messaging"
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
         //let navigationBar = navigationController!.navigationBar
         //navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
@@ -53,9 +52,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        //self.configureSearchBar()
-        //self.navigationController?.navigationBar.backItem?.title = ""
-        //print(UrlMCP.WebSocketStageurl + "?deviceId=" + (UIDevice.current.identifierForVendor?.uuidString)
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChangedInMessaging), name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: nil)
         WebSocketSharedManager.sharedInstance.socket?.delegate = self
         if WebSocketSharedManager.sharedInstance.socket?.isConnected == false {
             WebSocketSharedManager.sharedInstance.socket?.connect()
@@ -63,7 +60,6 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         else {
             self.RetrieveCurrentUserList()
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,16 +77,19 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        //let nc = NotificationCenter.default
-       // nc.removeObserver(self, name: Notification.Name("InboxNotification"), object: nil)
-       // let navigationBar = navigationController!.navigationBar
-       // navigationBar.reset()
+        super.viewWillDisappear(true)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reachabilityChanged"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func reachabilityChangedInMessaging() {
+        if ReachabilityManager.shared.reachability.currentReachabilityStatus == .reachableViaWiFi {
+            self.RetrieveCurrentUserList()
+        }
     }
     
     func configureSearchBar()  {
@@ -106,17 +105,6 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         self.chatSearchBar.tintColor = UIColor.white
         self.chatSearchBar.subviews[0].subviews.flatMap(){ $0 as? UITextField }.first?.tintColor = UIColor.gray
         
-        /*
-        if let searchTextField = self.chatSearchBar.value(forKey: "_searchField") as? UITextField, let clearButton = searchTextField.value(forKey: "_clearButton") as? UIButton {
-            // Create a template copy of the original button image
-            let templateImage =  clearButton.imageView?.image?.withRenderingMode(.alwaysTemplate)
-            // Set the template image copy as the button image
-            clearButton.setImage(templateImage, for: .normal)
-            // Finally, set the image color
-            clearButton.tintColor = UIColor.white
-        }
- 
- */
         self.chatSearchBar.setImage(UIImage(), for: .clear, state: .normal)
         self.chatSearchBar.delegate = self
 
@@ -186,23 +174,21 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     }
     
     func RetrieveCurrentUserList() {
-//
-//        let userListObject = CurrentUserList.init(name: "Rafay", bookingNumber: 123456, profileDescription: "Websoket messaging", imageUrl: "", country: "Bangladesh", deviceId: (UIDevice.current.identifierForVendor?.uuidString)!, gender: "Male", status: 1, visibility: visibilityStatus)
         self.OnlineUserListArray.removeAll()
         self.filteredOnlineUserListArray.removeAll()
         self.RecentUserListArray.removeAll()
         self.filteredRecentUserListArray.removeAll()
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
-        let url = UrlMCP.server_base_url + UrlMCP.WebSocketGetUserList  //"http://stage-smy-wp.mcp.com:82/chat/api/v2/profileupdate"
+        let url = UrlMCP.server_base_url + UrlMCP.WebSocketGetUserList
+        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
         
-        Alamofire.request(url, method: .post, parameters: self.retrieveUserProfileDetailsInfo(), encoding: JSONEncoding.default, headers: nil)
+        Alamofire.request(url, method: .post, parameters: self.retrieveUserProfileDetailsInfo(), encoding: URLEncoding.default, headers: headers)
             .responseArray { (response: DataResponse<[User]>) in
             self.activityIndicatorView.stopAnimating()
             self.view.isUserInteractionEnabled = true
             switch response.result {
             case .success:
-                print(response.result.value!)
                 let forecastArray = response.result.value
                 if let UserList = forecastArray {
                     self.filterChatUserList(UserList: UserList)
@@ -214,12 +200,6 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 self.showErrorAlert(error: error as NSError)
             }
         }
-        
-        
-        
-//        let messageType = MessageSignature.init(type: 5, list: userListObject)
-//        let json = JSONSerializer.toJson(messageType)
-//        WebSocketSharedManager.sharedInstance.socket?.write(string: json)
     }
     
     func websocketDidConnect(socket: WebSocketClient) {
@@ -233,7 +213,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         if let arr: Array<Messaging> = Mapper<Messaging>().mapArray(JSONString: text) {
-            //print(arr[0].Message)
+            print(arr[0].userList ?? "no user found")
             if let userType = arr[0].MessageType {
                 switch(userType) {
                 case 5,2:
@@ -318,7 +298,6 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         for object in UserList {
             if let deviviceId = object.deviceId {
                 if deviviceId == (UIDevice.current.identifierForVendor?.uuidString)! {
-                    self.senderDeviceId = deviviceId
                     if let imageUrl = object.imageUrl {
                         UserDefaults.standard.set(imageUrl, forKey: "userProfileImageUrl")
                     }
@@ -358,7 +337,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         // Pass the selected object to the new view controller.
         if segue.identifier == "chatMessageCell" {
             let vc = segue.destination as! ChatContainerViewController
-            if let senderId = self.senderDeviceId {
+            if let senderId = UIDevice.current.identifierForVendor?.uuidString {
                 vc.senderDeviceId = senderId
             }
             if let receiverId = self.receiverDeviceId {
@@ -578,10 +557,9 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             self.receiverDeviceId = self.filteredOnlineUserListArray[indexPath.row].deviceId
             self.receiverProfileName = self.filteredOnlineUserListArray[indexPath.row].name
         }
-        if let _ = self.senderDeviceId, let _ = self.receiverDeviceId {
+        if let _ = self.receiverDeviceId {
             self.performSegue(withIdentifier: "chatMessageCell", sender: nil)
         }
-
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
