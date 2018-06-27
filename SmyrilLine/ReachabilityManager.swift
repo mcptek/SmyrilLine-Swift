@@ -8,6 +8,7 @@
 
 import UIKit
 import ReachabilitySwift
+//import Starscream
 
 class ReachabilityManager: NSObject {
     static  let shared = ReachabilityManager()
@@ -29,6 +30,7 @@ class ReachabilityManager: NSObject {
         case .notReachable:
             debugPrint("Network became unreachable")
             StreamingConnection.sharedInstance.connection.stop()
+            WebSocketSharedManager.sharedInstance.socket?.disconnect()
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: reachability)
         case .reachableViaWiFi:
             debugPrint("Network reachable through WiFi")
@@ -36,6 +38,7 @@ class ReachabilityManager: NSObject {
             {
                 StreamingConnection.sharedInstance.connection.start()
             }
+            WebSocketSharedManager.sharedInstance.socket?.connect()
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: reachability)
         case .reachableViaWWAN:
             debugPrint("Network reachable through Cellular Data")
@@ -43,6 +46,7 @@ class ReachabilityManager: NSObject {
             {
                 StreamingConnection.sharedInstance.connection.start()
             }
+            WebSocketSharedManager.sharedInstance.socket?.connect()
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: reachability)
         }
     }

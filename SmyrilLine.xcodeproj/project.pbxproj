@@ -73,6 +73,7 @@
 		84635BD41FB0882E00B92F61 /* RestaurantDetailsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84635BD31FB0882E00B92F61 /* RestaurantDetailsHeader.swift */; };
 		84635BD61FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84635BD51FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib */; };
 		846643331F8F554600146A68 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846643321F8F554600146A68 /* HelpViewController.swift */; };
+		84674CA220E362E500FCBCEA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84674CA120E362E500FCBCEA /* AudioToolbox.framework */; };
 		84745ED51FC69587005E2E99 /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84745ED41FC69587005E2E99 /* WebSocketManager.swift */; };
 		84745ED91FC6A465005E2E99 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84745ED81FC6A465005E2E99 /* ChatTableViewCell.swift */; };
 		84745EDB1FC6A487005E2E99 /* UserListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84745EDA1FC6A487005E2E99 /* UserListCollectionViewCell.swift */; };
@@ -221,6 +222,7 @@
 		84635BD31FB0882E00B92F61 /* RestaurantDetailsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsHeader.swift; sourceTree = "<group>"; };
 		84635BD51FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RestaurantDetailsParallaxHeader.xib; sourceTree = "<group>"; };
 		846643321F8F554600146A68 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		84674CA120E362E500FCBCEA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		84745ED41FC69587005E2E99 /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 		84745ED81FC6A465005E2E99 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		84745EDA1FC6A487005E2E99 /* UserListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84674CA220E362E500FCBCEA /* AudioToolbox.framework in Frameworks */,
 				84805FFE1FF51391005AC8DA /* CoreLocation.framework in Frameworks */,
 				84805FFC1FF51389005AC8DA /* CoreBluetooth.framework in Frameworks */,
 				84805FFA1FF51348005AC8DA /* OnyxBeaconLib.framework in Frameworks */,
@@ -323,6 +326,7 @@
 		78F5FC5518D8CC48F45A8589 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84674CA120E362E500FCBCEA /* AudioToolbox.framework */,
 				84805FFD1FF51391005AC8DA /* CoreLocation.framework */,
 				84805FFB1FF51389005AC8DA /* CoreBluetooth.framework */,
 				EA8F808BE45FE0AAC33C1FDB /* Pods_SmyrilLine.framework */,

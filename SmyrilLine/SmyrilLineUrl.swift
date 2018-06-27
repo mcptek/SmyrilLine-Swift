@@ -29,4 +29,5 @@ struct UrlMCP {
     static let WebSocketLocalurl = "ws://192.168.1.47:5000/ws/"
     static let WebSocketProfilePicImageUpload = "/chat/api/v2/profileupdate"
     static let WebSocketGetUserList = "/chat/api/v2/GetCurrentUserList"
+    static let WebSocketGetPendingChatMessage = "/chat/api/v2/FetchUndeliveredMessage?"
 }

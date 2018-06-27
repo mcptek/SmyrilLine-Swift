@@ -17,10 +17,11 @@ import ReachabilitySwift
 import Device_swift
 import IQKeyboardManagerSwift
 import Starscream
+import AudioToolbox.AudioServices
 
 @available(iOS 10.0, *)
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSocketDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSocketDelegate,UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
     let SA_CLIENTID = "1f4654d91e78d061a0e00e6962e7de6bb5957276"
@@ -40,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
         self.createSocketConnection()
         self.setMessageLastTimeIfNotSet()
         self.checkIfThereIsAnyPendingNotificatio()
+       // self.checkIfThereIsAnyPendingChatMessage()
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
@@ -49,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
                 })
             }
         }
+        center.delegate = self
         ReachabilityManager.shared.startMonitoring()
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().keyboardDistanceFromTextField = 0.0
@@ -65,6 +68,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
         print("Error: \(error) ");
     }
 
+    // called when user interacts with notification (app not running in foreground)
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse, withCompletionHandler
+        completionHandler: @escaping () -> Void) {
+        
+        // do something with the notification
+        //print(response.notification.request.content.userInfo)
+        
+        // the docs say you should execute this asap
+        return completionHandler()
+    }
+    
+    // called if app is running in foreground
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent
+        notification: UNNotification, withCompletionHandler completionHandler:
+        @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        // show alert while app is running in foreground
+        return completionHandler(UNNotificationPresentationOptions.alert)
+    }
+    
+    func checkIfThereIsAnyPendingChatMessage() {
+        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
+        let urlStr = UrlMCP.server_base_url + UrlMCP.WebSocketGetPendingChatMessage + "receiverId=" + (UIDevice.current.identifierForVendor?.uuidString)!
+        
+        Alamofire.request(urlStr, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers)
+            .responseArray { (response: DataResponse<[UserChatMessage]>) in
+                switch response.result {
+                case .success:
+                    if response.response?.statusCode == 200
+                    {
+                        if let array = response.result.value {
+                            for object in array {
+                                if let title = object.message {
+                                    self.createLocalNotification(messageTitle: title)
+                                }
+                            }
+                        }
+                    }
+                case .failure( _):
+                    print(response.result.error!)
+                }
+        }
+    }
+    
     
     func checkIfThereIsAnyPendingNotificatio()  {
         let time = UserDefaults.standard.value(forKey: "LastTime") as! String
@@ -131,6 +179,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
+        self.checkIfThereIsAnyPendingChatMessage()
+        
         let time = UserDefaults.standard.value(forKey: "LastTime") as! String
         let clientId =  UIDevice.current.identifierForVendor?.uuidString
         let params: Parameters = [
@@ -275,21 +325,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         
-        if let wd = UIApplication.shared.delegate?.window {
-            if let tabbarController = wd?.rootViewController as? UITabBarController {
-                if let navigationCntlr = tabbarController.selectedViewController as? UINavigationController {
-                    if navigationCntlr.topViewController is ChatContainerViewController {
-                        print("Inside")
-                    }
-                    else {
-                        print("Outside")
-                    }
-                }
-            }
-            
-        }
-        
-        
         if let arr: Array<Messaging> = Mapper<Messaging>().mapArray(JSONString: text) {
             print(arr[0].userList ?? "no user found")
             if let userType = arr[0].MessageType {
@@ -304,41 +339,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
                     }
                 case 8: // receive message and take proper action
                     // send acknowledgement based on seen or delivered
-                    if let wd = UIApplication.shared.delegate?.window {
-                        if let tabbarController = wd?.rootViewController as? UITabBarController {
-                            if let navigationCntlr = tabbarController.selectedViewController as? UINavigationController {
-                                if navigationCntlr.topViewController is ChatContainerViewController { // inside chat, so status will be seen
-                                    self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String, withMessageStatus: 3)
-                                    if let dic = arr[0].Message {
-                                        NotificationCenter.default.post(name: NSNotification.Name("InsertNewMessage"), object: self, userInfo: ["newMessage": dic])
-                                    }
-                                }
-                                else { // outside chat, so status will be delivered
-                                    self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String, withMessageStatus: 2)
-                                    if let dic = arr[0].Message?["senderChatUserServerModel"] as? [String: Any] {
-                                        NotificationCenter.default.post(name: NSNotification.Name("UpdateMessageCountList"), object: self, userInfo: ["senderChatUserServerModel": dic])
-                                    }
-                                    
-                                    if let title = arr[0].Message?["messageBase64"] as? String {
-                                        let notification = UILocalNotification()
-                                        notification.alertBody = title.base64Decoded()
-                                        notification.soundName = UILocalNotificationDefaultSoundName
-                                        UIApplication.shared.scheduleLocalNotification(notification)
-                                    }
-                                }
-                            }
+                    let value = self.checkIsChatContainerCurrentViewController()
+                    self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String, withMessageStatus: value)
+                    if value == 3 { // inside chat, so status will be seen
+                        if let dic = arr[0].Message {
+                            NotificationCenter.default.post(name: NSNotification.Name("InsertNewMessage"), object: self, userInfo: ["newMessage": dic])
                         }
                     }
-                    
-                    
-                    
-                    
-                    
-                    print(arr[0].Message ?? "default value")
-                    //self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String)
-//                    if let dic = arr[0].Message?["senderChatUserServerModel"] as? [String: Any] {
-//                        self.updateMessageCounterListforDeviceId(deviceId: (dic["deviceId"] as? String)!, lastCommunicationTime: (dic["lastCommunication"] as? Int64)!, lastSeenTime: (dic["lastSeen"] as? Int64)!)
-//                    }
+                    else { // outside chat, so status will be delivered
+                        if let dic = arr[0].Message?["senderChatUserServerModel"] as? [String: Any] {
+                            NotificationCenter.default.post(name: NSNotification.Name("UpdateMessageCountList"), object: self, userInfo: ["senderChatUserServerModel": dic])
+                        }
+                        if let title = arr[0].Message?["messageBase64"] as? String {
+                            self.createLocalNotification(messageTitle: title)
+                        }
+                    }
                 default:
                     print("Default")
                 }
@@ -349,6 +364,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
         print("got some data: \(data.count)")
     }
+    
+    func createLocalNotification(messageTitle: String)  {
+        let notification = UILocalNotification()
+        notification.alertBody = messageTitle.base64Decoded()
+        notification.soundName = UILocalNotificationDefaultSoundName
+        UIApplication.shared.scheduleLocalNotification(notification)
+        //AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+        AudioServicesPlaySystemSoundWithCompletion(kSystemSoundID_Vibrate, nil)
+    }
+    
+    func checkIsChatContainerCurrentViewController() -> Int {
+        var flag = 2
+        if let wd = UIApplication.shared.delegate?.window {
+            if let tabbarController = wd?.rootViewController as? UITabBarController {
+                if let navigationCntlr = tabbarController.selectedViewController as? UINavigationController {
+                    if navigationCntlr.topViewController is ChatContainerViewController {
+                        flag = 3
+                    }
+                    else {
+                        flag = 2
+                    }
+                }
+            }
+        }
+        return flag
+    }
+    
     
     func callAcknowledgeMessageWebserviceForMessageId(messageId: String, withMessageStatus status:Int) {
         //let messageSendingStatus = 3
@@ -402,7 +444,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
             let date = Date()
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+            dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
             let desiredDate = dateFormatter.string(from: date)
             defaults.set(desiredDate, forKey: "LastTime")
             
@@ -420,6 +462,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
         OnyxBeacon.sharedInstance().appWillResignActive()
         ReachabilityManager.shared.stopMonitoring()
         StreamingConnection.sharedInstance.connection.stop()
+        WebSocketSharedManager.sharedInstance.socket?.disconnect()
         self.setMessageLastTimeIfNotSet()
     }
 
@@ -428,6 +471,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
         OnyxBeacon.sharedInstance().willEnterForeground()
         ReachabilityManager.shared.startMonitoring()
         StreamingConnection.sharedInstance.connection.start()
+        WebSocketSharedManager.sharedInstance.socket?.connect()
         self.setMessageLastTimeIfNotSet()
         let time = UserDefaults.standard.value(forKey: "LastTime") as! String
         let clientId =  UIDevice.current.identifierForVendor?.uuidString
