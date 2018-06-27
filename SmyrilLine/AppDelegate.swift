@@ -43,15 +43,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
         self.checkIfThereIsAnyPendingNotificatio()
        // self.checkIfThereIsAnyPendingChatMessage()
         UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
-            if granted {
-                DispatchQueue.main.async(execute: {
-                    UIApplication.shared.registerForRemoteNotifications()
-                })
-            }
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            print("granted: (\(granted)")
         }
-        center.delegate = self
+        UNUserNotificationCenter.current().delegate = self
         ReachabilityManager.shared.startMonitoring()
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().keyboardDistanceFromTextField = 0.0
@@ -69,15 +64,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
     }
 
     // called when user interacts with notification (app not running in foreground)
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse, withCompletionHandler
-        completionHandler: @escaping () -> Void) {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        // do something with the notification
-        //print(response.notification.request.content.userInfo)
+        if response.notification.request.identifier == "chat" {
+            print("handling notifications with the TestIdentifier Identifier")
+            if let wd = UIApplication.shared.delegate?.window {
+                if let tbCntlr = wd?.rootViewController as? UITabBarController {
+                    tbCntlr.selectedIndex = 3
+                }
+            }
+        }
         
-        // the docs say you should execute this asap
-        return completionHandler()
+        completionHandler()
+        
     }
     
     // called if app is running in foreground
@@ -388,12 +387,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
     }
     
     func createLocalNotification(messageTitle: String)  {
-        let notification = UILocalNotification()
-        notification.alertBody = messageTitle.base64Decoded()
-        notification.soundName = UILocalNotificationDefaultSoundName
-        UIApplication.shared.scheduleLocalNotification(notification)
-        //AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-        AudioServicesPlaySystemSoundWithCompletion(kSystemSoundID_Vibrate, nil)
+//        let notification = UILocalNotification()
+//        notification.alertBody = messageTitle.base64Decoded()
+//        notification.soundName = UILocalNotificationDefaultSoundName
+//        UIApplication.shared.scheduleLocalNotification(notification)
+//        //AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+//        AudioServicesPlaySystemSoundWithCompletion(kSystemSoundID_Vibrate, nil)
+        
+        let content = UNMutableNotificationContent()
+        content.title = messageTitle.base64Decoded()!
+        //content.body = nil
+        content.sound = UNNotificationSound.default()
+        
+        let request = UNNotificationRequest(identifier: "chat", content: content, trigger: nil)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
+        
+        
     }
     
     func checkIsChatContainerCurrentViewController() -> Int {
