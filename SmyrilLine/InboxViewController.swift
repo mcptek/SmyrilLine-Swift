@@ -73,7 +73,8 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reachabilityChanged"), object: nil)
+        //NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reachabilityChanged"), object: nil)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -256,6 +257,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             if let index = self.filteredRecentUserListArray.index(where: { $0.deviceId == deviceId }) {
                 self.filteredRecentUserListArray[index].lastCommunication = lastCommunicationTime
                 self.filteredRecentUserListArray[index].lastSeen = lastSeenTime
+                //print(self.filteredRecentUserListArray[index].newMessageCount ?? "Default  ")
                 if let count = self.filteredRecentUserListArray[index].newMessageCount {
                     self.filteredRecentUserListArray[index].newMessageCount = count + 1
                 }

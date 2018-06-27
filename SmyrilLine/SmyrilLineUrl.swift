@@ -30,4 +30,5 @@ struct UrlMCP {
     static let WebSocketProfilePicImageUpload = "/chat/api/v2/profileupdate"
     static let WebSocketGetUserList = "/chat/api/v2/GetCurrentUserList"
     static let WebSocketGetPendingChatMessage = "/chat/api/v2/FetchUndeliveredMessage?"
+    static let WebSocketAcknowledgeMultipleMessageForBackground = "/chat/api/v2/onClientBackgroundAcknowledgeMessage"
 }

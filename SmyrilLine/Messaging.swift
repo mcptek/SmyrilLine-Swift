@@ -25,6 +25,7 @@ class Messaging: Mappable{
 
 class UserChatMessage: Mappable{
     var message : String?
+    var messageId : String?
     var messageUrlString : String?
     var fromLocalClient : Bool?
     var sendTime : Double?
@@ -34,6 +35,7 @@ class UserChatMessage: Mappable{
     
     func mapping(map: Map) {
         message <- map["message"]
+        messageId <- map["messageId"]
         messageUrlString <- map["senderImageUrl"]
         fromLocalClient <- map["fromLocalClient"]
         sendTime <- map["sendTime"]

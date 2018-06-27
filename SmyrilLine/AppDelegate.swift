@@ -100,9 +100,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
                     if response.response?.statusCode == 200
                     {
                         if let array = response.result.value {
+                            var messageId = ""
                             for object in array {
-                                if let title = object.message {
+                                if let title = object.message, let idMessage = object.messageId {
                                     self.createLocalNotification(messageTitle: title)
+                                    if messageId.count > 0
+                                    {
+                                        messageId += ",\( String(describing: idMessage))"
+                                    }
+                                    else
+                                    {
+                                        messageId = String(describing: idMessage)
+                                    }
+                                }
+                            }
+                            if messageId.count > 0 {
+                                let params: Parameters = [
+                                    "msgIds": messageId
+                                ]
+                                
+                                let url = UrlMCP.server_base_url + UrlMCP.WebSocketAcknowledgeMultipleMessageForBackground
+                                Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers).responseJSON { (response:DataResponse<Any>) in
+                                    print(response.response?.statusCode ?? "no status code")
+                                    if response.response?.statusCode == 200 {
+                                        print("Sent")
+                                    }
                                 }
                             }
                         }
@@ -350,9 +372,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
                         if let dic = arr[0].Message?["senderChatUserServerModel"] as? [String: Any] {
                             NotificationCenter.default.post(name: NSNotification.Name("UpdateMessageCountList"), object: self, userInfo: ["senderChatUserServerModel": dic])
                         }
-                        if let title = arr[0].Message?["messageBase64"] as? String {
-                            self.createLocalNotification(messageTitle: title)
-                        }
+                        //if let title = arr[0].Message?["messageBase64"] as? String {
+                            //self.createLocalNotification(messageTitle: title)
+                       // }
                     }
                 default:
                     print("Default")
@@ -417,7 +439,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
         let desiredDate = dateFormatter.string(from: date)
         defaults.set(desiredDate, forKey: "LastTime")
 
@@ -502,7 +524,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
                                 
                                 if let id = dic?.value(forKey: "id") as? NSNumber
                                 {
-                                    if messageId.characters.count > 0
+                                    if messageId.count > 0
                                     {
                                         messageId += ",\( String(describing: id))"
                                     }
@@ -513,7 +535,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
                                 }
                             }
                             
-                            if messageId.characters.count > 0
+                            if messageId.count > 0
                             {
                                 let bulletinAcknowledgementUrl = String(format: "/api/Schedule/AckQueuedBulletin?scheduleId=%@&clientId=%@", messageId, clientId!)
                                 print(UrlMCP.server_base_url + bulletinAcknowledgementUrl)
