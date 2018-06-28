@@ -23,6 +23,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     var filteredRecentUserListArray = [User]()
     var receiverDeviceId: String?
     var receiverProfileName: String?
+    var receiverProfileStatus: Int?
     
     @IBOutlet weak var inboxTableview: UITableView!
     
@@ -32,6 +33,8 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         // Do any additional setup after loading the view.
         
         self.navigationController?.navigationBar.isHidden = false
+        //self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.view.backgroundColor = UIColor(red: 0.03, green: 0.54, blue: 0.84, alpha: 1.0)
         self.title = "Messaging"
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
         //let navigationBar = navigationController!.navigationBar
@@ -255,45 +258,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             }
         }
     }
-    /*
-    func websocketDidConnect(socket: WebSocketClient) {
-        print("websocket is connected")
-        self.RetrieveCurrentUserList()
-    }
     
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        print("websocket is disconnected: \(String(describing: error?.localizedDescription))")
-    }
-    
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        if let arr: Array<Messaging> = Mapper<Messaging>().mapArray(JSONString: text) {
-            print(arr[0].userList ?? "no user found")
-            if let userType = arr[0].MessageType {
-                switch(userType) {
-                case 5,2:
-                    if let UserList = arr[0].userList {
-                        self.filterChatUserList(UserList: UserList)
-                    }
-                    else {
-                        self.showAlert(title: "Message", message: "No user list found")
-                    }
-                case 8:
-                    print(arr[0].Message ?? "default value")
-                    self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String)
-                    if let dic = arr[0].Message?["senderChatUserServerModel"] as? [String: Any] {
-                        self.updateMessageCounterListforDeviceId(deviceId: (dic["deviceId"] as? String)!, lastCommunicationTime: (dic["lastCommunication"] as? Int64)!, lastSeenTime: (dic["lastSeen"] as? Int64)!)
-                    }
-                default:
-                    print("Default")
-                }
-            }
-        }
-    }
-    
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
-        print("got some data: \(data.count)")
-    }
-    */
     func updateMessageCounterListforDeviceId(deviceId: String, lastCommunicationTime:Int64, lastSeenTime:Int64)  {
         if self.filteredRecentUserListArray.contains(where: { $0.deviceId == deviceId }) {
             if let index = self.filteredRecentUserListArray.index(where: { $0.deviceId == deviceId }) {
@@ -323,24 +288,6 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         self.filteredRecentUserListArray = self.filteredRecentUserListArray.sorted(by: { $0.lastCommunication! > $1.lastCommunication! })
         self.filteredOnlineUserListArray = self.filteredOnlineUserListArray.sorted(by: { $0.lastCommunication! > $1.lastCommunication! })
         self.inboxTableview.reloadData()
-    }
-    
-    
-    
-    func callAcknowledgeMessageWebserviceForMessageId(messageId: String) {
-        let messageSendingStatus = 2
-        let params: Parameters = [
-            "messageId": messageId,
-            "messageSendingStatus": messageSendingStatus,
-            ]
-        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
-        let url = UrlMCP.server_base_url + UrlMCP.AcknowledgeMessage
-        Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers).responseJSON { (response:DataResponse<Any>) in
-            print(response.response?.statusCode ?? "no status code")
-            if response.response?.statusCode == 200 {
-                print("Sent")
-            }
-        }
     }
     
     func filterChatUserList(UserList: [User] )  {
@@ -403,6 +350,9 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             
             if let name = self.receiverProfileName {
                 vc.profileName = name.base64Decoded()
+            }
+            if let status = self.receiverProfileStatus {
+                vc.profileStatus = status
             }
         }
     }
@@ -609,10 +559,12 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         if collectionView.tag == 1010 {
             self.receiverDeviceId = self.filteredRecentUserListArray[indexPath.row].deviceId
             self.receiverProfileName = self.filteredRecentUserListArray[indexPath.row].name
+            self.receiverProfileStatus = self.filteredRecentUserListArray[indexPath.row].status
         }
         else {
             self.receiverDeviceId = self.filteredOnlineUserListArray[indexPath.row].deviceId
             self.receiverProfileName = self.filteredOnlineUserListArray[indexPath.row].name
+            self.receiverProfileStatus = self.filteredOnlineUserListArray[indexPath.row].status
         }
         if let _ = self.receiverDeviceId {
             self.performSegue(withIdentifier: "chatMessageCell", sender: nil)

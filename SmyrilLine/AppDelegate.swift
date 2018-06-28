@@ -31,6 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
         // Override point for customization after application launch.
         //Added swift file
         
+        let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
+        if statusBar.responds(to:#selector(setter: UIView.backgroundColor)) {
+            statusBar.backgroundColor = UIColor(red: 0.03, green: 0.54, blue: 0.84, alpha: 1.0)
+        }
+        UIApplication.shared.statusBarStyle = .lightContent
+        
         if UserDefaults.standard.value(forKey: "CurrentSelectedLanguage") == nil
         {
             UserDefaults.standard.set(["en", "de", "fo", "da"], forKey: "AppleLanguages")

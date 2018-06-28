@@ -29,10 +29,13 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     var receiverDeviceId: String?
     var activityIndicatorView: UIActivityIndicatorView!
     var profileName: String?
+    var profileStatus: Int?
     var pageCount = 0
     var heightOfKeyboard = 0
     
     
+    @IBOutlet weak var userStatusNameLabel: UILabel!
+    @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var keyboardBackgroundBottomHeight: NSLayoutConstraint!
     @IBOutlet weak var keyboardBottomHeight: NSLayoutConstraint!
     @IBOutlet weak var messageTextView: KMPlaceholderTextView!
@@ -45,6 +48,8 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     override func viewDidLoad() { 
         super.viewDidLoad()
 
+        self.navigationController?.navigationBar.isHidden = true
+         UIApplication.shared.statusBarStyle = .default
         // Do any additional setup after loading the view.
         self.chatTableView.estimatedRowHeight = 44
         self.chatTableView.rowHeight = UITableViewAutomaticDimension
@@ -58,9 +63,16 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateMessageStatus), name: NSNotification.Name(rawValue: "UpdateSentMessageAcknowledgementStatus"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(InsertMessage), name: NSNotification.Name(rawValue: "InsertNewMessage"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateChatUserStatus), name: NSNotification.Name(rawValue: "UpdateChatUserList"), object: nil)
         
         IQKeyboardManager.sharedManager().enable = false
-        self.title = self.profileName
+        self.userNameLabel.text = self.profileName
+        if self.profileStatus! == 1 {
+            self.userStatusNameLabel.text = "Active"
+        }
+        else {
+            self.userStatusNameLabel.text = "Inactive"
+        }
         self.emojiButton.setImage(UIImage.init(named: "smile"), for: .normal)
     }
 
@@ -73,6 +85,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
          NotificationCenter.default.removeObserver(self)
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -88,6 +101,28 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func updateChatUserStatus(_ notification: Notification) {
+        if let myDict = notification.userInfo as? [String: [User]] {
+            if let userList = myDict["UserList"] {
+                for object in userList {
+                    if object.deviceId == self.receiverDeviceId {
+                        self.profileStatus = object.status
+                        if self.profileStatus! == 1 {
+                            self.userStatusNameLabel.text = "Active"
+                        }
+                        else {
+                            self.userStatusNameLabel.text = "Inactive"
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    @IBAction func backbuttonAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
     func keyboardWillShow(notification: NSNotification) {
         
