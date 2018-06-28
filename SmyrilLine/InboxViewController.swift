@@ -55,6 +55,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         NotificationCenter.default.addObserver(self, selector: #selector(updateChatUserList), name: NSNotification.Name(rawValue: "UpdateChatUserList"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateMessageCounter), name: NSNotification.Name(rawValue: "UpdateMessageCountList"), object: nil)
         self.RetrieveCurrentUserList()
+        self.showAlertIfUsernameIsNotSet()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,6 +86,47 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     func reachabilityChangedInMessaging() {
         if ReachabilityManager.shared.reachability.currentReachabilityStatus == .reachableViaWiFi {
             self.RetrieveCurrentUserList()
+        }
+    }
+    
+    
+    @IBAction func menuButtonAction(_ sender: Any) {
+        self.performSegue(withIdentifier: "chatStatusvisibilityPage", sender: nil)
+    }
+    
+    func showAlertIfUsernameIsNotSet() {
+        if (UserDefaults.standard.value(forKey: "userName") as? String) == nil {
+            print("Username exists")
+            let message = "You can review your profile anytime from Messaging > Menu > My Profile"
+            let alertController = UIAlertController(
+                title: "Verify your chat profile", // This gets overridden below.
+                message: message,
+                preferredStyle: .alert
+            )
+            let okAction = UIAlertAction(title: "OK", style: .cancel) { _ -> Void in
+                self.performSegue(withIdentifier: "chatStatusvisibilityPage", sender: nil)
+            }
+            alertController.addAction(okAction)
+            
+            let fontAwesomeHeart = "Messaging > Menu > My Profile"
+            let fontAwesomeFont = UIFont.systemFont(ofSize: 15, weight: UIFontWeightSemibold)
+            
+            let customTitle:NSString = "You can review your profile anytime from Messaging > Menu > My Profile" as NSString // Use NSString, which lets you call rangeOfString()
+            let systemBoldAttributes:[String : AnyObject] = [
+                // setting the attributed title wipes out the default bold font,
+                // so we need to reconstruct it.
+                NSFontAttributeName : UIFont.systemFont(ofSize: 15, weight: UIFontWeightRegular)//UIFont.boldSystemFont(ofSize: 17)
+            ]
+            let attributedString = NSMutableAttributedString(string: customTitle as String, attributes:systemBoldAttributes)
+            let fontAwesomeAttributes = [
+                NSFontAttributeName: fontAwesomeFont,
+                NSForegroundColorAttributeName : UIColor.black
+            ]
+            let matchRange = customTitle.range(of: fontAwesomeHeart)
+            attributedString.addAttributes(fontAwesomeAttributes, range: matchRange)
+            alertController.setValue(attributedString, forKey: "attributedMessage")
+            
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -311,6 +353,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         for object in UserList {
             if let deviviceId = object.deviceId {
                 if deviviceId == (UIDevice.current.identifierForVendor?.uuidString)! {
+                    /*
                     if let imageUrl = object.imageUrl {
                         UserDefaults.standard.set(imageUrl, forKey: "userProfileImageUrl")
                     }
@@ -320,6 +363,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                     if let intro = object.description {
                         UserDefaults.standard.set(intro, forKey: "introInfo")
                     }
+ */
                     continue
                 }
             }
@@ -494,7 +538,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             {
                 cell.userImageView.sd_setShowActivityIndicatorView(true)
                 cell.userImageView.sd_setIndicatorStyle(.gray)
-                cell.userImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                cell.userImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
             }
             else {
                 cell.userImageView.image = UIImage.init(named: "UserPlaceholder")
@@ -537,7 +581,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             {
                 cell.userImageView.sd_setShowActivityIndicatorView(true)
                 cell.userImageView.sd_setIndicatorStyle(.gray)
-                cell.userImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: ""))
+                cell.userImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
                 
             }
             else {

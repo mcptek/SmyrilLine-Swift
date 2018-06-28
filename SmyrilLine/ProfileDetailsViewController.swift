@@ -42,6 +42,8 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
         
         self.picButton.layer.cornerRadius = self.picButton.frame.size.height / 2
         self.picImageView.layer.cornerRadius = self.picImageView.frame.size.height / 2
+        self.picImageView.clipsToBounds = true
+        self.picButton.clipsToBounds = true
         
         if (UserDefaults.standard.value(forKey: "userProfileImageUrl") as? String) != nil {
             self.picButton.backgroundColor = UIColor.clear
@@ -409,9 +411,12 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage  {
             self.selectedImage = resizeImage(image: image, newWidth: 128)
             //self.picButton?.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
-            self.picImageView.image = self.selectedImage
-            self.picImageView.layer.cornerRadius = self.picImageView.frame.size.height / 2
-            self.picButton.imageView?.layer.cornerRadius = self.picButton.frame.size.height / 2
+            self.picImageView.contentMode = .scaleAspectFit
+            self.picImageView.image = image
+//            self.picImageView.layer.cornerRadius = self.picImageView.frame.size.height / 2
+//            self.picButton.imageView?.layer.cornerRadius = self.picButton.frame.size.height / 2
+//            self.picImageView.clipsToBounds = true
+//            self.picButton.clipsToBounds = true
             self.picButton.backgroundColor = UIColor.clear
         }
         else{

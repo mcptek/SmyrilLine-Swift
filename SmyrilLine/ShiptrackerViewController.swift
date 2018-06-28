@@ -62,6 +62,10 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
     }
     
     func loadmapView()  {
+        if self.mapView != nil {
+            self.mapView.removeFromSuperview()
+            self.mapView = nil
+        }
         let styleURL = NSURL(string: UrlMCP.shipTrackerTilePath)
         self.mapView = MGLMapView(frame: self.mapContainerView.frame,
                                   styleURL: styleURL as URL?)
@@ -75,9 +79,15 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         self.mapView.attributionButton.isHidden = true
         self.mapView.logoView.isHidden = true
         self.mapView.isRotateEnabled = false
-        if self.mapView.isDescendant(of: self.view) {
-            self.mapView.removeFromSuperview()
-        }
+//        if self.mapView.isDescendant(of: self.view) {
+//            self.mapView.removeFromSuperview()
+//        }
+        
+//        if self.mapView != nil { // Make sure the view exists
+//            if self.view.subviews.contains(self.mapView) {
+//                self.mapView.removeFromSuperview() // Remove it
+//            }
+//        }
         self.view.addSubview(self.mapView)
         self.view.bringSubview(toFront: self.shipInfoContainerView)
         self.view.bringSubview(toFront: self.shipDetailsButton)
@@ -329,7 +339,11 @@ class ShiptrackerViewController: UIViewController,MGLMapViewDelegate {
         }
     }
     @IBAction func shipTrackerRefreshAction(_ sender: Any) {
-        //self.mapView.removeFromSuperview()
+//        if self.mapView != nil { // Make sure the view exists
+//            if self.view.subviews.contains(self.mapView) {
+//                self.mapView.removeFromSuperview() // Remove it
+//            }
+//        }
         self.createAPICallForShipTrajectory()
     }
 

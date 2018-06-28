@@ -37,6 +37,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     @IBOutlet weak var keyboardBottomHeight: NSLayoutConstraint!
     @IBOutlet weak var messageTextView: KMPlaceholderTextView!
     @IBOutlet weak var emojiButton: UIButton!
+    @IBOutlet weak var sendmessageButton: UIButton!
     
     var messagesArray:[Chat] = []
     var myMessageArray = [UserChatMessage]()
@@ -466,6 +467,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     
     @IBAction func messageSendButtonAction(_ sender: Any) {
         if self.messageTextView.text.count > 0 {
+            self.sendmessageButton.isEnabled = false
             let messageId = NSUUID().uuidString.lowercased()
             let params: Parameters = [
                 "senderDeviceId": self.senderDeviceId!,
@@ -499,6 +501,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                         self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
                     }
                     self.messageTextView.text = nil
+                    self.sendmessageButton.isEnabled = true
                 }
                 else {
                     self.showAlert(title: "Message", message: "Message sending failed. Please try again later")
@@ -512,6 +515,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                         self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
                     }
                     self.messageTextView.text = nil
+                    self.sendmessageButton.isEnabled = true
                 }
                 
             }

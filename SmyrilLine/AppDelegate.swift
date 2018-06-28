@@ -402,8 +402,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
         let request = UNNotificationRequest(identifier: "chat", content: content, trigger: nil)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
-        
-        
     }
     
     func checkIsChatContainerCurrentViewController() -> Int {
@@ -483,6 +481,75 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
         }
     }
     
+    func uploadProfileVisibilitywithStatus(status:Int)  {
+        let url = UrlMCP.server_base_url + UrlMCP.WebSocketProfilePicImageUpload
+        
+        Alamofire.request(url, method:.post, parameters:self.retrieveUserProfileDetailsforStatus(profileStatus: status), headers:nil).responseObject { (response: DataResponse<UserProfile>) in
+            switch response.result {
+            case .success:
+                print("Status update success")
+            case .failure( _):
+                print("Status update failed")
+            }
+        }
+    }
+    
+    func retrieveUserProfileDetailsforStatus(profileStatus: Int) -> [String: Any] {
+        
+        var imageUrl = String()
+        if let url = UserDefaults.standard.value(forKey: "userProfileImageUrl") as? String {
+            imageUrl = url
+        }
+        else {
+            imageUrl = ""
+        }
+        
+        var userName = ""
+        if let profileUserName = UserDefaults.standard.value(forKey: "userName") as? String {
+            userName = profileUserName
+        }
+        else {
+            userName = ""
+        }
+        
+        var introInfo = ""
+        if let profileUserIntroInfo = UserDefaults.standard.value(forKey: "introInfo") as? String {
+            introInfo = profileUserIntroInfo
+        }
+        else {
+            introInfo = ""
+        }
+        
+        var visibilityStatus = 2
+        if let status = UserDefaults.standard.value(forKey: "userVisibilityStatus") as? String {
+            if status == "Visible to booking" {
+                visibilityStatus = 1
+            }
+            else if status == "Invisible" {
+                visibilityStatus = 3
+            }
+        }
+        
+        let bookingNumber = 123456
+        let status = profileStatus
+        
+        
+        let params: Parameters = [
+            "bookingNo": bookingNumber,
+            "Name": userName,
+            "description": introInfo,
+            "imageUrl": imageUrl,
+            "country": "Bangladesh",
+            "deviceId": (UIDevice.current.identifierForVendor?.uuidString)!,
+            "gender": "Male",
+            "status": status,
+            "visibility": visibilityStatus,
+            "imageBase64": "",
+            "phoneType": "iOS",
+            ]
+        return params
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -496,10 +563,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
         StreamingConnection.sharedInstance.connection.stop()
         WebSocketSharedManager.sharedInstance.socket?.disconnect()
         self.setMessageLastTimeIfNotSet()
+        if UserDefaults.standard.bool(forKey: "GuideScreen") == true {
+            self.uploadProfileVisibilitywithStatus(status: 0)
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        
+        if UserDefaults.standard.bool(forKey: "GuideScreen") == true {
+            self.uploadProfileVisibilitywithStatus(status: 1)
+        }
+        
         OnyxBeacon.sharedInstance().willEnterForeground()
         ReachabilityManager.shared.startMonitoring()
         StreamingConnection.sharedInstance.connection.start()
