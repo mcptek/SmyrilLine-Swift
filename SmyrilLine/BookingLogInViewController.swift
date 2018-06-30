@@ -25,6 +25,11 @@ class BookingLogInViewController: UIViewController,UITextFieldDelegate {
         self.viewBookingButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         print(UserDefaults.standard.bool(forKey: "GuideScreen"))

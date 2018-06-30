@@ -298,6 +298,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         self.filteredRecentUserListArray.removeAll()
         
         for object in UserList {
+            print(object.name?.base64Decoded() ?? "Name not found", object.visibility ?? "Visibility not found",object.status ?? "Status not found")
             if let deviviceId = object.deviceId {
                 if deviviceId == (UIDevice.current.identifierForVendor?.uuidString)! {
                     /*

@@ -58,6 +58,7 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
         let backgroundSessionConfiguration = URLSessionConfiguration.background(withIdentifier: "backgroundSessionDestinationCategory")
         self.backgroundSession = Foundation.URLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: OperationQueue.main)
         self.progressbar.setProgress(0.0, animated: false)
@@ -360,11 +361,15 @@ class DestinationCategoryViewController: UIViewController,UITableViewDataSource,
             if var urlPath = self.destinationCategoryObject?.attatchFileUrl {
                 if self.downloadBgView.isHidden == true {
                     urlPath = urlPath.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
-                    let url = URL(string: UrlMCP.server_base_url + urlPath)!
-                    downloadTask = backgroundSession.downloadTask(with: url)
-                    downloadTask.resume()
-                    self.downloadBgView.isHidden = false
-                    self.downloadContainerview.isHidden = false
+                    if let url = URL(string: UrlMCP.server_base_url + urlPath) {
+                        downloadTask = backgroundSession.downloadTask(with: url)
+                        downloadTask.resume()
+                        self.downloadBgView.isHidden = false
+                        self.downloadContainerview.isHidden = false
+                    }
+                    else {
+                        self.showDownloadFailAlert()
+                    }
                 }
             }
         }

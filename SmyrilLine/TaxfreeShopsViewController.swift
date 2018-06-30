@@ -34,6 +34,11 @@ class TaxfreeShopsViewController: UIViewController,UITableViewDelegate,UITableVi
         self.taxfreeTableview.rowHeight = UITableViewAutomaticDimension
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)

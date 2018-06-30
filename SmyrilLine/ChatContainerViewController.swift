@@ -49,7 +49,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         super.viewDidLoad()
 
         self.navigationController?.navigationBar.isHidden = true
-         UIApplication.shared.statusBarStyle = .default
+         //UIApplication.shared.statusBarStyle = .default
         // Do any additional setup after loading the view.
         self.chatTableView.estimatedRowHeight = 44
         self.chatTableView.rowHeight = UITableViewAutomaticDimension
@@ -68,7 +68,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         IQKeyboardManager.sharedManager().enable = false
         self.userNameLabel.text = self.profileName
         if self.profileStatus! == 1 {
-            self.userStatusNameLabel.text = "Active"
+            self.userStatusNameLabel.text = "Active now"
         }
         else {
             self.userStatusNameLabel.text = "Inactive"
@@ -76,6 +76,11 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         self.emojiButton.setImage(UIImage.init(named: "smile"), for: .normal)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         self.messagesArray.removeAll()
@@ -109,7 +114,7 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                     if object.deviceId == self.receiverDeviceId {
                         self.profileStatus = object.status
                         if self.profileStatus! == 1 {
-                            self.userStatusNameLabel.text = "Active"
+                            self.userStatusNameLabel.text = "Active now"
                         }
                         else {
                             self.userStatusNameLabel.text = "Inactive"
@@ -411,7 +416,6 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return self.messagesArray.count
     }
     

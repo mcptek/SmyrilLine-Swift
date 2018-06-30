@@ -327,6 +327,14 @@ public extension UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    func showDownloadFailAlert() {
+        let alertController = UIAlertController(title: "Error",
+                                                message: "Download failed. Please try again later", preferredStyle: UIAlertControllerStyle.alert)
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""),
+                                                style: UIAlertActionStyle.default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false

@@ -32,6 +32,7 @@ class NotificationsViewController: UIViewController,UITableViewDelegate,UITableV
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
         self.newMessageReceived()
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(newMessageReceived), name: Notification.Name("InboxNotification"), object: nil)

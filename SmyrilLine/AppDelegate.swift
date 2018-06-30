@@ -80,6 +80,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
                 }
             }
         }
+        else {
+            print("handling notifications with the TestIdentifier Identifier")
+            if let wd = UIApplication.shared.delegate?.window {
+                if let tbCntlr = wd?.rootViewController as? UITabBarController {
+                    tbCntlr.selectedIndex = 4
+                }
+            }
+        }
         
         completionHandler()
         
@@ -353,10 +361,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         
         if let arr: Array<Messaging> = Mapper<Messaging>().mapArray(JSONString: text) {
-            print(arr[0].userList ?? "no user found")
             if let userType = arr[0].MessageType {
                 switch(userType) {
                 case 5,2:  // retrieve chat user list
+                    print(userType)
                     if let UserList = arr[0].userList {
                         NotificationCenter.default.post(name: NSNotification.Name("UpdateChatUserList"), object: self, userInfo: ["UserList": UserList])
                     }

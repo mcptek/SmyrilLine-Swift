@@ -33,12 +33,6 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) camera use</string>
-	<key>View controller-based status bar appearance
-
-View controller-based status bar appearance
-
-</key>
-	<false/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Smyril Line requires location services to detect beacons around you</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -62,10 +56,16 @@ View controller-based status bar appearance
 		<string>armv7</string>
 	</array>
 	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleLightContent</string>
+	<string>UIStatusBarStyleDefault</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>View controller-based status bar appearance
+
+View controller-based status bar appearance
+
+</key>
+	<false/>
 </dict>
 </plist>

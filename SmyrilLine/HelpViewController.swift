@@ -23,7 +23,7 @@ class HelpViewController: UIViewController,UIWebViewDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        self.navigationController?.navigationBar.isHidden = false
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = self.myWebview.center
         self.activityIndicatorView = myActivityIndicator
@@ -33,6 +33,11 @@ class HelpViewController: UIViewController,UIWebViewDelegate {
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
         self.navigationItem.title = NSLocalizedString("Help", comment: "")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -34,7 +34,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
 
         // Do any additional setup after loading the view.
         
-        self.navigationController?.navigationBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
         self.navigationItem.title = NSLocalizedString("Ship Info", comment: "")
         self.shipInfotableView.estimatedRowHeight = 140
@@ -347,6 +347,7 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
             self.headerCurrentStatus = 0
         }
         else
+            
         {
             self.headerCurrentStatus = 2
         }
@@ -360,11 +361,15 @@ class ShipInfoViewController: UIViewController,UITableViewDataSource, UITableVie
             if var urlPath = self.shipInfoObject?.attatchFileUrl {
                 if self.downloadBgview.isHidden == true {
                     urlPath = urlPath.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
-                    let url = URL(string: UrlMCP.server_base_url + urlPath)!
-                    downloadTask = backgroundSession.downloadTask(with: url)
-                    downloadTask.resume()
-                    self.downloadBgview.isHidden = false
-                    self.downloadContainerview.isHidden = false
+                    if let url = URL(string: UrlMCP.server_base_url + urlPath) {
+                        downloadTask = backgroundSession.downloadTask(with: url)
+                        downloadTask.resume()
+                        self.downloadBgview.isHidden = false
+                        self.downloadContainerview.isHidden = false
+                    }
+                    else {
+                        self.showDownloadFailAlert()
+                    }
                 }
             }
         }

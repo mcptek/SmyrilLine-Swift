@@ -304,11 +304,15 @@ class DestinationCategoryDetailsViewController: UIViewController,UITableViewData
             if var urlPath = self.destinationCategoryDetailsObject?.attatchFileUrl {
                 if self.downloadBgView.isHidden == true {
                     urlPath = urlPath.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
-                    let url = URL(string: UrlMCP.server_base_url + urlPath)!
-                    downloadTask = backgroundSession.downloadTask(with: url)
-                    downloadTask.resume()
-                    self.downloadBgView.isHidden = false
-                    self.downloadContainerview.isHidden = false
+                    if let url = URL(string: UrlMCP.server_base_url + urlPath) {
+                        downloadTask = backgroundSession.downloadTask(with: url)
+                        downloadTask.resume()
+                        self.downloadBgView.isHidden = false
+                        self.downloadContainerview.isHidden = false
+                    }
+                    else {
+                        self.showDownloadFailAlert()
+                    }
                 }
             }
         }

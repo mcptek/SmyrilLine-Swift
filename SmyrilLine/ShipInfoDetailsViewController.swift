@@ -28,7 +28,7 @@ class ShipInfoDetailsViewController: UIViewController,UITableViewDataSource, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        self.navigationController?.navigationBar.isHidden = false
         self.title = self.shipInfoCategoryObject?.name
         
         self.shipInfoCategoryTableview.estimatedRowHeight = 140
@@ -48,6 +48,7 @@ class ShipInfoDetailsViewController: UIViewController,UITableViewDataSource, UIT
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        self.navigationController?.navigationBar.isHidden = false
         if let imageUrlStr = self.shipInfoCategoryObject?.imageUrl
         {
             let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
@@ -167,11 +168,15 @@ class ShipInfoDetailsViewController: UIViewController,UITableViewDataSource, UIT
             if var urlPath = self.shipInfoCategoryObject?.attatchFileUrl {
                 if self.downloadBgview.isHidden == true {
                     urlPath = urlPath.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
-                    let url = URL(string: UrlMCP.server_base_url + urlPath)!
-                    downloadTask = backgroundSession.downloadTask(with: url)
-                    downloadTask.resume()
-                    self.downloadBgview.isHidden = false
-                    self.downloadContainerView.isHidden = false
+                    if let url = URL(string: UrlMCP.server_base_url + urlPath) {
+                        downloadTask = backgroundSession.downloadTask(with: url)
+                        downloadTask.resume()
+                        self.downloadBgview.isHidden = false
+                        self.downloadContainerView.isHidden = false
+                    }
+                    else {
+                        self.showDownloadFailAlert()
+                    }
                 }
             }
         }

@@ -36,6 +36,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
         self.title = self.restaurantDetailsObject?.name
         
@@ -50,6 +51,7 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        self.navigationController?.navigationBar.isHidden = false
         if let imageUrlStr = self.restaurantDetailsObject?.imageUrl
         {
             let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
@@ -770,11 +772,15 @@ class RestaurantDetailsViewController: UIViewController, UITableViewDelegate, UI
             if var urlPath = self.restaurantDetailsObject?.attatchFileUrl {
                 if self.downloadBgView.isHidden == true {
                     urlPath = urlPath.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
-                    let url = URL(string: UrlMCP.server_base_url + urlPath)!
-                    downloadTask = backgroundSession.downloadTask(with: url)
-                    downloadTask.resume()
-                    self.downloadBgView.isHidden = false
-                    self.downloadContainerview.isHidden = false
+                    if let url = URL(string: UrlMCP.server_base_url + urlPath) {
+                        downloadTask = backgroundSession.downloadTask(with: url)
+                        downloadTask.resume()
+                        self.downloadBgView.isHidden = false
+                        self.downloadContainerview.isHidden = false
+                    }
+                    else {
+                        self.showDownloadFailAlert()
+                    }
                 }
             }
         }

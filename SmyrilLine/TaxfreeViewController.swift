@@ -56,7 +56,7 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
+        self.navigationController?.navigationBar.isHidden = false
         let backgroundSessionConfiguration = URLSessionConfiguration.background(withIdentifier: "backgroundSession")
         backgroundSession = Foundation.URLSession(configuration: backgroundSessionConfiguration, delegate: self, delegateQueue: OperationQueue.main)
         self.downloadProgressView.setProgress(0.0, animated: false)
@@ -425,11 +425,15 @@ class TaxfreeViewController: UIViewController,UICollectionViewDataSource,UIColle
             if var urlPath = self.shopObject?.attatchFileUrl {
                 if self.downloadBgView.isHidden == true {
                     urlPath = urlPath.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
-                    let url = URL(string: UrlMCP.server_base_url + urlPath)!
-                    downloadTask = backgroundSession.downloadTask(with: url)
-                    downloadTask.resume()
-                    self.downloadBgView.isHidden = false
-                    self.downloadProgressContainerView.isHidden = false
+                    if let url = URL(string: UrlMCP.server_base_url + urlPath) {
+                        downloadTask = backgroundSession.downloadTask(with: url)
+                        downloadTask.resume()
+                        self.downloadBgView.isHidden = false
+                        self.downloadProgressContainerView.isHidden = false
+                    }
+                    else {
+                        self.showDownloadFailAlert()
+                    }
                 }
             }
         }

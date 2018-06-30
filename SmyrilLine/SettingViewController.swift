@@ -29,7 +29,7 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.title = NSLocalizedString("Settings", comment: "")
         
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
@@ -42,6 +42,11 @@ class SettingViewController: UIViewController,UITableViewDelegate,UITableViewDat
         self.loadSettingsdata()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

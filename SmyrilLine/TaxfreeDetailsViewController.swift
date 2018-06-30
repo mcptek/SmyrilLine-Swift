@@ -53,6 +53,7 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        self.navigationController?.navigationBar.isHidden = false
         if let imageUrlStr = self.productImageUrl
         {
             let replaceStr = imageUrlStr.replacingOccurrences(of: " ", with: "%20")
@@ -122,11 +123,15 @@ class TaxfreeDetailsViewController: UIViewController, UITableViewDataSource, UIT
             if var urlPath = self.productattatchFileUrlPath {
                 if self.downloadBgView.isHidden == true {
                     urlPath = urlPath.replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
-                    let url = URL(string: UrlMCP.server_base_url + urlPath)!
-                    self.downloadTask = self.backgroundSession.downloadTask(with: url)
-                    self.downloadTask.resume()
-                    self.downloadBgView.isHidden = false
-                    self.downloadContainerView.isHidden = false
+                    if let url = URL(string: UrlMCP.server_base_url + urlPath) {
+                        downloadTask = backgroundSession.downloadTask(with: url)
+                        downloadTask.resume()
+                        self.downloadBgView.isHidden = false
+                        self.downloadContainerView.isHidden = false
+                    }
+                    else {
+                        self.showDownloadFailAlert()
+                    }
                 }
             }
         }
