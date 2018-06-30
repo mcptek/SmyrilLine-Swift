@@ -25,7 +25,7 @@ class TaxfreeShopsViewController: UIViewController,UITableViewDelegate,UITableVi
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
         self.navigationItem.title = NSLocalizedString("Tax Free", comment: "")
         
-        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
         view.addSubview(self.activityIndicatorView)
@@ -73,6 +73,7 @@ class TaxfreeShopsViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func CallTaxfreeShopAPI() {
         self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
         let shipId = UserDefaults.standard.value(forKey: "CurrentSelectedShipdId") as! String
         var language = "en"
         if UserDefaults.standard.value(forKey: "CurrentSelectedLanguage") != nil {
@@ -91,6 +92,7 @@ class TaxfreeShopsViewController: UIViewController,UITableViewDelegate,UITableVi
         Alamofire.request(UrlMCP.server_base_url + UrlMCP.taxFreeShopParentPath + language + "\(String(describing: shipId))", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
             .responseArray { (response: DataResponse<[TaxFreeShopInfo]>) in
                 self.activityIndicatorView.stopAnimating()
+                self.view.isUserInteractionEnabled = true
                 switch response.result
                 {
                 case .success:
