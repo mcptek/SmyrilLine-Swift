@@ -734,7 +734,7 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TextFieldBg" translatesAutoresizingMaskIntoConstraints="NO" id="CnM-gN-MR5">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                                             </imageView>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last name" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bWt-NI-bnj">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Andersen" placeholder="Last name" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bWt-NI-bnj">
                                                 <rect key="frame" x="-0.33333333333334281" y="-0.33333333333331439" width="320" height="46"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -764,7 +764,7 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TextFieldBg" translatesAutoresizingMaskIntoConstraints="NO" id="woU-TX-4k8">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                                             </imageView>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Booking No" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vK1-YQ-btZ">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="39372875" placeholder="Booking No" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vK1-YQ-btZ">
                                                 <rect key="frame" x="-0.33333333333334281" y="-0.33333333333331439" width="320" height="46"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -800,7 +800,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Giv-et-guy" kind="show" id="Dg7-uT-la3"/>
+                                    <action selector="bookingButtonAction:" destination="1DU-YS-2pi" eventType="touchUpInside" id="kSd-0t-iVy"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -819,6 +819,7 @@
                         <outlet property="bookingNoTextField" destination="vK1-YQ-btZ" id="XhQ-g7-BOI"/>
                         <outlet property="lastnameTextField" destination="bWt-NI-bnj" id="oz2-uA-lQt"/>
                         <outlet property="viewBookingButton" destination="eZB-V4-gdx" id="EyB-91-vuA"/>
+                        <segue destination="Giv-et-guy" kind="show" identifier="bookingInfo" id="fDc-Rn-6Rd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Vs-qa-TMq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -828,7 +829,7 @@
         <!--My Smyril Line-->
         <scene sceneID="MPg-vr-71t">
             <objects>
-                <viewController title="My Smyril Line" automaticallyAdjustsScrollViewInsets="NO" id="Giv-et-guy" customClass="MySmyrilLineViewController" customModule="SmyrilLine" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="bookingInfo" title="My Smyril Line" automaticallyAdjustsScrollViewInsets="NO" id="Giv-et-guy" customClass="MySmyrilLineViewController" customModule="SmyrilLine" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mQ9-zu-ezU"/>
                         <viewControllerLayoutGuide type="bottom" id="Dww-VU-v67"/>
@@ -872,7 +873,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="A41-W2-n2i">
-                                                    <rect key="frame" x="37" y="7.9999999999999964" width="291" height="53.666666666666657"/>
+                                                    <rect key="frame" x="37" y="8" width="291" height="53.666666666666657"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWH-st-oTk">
                                                             <rect key="frame" x="0.0" y="0.0" width="291" height="29.333333333333332"/>
@@ -1107,6 +1108,12 @@
                                                                 <constraint firstAttribute="trailing" secondItem="3pl-GA-WdH" secondAttribute="trailing" id="EkO-Rz-eFD"/>
                                                                 <constraint firstItem="3pl-GA-WdH" firstAttribute="leading" secondItem="Wr5-4Q-fc9" secondAttribute="leading" id="fJh-rS-Cae"/>
                                                             </constraints>
+                                                            <connections>
+                                                                <outlet property="passengerDateOfBirthLabel" destination="ndr-mu-Zyn" id="7HK-PF-0SZ"/>
+                                                                <outlet property="passengerNationalirtLabel" destination="28T-O6-kDU" id="WbF-8I-DZy"/>
+                                                                <outlet property="passengerSexLabel" destination="yL2-Nc-9Mj" id="k1J-E3-Ut6"/>
+                                                                <outlet property="passengernameLabel" destination="efn-xE-up1" id="jrv-tH-gK6"/>
+                                                            </connections>
                                                         </collectionViewCell>
                                                     </cells>
                                                     <connections>
@@ -1142,7 +1149,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="6TZ-F4-DGe">
-                                                    <rect key="frame" x="37" y="7.9999999999999964" width="291" height="53.666666666666657"/>
+                                                    <rect key="frame" x="37" y="8" width="291" height="53.666666666666657"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Travellers" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mS5-r0-dxh">
                                                             <rect key="frame" x="0.0" y="0.0" width="69.666666666666671" height="29.333333333333332"/>
@@ -1186,6 +1193,11 @@
                                                 <constraint firstAttribute="trailing" secondItem="6TZ-F4-DGe" secondAttribute="trailing" constant="8" id="y5d-Ec-21C"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="adultLabel" destination="ncf-lk-v5R" id="N3Q-Uq-zVD"/>
+                                            <outlet property="childrenLabel" destination="FpK-pP-rvL" id="zOb-uF-Xr2"/>
+                                            <outlet property="infantLabel" destination="TAp-d6-lQd" id="gzq-ai-eAu"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="routeCell" rowHeight="160" id="Kls-gs-OMy" customClass="RouteTableViewCell" customModule="SmyrilLine" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="375.33333333333337" width="375" height="160"/>
@@ -1312,6 +1324,12 @@
                                                                 <constraint firstItem="XJQ-rN-xew" firstAttribute="leading" secondItem="HIG-8w-JjD" secondAttribute="trailing" constant="8" id="sAQ-rH-ure"/>
                                                                 <constraint firstItem="LUq-Uc-5qD" firstAttribute="top" secondItem="abQ-Wr-MBz" secondAttribute="top" constant="8" id="t8Q-Wf-1HB"/>
                                                             </constraints>
+                                                            <connections>
+                                                                <outlet property="arrivalNameLabel" destination="w1t-JT-mXG" id="iW8-Pa-B2s"/>
+                                                                <outlet property="arrivalTimeLabel" destination="k54-Qd-jWQ" id="VDK-xh-x5i"/>
+                                                                <outlet property="departureNameLabel" destination="ixL-Z4-rUO" id="DgI-GV-shM"/>
+                                                                <outlet property="departureTimaLabel" destination="aRk-IT-HC0" id="cby-Gf-byk"/>
+                                                            </connections>
                                                         </collectionViewCell>
                                                     </cells>
                                                     <connections>

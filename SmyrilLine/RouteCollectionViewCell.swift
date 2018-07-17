@@ -9,6 +9,14 @@
 import UIKit
 
 class RouteCollectionViewCell: UICollectionViewCell {
+    
+    
+    @IBOutlet weak var departureNameLabel: UILabel!
+    @IBOutlet weak var arrivalNameLabel: UILabel!
+    @IBOutlet weak var departureTimaLabel: UILabel!
+    @IBOutlet weak var arrivalTimeLabel: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -12,11 +12,23 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
 
     @IBOutlet weak var bookingSegmentControl: UISegmentedControl!
     @IBOutlet weak var bookingTableview: UITableView!
+    var bookingData: [String: Any]?
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let movies = ["Batman","Batman","Flash","Avengers"]
+        var movieCounts:[String:Int] = [:]
+        for movie in movies {
+            movieCounts[movie] = (movieCounts[movie] ?? 0) + 1
+        }
+        for (key, value) in movieCounts {
+            print("\(key) has been selected \(value) time/s")
+        }
+        print(self.bookingData ?? "Default value")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -66,12 +78,22 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
                 if indexPath.section == 0 {
                     cell.infoImageView.image = UIImage.init(named: "bookingIcon")
                     cell.infoHeaderLabel.text = NSLocalizedString("Booking No", comment: "")
-                    cell.infoDetailsLabel.text = "123456789"
+                    if let bookingNo = self.bookingData!["Bookno"] as? String {
+                        cell.infoDetailsLabel.text = bookingNo
+                    }
+                    else {
+                        cell.infoDetailsLabel.text = "-"
+                    }
                 }
                 else {
                     cell.infoImageView.image = UIImage.init(named: "carIcon")
                     cell.infoHeaderLabel.text = NSLocalizedString("CAR", comment: "")
-                    cell.infoDetailsLabel.text = "Test car name"
+                    if let carInfo = self.bookingData!["TypeOfCar"] as? String {
+                        cell.infoDetailsLabel.text = carInfo
+                    }
+                    else {
+                        cell.infoDetailsLabel.text = "-"
+                    }
                 }
                 cell.backgroundColor = UIColor.white
                 cell.selectionStyle = .none
@@ -87,6 +109,28 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
             }
             else if indexPath.section == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "travelersCell", for: indexPath) as! TravelersTableViewCell
+                if let adult = self.bookingData!["NoOfAdults"] as? String {
+                    cell.adultLabel.text = "Adult " + adult
+                }
+                else {
+                    cell.adultLabel.text = "-"
+                }
+                
+                if let child12 = self.bookingData!["NoOfChild12"] as? String, let child15 = self.bookingData!["NoOfChild15"] as? String {
+                    let total = Int(child12)! + Int(child15)!
+                    cell.childrenLabel.text = "| Child " + String(total)
+                }
+                else {
+                    cell.childrenLabel.text = "-"
+                }
+                
+                if let infant = self.bookingData!["NoOfInfants"] as? String {
+                    cell.infantLabel.text = "| Infant " + infant
+                }
+                else {
+                    cell.infantLabel.text = "-"
+                }
+                
                 cell.selectionStyle = .none
                 cell.backgroundColor = UIColor.white
                 return cell
@@ -143,10 +187,20 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
         if collectionView.tag == 1000 {
-            return 10
+            if let passengerArray = self.bookingData!["Passengers"] as? [Any] {
+                return passengerArray.count
+            }
+            else {
+                return 0
+            }
         }
         else {
-            return 5
+            if let routeArray = self.bookingData!["ListOfRoutes"] as? [Any] {
+                return routeArray.count
+            }
+            else {
+                return 0
+            }
         }
     }
     
@@ -154,11 +208,103 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
     {
         if collectionView.tag == 1000 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "profileCell", for: indexPath) as! ProfileCollectionViewCell
+             if let passengerArray = self.bookingData!["Passengers"] as? [Any] {
+                if let dic = passengerArray[indexPath.row] as? [String: Any] {
+                    if let passengerName = dic["Name"] as? String {
+                        cell.passengernameLabel.text = passengerName
+                    }
+                    else {
+                        cell.passengernameLabel.text = "-"
+                    }
+                    
+                    if let passengerSex = dic["Sex"] as? String {
+                        if passengerSex == "M" {
+                            cell.passengerSexLabel.text = "Male"
+                        }
+                        else {
+                            cell.passengerSexLabel.text = "Female"
+                        }
+                    }
+                    else {
+                        cell.passengerSexLabel.text = "-"
+                    }
+                    
+                    if let birthDate = dic["DateOfBirth"] as? String {
+                        let dateFormatterGet = DateFormatter()
+                        dateFormatterGet.dateFormat = "yyyy-MM-dd"
+                        
+                        let dateFormatterPrint = DateFormatter()
+                        dateFormatterPrint.dateFormat = "dd MMM yyyy"
+                        
+                        if let date = dateFormatterGet.date(from: birthDate){
+                            cell.passengerDateOfBirthLabel.text = dateFormatterPrint.string(from: date)
+                        }
+                    }
+                    else {
+                        cell.passengerDateOfBirthLabel.text = "-"
+                    }
+                    
+                    if let passengerNationality = dic["Nationality"] as? String {
+                        cell.passengerNationalirtLabel.text = passengerNationality
+                    }
+                    else {
+                        cell.passengerNationalirtLabel.text = "-"
+                    }
+                }
+                
+            }
             cell.backgroundColor = UIColor.white
             return cell
         }
         else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "routeCell", for: indexPath) as! RouteCollectionViewCell
+            if let routeArray = self.bookingData!["ListOfRoutes"] as? [Any] {
+                if let dic = routeArray[indexPath.row] as? [String: Any] {
+                    if let departureName = dic["DepHarbor"] as? String {
+                        cell.departureNameLabel.text = departureName
+                    }
+                    else {
+                        cell.departureNameLabel.text = "-"
+                    }
+                    
+                    if let departureDate = dic["DepDate"] as? String {
+                        let dateFormatterGet = DateFormatter()
+                        dateFormatterGet.dateFormat = "dd-MM-yyyy - HH:mm"
+                        
+                        let dateFormatterPrint = DateFormatter()
+                        dateFormatterPrint.dateFormat = "MMM dd (EEE), yyyy hh:mm a"
+                        
+                        if let date = dateFormatterGet.date(from: departureDate){
+                            cell.departureTimaLabel.text = dateFormatterPrint.string(from: date)
+                        }
+                    }
+                    else {
+                        cell.departureTimaLabel.text = "-"
+                    }
+                    
+                    if let arrivalName = dic["ArrHarbor"] as? String {
+                        cell.arrivalNameLabel.text = arrivalName
+                    }
+                    else {
+                        cell.arrivalNameLabel.text = "-"
+                    }
+                    
+                    if let arrivalDate = dic["ArrDate"] as? String {
+                        let dateFormatterGet = DateFormatter()
+                        dateFormatterGet.dateFormat = "dd.MM.yyyy - HH:mm"
+                        
+                        let dateFormatterPrint = DateFormatter()
+                        dateFormatterPrint.dateFormat = "MMM dd (EEE), yyyy hh:mm a"
+                        
+                        if let date = dateFormatterGet.date(from: arrivalDate){
+                            cell.arrivalTimeLabel.text = dateFormatterPrint.string(from: date)
+                        }
+                    }
+                    else {
+                        cell.arrivalTimeLabel.text = "-"
+                    }
+                }
+            }
             cell.backgroundColor = UIColor.white
             return cell
         }

@@ -9,6 +9,13 @@
 import UIKit
 
 class ProfileCollectionViewCell: UICollectionViewCell {
+    
+    @IBOutlet weak var passengernameLabel: UILabel!
+    @IBOutlet weak var passengerSexLabel: UILabel!
+    @IBOutlet weak var passengerDateOfBirthLabel: UILabel!
+    @IBOutlet weak var passengerNationalirtLabel: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

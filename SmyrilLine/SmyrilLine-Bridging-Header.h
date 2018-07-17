@@ -4,3 +4,4 @@
 
 #import "NewRelicAgent/NewRelic.h"
 #import <OnyxBeaconLib/OnyxBeacon.h>
+#import "XMLReader.h"
