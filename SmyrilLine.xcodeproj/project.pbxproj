@@ -54,6 +54,7 @@
 		842ED4271F4F06F5000366BF /* Restaurants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842ED4261F4F06F5000366BF /* Restaurants.swift */; };
 		842FE9621FEB72FB00D40FF7 /* ChatContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842FE9611FEB72FB00D40FF7 /* ChatContainerViewController.swift */; };
 		84305B6C20AE9B22006D895B /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84305B6B20AE9B22006D895B /* NotificationsViewController.swift */; };
+		843AC22E20FF6AF6004F5CAF /* BookingMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843AC22D20FF6AF6004F5CAF /* BookingMeal.swift */; };
 		843E4E41200E257C0072FE41 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E4E40200E257C0072FE41 /* MealTableViewCell.swift */; };
 		843E4E43200E3EF50072FE41 /* RouteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843E4E42200E3EF50072FE41 /* RouteCollectionViewCell.swift */; };
 		84427AA920F791AE00938A00 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 84427AA820F791AD00938A00 /* XMLReader.m */; };
@@ -136,6 +137,8 @@
 		BB45F2D21F4F2EEB003B77CA /* DestinationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F2D11F4F2EEB003B77CA /* DestinationViewController.swift */; };
 		BB45F2D41F4F2FBD003B77CA /* DestinationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F2D31F4F2FBD003B77CA /* DestinationTableViewCell.swift */; };
 		BB45F2DA1F4F30A5003B77CA /* Destinations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45F2D91F4F30A5003B77CA /* Destinations.swift */; };
+		BB5983082100F11000F7584E /* MealHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5983072100F11000F7584E /* MealHeaderView.swift */; };
+		BB59830A2100F14400F7584E /* MealHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB5983092100F14400F7584E /* MealHeaderView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +206,7 @@
 		842ED4261F4F06F5000366BF /* Restaurants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurants.swift; sourceTree = "<group>"; };
 		842FE9611FEB72FB00D40FF7 /* ChatContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatContainerViewController.swift; sourceTree = "<group>"; };
 		84305B6B20AE9B22006D895B /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		843AC22D20FF6AF6004F5CAF /* BookingMeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingMeal.swift; sourceTree = "<group>"; };
 		843E4E40200E257C0072FE41 /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 		843E4E42200E3EF50072FE41 /* RouteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCollectionViewCell.swift; sourceTree = "<group>"; };
 		84427AA720F791AD00938A00 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
@@ -298,6 +302,8 @@
 		BB45F2D11F4F2EEB003B77CA /* DestinationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationViewController.swift; sourceTree = "<group>"; };
 		BB45F2D31F4F2FBD003B77CA /* DestinationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationTableViewCell.swift; sourceTree = "<group>"; };
 		BB45F2D91F4F30A5003B77CA /* Destinations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Destinations.swift; sourceTree = "<group>"; };
+		BB5983072100F11000F7584E /* MealHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealHeaderView.swift; sourceTree = "<group>"; };
+		BB5983092100F14400F7584E /* MealHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MealHeaderView.xib; sourceTree = "<group>"; };
 		EA8F808BE45FE0AAC33C1FDB /* Pods_SmyrilLine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmyrilLine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAF5CEFB6DE5FDDAC81FD0E7 /* Pods-SmyrilLine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmyrilLine.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmyrilLine/Pods-SmyrilLine.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -395,6 +401,7 @@
 				841F13111F8488F2009CBAD9 /* TaxfreeHeader.xib */,
 				84635BD51FB0885000B92F61 /* RestaurantDetailsParallaxHeader.xib */,
 				8423084C1F57E0B5004A4166 /* DestinationCategoryHeader.xib */,
+				BB5983092100F14400F7584E /* MealHeaderView.xib */,
 				840DA9D91F4C5C7F001B3382 /* LaunchScreen.storyboard */,
 				840DA9F01F4C5FF6001B3382 /* Assets.xcassets */,
 				840DA9DC1F4C5C7F001B3382 /* Info.plist */,
@@ -536,6 +543,7 @@
 			children = (
 				845CE891200624530058CBEC /* BookingLogInViewController.swift */,
 				842C486A20075C6400D3470E /* MySmyrilLineViewController.swift */,
+				BB5983072100F11000F7584E /* MealHeaderView.swift */,
 				842C486C200764C500D3470E /* BasicInfoTableViewCell.swift */,
 				842C486E2007796300D3470E /* ProfileInfoTableViewCell.swift */,
 				842C48742007838D00D3470E /* ProfileCollectionViewCell.swift */,
@@ -543,6 +551,7 @@
 				842C487220077D1000D3470E /* RouteTableViewCell.swift */,
 				843E4E42200E3EF50072FE41 /* RouteCollectionViewCell.swift */,
 				843E4E40200E257C0072FE41 /* MealTableViewCell.swift */,
+				843AC22D20FF6AF6004F5CAF /* BookingMeal.swift */,
 			);
 			name = Booking;
 			sourceTree = "<group>";
@@ -819,6 +828,7 @@
 				8423084D1F57E0B5004A4166 /* DestinationCategoryHeader.xib in Resources */,
 				842308411F56ED48004A4166 /* TaxfreeParallaxHeaderView.xib in Resources */,
 				840DA9D31F4C5C7F001B3382 /* Main.storyboard in Resources */,
+				BB59830A2100F14400F7584E /* MealHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1061,6 +1071,7 @@
 				841F13101F8488D7009CBAD9 /* TaxfreeHeader.swift in Sources */,
 				84745ED51FC69587005E2E99 /* WebSocketManager.swift in Sources */,
 				84F311311FD01BDC00BF37E8 /* UserDetailsInfoTableViewCell.swift in Sources */,
+				BB5983082100F11000F7584E /* MealHeaderView.swift in Sources */,
 				84DFCBD71FBAF8C800BCEF8D /* GenderGroupCollectionViewCell.swift in Sources */,
 				843E4E43200E3EF50072FE41 /* RouteCollectionViewCell.swift in Sources */,
 				840FCFA51FAC6754002A2067 /* MealCollectionViewCell.swift in Sources */,
@@ -1082,6 +1093,7 @@
 				84A8E51A1F6A75CA00B5E569 /* InboxTableViewCell.swift in Sources */,
 				84624C95202034E00096B8A2 /* LanguageTableViewCell.swift in Sources */,
 				84D68EF42052BB620087DF2A /* TaxfreeDetailsPriceTableViewCell.swift in Sources */,
+				843AC22E20FF6AF6004F5CAF /* BookingMeal.swift in Sources */,
 				84FBCB471FBC636A00B74707 /* LanguageFilterTableViewCell.swift in Sources */,
 				848060061FF51561005AC8DA /* AFHTTPRequestSerializer+OAuth2.m in Sources */,
 				84DFCBD51FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift in Sources */,

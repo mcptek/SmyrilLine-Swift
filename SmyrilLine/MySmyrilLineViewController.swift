@@ -13,22 +13,39 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
     @IBOutlet weak var bookingSegmentControl: UISegmentedControl!
     @IBOutlet weak var bookingTableview: UITableView!
     var bookingData: [String: Any]?
-    
-    
+    var mealsArray:[Meal] = []
+    var componentArray:[Any] = []
+    var groupedMealsByDates = [TimeInterval: [Meal]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let movies = ["Batman","Batman","Flash","Avengers"]
-        var movieCounts:[String:Int] = [:]
-        for movie in movies {
-            movieCounts[movie] = (movieCounts[movie] ?? 0) + 1
+        
+        let headerNib = UINib.init(nibName: "MealHeaderView", bundle: Bundle.main)
+        self.bookingTableview.register(headerNib, forHeaderFooterViewReuseIdentifier: "DemoHeaderView")
+        
+        let dateFormatter = DateFormatter()
+        if let mealsArray = self.bookingData!["MealTypes"] as? [Any] {
+            for object in mealsArray {
+                if let dic = object as? [String: Any] {
+                    if let mealCount = dic["count"] as? String, let mealDate = dic["date"] as? String, let mealDetails = dic["desc"] as? String {
+
+                        dateFormatter.dateFormat = "dd/MM/yyyy"
+                        self.mealsArray.append(Meal(count: mealCount, dateStr: mealDate, meadDatee: dateFormatter.date(from: mealDate)!.timeIntervalSince1970, description: mealDetails, usedStatus: .unUsed))
+                    }
+                }
+            }
         }
-        for (key, value) in movieCounts {
-            print("\(key) has been selected \(value) time/s")
+        //self.mealsArray.sort(by: { $0.mealDate.compare($1.mealDate) == .orderedAscending})
+        self.mealsArray.forEach { Meal in
+            if self.groupedMealsByDates[Meal.mealDate] == nil {
+                self.groupedMealsByDates[Meal.mealDate] = []
+            }
+            self.groupedMealsByDates[Meal.mealDate]?.append(Meal)
         }
-        print(self.bookingData ?? "Default value")
+        self.componentArray = Array(groupedMealsByDates.keys).sorted()
+       
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -62,13 +79,23 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
             return 5
         }
         else {
-            return 10
+            return self.componentArray.count
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        if self.bookingSegmentControl.selectedSegmentIndex == 0 {
+            return 1
+        }
+        else {
+            if let keyValue = self.componentArray[section] as? TimeInterval {
+                return self.groupedMealsByDates[keyValue]?.count ?? 0
+            }
+            else {
+                return 0
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -146,6 +173,11 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
         }
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "mealCell", for: indexPath) as! MealTableViewCell
+            if let keyValue = self.componentArray[indexPath.section] as? TimeInterval {
+                if let mealArray = self.groupedMealsByDates[keyValue] {
+                    cell.mealNameLabel.text = mealArray[indexPath.row].mealDescription
+                }
+            }
             cell.backgroundColor = UIColor.white
             cell.selectionStyle = .none
             return cell
@@ -158,7 +190,12 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        return 1.0
+        if self.bookingSegmentControl.selectedSegmentIndex == 0 {
+            return 1.0
+        }
+        else {
+            return 50.0
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
@@ -167,9 +204,23 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let vw = UIView()
-        vw.backgroundColor = UIColor.clear
-        return vw
+        if self.bookingSegmentControl.selectedSegmentIndex == 0 {
+            let vw = UIView()
+            vw.backgroundColor = UIColor.clear
+            return vw
+        }
+        else {
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "DemoHeaderView") as! MealHeaderView
+            if let keyValue = self.componentArray[section] as? TimeInterval {
+                if let mealArray = self.groupedMealsByDates[keyValue] {
+                    headerView.mealDateLabel.text = mealArray[0].mealDateStr
+                }
+            }
+            headerView.layer.borderWidth = 1
+            headerView.layer.borderColor = UIColor(red:25/255, green:158/255, blue:221/255, alpha: 1).cgColor
+
+            return headerView
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
@@ -333,10 +384,10 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         if collectionView.tag == 1000 {
-             return CGSize(width: 315, height: 150)
+             return CGSize(width: 325, height: 150)
         }
         else {
-             return CGSize(width: 315, height: 143)
+             return CGSize(width: 325, height: 143)
         }
     }
     

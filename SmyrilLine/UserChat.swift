@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Foundation
 
 class Chat {
     var message : String

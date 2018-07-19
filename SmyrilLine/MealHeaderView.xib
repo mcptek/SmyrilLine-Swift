@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MealHeaderView" customModule="SmyrilLine" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="361" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Me-fr-Upe">
+                    <rect key="frame" x="0.0" y="0.0" width="361" height="50"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calenderImageIcon" translatesAutoresizingMaskIntoConstraints="NO" id="jcr-ja-uh2">
+                            <rect key="frame" x="106.5" y="14" width="22" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="22" id="boe-3Y-dVN"/>
+                                <constraint firstAttribute="width" constant="22" id="eQE-fo-jEc"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ss5-0i-SOw">
+                            <rect key="frame" x="136.5" y="8" width="216.5" height="34"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                            <color key="textColor" red="0.10196078431372549" green="0.61960784313725492" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Ss5-0i-SOw" firstAttribute="leading" secondItem="jcr-ja-uh2" secondAttribute="trailing" constant="8" id="1VP-Ry-W0o"/>
+                        <constraint firstAttribute="trailing" secondItem="Ss5-0i-SOw" secondAttribute="trailing" constant="8" id="PbP-gO-8B5"/>
+                        <constraint firstItem="Ss5-0i-SOw" firstAttribute="top" secondItem="4Me-fr-Upe" secondAttribute="top" constant="8" id="Vvw-5B-mWa"/>
+                        <constraint firstAttribute="bottom" secondItem="Ss5-0i-SOw" secondAttribute="bottom" constant="8" id="a82-RU-5J5"/>
+                        <constraint firstItem="jcr-ja-uh2" firstAttribute="centerX" secondItem="4Me-fr-Upe" secondAttribute="centerX" constant="-63" id="tmM-nZ-OHc"/>
+                        <constraint firstItem="jcr-ja-uh2" firstAttribute="centerY" secondItem="4Me-fr-Upe" secondAttribute="centerY" id="z6f-bw-wkh"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="4Me-fr-Upe" secondAttribute="bottom" id="HDb-rU-3bp"/>
+                <constraint firstItem="4Me-fr-Upe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="S5J-4b-WDv"/>
+                <constraint firstItem="4Me-fr-Upe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="dFd-Rp-WLa"/>
+                <constraint firstAttribute="trailing" secondItem="4Me-fr-Upe" secondAttribute="trailing" id="utT-xg-AQt"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="mealDateLabel" destination="Ss5-0i-SOw" id="iIV-sb-NDy"/>
+            </connections>
+            <point key="canvasLocation" x="26.5" y="394.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="calenderImageIcon" width="22" height="22"/>
+    </resources>
+</document>
