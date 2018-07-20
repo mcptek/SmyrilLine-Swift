@@ -14,6 +14,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var passengerSexLabel: UILabel!
     @IBOutlet weak var passengerDateOfBirthLabel: UILabel!
     @IBOutlet weak var passengerNationalirtLabel: UILabel!
+    @IBOutlet weak var profilePageController: UIPageControl!
     
     
     override func awakeFromNib() {

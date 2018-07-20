@@ -10,6 +10,7 @@ import UIKit
 
 class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
 
+    @IBOutlet weak var changeBookingButton: UIButton!
     @IBOutlet weak var bookingSegmentControl: UISegmentedControl!
     @IBOutlet weak var bookingTableview: UITableView!
     var bookingData: [String: Any]?
@@ -22,6 +23,8 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        self.changeBookingButton.layer.cornerRadius = 3
         
         let headerNib = UINib.init(nibName: "MealHeaderView", bundle: Bundle.main)
         self.bookingTableview.register(headerNib, forHeaderFooterViewReuseIdentifier: "DemoHeaderView")
@@ -261,6 +264,8 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
         if collectionView.tag == 1000 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "profileCell", for: indexPath) as! ProfileCollectionViewCell
              if let passengerArray = self.bookingData!["Passengers"] as? [Any] {
+                cell.profilePageController.numberOfPages = passengerArray.count
+                cell.profilePageController.currentPage = indexPath.row
                 if let dic = passengerArray[indexPath.row] as? [String: Any] {
                     if let passengerName = dic["Name"] as? String {
                         cell.passengernameLabel.text = passengerName
@@ -398,6 +403,9 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
         let pageWidth = ((self.view.frame.size.width - 32) + itemCellsGap)
         let itemIndex = (targetContentOffset.pointee.x) / pageWidth
         targetContentOffset.pointee.x = round(itemIndex) * pageWidth - (itemCellsGap / 2)
+    }
+    @IBAction func bookingButtonAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
 }
