@@ -16,7 +16,8 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
     var mealsArray:[Meal] = []
     var componentArray:[Any] = []
     var groupedMealsByDates = [TimeInterval: [Meal]]()
-    
+    //var itemCellSize: CGSize = CGSize(width: self.view.frame.size.width - 32, height: 150)
+    var itemCellsGap: CGFloat = 16.0
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -310,6 +311,8 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
         else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "routeCell", for: indexPath) as! RouteCollectionViewCell
             if let routeArray = self.bookingData!["ListOfRoutes"] as? [Any] {
+                cell.routePageController.numberOfPages = routeArray.count
+                cell.routePageController.currentPage = indexPath.row
                 if let dic = routeArray[indexPath.row] as? [String: Any] {
                     if let departureName = dic["DepHarbor"] as? String {
                         cell.departureNameLabel.text = departureName
@@ -367,28 +370,34 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets
     {
-        return UIEdgeInsetsMake(0.0, 8.0, 0.0, 8.0)
+        return UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat
     {
-        return 8.0
+        return 0.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
     {
-        return 16.0
+        return itemCellsGap
         
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         if collectionView.tag == 1000 {
-             return CGSize(width: 325, height: 150)
+             return CGSize(width: self.view.frame.size.width - 32, height: 150)
         }
         else {
-             return CGSize(width: 325, height: 143)
+             return CGSize(width: self.view.frame.size.width - 32, height: 150)
         }
+    }
+    
+   func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let pageWidth = ((self.view.frame.size.width - 32) + itemCellsGap)
+        let itemIndex = (targetContentOffset.pointee.x) / pageWidth
+        targetContentOffset.pointee.x = round(itemIndex) * pageWidth - (itemCellsGap / 2)
     }
     
 }
