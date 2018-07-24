@@ -49,7 +49,7 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
             self.groupedMealsByDates[Meal.mealDate]?.append(Meal)
         }
         self.componentArray = Array(groupedMealsByDates.keys).sorted()
-       
+        self.saveBookingInfoForUserProfile()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -73,6 +73,27 @@ class MySmyrilLineViewController: UIViewController,UITableViewDataSource,UITable
     }
     */
 
+    func saveBookingInfoForUserProfile() {
+        if let bookingNo = self.bookingData!["Bookno"] as? String {
+            UserDefaults.standard.set(bookingNo, forKey: "BookingNo")
+        }
+        if let passengerArray = self.bookingData!["Passengers"] as? [Any] {
+            if let dic = passengerArray[0] as? [String: Any] {
+                if let passengerSex = dic["Sex"] as? String {
+                    if passengerSex == "M" {
+                        UserDefaults.standard.set("Male", forKey: "passengerSex")
+                    }
+                    else {
+                        UserDefaults.standard.set("Female", forKey: "passengerSex")
+                    }
+                }
+                if let passengerNationality = dic["Nationality"] as? String {
+                    UserDefaults.standard.set(passengerNationality, forKey: "passengerNationality")
+                }
+            }
+        }
+    }
+    
     @IBAction func segmentControlButtonAction(_ sender: Any) {
         self.bookingTableview.reloadData()
     }

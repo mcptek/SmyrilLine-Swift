@@ -112,7 +112,9 @@ class ProfileStatusViewController: UIViewController, UITableViewDataSource, UITa
             }
         }
         
-        let bookingNumber = 123456
+        let bookingNumber = UserDefaults.standard.value(forKey: "BookingNo") as! String
+        let userSex = UserDefaults.standard.value(forKey: "passengerSex") as! String
+        let userNationality = UserDefaults.standard.value(forKey: "passengerNationality") as! String
         let status = 1
         
         
@@ -121,9 +123,9 @@ class ProfileStatusViewController: UIViewController, UITableViewDataSource, UITa
             "Name": userName,
             "description": introInfo,
             "imageUrl": imageUrl,
-            "country": "Bangladesh",
+            "country": userNationality,
             "deviceId": (UIDevice.current.identifierForVendor?.uuidString)!,
-            "gender": "Male",
+            "gender": userSex,
             "status": status,
             "visibility": visibilityStatus,
             "imageBase64": "",

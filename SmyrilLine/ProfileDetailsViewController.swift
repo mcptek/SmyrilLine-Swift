@@ -87,9 +87,9 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
     
     
     func setUserDetailsData()  {
-        self.language = "Bangladesh"
-        self.gender = "Male"
-        self.ticket = "123456"
+        self.language = UserDefaults.standard.value(forKey: "passengerNationality") as? String
+        self.gender = UserDefaults.standard.value(forKey: "passengerSex") as? String
+        self.ticket = UserDefaults.standard.value(forKey: "BookingNo") as? String
         if ((UserDefaults.standard.value(forKey: "userName") as? String) != nil) {
             self.username = (UserDefaults.standard.value(forKey: "userName") as! String)
             if let userName = self.username?.base64Decoded() {
@@ -194,7 +194,9 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
             }
         }
         
-        let bookingNumber = 123456
+        let bookingNumber = UserDefaults.standard.value(forKey: "BookingNo") as! String
+        let userSex = UserDefaults.standard.value(forKey: "passengerSex") as! String
+        let userNationality = UserDefaults.standard.value(forKey: "passengerNationality") as! String
         let status = 1
         
         
@@ -203,9 +205,9 @@ class ProfileDetailsViewController: UIViewController, UITableViewDataSource, UIT
             "Name": userName,
             "description": introInfo,
             "imageUrl": imageUrl,
-            "country": "Bangladesh",
+            "country": userNationality,
             "deviceId": (UIDevice.current.identifierForVendor?.uuidString)!,
-            "gender": "Male",
+            "gender": userSex,
             "status": status,
             "visibility": visibilityStatus,
             "imageBase64": self.base64Data ?? "",

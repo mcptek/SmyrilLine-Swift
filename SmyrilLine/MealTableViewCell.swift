@@ -9,7 +9,6 @@
 import UIKit
 
 class MealTableViewCell: UITableViewCell {
-
     
     @IBOutlet weak var mealNameLabel: UILabel!
     

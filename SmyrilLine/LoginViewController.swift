@@ -1,31 +1,31 @@
 //
-//  BookingLogInViewController.swift
+//  LoginViewController.swift
 //  SmyrilLine
 //
-//  Created by Rafay Hasan on 10/1/18.
+//  Created by Rafay Hasan on 24/7/18.
 //  Copyright © 2018 Rafay Hasan. All rights reserved.
 //
 
 import UIKit
-import Alamofire
 
-class BookingLogInViewController: UIViewController, UITextFieldDelegate, NSURLConnectionDelegate, XMLParserDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, NSURLConnectionDelegate, XMLParserDelegate{
 
-    @IBOutlet weak var bookingNoTextField: UITextField!
-    @IBOutlet weak var lastnameTextField: UITextField!
-    @IBOutlet weak var viewBookingButton: UIButton!
-    
     var activityIndicatorView: UIActivityIndicatorView!
     var parser = XMLParser()
     var currentParsingElement:String = ""
     var bookingXMLString:String = ""
     var bookingInfo: [String:Any]?
     
+    @IBOutlet weak var viewBookingButton: UIButton!
+    @IBOutlet weak var bookingNoTextField: UITextField!
+    @IBOutlet weak var lastNameTextfield: UITextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
         self.hideKeyboardWhenTappedAround()
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
@@ -36,55 +36,42 @@ class BookingLogInViewController: UIViewController, UITextFieldDelegate, NSURLCo
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
         view.addSubview(self.activityIndicatorView)
-        
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
         self.currentParsingElement = ""
         self.bookingXMLString = ""
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        if UserDefaults.standard.bool(forKey: "GuideScreen") == false {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "pageContainerView")
-            self.present(vc!, animated: true, completion: nil)
-        }
-    }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        //if segue.identifier == "bookingInfo" {
-            //let vc = segue.destination as! MySmyrilLineViewController
-            //vc.bookingData = se
-            
-        //}
     }
-    
+    */
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.bookingNoTextField {
-            self.lastnameTextField.becomeFirstResponder()
+            self.lastNameTextfield.becomeFirstResponder()
         }else {
-            self.lastnameTextField.resignFirstResponder()
+            self.lastNameTextfield.resignFirstResponder()
         }
         return true
     }
- 
-    @IBAction func bookingButtonAction(_ sender: Any) {
-        
-        let soapMessage =  "<?xml version='1.0' encoding='UTF-8'?><SOAP-ENV:Envelope xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/' xmlns:ns1='http://novedas-sosy.de/'><SOAP-ENV:Body><ns1:GetBookingData><ns1:Name>\(self.lastnameTextField.text!)</ns1:Name><ns1:BookNo>\(self.bookingNoTextField.text!)</ns1:BookNo></ns1:GetBookingData></SOAP-ENV:Body></SOAP-ENV:Envelope>"
+    
+    @IBAction func viewBookingButtonAction(_ sender: Any) {
+        let soapMessage =  "<?xml version='1.0' encoding='UTF-8'?><SOAP-ENV:Envelope xmlns:SOAP-ENV='http://schemas.xmlsoap.org/soap/envelope/' xmlns:ns1='http://novedas-sosy.de/'><SOAP-ENV:Body><ns1:GetBookingData><ns1:Name>\(self.lastNameTextfield.text!)</ns1:Name><ns1:BookNo>\(self.bookingNoTextField.text!)</ns1:BookNo></ns1:GetBookingData></SOAP-ENV:Body></SOAP-ENV:Envelope>"
         let urlString = "http://booking.smyrilline.com:8080/SmyrilSVC.asmx?wsdl"
         let url = URL(string: urlString)
         
@@ -117,13 +104,17 @@ class BookingLogInViewController: UIViewController, UITextFieldDelegate, NSURLCo
         task.resume()
     }
     
+    @IBAction func cancelButtonAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     //MARK:- XML Delegate methods
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentParsingElement = elementName
         print(elementName)
         if elementName == "GetBookingDataResult" {
             print("Started parsing...")
-             DispatchQueue.main.async {
+            DispatchQueue.main.async {
                 self.activityIndicatorView.startAnimating()
                 self.view.isUserInteractionEnabled = false
             }
@@ -132,7 +123,6 @@ class BookingLogInViewController: UIViewController, UITextFieldDelegate, NSURLCo
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         let foundedChar = string.trimmingCharacters(in:NSCharacterSet.whitespacesAndNewlines)
-        
         
         if (!foundedChar.isEmpty) {
             if currentParsingElement == "GetBookingDataResult" {
@@ -149,7 +139,6 @@ class BookingLogInViewController: UIViewController, UITextFieldDelegate, NSURLCo
             if let dic = json as? [String:Any] {
                 self.bookingInfo = dic
             }
-            
         }
     }
     
@@ -157,9 +146,25 @@ class BookingLogInViewController: UIViewController, UITextFieldDelegate, NSURLCo
         DispatchQueue.main.async {
             self.activityIndicatorView.stopAnimating()
             self.view.isUserInteractionEnabled = true
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "bookingInfo") as! MySmyrilLineViewController
-            vc.bookingData = self.bookingInfo
-            self.navigationController?.pushViewController(vc, animated: true)
+            if let bookingNo = self.bookingInfo!["Bookno"] as? String {
+                UserDefaults.standard.set(bookingNo, forKey: "BookingNo")
+            }
+            if let passengerArray = self.bookingInfo!["Passengers"] as? [Any] {
+                if let dic = passengerArray[0] as? [String: Any] {
+                    if let passengerSex = dic["Sex"] as? String {
+                        if passengerSex == "M" {
+                            UserDefaults.standard.set("Male", forKey: "passengerSex")
+                        }
+                        else {
+                            UserDefaults.standard.set("Female", forKey: "passengerSex")
+                        }
+                    }
+                    if let passengerNationality = dic["Nationality"] as? String {
+                        UserDefaults.standard.set(passengerNationality, forKey: "passengerNationality")
+                    }
+                }
+            }
+            self.dismiss(animated: true, completion: nil)
         }
     }
     

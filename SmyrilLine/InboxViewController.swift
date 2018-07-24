@@ -49,7 +49,6 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
         view.addSubview(self.activityIndicatorView)
-        
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -57,8 +56,17 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChangedInMessaging), name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateChatUserList), name: NSNotification.Name(rawValue: "UpdateChatUserList"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateMessageCounter), name: NSNotification.Name(rawValue: "UpdateMessageCountList"), object: nil)
-        self.RetrieveCurrentUserList()
-        self.showAlertIfUsernameIsNotSet()
+        if (UserDefaults.standard.value(forKey: "BookingNo") as? String) == nil {
+            self.showAlertIfBookingNumberIsNotSet()
+        }
+        else if (UserDefaults.standard.value(forKey: "userName") as? String) == nil {
+            self.showAlertIfUsernameIsNotSet()
+        }
+        else {
+            self.RetrieveCurrentUserList()
+        }
+        //self.RetrieveCurrentUserList()
+        //self.showAlertIfUsernameIsNotSet()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -133,6 +141,18 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         }
     }
     
+    func showAlertIfBookingNumberIsNotSet() {
+        if (UserDefaults.standard.value(forKey: "BookingNo") as? String) == nil {
+            let alertController = UIAlertController(title: "Booking information needed",
+                                                    message: "Please log in to view booking first.", preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(title: "OK", style: .cancel) { _ -> Void in
+                self.performSegue(withIdentifier: "BookingLoginView", sender: nil)
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
     func configureSearchBar()  {
         
         let color = UIColor(red: 51.0/255, green: 160.0/255, blue: 222.0/255, alpha: 1.0)
@@ -152,15 +172,6 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     }
     
     func retrieveUserProfileDetailsInfo() -> [String: Any] {
-        
-        var bookingNo = Int()
-        if let bookingNumber = UserDefaults.standard.value(forKey: "bookingNumber") as? Int {
-            bookingNo = bookingNumber
-        }
-        else {
-            UserDefaults.standard.set(123456, forKey: "bookingNumber")
-            bookingNo = 123456
-        }
         
         var imageUrl = String()
         if let url = UserDefaults.standard.value(forKey: "userProfileImageUrl") as? String {
@@ -197,16 +208,18 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         }
         
         let status = 1
-        
+        let bookingNumber = UserDefaults.standard.value(forKey: "BookingNo") as! String
+        let userSex = UserDefaults.standard.value(forKey: "passengerSex") as! String
+        let userNationality = UserDefaults.standard.value(forKey: "passengerNationality") as! String
         
         let params: Parameters = [
-            "bookingNo": bookingNo,
+            "bookingNo": Int(bookingNumber) ?? 123456,
             "Name": userName,
             "description": introInfo,
             "imageUrl": imageUrl,
-            "country": "Bangladesh",
+            "country": userNationality,
             "deviceId": (UIDevice.current.identifierForVendor?.uuidString)!,
-            "gender": "Male",
+            "gender": userSex,
             "status": status,
             "visibility": visibilityStatus,
             "phoneType": "iOS",

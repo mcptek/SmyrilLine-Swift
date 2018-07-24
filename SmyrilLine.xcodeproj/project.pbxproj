@@ -100,6 +100,7 @@
 		84A8E51E1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A8E51D1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift */; };
 		84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */; };
 		84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */; };
+		84B8108221074A770040AA06 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8108121074A770040AA06 /* LoginViewController.swift */; };
 		84BAA35A1FC545D700431A9E /* userList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAA3591FC545D700431A9E /* userList.swift */; };
 		84BAA35F1FC54D5100431A9E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84BAA35C1FC54D5100431A9E /* Info.plist */; };
 		84BAA3601FC54D5100431A9E /* JsonSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAA35D1FC54D5100431A9E /* JsonSerializer.swift */; };
@@ -257,6 +258,7 @@
 		84A8E51D1F6A896C00B5E569 /* InboxDetailsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
 		84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalRConnection.swift; sourceTree = "<group>"; };
+		84B8108121074A770040AA06 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		84BAA3591FC545D700431A9E /* userList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userList.swift; sourceTree = "<group>"; };
 		84BAA35C1FC54D5100431A9E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84BAA35D1FC54D5100431A9E /* JsonSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonSerializer.swift; sourceTree = "<group>"; };
@@ -595,6 +597,7 @@
 			isa = PBXGroup;
 			children = (
 				84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */,
+				84B8108121074A770040AA06 /* LoginViewController.swift */,
 			);
 			name = Bulletin;
 			sourceTree = "<group>";
@@ -1000,6 +1003,7 @@
 				84745EDB1FC6A487005E2E99 /* UserListCollectionViewCell.swift in Sources */,
 				843E4E41200E257C0072FE41 /* MealTableViewCell.swift in Sources */,
 				842C487320077D1000D3470E /* RouteTableViewCell.swift in Sources */,
+				84B8108221074A770040AA06 /* LoginViewController.swift in Sources */,
 				848060071FF51561005AC8DA /* AFOAuth2Manager.m in Sources */,
 				849BC7AD1FA04A85003BCEB1 /* MoreViewController.swift in Sources */,
 				842FE9621FEB72FB00D40FF7 /* ChatContainerViewController.swift in Sources */,
