@@ -364,7 +364,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
             if let userType = arr[0].MessageType {
                 switch(userType) {
                 case 5,2:  // retrieve chat user list
-                    print(userType)
                     if let UserList = arr[0].userList {
                         NotificationCenter.default.post(name: NSNotification.Name("UpdateChatUserList"), object: self, userInfo: ["UserList": UserList])
                     }
@@ -575,7 +574,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
         OnyxBeacon.sharedInstance().appWillResignActive()
         ReachabilityManager.shared.stopMonitoring()
         StreamingConnection.sharedInstance.connection.stop()
-        WebSocketSharedManager.sharedInstance.socket?.disconnect()
+        //WebSocketSharedManager.sharedInstance.socket?.disconnect()
         self.setMessageLastTimeIfNotSet()
         if UserDefaults.standard.bool(forKey: "GuideScreen") == true {
             self.uploadProfileVisibilitywithStatus(status: 0)

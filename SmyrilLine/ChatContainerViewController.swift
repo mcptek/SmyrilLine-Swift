@@ -65,7 +65,6 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         NotificationCenter.default.addObserver(self, selector: #selector(InsertMessage), name: NSNotification.Name(rawValue: "InsertNewMessage"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateChatUserStatus), name: NSNotification.Name(rawValue: "UpdateChatUserList"), object: nil)
         
-        IQKeyboardManager.sharedManager().enable = false
         self.userNameLabel.text = self.profileName
         if self.profileStatus! == 1 {
             self.userStatusNameLabel.text = "Active now"
@@ -83,13 +82,14 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        IQKeyboardManager.sharedManager().enable = false
         self.messagesArray.removeAll()
         self.LoadChatHisroryWithMessageCount(messageCount: self.pageCount)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-         NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         self.navigationController?.navigationBar.isHidden = false
     }
     
