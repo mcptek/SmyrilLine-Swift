@@ -26,6 +26,9 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     var receiverProfileStatus: Int?
     
     @IBOutlet weak var inboxTableview: UITableView!
+    @IBOutlet weak var chatSegmentController: UISegmentedControl!
+    @IBOutlet weak var addUserContainerView: UIView!
+    @IBOutlet weak var addUserButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +42,17 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
         //let navigationBar = navigationController!.navigationBar
         //navigationBar.barColor = UIColor(colorLiteralRed: 52 / 255, green: 152 / 255, blue: 219 / 255, alpha: 1)
+        
+        self.addUserContainerView.layer.cornerRadius = self.addUserContainerView.frame.size.width / 2
+        self.addUserContainerView.layer.masksToBounds = true
+        
+        self.addUserContainerView.layer.shadowColor = UIColor.gray.cgColor
+        self.addUserContainerView.layer.shadowOpacity = 0.3
+        self.addUserContainerView.layer.shadowOffset = CGSize.zero
+        self.addUserContainerView.layer.shadowRadius = 6
+        
+        self.addUserContainerView.bringSubview(toFront: self.view)
+        self.addUserContainerView.isHidden = true
         
         self.inboxTableview.estimatedRowHeight = 150
         self.inboxTableview.rowHeight = UITableViewAutomaticDimension
@@ -369,6 +383,10 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 vc.profileStatus = status
             }
         }
+        else if segue.identifier == "groupSelection" {
+            let vc = segue.destination as! CreateGroupViewController
+            vc.allUser = self.filteredOnlineUserListArray + self.filteredRecentUserListArray
+        }
     }
     
 
@@ -398,16 +416,37 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         self.chatSearchBar.resignFirstResponder()
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    @IBAction func addUserAction(_ sender: Any) {
+        self.performSegue(withIdentifier: "groupSelection", sender: self)
+//        let vc = self.storyboard?.instantiateViewController(withIdentifier: "createGroup") as! CreateGroupViewController
+//        self.navigationController?.pushViewController(vc, animated: true)
         
-        var totalSection = 0
-        if self.filteredRecentUserListArray.count > 0 {
-            totalSection += 1
+    }
+    
+    @IBAction func segmentButtonAction(_ sender: Any) {
+        if self.chatSegmentController.selectedSegmentIndex == 0 {
+           self.addUserContainerView.isHidden = true
         }
-        if self.filteredOnlineUserListArray.count > 0 {
-            totalSection += 1
+        else {
+            self.addUserContainerView.isHidden = false
         }
-        return totalSection
+        self.inboxTableview.reloadData()
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if self.chatSegmentController.selectedSegmentIndex == 0 {
+            var totalSection = 0
+            if self.filteredRecentUserListArray.count > 0 {
+                totalSection += 1
+            }
+            if self.filteredOnlineUserListArray.count > 0 {
+                totalSection += 1
+            }
+            return totalSection
+        }
+        else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -428,7 +467,6 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         cell.userCollectionView.layoutIfNeeded()
         cell.selectionStyle = .none
         return cell
-        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
@@ -444,7 +482,6 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let vw = UIView()
         vw.backgroundColor = UIColor.clear
-        
         return vw
     }
     

@@ -92,6 +92,7 @@
 		848C79B8208DB1C600DB2603 /* TaxfreeHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C79B7208DB1C600DB2603 /* TaxfreeHeaderTableViewCell.swift */; };
 		848C79BA208DB1F900DB2603 /* TaxfreeItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C79B9208DB1F900DB2603 /* TaxfreeItemsTableViewCell.swift */; };
 		849BC7AD1FA04A85003BCEB1 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849BC7AC1FA04A85003BCEB1 /* MoreViewController.swift */; };
+		849C08A321215A6400D06142 /* AllUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849C08A221215A6400D06142 /* AllUserCollectionViewCell.swift */; };
 		849D4BA31FB572BA00863F81 /* SettingsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D4BA21FB572BA00863F81 /* SettingsHeaderTableViewCell.swift */; };
 		849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */; };
 		849F93D91FDA63E600D2FE2C /* Userprofile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F93D81FDA63E500D2FE2C /* Userprofile.swift */; };
@@ -101,6 +102,7 @@
 		84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */; };
 		84AA0E4F1F692C5F00E4354A /* SignalRConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */; };
 		84B8108221074A770040AA06 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8108121074A770040AA06 /* LoginViewController.swift */; };
+		84BA26ED211C775600C43A94 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA26EC211C775600C43A94 /* CreateGroupViewController.swift */; };
 		84BAA35A1FC545D700431A9E /* userList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAA3591FC545D700431A9E /* userList.swift */; };
 		84BAA35F1FC54D5100431A9E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84BAA35C1FC54D5100431A9E /* Info.plist */; };
 		84BAA3601FC54D5100431A9E /* JsonSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAA35D1FC54D5100431A9E /* JsonSerializer.swift */; };
@@ -250,6 +252,7 @@
 		848C79B7208DB1C600DB2603 /* TaxfreeHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxfreeHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		848C79B9208DB1F900DB2603 /* TaxfreeItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxfreeItemsTableViewCell.swift; sourceTree = "<group>"; };
 		849BC7AC1FA04A85003BCEB1 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
+		849C08A221215A6400D06142 /* AllUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllUserCollectionViewCell.swift; sourceTree = "<group>"; };
 		849D4BA21FB572BA00863F81 /* SettingsHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		849DD0651F61623500504299 /* DestinationCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		849F93D81FDA63E500D2FE2C /* Userprofile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Userprofile.swift; sourceTree = "<group>"; };
@@ -259,6 +262,7 @@
 		84AA0E4C1F692AAD00E4354A /* InboxViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
 		84AA0E4E1F692C5F00E4354A /* SignalRConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalRConnection.swift; sourceTree = "<group>"; };
 		84B8108121074A770040AA06 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		84BA26EC211C775600C43A94 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
 		84BAA3591FC545D700431A9E /* userList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userList.swift; sourceTree = "<group>"; };
 		84BAA35C1FC54D5100431A9E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84BAA35D1FC54D5100431A9E /* JsonSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonSerializer.swift; sourceTree = "<group>"; };
@@ -650,11 +654,21 @@
 		84AA0E4B1F692A7E00E4354A /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
+				84BA26EB211C771E00C43A94 /* Group chat */,
 				8466C7B61FEA5975000727F9 /* One2OneChat */,
 				84745ED71FC6A42C005E2E99 /* Chat */,
 				84745ED61FC6A40D005E2E99 /* Bulletin */,
 			);
 			name = Inbox;
+			sourceTree = "<group>";
+		};
+		84BA26EB211C771E00C43A94 /* Group chat */ = {
+			isa = PBXGroup;
+			children = (
+				84BA26EC211C775600C43A94 /* CreateGroupViewController.swift */,
+				849C08A221215A6400D06142 /* AllUserCollectionViewCell.swift */,
+			);
+			name = "Group chat";
 			sourceTree = "<group>";
 		};
 		84BAA35B1FC54D5100431A9E /* JsonSerializerSwift */ = {
@@ -1015,6 +1029,7 @@
 				8445F1581F665F9A004F8B67 /* CategoryHeaderTableViewCell.swift in Sources */,
 				84FBCB451FBC53BE00B74707 /* GenderFilterTableViewCell.swift in Sources */,
 				BB45F2D41F4F2FBD003B77CA /* DestinationTableViewCell.swift in Sources */,
+				849C08A321215A6400D06142 /* AllUserCollectionViewCell.swift in Sources */,
 				84FBCB491FBC639100B74707 /* LanguageGroupCollectionViewCell.swift in Sources */,
 				846643331F8F554600146A68 /* HelpViewController.swift in Sources */,
 				BB45F2DA1F4F30A5003B77CA /* Destinations.swift in Sources */,
@@ -1034,6 +1049,7 @@
 				842ED4231F4EFA78000366BF /* RestaurantViewController.swift in Sources */,
 				842308431F56EF3D004A4166 /* MyTaxfreeScrollViewHeader.swift in Sources */,
 				840A47841F4FE9360038DAE6 /* TaxfreeViewController.swift in Sources */,
+				84BA26ED211C775600C43A94 /* CreateGroupViewController.swift in Sources */,
 				8409ED2E1F83602E0005F3AA /* ShipInfoDetailsViewController.swift in Sources */,
 				84EE5E241F6A601A001B4CA4 /* MessageObject.swift in Sources */,
 				84FA7EA01F85EC7400D2A299 /* PlaceOrderTableViewCell.swift in Sources */,
