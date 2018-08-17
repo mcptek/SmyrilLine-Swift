@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import AlamofireObjectMapper
+import Alamofire
 
 class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var allUser = [User]()
     var SelectedUserList = [String:Bool]()
-    
+    var activityIndicatorView: UIActivityIndicatorView!
+    var chatSessionObject: chatSessionViewModel?
     
     @IBOutlet weak var allUserCollectionview: UICollectionView!
     
@@ -20,6 +23,10 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        myActivityIndicator.center = view.center
+        self.activityIndicatorView = myActivityIndicator
+        view.addSubview(self.activityIndicatorView)
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,6 +45,66 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     */
 
+    func createGroup(name: String)  {
+        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
+        let url = UrlMCP.server_base_url + UrlMCP.createNewChatGroup
+        self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        Alamofire.request(url, method:.post, parameters:self.getParameterDictionaryFor(groupName: name), headers:headers).responseObject { (response: DataResponse<chatSessionViewModel>) in
+            self.activityIndicatorView.stopAnimating()
+            self.view.isUserInteractionEnabled = true
+            
+            switch response.result {
+            case .success:
+                self.chatSessionObject = response.result.value
+                print(self.chatSessionObject?.groupName ?? "No group name Found")
+            case .failure(let error):
+                self.showErrorAlert(error: error as NSError)
+            }
+        }
+    }
+    
+    func getParameterDictionaryFor(groupName: String) -> [String: Any] {
+        var chatGroupParameterDictionary = [String: Any]()
+        chatGroupParameterDictionary["SessionId"] = ""
+        chatGroupParameterDictionary["GroupName"] = groupName
+        chatGroupParameterDictionary["OwnerDeviceId"] = UIDevice.current.identifierForVendor?.uuidString
+        var index = 0
+        for object in self.allUser {
+            if self.SelectedUserList[object.deviceId!] != nil, self.SelectedUserList[object.deviceId!]!  {
+                chatGroupParameterDictionary["MemberDeviceIds[" + String(index) + "]"] = object.deviceId
+                index += 1
+            }
+        }
+        return chatGroupParameterDictionary
+    }
+    
+    
+    @IBAction func barButtonAction(_ sender: Any) {
+        
+        let alerController = UIAlertController(title: "Please enetr group name", message: "", preferredStyle: .alert)
+        alerController.addTextField { (textField) in
+            textField.placeholder = "Group name"
+        }
+        let saveAction = UIAlertAction(title: "Save", style: UIAlertActionStyle.default) { (alertAction) in
+            let groupNameTextField = alerController.textFields![0] as UITextField
+            if groupNameTextField.text?.count == 0 {
+                
+            }
+            else {
+                self.dismiss(animated: true, completion: nil)
+                self.createGroup(name: groupNameTextField.text!)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (alertAction) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alerController.addAction(saveAction)
+        alerController.addAction(cancelAction)
+        self.present(alerController, animated: true, completion: nil)
+    }
+    
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int
     {
         return 1

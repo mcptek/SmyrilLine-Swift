@@ -14,4 +14,10 @@ class AllUserCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var userSelectionImageview: UIImageView!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+        self.layer.cornerRadius = 3
+        self.layer.masksToBounds = true
+    }
 }

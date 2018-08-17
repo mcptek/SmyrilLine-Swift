@@ -24,6 +24,8 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     var receiverDeviceId: String?
     var receiverProfileName: String?
     var receiverProfileStatus: Int?
+    var chatGroupArray: [chatSessionViewModel]?
+    
     
     @IBOutlet weak var inboxTableview: UITableView!
     @IBOutlet weak var chatSegmentController: UISegmentedControl!
@@ -77,24 +79,19 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             self.showAlertIfUsernameIsNotSet()
         }
         else {
-            self.RetrieveCurrentUserList()
+            if self.chatSegmentController.selectedSegmentIndex == 0 {
+                self.RetrieveCurrentUserList()
+            }
+            else {
+                self.retrieveChatGroupList()
+            }
         }
-        //self.RetrieveCurrentUserList()
-        //self.showAlertIfUsernameIsNotSet()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.chatSearchBar.resignFirstResponder()
-//        self.newMessageReceived()
-//        let nc = NotificationCenter.default
-//        nc.addObserver(self, selector: #selector(newMessageReceived), name: Notification.Name("InboxNotification"), object: nil)
         self.navigationController?.navigationBar.isHidden = false
-       // let navigationBar = navigationController!.navigationBar
-       // navigationBar.attachToScrollView(self.inboxTableview)
-        
-        //let textFieldInsideSearchBar = self.chatSearchBar.value(forKey: "searchField") as? UITextField
-        //textFieldInsideSearchBar?.textColor = UIColor.white
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -239,6 +236,32 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             "phoneType": "iOS",
             ]
         return params
+    }
+    
+    func retrieveChatGroupList() {
+        let url = UrlMCP.server_base_url + UrlMCP.showAllGroup + "?deviceId=" + (UIDevice.current.identifierForVendor?.uuidString)!
+        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
+        
+        Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers)
+            .responseArray { (response: DataResponse<[chatSessionViewModel]>) in
+                self.activityIndicatorView.stopAnimating()
+                self.view.isUserInteractionEnabled = true
+                switch response.result {
+                case .success:
+                    let forecastArray = response.result.value
+                    if let UserList = forecastArray {
+                        self.chatGroupArray = UserList
+                        for object in self.chatGroupArray! {
+                            print(object.groupName!)
+                        }
+                    }
+                    else {
+                        self.showAlert(title: "Message", message: "No user list found")
+                    }
+                case .failure(let error):
+                    self.showErrorAlert(error: error as NSError)
+                }
+        }
     }
     
     func RetrieveCurrentUserList() {
@@ -429,6 +452,9 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         }
         else {
             self.addUserContainerView.isHidden = false
+            if self.chatGroupArray == nil || self.chatGroupArray?.count == 0 {
+                self.retrieveChatGroupList()
+            }
         }
         self.inboxTableview.reloadData()
     }
@@ -445,7 +471,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             return totalSection
         }
         else {
-            return 0
+            return 1
         }
     }
     
@@ -454,19 +480,32 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "recentCell", for: indexPath) as! ChatTableViewCell
-        if indexPath.section == 0 && self.filteredRecentUserListArray.count > 0 {
-            cell.statusHeaderLabel.text = "Recent"
-            cell.userCollectionView.tag = 1010
+        if self.chatSegmentController.selectedSegmentIndex == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "recentCell", for: indexPath) as! ChatTableViewCell
+            if indexPath.section == 0 && self.filteredRecentUserListArray.count > 0 {
+                cell.statusHeaderLabel.text = "Recent"
+                cell.userCollectionView.tag = 1010
+            }
+            else {
+                cell.statusHeaderLabel.text = "Online"
+                cell.userCollectionView.tag = 1011
+            }
+            cell.userCollectionView.reloadData()
+            cell.userCollectionView.layoutIfNeeded()
+            cell.selectionStyle = .none
+            return cell
         }
         else {
-            cell.statusHeaderLabel.text = "Online"
-            cell.userCollectionView.tag = 1011
+            let cell = tableView.dequeueReusableCell(withIdentifier: "groupCell", for: indexPath) as! GroupChatTableViewCell
+            cell.groupChatCollectionView.tag = 1012
+            cell.groupChatCollectionView.reloadData()
+            cell.collectionViewHeight.constant = cell.groupChatCollectionView.collectionViewLayout.collectionViewContentSize.height
+            cell.groupChatCollectionView.layoutIfNeeded()
+            cell.layoutIfNeeded()
+            self.inboxTableview.layoutIfNeeded()
+            cell.selectionStyle = .none
+            return cell
         }
-        cell.userCollectionView.reloadData()
-        cell.userCollectionView.layoutIfNeeded()
-        cell.selectionStyle = .none
-        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
@@ -503,122 +542,217 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         if collectionView.tag == 1010 {
             return self.filteredRecentUserListArray.count
         }
-        else {
+        else if collectionView.tag == 1011 {
             return self.filteredOnlineUserListArray.count
+        }
+        else {
+            return self.chatGroupArray?.count ?? 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userCell", for: indexPath) as! UserListCollectionViewCell
-        if collectionView.tag == 1010 {
-            cell.userNameLabel.backgroundColor = UIColor.clear
-            cell.userNameLabel.textColor = UIColor.white
-            cell.userImageView.backgroundColor = UIColor.white
-            cell.userImageView.layer.cornerRadius = cell.userImageView.frame.height / 2
-            cell.userImageView.clipsToBounds = true
-            cell.onlineTrackerImageView.isHidden = true
-            if let status = self.filteredRecentUserListArray[indexPath.row].status {
-                if status == 1 {
-                    cell.onlineTrackerImageView.isHidden = false
+        if self.chatSegmentController.selectedSegmentIndex == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userCell", for: indexPath) as! UserListCollectionViewCell
+            if collectionView.tag == 1010 {
+                cell.userNameLabel.backgroundColor = UIColor.clear
+                cell.userNameLabel.textColor = UIColor.white
+                cell.userImageView.backgroundColor = UIColor.white
+                cell.userImageView.layer.cornerRadius = cell.userImageView.frame.height / 2
+                cell.userImageView.clipsToBounds = true
+                cell.onlineTrackerImageView.isHidden = true
+                if let status = self.filteredRecentUserListArray[indexPath.row].status {
+                    if status == 1 {
+                        cell.onlineTrackerImageView.isHidden = false
+                    }
                 }
-            }
-            if let name = self.filteredRecentUserListArray[indexPath.row].name {
-                if let decodedname = name.base64Decoded() {
-                    cell.userNameLabel.text = decodedname
+                if let name = self.filteredRecentUserListArray[indexPath.row].name {
+                    if let decodedname = name.base64Decoded() {
+                        cell.userNameLabel.text = decodedname
+                    }
+                    else {
+                        cell.userNameLabel.text = name
+                    }
                 }
                 else {
-                    cell.userNameLabel.text = name
+                    cell.userNameLabel.text = "No name Found"
                 }
-            }
-            else {
-                cell.userNameLabel.text = "No name Found"
-            }
-            
-            if let imageUrlStr = self.filteredRecentUserListArray[indexPath.row].imageUrl
-            {
-                cell.userImageView.sd_setShowActivityIndicatorView(true)
-                cell.userImageView.sd_setIndicatorStyle(.gray)
-                cell.userImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
-            }
-            else {
-                cell.userImageView.image = UIImage.init(named: "UserPlaceholder")
-            }
-            
-            if let messageCount = self.filteredRecentUserListArray[indexPath.row].newMessageCount {
-                if messageCount > 0 {
-                    cell.unreadMessageLabel.isHidden = false
-                    cell.unreadMessageLabel.text = String(messageCount)
+                
+                if let imageUrlStr = self.filteredRecentUserListArray[indexPath.row].imageUrl
+                {
+                    cell.userImageView.sd_setShowActivityIndicatorView(true)
+                    cell.userImageView.sd_setIndicatorStyle(.gray)
+                    cell.userImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
+                }
+                else {
+                    cell.userImageView.image = UIImage.init(named: "UserPlaceholder")
+                }
+                
+                if let messageCount = self.filteredRecentUserListArray[indexPath.row].newMessageCount {
+                    if messageCount > 0 {
+                        cell.unreadMessageLabel.isHidden = false
+                        cell.unreadMessageLabel.text = String(messageCount)
+                    }
+                    else {
+                        cell.unreadMessageLabel.isHidden = true
+                    }
                 }
                 else {
                     cell.unreadMessageLabel.isHidden = true
                 }
-            }
-            else {
-                cell.unreadMessageLabel.isHidden = true
-            }
-            
-        }
-        else {
-            cell.userNameLabel.backgroundColor = UIColor(red: 255.0/255, green: 255.0/255, blue: 255.0/255, alpha: 1.0)
-            cell.userImageView.backgroundColor = UIColor.white
-            cell.userNameLabel.textColor = UIColor(red: 0.0/255, green: 135.0/255, blue: 215.0/255, alpha: 1.0)
-            cell.userImageView.layer.cornerRadius = 0
-            cell.userImageView.clipsToBounds = true
-            cell.onlineTrackerImageView.isHidden = false
-            if let name = self.filteredOnlineUserListArray[indexPath.row].name {
-                if let decodedname = name.base64Decoded() {
-                    cell.userNameLabel.text = decodedname
-                }
-                else {
-                    cell.userNameLabel.text = name
-                }
-            }
-            else {
-                cell.userNameLabel.text = "No name Found"
-            }
-            
-            if let imageUrlStr = self.filteredOnlineUserListArray[indexPath.row].imageUrl
-            {
-                cell.userImageView.sd_setShowActivityIndicatorView(true)
-                cell.userImageView.sd_setIndicatorStyle(.gray)
-                cell.userImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
                 
             }
             else {
-                cell.userImageView.image = UIImage.init(named: "UserPlaceholder")
-            }
-            
-            if let messageCount = self.filteredOnlineUserListArray[indexPath.row].newMessageCount {
-                if messageCount > 0 {
-                    cell.unreadMessageLabel.isHidden = false
-                    cell.unreadMessageLabel.text = String(messageCount)
+                cell.userNameLabel.backgroundColor = UIColor(red: 255.0/255, green: 255.0/255, blue: 255.0/255, alpha: 1.0)
+                cell.userImageView.backgroundColor = UIColor.white
+                cell.userNameLabel.textColor = UIColor(red: 0.0/255, green: 135.0/255, blue: 215.0/255, alpha: 1.0)
+                cell.userImageView.layer.cornerRadius = 0
+                cell.userImageView.clipsToBounds = true
+                cell.onlineTrackerImageView.isHidden = false
+                if let name = self.filteredOnlineUserListArray[indexPath.row].name {
+                    if let decodedname = name.base64Decoded() {
+                        cell.userNameLabel.text = decodedname
+                    }
+                    else {
+                        cell.userNameLabel.text = name
+                    }
+                }
+                else {
+                    cell.userNameLabel.text = "No name Found"
+                }
+                
+                if let imageUrlStr = self.filteredOnlineUserListArray[indexPath.row].imageUrl
+                {
+                    cell.userImageView.sd_setShowActivityIndicatorView(true)
+                    cell.userImageView.sd_setIndicatorStyle(.gray)
+                    cell.userImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
+                    
+                }
+                else {
+                    cell.userImageView.image = UIImage.init(named: "UserPlaceholder")
+                }
+                
+                if let messageCount = self.filteredOnlineUserListArray[indexPath.row].newMessageCount {
+                    if messageCount > 0 {
+                        cell.unreadMessageLabel.isHidden = false
+                        cell.unreadMessageLabel.text = String(messageCount)
+                    }
+                    else {
+                        cell.unreadMessageLabel.isHidden = true
+                    }
                 }
                 else {
                     cell.unreadMessageLabel.isHidden = true
                 }
             }
-            else {
-                cell.unreadMessageLabel.isHidden = true
-            }
+            return cell
         }
-        return cell
+        else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "chatGrouprCell", for: indexPath) as! ChatGroupListCollectionViewCell
+            cell.groupNameLabel.text = self.chatGroupArray![indexPath.row].groupName
+            switch self.chatGroupArray![indexPath.row].memberDevices?.count {
+            case 3:
+                cell.topLeftImageView.isHidden = true
+                cell.topRightImageView.isHidden = false
+                cell.bottomLeftImageView.isHidden = false
+                cell.bottomRightImageView.isHidden = false
+                if let imageUrlStr = self.chatGroupArray![indexPath.row].memberDevices![0].imageUrl
+                {
+                    cell.topRightImageView.sd_setShowActivityIndicatorView(true)
+                    cell.topRightImageView.sd_setIndicatorStyle(.gray)
+                    cell.topRightImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
+                }
+                else {
+                    cell.topRightImageView.image = UIImage.init(named: "UserPlaceholder")
+                }
+                
+                if let imageUrlStr = self.chatGroupArray![indexPath.row].memberDevices![1].imageUrl
+                {
+                    cell.bottomLeftImageView.sd_setShowActivityIndicatorView(true)
+                    cell.bottomLeftImageView.sd_setIndicatorStyle(.gray)
+                    cell.bottomLeftImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
+                }
+                else {
+                    cell.bottomLeftImageView.image = UIImage.init(named: "UserPlaceholder")
+                }
+                
+                if let imageUrlStr = self.chatGroupArray![indexPath.row].memberDevices![2].imageUrl
+                {
+                    cell.bottomRightImageView.sd_setShowActivityIndicatorView(true)
+                    cell.bottomRightImageView.sd_setIndicatorStyle(.gray)
+                    cell.bottomRightImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
+                }
+                else {
+                    cell.bottomRightImageView.image = UIImage.init(named: "UserPlaceholder")
+                }
+            default:
+                cell.topLeftImageView.isHidden = false
+                cell.topRightImageView.isHidden = false
+                cell.bottomLeftImageView.isHidden = false
+                cell.bottomRightImageView.isHidden = false
+                if let imageUrlStr = self.chatGroupArray![indexPath.row].memberDevices![0].imageUrl
+                {
+                    cell.topLeftImageView.sd_setShowActivityIndicatorView(true)
+                    cell.topLeftImageView.sd_setIndicatorStyle(.gray)
+                    cell.topLeftImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
+                }
+                else {
+                    cell.topLeftImageView.image = UIImage.init(named: "UserPlaceholder")
+                }
+                
+                if let imageUrlStr = self.chatGroupArray![indexPath.row].memberDevices![1].imageUrl
+                {
+                    cell.topRightImageView.sd_setShowActivityIndicatorView(true)
+                    cell.topRightImageView.sd_setIndicatorStyle(.gray)
+                    cell.topRightImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
+                }
+                else {
+                    cell.topRightImageView.image = UIImage.init(named: "UserPlaceholder")
+                }
+                
+                if let imageUrlStr = self.chatGroupArray![indexPath.row].memberDevices![2].imageUrl
+                {
+                    cell.bottomLeftImageView.sd_setShowActivityIndicatorView(true)
+                    cell.bottomLeftImageView.sd_setIndicatorStyle(.gray)
+                    cell.bottomLeftImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
+                }
+                else {
+                    cell.bottomLeftImageView.image = UIImage.init(named: "UserPlaceholder")
+                }
+                
+                if let imageUrlStr = self.chatGroupArray![indexPath.row].memberDevices![3].imageUrl
+                {
+                    cell.bottomRightImageView.sd_setShowActivityIndicatorView(true)
+                    cell.bottomRightImageView.sd_setIndicatorStyle(.gray)
+                    cell.bottomRightImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
+                }
+                else {
+                    cell.bottomRightImageView.image = UIImage.init(named: "UserPlaceholder")
+                }
+            }
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        if collectionView.tag == 1010 {
-            self.receiverDeviceId = self.filteredRecentUserListArray[indexPath.row].deviceId
-            self.receiverProfileName = self.filteredRecentUserListArray[indexPath.row].name
-            self.receiverProfileStatus = self.filteredRecentUserListArray[indexPath.row].status
+        if self.chatSegmentController.selectedSegmentIndex == 0 {
+            if collectionView.tag == 1010 {
+                self.receiverDeviceId = self.filteredRecentUserListArray[indexPath.row].deviceId
+                self.receiverProfileName = self.filteredRecentUserListArray[indexPath.row].name
+                self.receiverProfileStatus = self.filteredRecentUserListArray[indexPath.row].status
+            }
+            else {
+                self.receiverDeviceId = self.filteredOnlineUserListArray[indexPath.row].deviceId
+                self.receiverProfileName = self.filteredOnlineUserListArray[indexPath.row].name
+                self.receiverProfileStatus = self.filteredOnlineUserListArray[indexPath.row].status
+            }
+            if let _ = self.receiverDeviceId {
+                self.performSegue(withIdentifier: "chatMessageCell", sender: nil)
+            }
         }
         else {
-            self.receiverDeviceId = self.filteredOnlineUserListArray[indexPath.row].deviceId
-            self.receiverProfileName = self.filteredOnlineUserListArray[indexPath.row].name
-            self.receiverProfileStatus = self.filteredOnlineUserListArray[indexPath.row].status
-        }
-        if let _ = self.receiverDeviceId {
-            self.performSegue(withIdentifier: "chatMessageCell", sender: nil)
+            
         }
     }
     
@@ -640,7 +774,12 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        return CGSize(width: 100, height: 138)
+        if collectionView.tag == 1012 {
+            return CGSize(width: 115, height: 138)
+        }
+        else {
+            return CGSize(width: 100, height: 138)
+        }
     }
 
 }

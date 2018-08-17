@@ -74,3 +74,21 @@ class User: Mappable{
         newMessageCount <- map["newMessageCount"]
     }
 }
+
+class chatSessionViewModel: Mappable{
+    var sessionId : String?
+    var groupName : String?
+    var ownerDeviceId : String?
+    var memberDeviceIds : [String]?
+    var memberDevices : [User]?
+    required init?(map: Map){
+    }
+    
+    func mapping(map: Map) {
+        sessionId <- map["sessionId"]
+        groupName <- map["groupName"]
+        ownerDeviceId <- map["ownerDeviceId"]
+        memberDeviceIds <- map["memberDeviceIds"]
+        memberDevices <- map["memberDevices"]
+    }
+}

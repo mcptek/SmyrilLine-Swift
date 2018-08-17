@@ -81,6 +81,8 @@
 		84745EDB1FC6A487005E2E99 /* UserListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84745EDA1FC6A487005E2E99 /* UserListCollectionViewCell.swift */; };
 		84745EDD1FC6C568005E2E99 /* Messaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84745EDC1FC6C568005E2E99 /* Messaging.swift */; };
 		8476C32B20BE7B9C0090042C /* ChatBubbleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476C32A20BE7B9B0090042C /* ChatBubbleData.swift */; };
+		847BA80521244D5300565C7E /* ChatGroupListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BA80421244D5200565C7E /* ChatGroupListCollectionViewCell.swift */; };
+		847BA80721244F2200565C7E /* GroupChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BA80621244F2200565C7E /* GroupChatTableViewCell.swift */; };
 		84805FFA1FF51348005AC8DA /* OnyxBeaconLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84805FF91FF51348005AC8DA /* OnyxBeaconLib.framework */; };
 		84805FFC1FF51389005AC8DA /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84805FFB1FF51389005AC8DA /* CoreBluetooth.framework */; };
 		84805FFE1FF51391005AC8DA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84805FFD1FF51391005AC8DA /* CoreLocation.framework */; };
@@ -238,6 +240,8 @@
 		84745EDA1FC6A487005E2E99 /* UserListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCollectionViewCell.swift; sourceTree = "<group>"; };
 		84745EDC1FC6C568005E2E99 /* Messaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messaging.swift; sourceTree = "<group>"; };
 		8476C32A20BE7B9B0090042C /* ChatBubbleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleData.swift; sourceTree = "<group>"; };
+		847BA80421244D5200565C7E /* ChatGroupListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGroupListCollectionViewCell.swift; sourceTree = "<group>"; };
+		847BA80621244F2200565C7E /* GroupChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatTableViewCell.swift; sourceTree = "<group>"; };
 		84805FF91FF51348005AC8DA /* OnyxBeaconLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OnyxBeaconLib.framework; sourceTree = "<group>"; };
 		84805FFB1FF51389005AC8DA /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		84805FFD1FF51391005AC8DA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -610,6 +614,8 @@
 			isa = PBXGroup;
 			children = (
 				84745ED81FC6A465005E2E99 /* ChatTableViewCell.swift */,
+				847BA80621244F2200565C7E /* GroupChatTableViewCell.swift */,
+				847BA80421244D5200565C7E /* ChatGroupListCollectionViewCell.swift */,
 				84745EDA1FC6A487005E2E99 /* UserListCollectionViewCell.swift */,
 				84F311281FCFDC4900BF37E8 /* ProfileStatusViewController.swift */,
 				84F3112A1FCFE3F300BF37E8 /* ProfileVisibilityStatusTableViewCell.swift */,
@@ -1018,6 +1024,7 @@
 				843E4E41200E257C0072FE41 /* MealTableViewCell.swift in Sources */,
 				842C487320077D1000D3470E /* RouteTableViewCell.swift in Sources */,
 				84B8108221074A770040AA06 /* LoginViewController.swift in Sources */,
+				847BA80521244D5300565C7E /* ChatGroupListCollectionViewCell.swift in Sources */,
 				848060071FF51561005AC8DA /* AFOAuth2Manager.m in Sources */,
 				849BC7AD1FA04A85003BCEB1 /* MoreViewController.swift in Sources */,
 				842FE9621FEB72FB00D40FF7 /* ChatContainerViewController.swift in Sources */,
@@ -1076,6 +1083,7 @@
 				8487F22E1FD9566000D5DDEA /* EditProfileViewController.swift in Sources */,
 				84F481611FAAE8A20065A915 /* RestaurantOpenCloseTimeTableViewCell.swift in Sources */,
 				84BAA35A1FC545D700431A9E /* userList.swift in Sources */,
+				847BA80721244F2200565C7E /* GroupChatTableViewCell.swift in Sources */,
 				842EB2331FA9892300652F68 /* RestaurantDetailsViewController.swift in Sources */,
 				84E034FA201F2FB000B91844 /* SixthPageViewController.swift in Sources */,
 				84AA0E4D1F692AAD00E4354A /* InboxViewController.swift in Sources */,

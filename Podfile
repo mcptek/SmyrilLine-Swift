@@ -9,7 +9,8 @@ target 'SmyrilLine' do
   pod 'AlamofireObjectMapper', '~> 4.0'
   pod 'Alamofire', '~> 4.4'
   pod 'SwiftyJSON'
-  pod 'SDWebImage'
+  pod 'SDWebImage', '~> 4.0'
+  #pod 'SDWebImage'
   pod "MXParallaxHeader"
   #pod 'SwiftR'
   pod 'SignalRSwift', '~> 1.0.3'
@@ -23,6 +24,7 @@ target 'SmyrilLine' do
   pod 'KMPlaceholderTextView', '~> 1.3.0'
   pod 'ISEmojiView'
   pod 'SwiftyAttributes'
+  #pod "MDGroupAvatarView"
   #pod 'AEXML'
   #pod "SwiftyXMLParser", :git => 'https://github.com/yahoojapan/SwiftyXMLParser.git'
   #pod 'SOAPEngine'

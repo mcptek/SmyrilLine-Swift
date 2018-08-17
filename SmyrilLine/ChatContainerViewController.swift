@@ -6,13 +6,6 @@
 //  Copyright © 2017 Rafay Hasan. All rights reserved.
 //
 
-//import UIKit
-//import KMPlaceholderTextView
-//import AlamofireObjectMapper
-//import Alamofire
-//import SwiftyJSON
-//import SDWebImage
-//import ObjectMapper
 import UIKit
 import AlamofireObjectMapper
 import Alamofire
@@ -327,72 +320,6 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         }
     }
     
-    /*
-    func websocketDidConnect(socket: WebSocketClient) {
-        print("websocket is connected")
-        self.LoadChatHisroryWithMessageCount(messageCount: self.pageCount)
-    }
-    
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        print("websocket is disconnected: \(String(describing: error?.localizedDescription))")
-    }
-    
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        
-        if let arr: Array<Messaging> = Mapper<Messaging>().mapArray(JSONString: text) {
-            print(arr[0].Message ?? "Default value")
-            if let userType = arr[0].MessageType {
-                switch(userType) {
-                case 3:
-                    // Receive message acknowledgement status
-                    let status = arr[0].Message?["MessageSendingStatus"] as! Int
-                    self.messagesArray.filter{ $0.messageId == arr[0].Message?["MessageId"] as! String }.first?.type = Chat.MessageSendingStatus(rawValue: Chat.MessageSendingStatus.RawValue(status))!
-                    if let index = self.messagesArray.index(where: { $0.messageId == arr[0].Message?["MessageId"] as! String }) {
-                        let indexPath = IndexPath(item: index, section: 0)
-                        self.chatTableView.reloadRows(at: [indexPath], with: .none)
-                    }
-
-                    //self.chatTableView.reloadData()
-//                    if self.messagesArray.count > 0 {
-//                        let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
-//                        self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
-//                    }
-                case 8:
-                    // Receive Message
-                    var imagestr = ""
-                    if let dic = arr[0].Message?["senderChatUserServerModel"] as? [String: Any] {
-                        if let img = dic["imageUrl"] as? String  {
-                            imagestr = img
-                        }
-                    }
-                    self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String)
-                    
-                    var timeStr = ""
-                    if let tm = arr[0].Message?["sendTime"] as? Double {
-                        let date = Date(timeIntervalSince1970: (tm / 1000.0))
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.timeZone = TimeZone.current //Set timezone that you want
-                        dateFormatter.locale = NSLocale.current
-                        dateFormatter.dateFormat = "hh:mm a" //Specify your format that you want
-                        timeStr = dateFormatter.string(from: date)
-                    }
-                    self.messagesArray.append(Chat(message: arr[0].Message?["messageBase64"] as! String, messageid: arr[0].Message?["messageId"] as! String, time: timeStr, imageString: imagestr, fromLocalClient: false, messageStatus: Chat.MessageSendingStatus.seen))
-                    self.chatTableView.reloadData()
-                    if self.messagesArray.count > 0 {
-                        let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
-                        self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
-                    }
-                default:
-                    print("Default")
-                }
-            }
-        }
-    }
-    
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
-        print("got some data: \(data.count)")
-    }
-    */
     
     func callAcknowledgeMessageWebserviceForMessageId(messageId: String) {
         let messageSendingStatus = 3
