@@ -788,7 +788,7 @@
 				TargetAttributes = {
 					840DA9C91F4C5C7F001B3382 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 79YLMQ62DM;
+						DevelopmentTeam = RBLD8J9Y2A;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -1296,9 +1296,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 79YLMQ62DM;
+				DEVELOPMENT_TEAM = RBLD8J9Y2A;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1307,10 +1307,10 @@
 				INFOPLIST_FILE = SmyrilLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.mcpdebug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.SmyrilLineDevelopment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "14ad0db3-2cef-4865-83a0-89127c6ae1b5";
-				PROVISIONING_PROFILE_SPECIFIER = "MCP Debug";
+				PROVISIONING_PROFILE = "7ea87bb4-539b-436f-aee5-e7314c659992";
+				PROVISIONING_PROFILE_SPECIFIER = "SmyrilLine Enterprise";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmyrilLine/SmyrilLine-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1324,9 +1324,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 79YLMQ62DM;
+				DEVELOPMENT_TEAM = RBLD8J9Y2A;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1335,10 +1335,10 @@
 				INFOPLIST_FILE = SmyrilLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.mcpdebug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.SmyrilLineDevelopment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "14ad0db3-2cef-4865-83a0-89127c6ae1b5";
-				PROVISIONING_PROFILE_SPECIFIER = "MCP Debug";
+				PROVISIONING_PROFILE = "7ea87bb4-539b-436f-aee5-e7314c659992";
+				PROVISIONING_PROFILE_SPECIFIER = "SmyrilLine Enterprise";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmyrilLine/SmyrilLine-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

@@ -56,7 +56,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
         ReachabilityManager.shared.startMonitoring()
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().keyboardDistanceFromTextField = 0.0
-        //IQKeyboardManager.sharedManager().enableAutoToolbar = false
+        IQKeyboardManager.sharedManager().enableAutoToolbar = false
+        IQKeyboardManager.sharedManager().shouldShowToolbarPlaceholder = false
+        IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true
         let onyxBeacon = OnyxBeacon.sharedInstance()
         onyxBeacon?.requestAlwaysAuthorization()
         onyxBeacon?.startService(withClientID: SA_CLIENTID, secret:SA_SECRET)

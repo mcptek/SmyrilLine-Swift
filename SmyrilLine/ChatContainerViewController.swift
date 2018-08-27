@@ -126,7 +126,6 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             let keyboardHeight : Int = Int(keyboardSize.height)
-            print("keyboardHeight",keyboardHeight)
             if self.heightOfKeyboard == 0 {
                 self.heightOfKeyboard = keyboardHeight
             }
@@ -140,10 +139,6 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
                 self.keyboardBackgroundBottomHeight.constant = CGFloat(self.heightOfKeyboard)
                 self.view.setNeedsLayout()
             }
-//            if self.messagesArray.count > 0 {
-//                let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
-//                self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
-//            }
         }
         
     }
@@ -155,10 +150,6 @@ class ChatContainerViewController: UIViewController,UITableViewDelegate,UITableV
             self.keyboardBackgroundBottomHeight.constant = 0
             self.view.setNeedsLayout()
         }
-//        if self.messagesArray.count > 0 {
-//            let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
-//            self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
-//        }
         
     }
     

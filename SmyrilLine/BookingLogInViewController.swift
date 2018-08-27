@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import IQKeyboardManagerSwift
 
 class BookingLogInViewController: UIViewController, UITextFieldDelegate, NSURLConnectionDelegate, XMLParserDelegate {
 
@@ -51,6 +52,9 @@ class BookingLogInViewController: UIViewController, UITextFieldDelegate, NSURLCo
         if UserDefaults.standard.bool(forKey: "GuideScreen") == false {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "pageContainerView")
             self.present(vc!, animated: true, completion: nil)
+        }
+        else {
+            IQKeyboardManager.sharedManager().enable = false
         }
     }
     
