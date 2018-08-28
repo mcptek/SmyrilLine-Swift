@@ -57,7 +57,7 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
             switch response.result {
             case .success:
                 self.chatSessionObject = response.result.value
-                print(self.chatSessionObject?.groupName ?? "No group name Found")
+                self.navigationController?.popViewController(animated: true)
             case .failure(let error):
                 self.showErrorAlert(error: error as NSError)
             }
@@ -82,26 +82,40 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
     
     @IBAction func barButtonAction(_ sender: Any) {
         
-        let alerController = UIAlertController(title: "Please enetr group name", message: "", preferredStyle: .alert)
-        alerController.addTextField { (textField) in
-            textField.placeholder = "Group name"
-        }
-        let saveAction = UIAlertAction(title: "Save", style: UIAlertActionStyle.default) { (alertAction) in
-            let groupNameTextField = alerController.textFields![0] as UITextField
-            if groupNameTextField.text?.count == 0 {
-                
+        var selectedCount = 0
+        for object in self.allUser {
+            if self.SelectedUserList[object.deviceId!] != nil, self.SelectedUserList[object.deviceId!]!  {
+                selectedCount += 1
+                if selectedCount > 2 {
+                    break
+                }
             }
-            else {
+        }
+        
+        if selectedCount > 1 {
+            let alerController = UIAlertController(title: "Please enetr group name", message: "", preferredStyle: .alert)
+            let saveAction = UIAlertAction(title: "Save", style: .default) { (alertAction) in
+                let groupNameTextField = alerController.textFields![0] as UITextField
                 self.dismiss(animated: true, completion: nil)
                 self.createGroup(name: groupNameTextField.text!)
             }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (alertAction) in
+                self.dismiss(animated: true, completion: nil)
+            }
+            saveAction.isEnabled = false
+            alerController.addAction(saveAction)
+            alerController.addAction(cancelAction)
+            alerController.addTextField { (textField) in
+                textField.placeholder = "Group name"
+                NotificationCenter.default.addObserver(forName: NSNotification.Name.UITextFieldTextDidChange, object: textField, queue: OperationQueue.main) { (notification) in
+                    saveAction.isEnabled = textField.text?.count ?? 0 > 0
+                }
+            }
+            self.present(alerController, animated: true, completion: nil)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) { (alertAction) in
-            self.dismiss(animated: true, completion: nil)
+        else {
+            self.showAlert(title: "Error", message: "Please select at least 2 member to create a group")
         }
-        alerController.addAction(saveAction)
-        alerController.addAction(cancelAction)
-        self.present(alerController, animated: true, completion: nil)
     }
     
     

@@ -752,7 +752,9 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             }
         }
         else {
-            
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "groupChatContainer") as! GroupChatContainerViewController
+            vc.groupChatObject = self.chatGroupArray?[indexPath.row]
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     

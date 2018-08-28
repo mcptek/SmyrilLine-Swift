@@ -109,6 +109,8 @@
 		84BAA35F1FC54D5100431A9E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84BAA35C1FC54D5100431A9E /* Info.plist */; };
 		84BAA3601FC54D5100431A9E /* JsonSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAA35D1FC54D5100431A9E /* JsonSerializer.swift */; };
 		84BAA3621FC550B500431A9E /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BAA3611FC550B500431A9E /* MessageType.swift */; };
+		84BBD2F421356EB2007DB34D /* GroupChatContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD2F321356EB2007DB34D /* GroupChatContainerViewController.swift */; };
+		84BBD2F621357518007DB34D /* GroupChatMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD2F521357518007DB34D /* GroupChatMenuViewController.swift */; };
 		84BF649D20B28DF300FD1E9A /* TaxfreeShopsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BF649C20B28DF300FD1E9A /* TaxfreeShopsViewController.swift */; };
 		84CF4C19205915FE00C87102 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84CF4C1B205915FE00C87102 /* Localizable.strings */; };
 		84D68EF42052BB620087DF2A /* TaxfreeDetailsPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D68EF32052BB620087DF2A /* TaxfreeDetailsPriceTableViewCell.swift */; };
@@ -272,6 +274,8 @@
 		84BAA35D1FC54D5100431A9E /* JsonSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonSerializer.swift; sourceTree = "<group>"; };
 		84BAA35E1FC54D5100431A9E /* JsonSerializerSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonSerializerSwift.h; sourceTree = "<group>"; };
 		84BAA3611FC550B500431A9E /* MessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageType.swift; sourceTree = "<group>"; };
+		84BBD2F321356EB2007DB34D /* GroupChatContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatContainerViewController.swift; sourceTree = "<group>"; };
+		84BBD2F521357518007DB34D /* GroupChatMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatMenuViewController.swift; sourceTree = "<group>"; };
 		84BF649C20B28DF300FD1E9A /* TaxfreeShopsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxfreeShopsViewController.swift; sourceTree = "<group>"; };
 		84CF4C15205915A100C87102 /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fo; path = fo.lproj/Main.strings; sourceTree = "<group>"; };
 		84CF4C16205915A200C87102 /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fo; path = fo.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -673,6 +677,8 @@
 			children = (
 				84BA26EC211C775600C43A94 /* CreateGroupViewController.swift */,
 				849C08A221215A6400D06142 /* AllUserCollectionViewCell.swift */,
+				84BBD2F321356EB2007DB34D /* GroupChatContainerViewController.swift */,
+				84BBD2F521357518007DB34D /* GroupChatMenuViewController.swift */,
 			);
 			name = "Group chat";
 			sourceTree = "<group>";
@@ -788,7 +794,7 @@
 				TargetAttributes = {
 					840DA9C91F4C5C7F001B3382 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = RBLD8J9Y2A;
+						DevelopmentTeam = 79YLMQ62DM;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
@@ -1124,6 +1130,7 @@
 				843AC22E20FF6AF6004F5CAF /* BookingMeal.swift in Sources */,
 				84FBCB471FBC636A00B74707 /* LanguageFilterTableViewCell.swift in Sources */,
 				848060061FF51561005AC8DA /* AFHTTPRequestSerializer+OAuth2.m in Sources */,
+				84BBD2F421356EB2007DB34D /* GroupChatContainerViewController.swift in Sources */,
 				84DFCBD51FBAF8B800BCEF8D /* AgegroupCollectionViewCell.swift in Sources */,
 				84BAA3621FC550B500431A9E /* MessageType.swift in Sources */,
 				84806DDC20DA166700105EA7 /* UserChat.swift in Sources */,
@@ -1134,6 +1141,7 @@
 				841F13141F84A16B009CBAD9 /* TaxfreeDetailsViewController.swift in Sources */,
 				849DD0661F61623500504299 /* DestinationCategoryTableViewCell.swift in Sources */,
 				84F3112B1FCFE3F300BF37E8 /* ProfileVisibilityStatusTableViewCell.swift in Sources */,
+				84BBD2F621357518007DB34D /* GroupChatMenuViewController.swift in Sources */,
 				8445F15B1F66BDF8004F8B67 /* ShipInfoViewController.swift in Sources */,
 				840A47891F4FF2B40038DAE6 /* TaxFreeShop.swift in Sources */,
 				848C79BA208DB1F900DB2603 /* TaxfreeItemsTableViewCell.swift in Sources */,
@@ -1295,10 +1303,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = RBLD8J9Y2A;
+				DEVELOPMENT_TEAM = 79YLMQ62DM;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1307,10 +1315,10 @@
 				INFOPLIST_FILE = SmyrilLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.SmyrilLineDevelopment;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.mcpdebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7ea87bb4-539b-436f-aee5-e7314c659992";
-				PROVISIONING_PROFILE_SPECIFIER = "SmyrilLine Enterprise";
+				PROVISIONING_PROFILE = "f79143d6-1f4f-4731-a814-b4e47d351e72";
+				PROVISIONING_PROFILE_SPECIFIER = "SmyrilLine development";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmyrilLine/SmyrilLine-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1323,10 +1331,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = RBLD8J9Y2A;
+				DEVELOPMENT_TEAM = 79YLMQ62DM;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1335,10 +1343,10 @@
 				INFOPLIST_FILE = SmyrilLine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.SmyrilLineDevelopment;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nascenia.mcpdebug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7ea87bb4-539b-436f-aee5-e7314c659992";
-				PROVISIONING_PROFILE_SPECIFIER = "SmyrilLine Enterprise";
+				PROVISIONING_PROFILE = "f79143d6-1f4f-4731-a814-b4e47d351e72";
+				PROVISIONING_PROFILE_SPECIFIER = "SmyrilLine development";
 				SWIFT_OBJC_BRIDGING_HEADER = "SmyrilLine/SmyrilLine-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
