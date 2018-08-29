@@ -93,7 +93,7 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         }
         
         if selectedCount > 1 {
-            let alerController = UIAlertController(title: "Please enetr group name", message: "", preferredStyle: .alert)
+            let alerController = UIAlertController(title: "Please enetr group name", message: nil, preferredStyle: .alert)
             let saveAction = UIAlertAction(title: "Save", style: .default) { (alertAction) in
                 let groupNameTextField = alerController.textFields![0] as UITextField
                 self.dismiss(animated: true, completion: nil)

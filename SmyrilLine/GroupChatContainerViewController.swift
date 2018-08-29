@@ -25,16 +25,25 @@ class GroupChatContainerViewController: UIViewController, UICollectionViewDelega
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "groupMenu" {
+            let vc = segue.destination as! GroupChatMenuViewController
+            vc.groupChatObject = self.groupChatObject
+        }
     }
-    */
+    
 
+    @IBAction func menuBarButtonAction(_ sender: Any) {
+        self.performSegue(withIdentifier: "groupMenu", sender: self)
+    }
+    
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int
     {
         return 1
