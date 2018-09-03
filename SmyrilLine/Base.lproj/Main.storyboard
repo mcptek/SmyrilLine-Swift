@@ -3492,6 +3492,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="groupChatMembersCollectionview" destination="8h0-nf-38f" id="jaj-fW-oL9"/>
                         <segue destination="vo8-vB-Pkb" kind="show" identifier="groupMenu" id="7vY-gM-OnB"/>
                     </connections>
                 </viewController>
@@ -3660,6 +3661,9 @@
                             <constraint firstItem="ijd-ud-3h0" firstAttribute="leading" secondItem="IUr-QY-dZt" secondAttribute="leading" id="zkz-VM-ygG"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="SKk-Qn-CRE" kind="show" identifier="addMember" id="PPa-Co-p9S"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EzV-1m-Jqe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3789,7 +3793,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fid-E4-TUc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3810" y="1974"/>
+            <point key="canvasLocation" x="4210" y="1960"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="RgP-FO-pPt">
@@ -6941,4 +6945,7 @@
         <image name="tutorial5" width="414" height="736"/>
         <image name="tutorial6" width="414" height="736"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="PPa-Co-p9S"/>
+    </inferredMetricsTieBreakers>
 </document>

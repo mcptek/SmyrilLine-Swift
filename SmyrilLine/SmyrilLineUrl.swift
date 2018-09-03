@@ -33,6 +33,7 @@ struct UrlMCP {
     static let WebSocketAcknowledgeMultipleMessageForBackground = "/chat/api/v2/onClientBackgroundAcknowledgeMessage"
     
     static let createNewChatGroup = "/chat/api/v2/CreatNewChatSession"
+    static let addMemberToGroup = "/chat/api/v2/AddNewDevicesToChatSession"
     static let renameChatGroup = "/chat/api/v2/RenameGroupChatSession"
     static let showAllGroup = "/chat/api/v2/ShowAllChatSession"
 }

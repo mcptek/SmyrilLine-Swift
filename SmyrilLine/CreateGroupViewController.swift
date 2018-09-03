@@ -15,7 +15,7 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
     var allUser = [User]()
     var SelectedUserList = [String:Bool]()
     var activityIndicatorView: UIActivityIndicatorView!
-    var chatSessionObject: chatSessionViewModel?
+    //var chatSessionObject: chatSessionViewModel?
     
     @IBOutlet weak var allUserCollectionview: UICollectionView!
     
@@ -23,10 +23,25 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
+        
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
         view.addSubview(self.activityIndicatorView)
+        if let allUserArray = chatData.shared.allUser {
+            self.allUser = allUserArray
+            if chatData.shared.creatingChatGroups == false {
+                if let allMemberDevices = chatData.shared.groupChatObject?.memberDevices {
+                    for member in allMemberDevices {
+                        if let indexOfExistingMember = self.allUser.index(where: ({$0.deviceId == member.deviceId})) {
+                            let indexPath = IndexPath(item: indexOfExistingMember, section: 0)
+                            self.allUser.remove(at: indexPath.row)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,7 +71,26 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
             
             switch response.result {
             case .success:
-                self.chatSessionObject = response.result.value
+                //chatData.shared.groupChatObject = response.result.value
+                self.navigationController?.popViewController(animated: true)
+            case .failure(let error):
+                self.showErrorAlert(error: error as NSError)
+            }
+        }
+    }
+    
+    func addMemberToGroup()  {
+        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
+        let url = UrlMCP.server_base_url + UrlMCP.addMemberToGroup
+        self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        Alamofire.request(url, method:.post, parameters:self.getParameterDictionaryForAddingMembersToGroup(), headers:headers).responseObject { (response: DataResponse<chatSessionViewModel>) in
+            self.activityIndicatorView.stopAnimating()
+            self.view.isUserInteractionEnabled = true
+            
+            switch response.result {
+            case .success:
+                chatData.shared.groupChatObject = response.result.value
                 self.navigationController?.popViewController(animated: true)
             case .failure(let error):
                 self.showErrorAlert(error: error as NSError)
@@ -79,6 +113,19 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         return chatGroupParameterDictionary
     }
     
+    func getParameterDictionaryForAddingMembersToGroup() -> [String: Any] {
+        var chatGroupParameterDictionary = [String: Any]()
+        chatGroupParameterDictionary["sessionId"] = chatData.shared.groupChatObject?.sessionId
+        chatGroupParameterDictionary["callerDeviceId"] = UIDevice.current.identifierForVendor?.uuidString
+        var index = 0
+        for object in self.allUser {
+            if self.SelectedUserList[object.deviceId!] != nil, self.SelectedUserList[object.deviceId!]!  {
+                chatGroupParameterDictionary["MemberDeviceIds[" + String(index) + "]"] = object.deviceId
+                index += 1
+            }
+        }
+        return chatGroupParameterDictionary
+    }
     
     @IBAction func barButtonAction(_ sender: Any) {
         
@@ -86,35 +133,45 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         for object in self.allUser {
             if self.SelectedUserList[object.deviceId!] != nil, self.SelectedUserList[object.deviceId!]!  {
                 selectedCount += 1
-                if selectedCount > 2 {
+                if selectedCount > 1 {
                     break
                 }
             }
         }
         
-        if selectedCount > 1 {
-            let alerController = UIAlertController(title: "Please enetr group name", message: nil, preferredStyle: .alert)
-            let saveAction = UIAlertAction(title: "Save", style: .default) { (alertAction) in
-                let groupNameTextField = alerController.textFields![0] as UITextField
-                self.dismiss(animated: true, completion: nil)
-                self.createGroup(name: groupNameTextField.text!)
-            }
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (alertAction) in
-                self.dismiss(animated: true, completion: nil)
-            }
-            saveAction.isEnabled = false
-            alerController.addAction(saveAction)
-            alerController.addAction(cancelAction)
-            alerController.addTextField { (textField) in
-                textField.placeholder = "Group name"
-                NotificationCenter.default.addObserver(forName: NSNotification.Name.UITextFieldTextDidChange, object: textField, queue: OperationQueue.main) { (notification) in
-                    saveAction.isEnabled = textField.text?.count ?? 0 > 0
+        if chatData.shared.creatingChatGroups {
+            if selectedCount > 1 {
+                let alerController = UIAlertController(title: "Please enetr group name", message: nil, preferredStyle: .alert)
+                let saveAction = UIAlertAction(title: "Save", style: .default) { (alertAction) in
+                    let groupNameTextField = alerController.textFields![0] as UITextField
+                    self.dismiss(animated: true, completion: nil)
+                    self.createGroup(name: groupNameTextField.text!)
                 }
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (alertAction) in
+                    self.dismiss(animated: true, completion: nil)
+                }
+                saveAction.isEnabled = false
+                alerController.addAction(saveAction)
+                alerController.addAction(cancelAction)
+                alerController.addTextField { (textField) in
+                    textField.placeholder = "Group name"
+                    NotificationCenter.default.addObserver(forName: NSNotification.Name.UITextFieldTextDidChange, object: textField, queue: OperationQueue.main) { (notification) in
+                        saveAction.isEnabled = textField.text?.count ?? 0 > 0
+                    }
+                }
+                self.present(alerController, animated: true, completion: nil)
             }
-            self.present(alerController, animated: true, completion: nil)
+            else {
+                self.showAlert(title: "Error", message: "Please select at least 2 member to create a group")
+            }
         }
         else {
-            self.showAlert(title: "Error", message: "Please select at least 2 member to create a group")
+            if selectedCount > 0 {
+                self.addMemberToGroup()
+            }
+            else {
+                self.showAlert(title: "Error", message: "Please select member")
+            }
         }
     }
     

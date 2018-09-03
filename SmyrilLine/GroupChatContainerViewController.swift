@@ -10,13 +10,15 @@ import UIKit
 
 class GroupChatContainerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
-    var groupChatObject: chatSessionViewModel?
+    //var groupChatObject: chatSessionViewModel?
+    @IBOutlet weak var groupChatMembersCollectionview: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.title = self.groupChatObject?.groupName
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
+        self.title = chatData.shared.groupChatObject?.groupName
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,7 +26,11 @@ class GroupChatContainerViewController: UIViewController, UICollectionViewDelega
         // Dispose of any resources that can be recreated.
     }
     
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        self.title = chatData.shared.groupChatObject?.groupName
+        self.groupChatMembersCollectionview.reloadData()
+    }
     
     // MARK: - Navigation
 
@@ -32,14 +38,15 @@ class GroupChatContainerViewController: UIViewController, UICollectionViewDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "groupMenu" {
-            let vc = segue.destination as! GroupChatMenuViewController
-            vc.groupChatObject = self.groupChatObject
-        }
+//        if segue.identifier == "groupMenu" {
+//            let vc = segue.destination as! GroupChatMenuViewController
+//            vc.groupChatObject = self.groupChatObject
+//        }
     }
     
 
     @IBAction func menuBarButtonAction(_ sender: Any) {
+        
         self.performSegue(withIdentifier: "groupMenu", sender: self)
     }
     
@@ -51,7 +58,7 @@ class GroupChatContainerViewController: UIViewController, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return self.groupChatObject?.memberDevices?.count ?? 0
+        return chatData.shared.groupChatObject?.memberDevices?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
@@ -64,12 +71,12 @@ class GroupChatContainerViewController: UIViewController, UICollectionViewDelega
         cell.userImageView.layer.cornerRadius = cell.userImageView.frame.height / 2
         cell.userImageView.clipsToBounds = true
         cell.onlineTrackerImageView.isHidden = true
-        if let status = self.groupChatObject?.memberDevices![indexPath.row].status {
+        if let status = chatData.shared.groupChatObject?.memberDevices![indexPath.row].status {
             if status == 1 {
                 cell.onlineTrackerImageView.isHidden = false
             }
         }
-        if let name = self.groupChatObject?.memberDevices![indexPath.row].name {
+        if let name = chatData.shared.groupChatObject?.memberDevices![indexPath.row].name {
             if let decodedname = name.base64Decoded() {
                 cell.userNameLabel.text = decodedname
             }
@@ -81,7 +88,7 @@ class GroupChatContainerViewController: UIViewController, UICollectionViewDelega
             cell.userNameLabel.text = "No name Found"
         }
         
-        if let imageUrlStr = self.groupChatObject?.memberDevices![indexPath.row].imageUrl
+        if let imageUrlStr = chatData.shared.groupChatObject?.memberDevices![indexPath.row].imageUrl
         {
             cell.userImageView.sd_setShowActivityIndicatorView(true)
             cell.userImageView.sd_setIndicatorStyle(.gray)

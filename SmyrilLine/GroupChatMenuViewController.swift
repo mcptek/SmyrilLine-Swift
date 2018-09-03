@@ -14,12 +14,12 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
 
     let menuArray = ["Add member", "Rename group", "Delete group"]
     var activityIndicatorView: UIActivityIndicatorView!
-    var groupChatObject: chatSessionViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
@@ -59,7 +59,9 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            print("0")
+            chatData.shared.creatingChatGroups = false
+            //chatData.shared.groupChatObject = self.groupChatObject
+            self.performSegue(withIdentifier: "addMember", sender: self)
         case 1:
             self.getNewGroupName()
         default:
@@ -106,9 +108,9 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
         alerController.addAction(cancelAction)
         alerController.addTextField { (textField) in
             textField.placeholder = "Group name"
-            textField.text = self.groupChatObject?.groupName
+            textField.text = chatData.shared.groupChatObject?.groupName
             NotificationCenter.default.addObserver(forName: NSNotification.Name.UITextFieldTextDidChange, object: textField, queue: OperationQueue.main) { (notification) in
-                saveAction.isEnabled = (textField.text?.count ?? 0 > 0) && (textField.text != self.groupChatObject?.groupName)
+                saveAction.isEnabled = (textField.text?.count ?? 0 > 0) && (textField.text != chatData.shared.groupChatObject?.groupName)
             }
         }
         self.present(alerController, animated: true, completion: nil)
@@ -116,7 +118,7 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
     
     func renameGroup(name: String)  {
         var chatGroupParameterDictionary = [String: Any]()
-        chatGroupParameterDictionary["SessionId"] = self.groupChatObject?.sessionId
+        chatGroupParameterDictionary["SessionId"] = chatData.shared.groupChatObject?.sessionId
         chatGroupParameterDictionary["GroupName"] = name
         chatGroupParameterDictionary["callerDeviceId"] = UIDevice.current.identifierForVendor?.uuidString
         let headers = ["Content-Type": "application/x-www-form-urlencoded"]
@@ -129,7 +131,7 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
             
             switch response.result {
             case .success:
-                print("Success")
+                chatData.shared.groupChatObject = response.result.value
             case .failure(let error):
                 self.showErrorAlert(error: error as NSError)
             }

@@ -92,3 +92,14 @@ class chatSessionViewModel: Mappable{
         memberDevices <- map["memberDevices"]
     }
 }
+
+class chatData {
+    static let shared = chatData()
+    var allUser: [User]?
+    var allGroups: [chatSessionViewModel]?
+    var creatingChatGroups = false
+    var groupChatObject: chatSessionViewModel?
+    
+    
+    
+}
