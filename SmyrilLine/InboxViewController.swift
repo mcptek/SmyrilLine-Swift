@@ -84,6 +84,11 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             }
             else {
                 self.retrieveChatGroupList()
+                if let numberOfGroups = chatData.shared.allGroups?.count{
+                    if numberOfGroups > 0 {
+                        self.inboxTableview.reloadData()
+                    }
+                }
             }
         }
     }

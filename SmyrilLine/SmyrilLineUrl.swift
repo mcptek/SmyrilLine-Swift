@@ -35,5 +35,6 @@ struct UrlMCP {
     static let createNewChatGroup = "/chat/api/v2/CreatNewChatSession"
     static let addMemberToGroup = "/chat/api/v2/AddNewDevicesToChatSession"
     static let renameChatGroup = "/chat/api/v2/RenameGroupChatSession"
+    static let deleteChatGroup = "/chat/api/v2/DeleteChatSession"
     static let showAllGroup = "/chat/api/v2/ShowAllChatSession"
 }

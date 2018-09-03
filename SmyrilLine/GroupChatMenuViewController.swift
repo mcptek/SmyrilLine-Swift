@@ -52,7 +52,17 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "groupMenuCell", for: indexPath)
-        cell.textLabel?.text = self.menuArray[indexPath.row]
+        if indexPath.row == 2 {
+            if chatData.shared.groupChatObject?.ownerDeviceId == UIDevice.current.identifierForVendor?.uuidString {
+                cell.textLabel?.text = "Delete group"
+            }
+            else {
+                cell.textLabel?.text = "Leave group"
+            }
+        }
+        else {
+            cell.textLabel?.text = self.menuArray[indexPath.row]
+        }
         return cell
     }
     
@@ -60,12 +70,16 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
         switch indexPath.row {
         case 0:
             chatData.shared.creatingChatGroups = false
-            //chatData.shared.groupChatObject = self.groupChatObject
             self.performSegue(withIdentifier: "addMember", sender: self)
         case 1:
             self.getNewGroupName()
         default:
-            print("default")
+            if chatData.shared.groupChatObject?.ownerDeviceId == UIDevice.current.identifierForVendor?.uuidString {
+                self.deleteGroup()
+            }
+            else {
+                //self.leaveGroup()
+            }
         }
     }
     
@@ -138,5 +152,56 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
+    func deleteGroup()  {
+        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
+        let url = UrlMCP.server_base_url + UrlMCP.deleteChatGroup
+        var chatGroupParameterDictionary = [String: Any]()
+        chatGroupParameterDictionary["SessionId"] = chatData.shared.groupChatObject?.sessionId
+        chatGroupParameterDictionary["OwnerDeviceId"] = chatData.shared.groupChatObject?.ownerDeviceId
+        self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        Alamofire.request(url, method: .post, parameters: chatGroupParameterDictionary, encoding: URLEncoding.default, headers: headers)
+            .responseArray { (response: DataResponse<[chatSessionViewModel]>) in
+                self.activityIndicatorView.stopAnimating()
+                self.view.isUserInteractionEnabled = true
+                switch response.result {
+                case .success:
+                    let forecastArray = response.result.value
+                    if let UserList = forecastArray {
+                        chatData.shared.allGroups = UserList
+                        for controller in self.navigationController!.viewControllers as Array {
+                            if controller.isKind(of: InboxViewController.self) {
+                                _ =  self.navigationController!.popToViewController(controller, animated: true)
+                                break
+                            }
+                        }
+                    }
+                    else {
+                        self.showAlert(title: "Message", message: "No user list found")
+                    }
+                case .failure(let error):
+                    self.showErrorAlert(error: error as NSError)
+                }
+        }
+    }
+    
+//    func leaveGroup()  {
+//        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
+//        let url = UrlMCP.server_base_url + UrlMCP.addMemberToGroup
+//        self.activityIndicatorView.startAnimating()
+//        self.view.isUserInteractionEnabled = false
+//        Alamofire.request(url, method:.post, parameters:self.getParameterDictionaryForAddingMembersToGroup(), headers:headers).responseObject { (response: DataResponse<chatSessionViewModel>) in
+//            self.activityIndicatorView.stopAnimating()
+//            self.view.isUserInteractionEnabled = true
+//
+//            switch response.result {
+//            case .success:
+//                chatData.shared.groupChatObject = response.result.value
+//                self.navigationController?.popViewController(animated: true)
+//            case .failure(let error):
+//                self.showErrorAlert(error: error as NSError)
+//            }
+//        }
+//    }
 
 }
