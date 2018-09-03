@@ -78,7 +78,7 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
                 self.deleteGroup()
             }
             else {
-                //self.leaveGroup()
+                self.leaveGroup()
             }
         }
     }
@@ -185,23 +185,26 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
         }
     }
     
-//    func leaveGroup()  {
-//        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
-//        let url = UrlMCP.server_base_url + UrlMCP.addMemberToGroup
-//        self.activityIndicatorView.startAnimating()
-//        self.view.isUserInteractionEnabled = false
-//        Alamofire.request(url, method:.post, parameters:self.getParameterDictionaryForAddingMembersToGroup(), headers:headers).responseObject { (response: DataResponse<chatSessionViewModel>) in
-//            self.activityIndicatorView.stopAnimating()
-//            self.view.isUserInteractionEnabled = true
-//
-//            switch response.result {
-//            case .success:
-//                chatData.shared.groupChatObject = response.result.value
-//                self.navigationController?.popViewController(animated: true)
-//            case .failure(let error):
-//                self.showErrorAlert(error: error as NSError)
-//            }
-//        }
-//    }
+    func leaveGroup()  {
+        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
+        let params: Parameters = [
+            "SessionId": chatData.shared.groupChatObject?.sessionId,
+            "CallerDeviceId": UIDevice.current.identifierForVendor?.uuidString,
+            ]
+        let url = UrlMCP.server_base_url + UrlMCP.leaveChatGroup
+        self.activityIndicatorView.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers).responseJSON { (response:DataResponse<Any>) in
+            print(response.response?.statusCode ?? "no status code")
+            if response.response?.statusCode == 200 {
+                for controller in self.navigationController!.viewControllers as Array {
+                    if controller.isKind(of: InboxViewController.self) {
+                        _ =  self.navigationController!.popToViewController(controller, animated: true)
+                        break
+                    }
+                }
+            }
+        }
+    }
 
 }
