@@ -375,6 +375,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
                     }
                 case 8: // receive message and take proper action
                     // send acknowledgement based on seen or delivered
+                    print(arr[0].Message ?? "Default")
                     let value = self.checkIsChatContainerCurrentViewController()
                     self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String, withMessageStatus: value)
                     if value == 3 { // inside chat, so status will be seen
@@ -389,6 +390,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
                         //if let title = arr[0].Message?["messageBase64"] as? String {
                             //self.createLocalNotification(messageTitle: title)
                        // }
+                    }
+                case 9:
+                    print(arr[0].Message ?? "Default")
+                    if let dic = arr[0].Message {
+                        NotificationCenter.default.post(name: NSNotification.Name("InsertNewMessageForGroup"), object: self, userInfo: ["newMessage": dic])
                     }
                 default:
                     print("Default")

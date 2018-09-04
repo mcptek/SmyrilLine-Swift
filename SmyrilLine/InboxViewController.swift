@@ -256,6 +256,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                     let forecastArray = response.result.value
                     if let UserList = forecastArray {
                         chatData.shared.allGroups = UserList
+                        self.inboxTableview.reloadData()
                     }
                     else {
                         self.showAlert(title: "Message", message: "No user list found")
@@ -450,15 +451,17 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
     @IBAction func segmentButtonAction(_ sender: Any) {
         if self.chatSegmentController.selectedSegmentIndex == 0 {
-           self.addUserContainerView.isHidden = true
+            self.addUserContainerView.isHidden = true
+            self.inboxTableview.reloadData()
         }
         else {
             self.addUserContainerView.isHidden = false
-            if chatData.shared.allGroups == nil || chatData.shared.allGroups?.count == 0 {
-                self.retrieveChatGroupList()
-            }
+            self.inboxTableview.reloadData()
+            self.retrieveChatGroupList()
+//            if chatData.shared.allGroups == nil || chatData.shared.allGroups?.count == 0 {
+//                self.retrieveChatGroupList()
+//            }
         }
-        self.inboxTableview.reloadData()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
