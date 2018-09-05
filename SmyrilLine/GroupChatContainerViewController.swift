@@ -1,4 +1,4 @@
-//
+ //
 //  GroupChatContainerViewController.swift
 //  SmyrilLine
 //
@@ -173,7 +173,8 @@ class GroupChatContainerViewController: UIViewController, UICollectionViewDelega
     }
     
     func LoadGroupChatHisroryWithMessageCount(messageCount: Int) {
-        let LoadGroupChatHistoryFromSender = String(format: "/chat/api/v2/LoadPagedSessionMessages?SessionId=%@&PageNo=%@&PageSize=10", chatData.shared.groupChatObject?.sessionId ?? "", messageCount)
+        let cnt = String(messageCount)
+        let LoadGroupChatHistoryFromSender = String(format: "/chat/api/v2/LoadPagedSessionMessages?SessionId=%@&PageNo=%@&PageSize=10", chatData.shared.groupChatObject?.sessionId ?? "", cnt)
         
         let headers = ["Content-Type": "application/x-www-form-urlencoded"]
         self.activityIndicatorView.startAnimating()
@@ -247,6 +248,7 @@ class GroupChatContainerViewController: UIViewController, UICollectionViewDelega
                                     self.groupChatTableview.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
                                 }
                                 
+                                //self.pageCount = self.messagesArray.count / 10
                                 if self.messagesArray.count > 0 {
                                     self.pageCount += 1
                                 }
@@ -484,7 +486,7 @@ class GroupChatContainerViewController: UIViewController, UICollectionViewDelega
     func scrollViewDidEndDragging(_ scrollView: UIScrollView,
                                   willDecelerate decelerate: Bool) {
         if scrollView.contentOffset.y < 0 {
-            //self.LoadGroupChatHisroryWithMessageCount(messageCount: self.pageCount)
+            self.LoadGroupChatHisroryWithMessageCount(messageCount: self.pageCount)
         }
     }
 

@@ -84,11 +84,11 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             }
             else {
                 self.retrieveChatGroupList()
-                if let numberOfGroups = chatData.shared.allGroups?.count{
-                    if numberOfGroups > 0 {
-                        self.inboxTableview.reloadData()
-                    }
-                }
+//                if let numberOfGroups = chatData.shared.allGroups?.count{
+//                    if numberOfGroups > 0 {
+//                        self.inboxTableview.reloadData()
+//                    }
+//                }
             }
         }
     }
@@ -255,7 +255,9 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 case .success:
                     let forecastArray = response.result.value
                     if let UserList = forecastArray {
+                        //chatData.shared.allGroups?.removeAll()
                         chatData.shared.allGroups = UserList
+                        print(chatData.shared.allGroups?.count ?? "0")
                         self.inboxTableview.reloadData()
                     }
                     else {
@@ -456,11 +458,14 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         }
         else {
             self.addUserContainerView.isHidden = false
-            self.inboxTableview.reloadData()
-            self.retrieveChatGroupList()
-//            if chatData.shared.allGroups == nil || chatData.shared.allGroups?.count == 0 {
-//                self.retrieveChatGroupList()
-//            }
+//            self.inboxTableview.reloadData()
+            //self.retrieveChatGroupList()
+            if chatData.shared.allGroups == nil || chatData.shared.allGroups?.count == 0 {
+                self.retrieveChatGroupList()
+            }
+            else {
+                self.inboxTableview.reloadData()
+            }
         }
     }
     
@@ -655,83 +660,65 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "chatGrouprCell", for: indexPath) as! ChatGroupListCollectionViewCell
             cell.groupNameLabel.text = chatData.shared.allGroups![indexPath.row].groupName
-            switch chatData.shared.allGroups![indexPath.row].memberDevices?.count {
-            case 3:
-                cell.topLeftImageView.isHidden = true
-                cell.topRightImageView.isHidden = false
-                cell.bottomLeftImageView.isHidden = false
-                cell.bottomRightImageView.isHidden = false
+            cell.topLeftImageView.isHidden = true
+            cell.topRightImageView.isHidden = true
+            cell.bottomLeftImageView.isHidden = true
+            cell.bottomRightImageView.isHidden = true
+            cell.bottomStackView.isHidden = true
+            if (chatData.shared.allGroups![indexPath.row].memberDevices?.count)! >= 1 {
                 if let imageUrlStr = chatData.shared.allGroups![indexPath.row].memberDevices![0].imageUrl
                 {
-                    cell.topRightImageView.sd_setShowActivityIndicatorView(true)
-                    cell.topRightImageView.sd_setIndicatorStyle(.gray)
-                    cell.topRightImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
-                }
-                else {
-                    cell.topRightImageView.image = UIImage.init(named: "UserPlaceholder")
-                }
-                
-                if let imageUrlStr = chatData.shared.allGroups![indexPath.row].memberDevices![1].imageUrl
-                {
-                    cell.bottomLeftImageView.sd_setShowActivityIndicatorView(true)
-                    cell.bottomLeftImageView.sd_setIndicatorStyle(.gray)
-                    cell.bottomLeftImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
-                }
-                else {
-                    cell.bottomLeftImageView.image = UIImage.init(named: "UserPlaceholder")
-                }
-                
-                if let imageUrlStr = chatData.shared.allGroups![indexPath.row].memberDevices![2].imageUrl
-                {
-                    cell.bottomRightImageView.sd_setShowActivityIndicatorView(true)
-                    cell.bottomRightImageView.sd_setIndicatorStyle(.gray)
-                    cell.bottomRightImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
-                }
-                else {
-                    cell.bottomRightImageView.image = UIImage.init(named: "UserPlaceholder")
-                }
-            default:
-                cell.topLeftImageView.isHidden = false
-                cell.topRightImageView.isHidden = false
-                cell.bottomLeftImageView.isHidden = false
-                cell.bottomRightImageView.isHidden = false
-                if let imageUrlStr = chatData.shared.allGroups![indexPath.row].memberDevices![0].imageUrl
-                {
+                    cell.topLeftImageView.isHidden = false
                     cell.topLeftImageView.sd_setShowActivityIndicatorView(true)
                     cell.topLeftImageView.sd_setIndicatorStyle(.gray)
                     cell.topLeftImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
                 }
                 else {
+                    cell.topLeftImageView.isHidden = false
                     cell.topLeftImageView.image = UIImage.init(named: "UserPlaceholder")
                 }
-                
+            }
+            
+            if (chatData.shared.allGroups![indexPath.row].memberDevices?.count)! >= 2 {
                 if let imageUrlStr = chatData.shared.allGroups![indexPath.row].memberDevices![1].imageUrl
                 {
+                    cell.topRightImageView.isHidden = false
                     cell.topRightImageView.sd_setShowActivityIndicatorView(true)
                     cell.topRightImageView.sd_setIndicatorStyle(.gray)
                     cell.topRightImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
                 }
                 else {
+                    cell.topRightImageView.isHidden = false
                     cell.topRightImageView.image = UIImage.init(named: "UserPlaceholder")
                 }
-                
+            }
+            
+            if (chatData.shared.allGroups![indexPath.row].memberDevices?.count)! >= 3 {
                 if let imageUrlStr = chatData.shared.allGroups![indexPath.row].memberDevices![2].imageUrl
                 {
+                    cell.bottomStackView.isHidden = false
+                    cell.bottomLeftImageView.isHidden = false
                     cell.bottomLeftImageView.sd_setShowActivityIndicatorView(true)
                     cell.bottomLeftImageView.sd_setIndicatorStyle(.gray)
                     cell.bottomLeftImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
                 }
                 else {
+                    cell.bottomStackView.isHidden = false
+                    cell.bottomLeftImageView.isHidden = false
                     cell.bottomLeftImageView.image = UIImage.init(named: "UserPlaceholder")
                 }
-                
+            }
+            
+            if (chatData.shared.allGroups![indexPath.row].memberDevices?.count)! >= 4 {
                 if let imageUrlStr = chatData.shared.allGroups![indexPath.row].memberDevices![3].imageUrl
                 {
+                    cell.bottomRightImageView.isHidden = false
                     cell.bottomRightImageView.sd_setShowActivityIndicatorView(true)
                     cell.bottomRightImageView.sd_setIndicatorStyle(.gray)
                     cell.bottomRightImageView.sd_setImage(with: URL(string: imageUrlStr), placeholderImage: UIImage.init(named: "UserPlaceholder"))
                 }
                 else {
+                    cell.bottomRightImageView.isHidden = false
                     cell.bottomRightImageView.image = UIImage.init(named: "UserPlaceholder")
                 }
             }

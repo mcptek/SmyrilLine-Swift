@@ -15,6 +15,8 @@ class ChatGroupListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var topRightImageView: UIImageView!
     @IBOutlet weak var bottomLeftImageView: UIImageView!
     @IBOutlet weak var bottomRightImageView: UIImageView!
+    @IBOutlet weak var bottomStackView: UIStackView!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

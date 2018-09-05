@@ -17,8 +17,9 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        
+        self.title = chatData.shared.groupChatObject?.groupName
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         myActivityIndicator.center = view.center
@@ -146,6 +147,7 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
             switch response.result {
             case .success:
                 chatData.shared.groupChatObject = response.result.value
+                self.title = chatData.shared.groupChatObject?.groupName
             case .failure(let error):
                 self.showErrorAlert(error: error as NSError)
             }
@@ -188,8 +190,8 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
     func leaveGroup()  {
         let headers = ["Content-Type": "application/x-www-form-urlencoded"]
         let params: Parameters = [
-            "SessionId": chatData.shared.groupChatObject?.sessionId,
-            "CallerDeviceId": UIDevice.current.identifierForVendor?.uuidString,
+            "SessionId": chatData.shared.groupChatObject?.sessionId ?? "",
+            "CallerDeviceId": UIDevice.current.identifierForVendor?.uuidString ?? "",
             ]
         let url = UrlMCP.server_base_url + UrlMCP.leaveChatGroup
         self.activityIndicatorView.startAnimating()
