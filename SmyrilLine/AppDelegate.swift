@@ -361,7 +361,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
     }
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
-        
         if let arr: Array<Messaging> = Mapper<Messaging>().mapArray(JSONString: text) {
             if let userType = arr[0].MessageType {
                 switch(userType) {
@@ -375,7 +374,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
                     }
                 case 8: // receive message and take proper action
                     // send acknowledgement based on seen or delivered
-                    print(arr[0].Message ?? "Default")
                     let value = self.checkIsChatContainerCurrentViewController()
                     self.callAcknowledgeMessageWebserviceForMessageId(messageId: arr[0].Message?["messageId"] as! String, withMessageStatus: value)
                     if value == 3 { // inside chat, so status will be seen
@@ -392,9 +390,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
                        // }
                     }
                 case 9:
-                    print(arr[0].Message ?? "Default")
+                    // Receive group chat message
                     if let dic = arr[0].Message {
                         NotificationCenter.default.post(name: NSNotification.Name("InsertNewMessageForGroup"), object: self, userInfo: ["newMessage": dic])
+                    }
+                case 10:
+                    if self.checkIsGroupChatContainerCurrentViewController() {
+                        if let dic = arr[0].Message {
+                            NotificationCenter.default.post(name: NSNotification.Name("groupUpdated"), object: self, userInfo: ["newMessage": dic])
+                        }
+                    }
+                    else if self.checkIsAllGroupListShowingIsCurrentViewController() {
+                        if let dic = arr[0].Message {
+                            NotificationCenter.default.post(name: NSNotification.Name("groupCreated"), object: self, userInfo: ["newMessage": dic])
+                        }
+                    }
+                case 11:
+                    if self.checkIsGroupChatContainerCurrentViewController() || self.checkIsAllGroupListShowingIsCurrentViewController() {
+                        if let allGroups = arr[0].groupList {
+                            NotificationCenter.default.post(name: NSNotification.Name("groupDeleted"), object: self, userInfo: ["newMessage": allGroups])
+                        }
                     }
                 default:
                     print("Default")
@@ -442,6 +457,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
         return flag
     }
     
+    func checkIsGroupChatContainerCurrentViewController() -> Bool {
+        if let wd = UIApplication.shared.delegate?.window {
+            if let tabbarController = wd?.rootViewController as? UITabBarController {
+                if let navigationCntlr = tabbarController.selectedViewController as? UINavigationController {
+                    if navigationCntlr.topViewController is GroupChatContainerViewController {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
+    
+    func checkIsAllGroupListShowingIsCurrentViewController() -> Bool {
+        if let wd = UIApplication.shared.delegate?.window {
+            if let tabbarController = wd?.rootViewController as? UITabBarController {
+                if let navigationCntlr = tabbarController.selectedViewController as? UINavigationController {
+                    if navigationCntlr.topViewController is InboxViewController {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
     
     func callAcknowledgeMessageWebserviceForMessageId(messageId: String, withMessageStatus status:Int) {
         //let messageSendingStatus = 3

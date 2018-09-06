@@ -20,6 +20,7 @@
 #import "SDWebImageCoderHelper.h"
 #import "SDWebImageCodersManager.h"
 #import "SDWebImageCompat.h"
+#import "SDWebImageDecoder.h"
 #import "SDWebImageDownloader.h"
 #import "SDWebImageDownloaderOperation.h"
 #import "SDWebImageFrame.h"

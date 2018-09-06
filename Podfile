@@ -24,6 +24,7 @@ target 'SmyrilLine' do
   pod 'KMPlaceholderTextView', '~> 1.3.0'
   pod 'ISEmojiView'
   pod 'SwiftyAttributes'
+  pod 'Toast-Swift', '~> 3.0.1'
   #pod "MDGroupAvatarView"
   #pod 'AEXML'
   #pod "SwiftyXMLParser", :git => 'https://github.com/yahoojapan/SwiftyXMLParser.git'

@@ -12,12 +12,14 @@ import ObjectMapper
 class Messaging: Mappable{
     var MessageType : Int?
     var userList : [User]?
+    var groupList : [chatSessionViewModel]?
     var Message : [String: Any]?
     required init?(map: Map){
     }
     
     func mapping(map: Map) {
         userList <- map["ParamList"]
+        groupList <- map["ParamList"]
         MessageType <- map["MessageType"]
         Message <- map["Param"]
     }

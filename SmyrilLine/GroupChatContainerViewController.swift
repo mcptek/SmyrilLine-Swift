@@ -14,7 +14,8 @@ import SDWebImage
 import ObjectMapper
 import KMPlaceholderTextView
 import ISEmojiView
-
+import Toast_Swift
+ 
 class GroupChatContainerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ISEmojiViewDelegate, UITableViewDelegate, UITableViewDataSource {
 
     //var groupChatObject: chatSessionViewModel?
@@ -59,6 +60,8 @@ class GroupChatContainerViewController: UIViewController, UICollectionViewDelega
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(InsertGroupMessage), name: NSNotification.Name(rawValue: "InsertNewMessageForGroup"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateGroup), name: NSNotification.Name(rawValue: "groupUpdated"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteGroup), name: NSNotification.Name(rawValue: "groupDeleted"), object: nil)
         self.messagesArray.removeAll()
         self.LoadGroupChatHisroryWithMessageCount(messageCount: self.pageCount)
     }
@@ -106,6 +109,54 @@ class GroupChatContainerViewController: UIViewController, UICollectionViewDelega
                         let indexPath = NSIndexPath(row: self.messagesArray.count - 1, section: 0)
                         self.groupChatTableview.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
                     }
+                }
+            }
+        }
+    }
+    
+    func deleteGroup(_ notification: Notification) {
+        if let dic = notification.userInfo as? [String: Any] {
+            if let allGroupListArray = dic["newMessage"] as? [chatSessionViewModel] {
+                if allGroupListArray.index(where: { $0.sessionId == chatData.shared.groupChatObject?.sessionId }) == nil {
+                    // the current group is deleted
+                    let alertController = UIAlertController(title: "Message", message: "Group " + (chatData.shared.groupChatObject?.groupName)! + " is deleted by owner", preferredStyle: .alert)
+                    // Create the actions
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+                        UIAlertAction in
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                    // Add the actions
+                    alertController.addAction(okAction)
+                    // Present the controller
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    func updateGroup(_ notification: Notification) {
+        if let dic = notification.userInfo as? [String: Any] {
+            if let myDic = dic["newMessage"] as? [String: Any] {
+                if myDic["sessionId"] as? String == chatData.shared.groupChatObject?.sessionId {
+                    if let objectData = Mapper<chatSessionViewModel>().map(JSON: myDic) {
+                        if objectData.groupName != chatData.shared.groupChatObject?.groupName {
+                            // Group name updated
+                            self.view.makeToast("Group name updated.", duration: 2.0, position: .bottom)
+                            self.title = objectData.groupName
+                        }
+                        else if (objectData.memberDevices?.count)! > (chatData.shared.groupChatObject?.memberDevices?.count)! {
+                            // Member updated
+                            self.view.makeToast("New member added.", duration: 2.0, position: .bottom)
+                        }
+                        else if (objectData.memberDevices?.count)! < (chatData.shared.groupChatObject?.memberDevices?.count)! {
+                            // Member left
+                            self.view.makeToast("Member left.", duration: 2.0, position: .bottom)
+                        }
+                        chatData.shared.groupChatObject = objectData
+                        self.groupChatMembersCollectionview.reloadData()
+                    }
+                    
+                    //print(objectData?.groupName ?? "No group name found")
                 }
             }
         }

@@ -12,6 +12,7 @@ import Alamofire
 import SwiftyJSON
 import SDWebImage
 import ObjectMapper
+import Toast_Swift
 
 class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UISearchBarDelegate {
     
@@ -72,6 +73,8 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChangedInMessaging), name: NSNotification.Name(rawValue: "ReachililityChangeStatus"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateChatUserList), name: NSNotification.Name(rawValue: "UpdateChatUserList"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateMessageCounter), name: NSNotification.Name(rawValue: "UpdateMessageCountList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(newGroupCreated), name: NSNotification.Name(rawValue: "groupCreated"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteGroup), name: NSNotification.Name(rawValue: "groupDeleted"), object: nil)
         if (UserDefaults.standard.value(forKey: "BookingNo") as? String) == nil {
             self.showAlertIfBookingNumberIsNotSet()
         }
@@ -343,6 +346,42 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         self.filteredRecentUserListArray = self.filteredRecentUserListArray.sorted(by: { $0.lastCommunication! > $1.lastCommunication! })
         self.filteredOnlineUserListArray = self.filteredOnlineUserListArray.sorted(by: { $0.lastCommunication! > $1.lastCommunication! })
         self.inboxTableview.reloadData()
+    }
+    
+    func newGroupCreated(_ notification: Notification) {
+        if let dic = notification.userInfo as? [String: Any] {
+            if let myDic = dic["newMessage"] as? [String: Any] {
+                if let objectData = Mapper<chatSessionViewModel>().map(JSON: myDic) {
+                    if (chatData.shared.allGroups?.index(where: { $0.sessionId == objectData.sessionId })) == nil {
+                        // not found sessionID so, so new group created
+                        let message = "Group " + objectData.groupName! + " is created."
+                        self.view.makeToast(message, duration: 2.0, position: .bottom)
+                        chatData.shared.allGroups?.append(objectData)
+                        if self.chatSegmentController.selectedSegmentIndex == 1 {
+                            self.inboxTableview.reloadData()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func deleteGroup(_ notification: Notification) {
+        if let dic = notification.userInfo as? [String: Any] {
+            if let allGroupListArray = dic["newMessage"] as? [chatSessionViewModel] {
+                for object in chatData.shared.allGroups! {
+                    if allGroupListArray.index(where: { $0.sessionId == object.sessionId }) == nil {
+                        let message = "Group " + object.groupName! + " is deleted."
+                        self.view.makeToast(message, duration: 2.0, position: .bottom)
+                        break
+                    }
+                }
+                chatData.shared.allGroups = allGroupListArray
+                if chatSegmentController.selectedSegmentIndex == 1 {
+                    self.inboxTableview.reloadData()
+                }
+            }
+        }
     }
     
     func filterChatUserList(UserList: [User] )  {
