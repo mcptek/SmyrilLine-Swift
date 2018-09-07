@@ -3187,42 +3187,42 @@
                                                                         <rect key="frame" x="8" y="7.6666666666666643" width="99" height="99.666666666666686"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="-20" translatesAutoresizingMaskIntoConstraints="NO" id="HLM-kc-dpi">
-                                                                                <rect key="frame" x="0.0" y="5.3333333333333357" width="100" height="90"/>
+                                                                                <rect key="frame" x="5" y="10.333333333333329" width="90" height="80"/>
                                                                                 <subviews>
                                                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="ykb-mm-gUV">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="55"/>
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="50"/>
                                                                                         <subviews>
                                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User" translatesAutoresizingMaskIntoConstraints="NO" id="XbR-Il-eb9">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                                                                 <constraints>
-                                                                                                    <constraint firstAttribute="height" constant="55" id="1xg-nB-2HC"/>
-                                                                                                    <constraint firstAttribute="width" constant="55" id="N7s-jv-5zL"/>
+                                                                                                    <constraint firstAttribute="height" constant="50" id="1xg-nB-2HC"/>
+                                                                                                    <constraint firstAttribute="width" constant="50" id="N7s-jv-5zL"/>
                                                                                                 </constraints>
                                                                                             </imageView>
                                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User" translatesAutoresizingMaskIntoConstraints="NO" id="viz-AD-V8L">
-                                                                                                <rect key="frame" x="45" y="0.0" width="55" height="55"/>
+                                                                                                <rect key="frame" x="40" y="0.0" width="50" height="50"/>
                                                                                                 <constraints>
-                                                                                                    <constraint firstAttribute="width" constant="55" id="1gm-qs-TVI"/>
-                                                                                                    <constraint firstAttribute="height" constant="55" id="Vy7-qO-3b5"/>
+                                                                                                    <constraint firstAttribute="width" constant="50" id="1gm-qs-TVI"/>
+                                                                                                    <constraint firstAttribute="height" constant="50" id="Vy7-qO-3b5"/>
                                                                                                 </constraints>
                                                                                             </imageView>
                                                                                         </subviews>
                                                                                     </stackView>
                                                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="Arj-S0-Tua">
-                                                                                        <rect key="frame" x="0.0" y="35" width="100" height="55"/>
+                                                                                        <rect key="frame" x="0.0" y="30" width="90" height="50"/>
                                                                                         <subviews>
                                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User" translatesAutoresizingMaskIntoConstraints="NO" id="DrL-6D-i6Q">
-                                                                                                <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                                                                 <constraints>
-                                                                                                    <constraint firstAttribute="width" constant="55" id="L2M-IE-TnV"/>
-                                                                                                    <constraint firstAttribute="height" constant="55" id="MQC-ZC-VOd"/>
+                                                                                                    <constraint firstAttribute="width" constant="50" id="L2M-IE-TnV"/>
+                                                                                                    <constraint firstAttribute="height" constant="50" id="MQC-ZC-VOd"/>
                                                                                                 </constraints>
                                                                                             </imageView>
                                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User" translatesAutoresizingMaskIntoConstraints="NO" id="RCk-ig-UaS">
-                                                                                                <rect key="frame" x="45" y="0.0" width="55" height="55"/>
+                                                                                                <rect key="frame" x="40" y="0.0" width="50" height="50"/>
                                                                                                 <constraints>
-                                                                                                    <constraint firstAttribute="width" constant="55" id="cTN-Ot-WAu"/>
-                                                                                                    <constraint firstAttribute="height" constant="55" id="wpC-w1-HdP"/>
+                                                                                                    <constraint firstAttribute="width" constant="50" id="cTN-Ot-WAu"/>
+                                                                                                    <constraint firstAttribute="height" constant="50" id="wpC-w1-HdP"/>
                                                                                                 </constraints>
                                                                                             </imageView>
                                                                                         </subviews>
@@ -3793,7 +3793,10 @@
                             <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="Search" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efV-8R-FO6">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                 <color key="barTintColor" red="0.039215686274509803" green="0.54117647058823526" blue="0.84705882352941175" alpha="0.91783497430000005" colorSpace="custom" customColorSpace="sRGB"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="SKk-Qn-CRE" id="gsd-it-uuK"/>
+                                </connections>
                             </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xeT-7F-o5z">
                                 <rect key="frame" x="16" y="72" width="382" height="491"/>
@@ -3884,6 +3887,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="allUserCollectionview" destination="xeT-7F-o5z" id="kTs-dU-Ybg"/>
+                        <outlet property="userSearchBar" destination="efV-8R-FO6" id="1LK-l2-zee"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y40-AP-nSb" userLabel="First Responder" sceneMemberID="firstResponder"/>

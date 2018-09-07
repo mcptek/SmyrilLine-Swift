@@ -25,7 +25,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     var receiverDeviceId: String?
     var receiverProfileName: String?
     var receiverProfileStatus: Int?
-    //var chatGroupArray: [chatSessionViewModel]?
+    var chatGroupArray = [chatSessionViewModel]()
     
     
     @IBOutlet weak var inboxTableview: UITableView!
@@ -260,7 +260,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                     if let UserList = forecastArray {
                         //chatData.shared.allGroups?.removeAll()
                         chatData.shared.allGroups = UserList
-                        print(chatData.shared.allGroups?.count ?? "0")
+                        self.chatGroupArray = UserList
                         self.inboxTableview.reloadData()
                     }
                     else {
@@ -352,11 +352,12 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         if let dic = notification.userInfo as? [String: Any] {
             if let myDic = dic["newMessage"] as? [String: Any] {
                 if let objectData = Mapper<chatSessionViewModel>().map(JSON: myDic) {
-                    if (chatData.shared.allGroups?.index(where: { $0.sessionId == objectData.sessionId })) == nil {
+                    if (self.chatGroupArray.index(where: { $0.sessionId == objectData.sessionId })) == nil {
                         // not found sessionID so, so new group created
                         let message = "Group " + objectData.groupName! + " is created."
                         self.view.makeToast(message, duration: 2.0, position: .bottom)
                         chatData.shared.allGroups?.append(objectData)
+                        self.chatGroupArray.append(objectData)
                         if self.chatSegmentController.selectedSegmentIndex == 1 {
                             self.inboxTableview.reloadData()
                         }
@@ -369,7 +370,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     func deleteGroup(_ notification: Notification) {
         if let dic = notification.userInfo as? [String: Any] {
             if let allGroupListArray = dic["newMessage"] as? [chatSessionViewModel] {
-                for object in chatData.shared.allGroups! {
+                for object in self.chatGroupArray {
                     if allGroupListArray.index(where: { $0.sessionId == object.sessionId }) == nil {
                         let message = "Group " + object.groupName! + " is deleted."
                         self.view.makeToast(message, duration: 2.0, position: .bottom)
@@ -377,6 +378,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                     }
                 }
                 chatData.shared.allGroups = allGroupListArray
+                self.chatGroupArray = allGroupListArray
                 if chatSegmentController.selectedSegmentIndex == 1 {
                     self.inboxTableview.reloadData()
                 }
@@ -459,23 +461,36 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        self.filteredRecentUserListArray.removeAll()
-        self.filteredOnlineUserListArray.removeAll()
-        
-        self.filteredRecentUserListArray = self.RecentUserListArray.filter({ (object: User) -> Bool in
-            return (object.name?.base64Decoded()?.lowercased().range(of: searchText.lowercased()) != nil)
-        })
-        
-        self.filteredOnlineUserListArray = self.OnlineUserListArray.filter({ (object: User) -> Bool in
-            return (object.name?.base64Decoded()?.lowercased().range(of: searchText.lowercased()) != nil)
-        })
-        
-        if searchText == "" {
+        if chatSegmentController.selectedSegmentIndex == 0 {
             self.filteredRecentUserListArray.removeAll()
             self.filteredOnlineUserListArray.removeAll()
-            self.filteredRecentUserListArray = self.RecentUserListArray
-            self.filteredOnlineUserListArray = self.OnlineUserListArray
+            
+            self.filteredRecentUserListArray = self.RecentUserListArray.filter({ (object: User) -> Bool in
+                return (object.name?.base64Decoded()?.lowercased().range(of: searchText.lowercased()) != nil)
+            })
+            
+            self.filteredOnlineUserListArray = self.OnlineUserListArray.filter({ (object: User) -> Bool in
+                return (object.name?.base64Decoded()?.lowercased().range(of: searchText.lowercased()) != nil)
+            })
+            
+            if searchText == "" {
+                self.filteredRecentUserListArray.removeAll()
+                self.filteredOnlineUserListArray.removeAll()
+                self.filteredRecentUserListArray = self.RecentUserListArray
+                self.filteredOnlineUserListArray = self.OnlineUserListArray
+            }
+        }
+        else {
+            self.chatGroupArray.removeAll()
+            
+            self.chatGroupArray = (chatData.shared.allGroups?.filter({ (object: chatSessionViewModel) -> Bool in
+                return (object.groupName?.lowercased().range(of: searchText.lowercased()) != nil)
+            }))!
+            
+            if searchText == "" {
+                self.chatGroupArray.removeAll()
+                self.chatGroupArray = chatData.shared.allGroups!
+            }
         }
         self.inboxTableview.reloadData()
     }
@@ -499,7 +514,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             self.addUserContainerView.isHidden = false
 //            self.inboxTableview.reloadData()
             //self.retrieveChatGroupList()
-            if chatData.shared.allGroups == nil || chatData.shared.allGroups?.count == 0 {
+            if self.chatGroupArray.count == 0 {
                 self.retrieveChatGroupList()
             }
             else {
@@ -595,7 +610,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             return self.filteredOnlineUserListArray.count
         }
         else {
-            return chatData.shared.allGroups?.count ?? 0
+            return self.chatGroupArray.count
         }
     }
     
@@ -698,14 +713,14 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
         }
         else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "chatGrouprCell", for: indexPath) as! ChatGroupListCollectionViewCell
-            cell.groupNameLabel.text = chatData.shared.allGroups![indexPath.row].groupName
+            cell.groupNameLabel.text = self.chatGroupArray[indexPath.row].groupName
             cell.topLeftImageView.isHidden = true
             cell.topRightImageView.isHidden = true
             cell.bottomLeftImageView.isHidden = true
             cell.bottomRightImageView.isHidden = true
             cell.bottomStackView.isHidden = true
-            if (chatData.shared.allGroups![indexPath.row].memberDevices?.count)! >= 1 {
-                if let imageUrlStr = chatData.shared.allGroups![indexPath.row].memberDevices![0].imageUrl
+            if (self.chatGroupArray[indexPath.row].memberDevices?.count)! >= 1 {
+                if let imageUrlStr = self.chatGroupArray[indexPath.row].memberDevices![0].imageUrl
                 {
                     cell.topLeftImageView.isHidden = false
                     cell.topLeftImageView.sd_setShowActivityIndicatorView(true)
@@ -718,8 +733,8 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 }
             }
             
-            if (chatData.shared.allGroups![indexPath.row].memberDevices?.count)! >= 2 {
-                if let imageUrlStr = chatData.shared.allGroups![indexPath.row].memberDevices![1].imageUrl
+            if (self.chatGroupArray[indexPath.row].memberDevices?.count)! >= 2 {
+                if let imageUrlStr = self.chatGroupArray[indexPath.row].memberDevices![1].imageUrl
                 {
                     cell.topRightImageView.isHidden = false
                     cell.topRightImageView.sd_setShowActivityIndicatorView(true)
@@ -732,8 +747,8 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 }
             }
             
-            if (chatData.shared.allGroups![indexPath.row].memberDevices?.count)! >= 3 {
-                if let imageUrlStr = chatData.shared.allGroups![indexPath.row].memberDevices![2].imageUrl
+            if (self.chatGroupArray[indexPath.row].memberDevices?.count)! >= 3 {
+                if let imageUrlStr = self.chatGroupArray[indexPath.row].memberDevices![2].imageUrl
                 {
                     cell.bottomStackView.isHidden = false
                     cell.bottomLeftImageView.isHidden = false
@@ -748,8 +763,8 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
                 }
             }
             
-            if (chatData.shared.allGroups![indexPath.row].memberDevices?.count)! >= 4 {
-                if let imageUrlStr = chatData.shared.allGroups![indexPath.row].memberDevices![3].imageUrl
+            if (self.chatGroupArray[indexPath.row].memberDevices?.count)! >= 4 {
+                if let imageUrlStr = self.chatGroupArray[indexPath.row].memberDevices![3].imageUrl
                 {
                     cell.bottomRightImageView.isHidden = false
                     cell.bottomRightImageView.sd_setShowActivityIndicatorView(true)
@@ -783,7 +798,7 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
             }
         }
         else {
-            chatData.shared.groupChatObject = chatData.shared.allGroups?[indexPath.row]
+            chatData.shared.groupChatObject = self.chatGroupArray[indexPath.row]
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "groupChatContainer") as! GroupChatContainerViewController
             //vc.groupChatObject = chatData.shared.allGroups?[indexPath.row]
             self.navigationController?.pushViewController(vc, animated: true)
@@ -803,13 +818,30 @@ class InboxViewController: UIViewController,UITableViewDataSource, UITableViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
     {
         return 8.0
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         if collectionView.tag == 1012 {
-            return CGSize(width: 115, height: 138)
+            let screenHeight = UIScreen.main.bounds.size.height
+            switch screenHeight {
+            case 480:
+                return CGSize(width: 108.0, height: 138.0)
+            case 568:
+                return CGSize(width: 108.0, height: 138.0)
+            case 667,1334:
+                // iPhone 6,6s 7,8
+                return CGSize(width: 108.0, height: 138.0)
+            case 736,2208:
+                // iPhone 6+,6s+ 7+,8+
+                return CGSize(width: 120, height: 138)
+            case 2436:
+                // printf("iPhone X");
+               return CGSize(width: 108.0, height: 138.0)
+            default:
+                return CGSize(width: 108.0, height: 138.0)
+            }
+            //return CGSize(width: 115, height: 138)
         }
         else {
             return CGSize(width: 100, height: 138)

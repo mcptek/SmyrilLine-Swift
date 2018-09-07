@@ -9,15 +9,18 @@
 import UIKit
 import AlamofireObjectMapper
 import Alamofire
+import Toast_Swift
 
 class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var allUser = [User]()
+    var allUserList = [User]()
     var SelectedUserList = [String:Bool]()
     var activityIndicatorView: UIActivityIndicatorView!
     //var chatSessionObject: chatSessionViewModel?
     
     @IBOutlet weak var allUserCollectionview: UICollectionView!
+    @IBOutlet weak var userSearchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +44,7 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
                     }
                 }
             }
+            self.allUserList = self.allUser
         }
     }
 
@@ -60,6 +64,25 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     */
 
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        self.allUser.removeAll()
+        
+        self.allUser = self.allUserList.filter({ (object: User) -> Bool in
+            return (object.name?.base64Decoded()?.lowercased().range(of: searchText.lowercased()) != nil)
+        })
+        
+        if searchText == "" {
+            self.allUser.removeAll()
+            self.allUser = self.allUserList
+        }
+        self.allUserCollectionview.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.userSearchBar.resignFirstResponder()
+    }
+    
     func createGroup(name: String)  {
         let headers = ["Content-Type": "application/x-www-form-urlencoded"]
         let url = UrlMCP.server_base_url + UrlMCP.createNewChatGroup
@@ -71,8 +94,15 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
             
             switch response.result {
             case .success:
-                //chatData.shared.groupChatObject = response.result.value
-                self.navigationController?.popViewController(animated: true)
+                self.view.makeToast("Group created succesfully.", duration: 2.0, position: .bottom, title: nil, image: nil) { didTap in
+                    if didTap {
+                        print("completion from tap")
+                        self.navigationController?.popViewController(animated: true)
+                    } else {
+                        print("completion without tap")
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
             case .failure(let error):
                 self.showErrorAlert(error: error as NSError)
             }
@@ -91,7 +121,16 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
             switch response.result {
             case .success:
                 chatData.shared.groupChatObject = response.result.value
-                self.navigationController?.popViewController(animated: true)
+                self.view.makeToast("Member added succesfully.", duration: 2.0, position: .bottom, title: nil, image: nil) { didTap in
+                    if didTap {
+                        print("completion from tap")
+                        self.navigationController?.popViewController(animated: true)
+                    } else {
+                        print("completion without tap")
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+                
             case .failure(let error):
                 self.showErrorAlert(error: error as NSError)
             }
@@ -141,7 +180,7 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         
         if chatData.shared.creatingChatGroups {
             if selectedCount > 1 {
-                let alerController = UIAlertController(title: "Please eneter group name", message: nil, preferredStyle: .alert)
+                let alerController = UIAlertController(title: "Please enter group name", message: nil, preferredStyle: .alert)
                 let saveAction = UIAlertAction(title: "Save", style: .default) { (alertAction) in
                     let groupNameTextField = alerController.textFields![0] as UITextField
                     self.dismiss(animated: true, completion: nil)
@@ -257,11 +296,28 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
     {
         return 8.0
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        return CGSize(width: 100, height: 138)
+        let screenHeight = UIScreen.main.bounds.size.height
+        switch screenHeight {
+        case 480:
+            return CGSize(width: 105.0, height: 135.0)
+        case 568:
+            return CGSize(width: 105.0, height: 135.0)
+        case 667,1334:
+            // iPhone 6,6s 7,8
+            return CGSize(width: 105.0, height: 135.0)
+        case 736,2208:
+            // iPhone 6+,6s+ 7+,8+
+            return CGSize(width: 115.0, height: 135.0)
+        case 2436:
+            // printf("iPhone X");
+            return CGSize(width: 105.0, height: 135.0)
+        default:
+            return CGSize(width: 105.0, height: 135.0)
+        }
+        //return CGSize(width: 100, height: 138)
     }
 }

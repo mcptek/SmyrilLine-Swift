@@ -9,6 +9,7 @@
 import UIKit
 import AlamofireObjectMapper
 import Alamofire
+import Toast_Swift
 
 class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -68,6 +69,7 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.row {
         case 0:
             chatData.shared.creatingChatGroups = false
@@ -109,7 +111,7 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func getNewGroupName() {
-        let alerController = UIAlertController(title: "Enetr new group name", message: nil, preferredStyle: .alert)
+        let alerController = UIAlertController(title: "Enter new group name", message: nil, preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default) { (alertAction) in
             let groupNameTextField = alerController.textFields![0] as UITextField
             self.dismiss(animated: true, completion: nil)
@@ -148,6 +150,7 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
             case .success:
                 chatData.shared.groupChatObject = response.result.value
                 self.title = chatData.shared.groupChatObject?.groupName
+                self.view.makeToast("Group renamed successfully", duration: 2.0, position: .bottom)
             case .failure(let error):
                 self.showErrorAlert(error: error as NSError)
             }
@@ -171,10 +174,13 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
                     let forecastArray = response.result.value
                     if let UserList = forecastArray {
                         chatData.shared.allGroups = UserList
-                        for controller in self.navigationController!.viewControllers as Array {
-                            if controller.isKind(of: InboxViewController.self) {
-                                _ =  self.navigationController!.popToViewController(controller, animated: true)
-                                break
+                        self.view.makeToast("Group deleted succesfully.", duration: 2.0, position: .bottom, title: nil, image: nil) { didTap in
+                            if didTap {
+                                print("completion from tap")
+                                self.navigationController!.popToRootViewController(animated: true)
+                            } else {
+                                print("completion without tap")
+                                self.navigationController!.popToRootViewController(animated: true)
                             }
                         }
                     }
@@ -199,10 +205,13 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
         Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers).responseJSON { (response:DataResponse<Any>) in
             print(response.response?.statusCode ?? "no status code")
             if response.response?.statusCode == 200 {
-                for controller in self.navigationController!.viewControllers as Array {
-                    if controller.isKind(of: InboxViewController.self) {
-                        _ =  self.navigationController!.popToViewController(controller, animated: true)
-                        break
+                self.view.makeToast("Group left succesfully.", duration: 2.0, position: .bottom, title: nil, image: nil) { didTap in
+                    if didTap {
+                        print("completion from tap")
+                        self.navigationController!.popToRootViewController(animated: true)
+                    } else {
+                        print("completion without tap")
+                        self.navigationController!.popToRootViewController(animated: true)
                     }
                 }
             }
