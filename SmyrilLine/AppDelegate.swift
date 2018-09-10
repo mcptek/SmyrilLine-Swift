@@ -395,21 +395,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate,OnyxBeaconDelegate,WebSock
                         NotificationCenter.default.post(name: NSNotification.Name("InsertNewMessageForGroup"), object: self, userInfo: ["newMessage": dic])
                     }
                 case 10:
-                    if self.checkIsGroupChatContainerCurrentViewController() {
-                        if let dic = arr[0].Message {
+                    if let dic = arr[0].Message {
+                        if self.checkIsAllGroupListShowingIsCurrentViewController() {
+                            NotificationCenter.default.post(name: NSNotification.Name("groupCreated"), object: self, userInfo: ["newMessage": dic])
+                        }
+                        else {
                             NotificationCenter.default.post(name: NSNotification.Name("groupUpdated"), object: self, userInfo: ["newMessage": dic])
                         }
                     }
-                    else if self.checkIsAllGroupListShowingIsCurrentViewController() {
-                        if let dic = arr[0].Message {
-                            NotificationCenter.default.post(name: NSNotification.Name("groupCreated"), object: self, userInfo: ["newMessage": dic])
-                        }
-                    }
                 case 11:
-                    if self.checkIsGroupChatContainerCurrentViewController() || self.checkIsAllGroupListShowingIsCurrentViewController() {
-                        if let allGroups = arr[0].groupList {
-                            NotificationCenter.default.post(name: NSNotification.Name("groupDeleted"), object: self, userInfo: ["newMessage": allGroups])
-                        }
+                    if let allGroups = arr[0].groupList {
+                        NotificationCenter.default.post(name: NSNotification.Name("groupDeleted"), object: self, userInfo: ["newMessage": allGroups])
                     }
                 default:
                     print("Default")

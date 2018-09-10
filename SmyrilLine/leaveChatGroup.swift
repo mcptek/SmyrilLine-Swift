@@ -10,6 +10,7 @@ import UIKit
 import AlamofireObjectMapper
 import Alamofire
 import Toast_Swift
+import ObjectMapper
 
 class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -19,9 +20,12 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         self.title = chatData.shared.groupChatObject?.groupName
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateGroup), name: NSNotification.Name(rawValue: "groupUpdated"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(groupDeleted), name: NSNotification.Name(rawValue: "groupDeleted"), object: nil)
+        
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
@@ -31,6 +35,12 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isUserInteractionEnabled = true
+        NotificationCenter.default.removeObserver(self)
     }
     
 
@@ -43,6 +53,57 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func updateGroup(_ notification: Notification) {
+        if let dic = notification.userInfo as? [String: Any] {
+            if let myDic = dic["newMessage"] as? [String: Any] {
+                if myDic["sessionId"] as? String == chatData.shared.groupChatObject?.sessionId {
+                    if let objectData = Mapper<chatSessionViewModel>().map(JSON: myDic) {
+                        if objectData.groupName != chatData.shared.groupChatObject?.groupName {
+                            // Group name updated
+                            self.view.makeToast("Group name updated.", duration: 2.0, position: .bottom)
+                            self.title = objectData.groupName
+                        }
+                        else if (objectData.memberDevices?.count)! > (chatData.shared.groupChatObject?.memberDevices?.count)! {
+                            // Member updated
+                            self.view.makeToast("New member added.", duration: 2.0, position: .bottom)
+                        }
+                        else if (objectData.memberDevices?.count)! < (chatData.shared.groupChatObject?.memberDevices?.count)! {
+                            // Member left
+                            self.view.makeToast("Member left.", duration: 2.0, position: .bottom)
+                        }
+                        chatData.shared.groupChatObject = objectData
+                    }
+                }
+            }
+        }
+    }
+    
+    func groupDeleted(_ notification: Notification) {
+        var toastMessage = "Group is deleted."
+        if let dic = notification.userInfo as? [String: Any] {
+            if let allGroupListArray = dic["newMessage"] as? [chatSessionViewModel] {
+                for object in chatData.shared.allGroups! {
+                    if allGroupListArray.index(where: { $0.sessionId == object.sessionId }) == nil {
+                        toastMessage = "Group " + object.groupName! + " is deleted."
+                        break
+                    }
+                }
+                chatData.shared.allGroups = allGroupListArray
+                self.view.isUserInteractionEnabled = false
+                self.navigationController?.navigationBar.isUserInteractionEnabled = false
+                self.view.makeToast(toastMessage, duration: 2.0, position: .bottom, title: nil, image: nil) { didTap in
+                    if didTap {
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.popToRootViewController(animated: true)
+                    } else {
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                }
+            }
+        }
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -144,14 +205,24 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
         self.view.isUserInteractionEnabled = false
         Alamofire.request(url, method:.post, parameters:chatGroupParameterDictionary, headers:headers).responseObject { (response: DataResponse<chatSessionViewModel>) in
             self.activityIndicatorView.stopAnimating()
-            self.view.isUserInteractionEnabled = true
             
             switch response.result {
             case .success:
                 chatData.shared.groupChatObject = response.result.value
                 self.title = chatData.shared.groupChatObject?.groupName
-                self.view.makeToast("Group renamed successfully", duration: 2.0, position: .bottom)
+                self.view.makeToast("Group renamed succesfully.", duration: 2.0, position: .bottom, title: nil, image: nil) { didTap in
+                    if didTap {
+                        print("completion from tap")
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.popViewController(animated: true)
+                    } else {
+                        print("completion without tap")
+                        self.view.isUserInteractionEnabled = true
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
             case .failure(let error):
+                self.view.isUserInteractionEnabled = true
                 self.showErrorAlert(error: error as NSError)
             }
         }
@@ -168,26 +239,30 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
         Alamofire.request(url, method: .post, parameters: chatGroupParameterDictionary, encoding: URLEncoding.default, headers: headers)
             .responseArray { (response: DataResponse<[chatSessionViewModel]>) in
                 self.activityIndicatorView.stopAnimating()
-                self.view.isUserInteractionEnabled = true
                 switch response.result {
                 case .success:
                     let forecastArray = response.result.value
                     if let UserList = forecastArray {
                         chatData.shared.allGroups = UserList
+                        self.navigationController?.navigationBar.isUserInteractionEnabled = false
                         self.view.makeToast("Group deleted succesfully.", duration: 2.0, position: .bottom, title: nil, image: nil) { didTap in
                             if didTap {
                                 print("completion from tap")
+                                self.view.isUserInteractionEnabled = true
                                 self.navigationController!.popToRootViewController(animated: true)
                             } else {
                                 print("completion without tap")
+                                self.view.isUserInteractionEnabled = true
                                 self.navigationController!.popToRootViewController(animated: true)
                             }
                         }
                     }
                     else {
+                        self.view.isUserInteractionEnabled = true
                         self.showAlert(title: "Message", message: "No user list found")
                     }
                 case .failure(let error):
+                    self.view.isUserInteractionEnabled = true
                     self.showErrorAlert(error: error as NSError)
                 }
         }
@@ -203,15 +278,17 @@ class GroupChatMenuViewController: UIViewController, UITableViewDataSource, UITa
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
         Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers).responseJSON { (response:DataResponse<Any>) in
-            print(response.response?.statusCode ?? "no status code")
             if response.response?.statusCode == 200 {
+                self.navigationController?.navigationBar.isUserInteractionEnabled = false
                 self.view.makeToast("Group left succesfully.", duration: 2.0, position: .bottom, title: nil, image: nil) { didTap in
                     if didTap {
                         print("completion from tap")
                         self.navigationController!.popToRootViewController(animated: true)
+                        self.view.isUserInteractionEnabled = true
                     } else {
                         print("completion without tap")
                         self.navigationController!.popToRootViewController(animated: true)
+                        self.view.isUserInteractionEnabled = true
                     }
                 }
             }

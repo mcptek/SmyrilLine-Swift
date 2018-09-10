@@ -28,6 +28,8 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         // Do any additional setup after loading the view.
         self.navigationItem.backBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Back", comment: ""), style: .plain, target: nil, action: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteGroup), name: NSNotification.Name(rawValue: "groupDeleted"), object: nil)
+        
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         myActivityIndicator.center = view.center
         self.activityIndicatorView = myActivityIndicator
@@ -48,6 +50,13 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         }
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        //NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reachabilityChanged"), object: nil)
+        self.navigationController?.navigationBar.isUserInteractionEnabled = true
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -63,6 +72,29 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func deleteGroup(_ notification: Notification) {
+        var toastMessage = "Group is deleted."
+        if let dic = notification.userInfo as? [String: Any] {
+            if let allGroupListArray = dic["newMessage"] as? [chatSessionViewModel] {
+                for object in chatData.shared.allGroups! {
+                    if allGroupListArray.index(where: { $0.sessionId == object.sessionId }) == nil {
+                        toastMessage = "Group " + object.groupName! + " is deleted."
+                        break
+                    }
+                }
+                chatData.shared.allGroups = allGroupListArray
+                self.navigationController?.navigationBar.isUserInteractionEnabled = false
+                self.view.makeToast(toastMessage, duration: 2.0, position: .bottom, title: nil, image: nil) { didTap in
+                    if didTap {
+                        self.navigationController?.popToRootViewController(animated: true)
+                    } else {
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                }
+            }
+        }
+    }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
@@ -90,16 +122,17 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         self.view.isUserInteractionEnabled = false
         Alamofire.request(url, method:.post, parameters:self.getParameterDictionaryFor(groupName: name), headers:headers).responseObject { (response: DataResponse<chatSessionViewModel>) in
             self.activityIndicatorView.stopAnimating()
-            self.view.isUserInteractionEnabled = true
             
             switch response.result {
             case .success:
                 self.view.makeToast("Group created succesfully.", duration: 2.0, position: .bottom, title: nil, image: nil) { didTap in
                     if didTap {
                         print("completion from tap")
+                        self.view.isUserInteractionEnabled = true
                         self.navigationController?.popViewController(animated: true)
                     } else {
                         print("completion without tap")
+                        self.view.isUserInteractionEnabled = true
                         self.navigationController?.popViewController(animated: true)
                     }
                 }
@@ -116,18 +149,20 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         self.view.isUserInteractionEnabled = false
         Alamofire.request(url, method:.post, parameters:self.getParameterDictionaryForAddingMembersToGroup(), headers:headers).responseObject { (response: DataResponse<chatSessionViewModel>) in
             self.activityIndicatorView.stopAnimating()
-            self.view.isUserInteractionEnabled = true
-            
             switch response.result {
             case .success:
                 chatData.shared.groupChatObject = response.result.value
                 self.view.makeToast("Member added succesfully.", duration: 2.0, position: .bottom, title: nil, image: nil) { didTap in
                     if didTap {
                         print("completion from tap")
-                        self.navigationController?.popViewController(animated: true)
+                        self.view.isUserInteractionEnabled = true
+                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "groupChatContainer") as!GroupChatContainerViewController
+                        self.navigationController?.popToViewController(vc, animated: true)
                     } else {
                         print("completion without tap")
-                        self.navigationController?.popViewController(animated: true)
+                        self.view.isUserInteractionEnabled = true
+                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "groupChatContainer") as!GroupChatContainerViewController
+                        self.navigationController?.popToViewController(vc, animated: true)
                     }
                 }
                 
