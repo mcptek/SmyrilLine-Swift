@@ -50,10 +50,14 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.view.isUserInteractionEnabled = true
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         //NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reachabilityChanged"), object: nil)
-        self.navigationController?.navigationBar.isUserInteractionEnabled = true
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -120,19 +124,18 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         let url = UrlMCP.server_base_url + UrlMCP.createNewChatGroup
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
+        self.navigationController?.navigationBar.isUserInteractionEnabled = false
         Alamofire.request(url, method:.post, parameters:self.getParameterDictionaryFor(groupName: name), headers:headers).responseObject { (response: DataResponse<chatSessionViewModel>) in
             self.activityIndicatorView.stopAnimating()
-            
+            self.view.isUserInteractionEnabled = true
             switch response.result {
             case .success:
                 self.view.makeToast("Group created succesfully.", duration: 2.0, position: .bottom, title: nil, image: nil) { didTap in
                     if didTap {
                         print("completion from tap")
-                        self.view.isUserInteractionEnabled = true
                         self.navigationController?.popViewController(animated: true)
                     } else {
                         print("completion without tap")
-                        self.view.isUserInteractionEnabled = true
                         self.navigationController?.popViewController(animated: true)
                     }
                 }
@@ -147,25 +150,32 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         let url = UrlMCP.server_base_url + UrlMCP.addMemberToGroup
         self.activityIndicatorView.startAnimating()
         self.view.isUserInteractionEnabled = false
+        self.navigationController?.navigationBar.isUserInteractionEnabled = false
         Alamofire.request(url, method:.post, parameters:self.getParameterDictionaryForAddingMembersToGroup(), headers:headers).responseObject { (response: DataResponse<chatSessionViewModel>) in
             self.activityIndicatorView.stopAnimating()
+            self.view.isUserInteractionEnabled = true
             switch response.result {
             case .success:
                 chatData.shared.groupChatObject = response.result.value
                 self.view.makeToast("Member added succesfully.", duration: 2.0, position: .bottom, title: nil, image: nil) { didTap in
                     if didTap {
                         print("completion from tap")
-                        self.view.isUserInteractionEnabled = true
-                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "groupChatContainer") as!GroupChatContainerViewController
-                        self.navigationController?.popToViewController(vc, animated: true)
+                        let viewControllers: [UIViewController] = self.navigationController!.viewControllers
+                        for aViewController in viewControllers {
+                            if aViewController is GroupChatContainerViewController {
+                                self.navigationController?.popToViewController(aViewController, animated: true)
+                            }
+                        }
                     } else {
                         print("completion without tap")
-                        self.view.isUserInteractionEnabled = true
-                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "groupChatContainer") as!GroupChatContainerViewController
-                        self.navigationController?.popToViewController(vc, animated: true)
+                        let viewControllers: [UIViewController] = self.navigationController!.viewControllers
+                        for aViewController in viewControllers {
+                            if aViewController is GroupChatContainerViewController {
+                                self.navigationController?.popToViewController(aViewController, animated: true)
+                            }
+                        }
                     }
                 }
-                
             case .failure(let error):
                 self.showErrorAlert(error: error as NSError)
             }

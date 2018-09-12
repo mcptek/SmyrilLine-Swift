@@ -55,6 +55,7 @@ class GroupChatContainerViewController: UIViewController, UICollectionViewDelega
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        self.view.isUserInteractionEnabled = true
         self.title = chatData.shared.groupChatObject?.groupName
         self.groupChatMembersCollectionview.reloadData()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
